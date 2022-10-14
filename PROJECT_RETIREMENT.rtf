@@ -1,0 +1,179 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww37900\viewh20740\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 CREATE DATABASE AJ_NEW_DATABASE;\
+use database demodatabase;\
+\
+DROP TABLE aj_retirement;\
+CREATE TABLE IF NOT EXISTS aj_retirement\
+(\
+	source_name VARCHAR(6)   \
+	,process_name VARCHAR(3)   \
+	,val_dt VARCHAR(10)   \
+	,run_dt VARCHAR(10)   \
+	,line_indicator VARCHAR(4)    \
+	,total_record_count VARCHAR(12)   \
+	,total_record_amount VARCHAR(18)  \
+	,sel_record_count VARCHAR(12)   \
+	,sel_record_amount VARCHAR(18)   \
+	,byp_record_count VARCHAR(12)   \
+	,byp_record_amount VARCHAR(18)   \
+	,zero_record_count VARCHAR(12)   \
+	,zero_record_amount VARCHAR(18)   \
+	,created_date TIMESTAMP WITHOUT TIME ZONE NOT NULL \
+)\
+;\
+\
+SELECT * FROM AJ_RETIREMENT;\
+\
+SHOW COLUMNS IN AJ_RETIREMENT;\
+\
+INSERT INTO retirement.aud_copy_updated\
+SELECT *,ROW_NUMBER() OVER () AS ROW_NUM\
+FROM retirement.aud_copy ;\
+\
+SELECT * FROM retirement.aud_copy WHERE total_record_count NOT IN (SELECT DISTINCT total_record_count FROM retirement.aud_copy_view)\
+\
+SELECT DISTINCT * FROM retirement.aud_copy;\
+\
+SELECT COUNT(DISTINCT line_indicator) from retirement.aud_copy;\
+SELECT COUNT(DISTINCT line_indicator) from retirement.aud_copy_view;\
+\
+SELECT source_name,process_name,val_dt,run_dt,line_indicator,total_record_count,total_record_amount,sel_record_count,sel_record_amount,\
+byp_record_count,byp_record_amount,zero_record_count,zero_record_amount\
+FROM retirement.aud_copy\
+EXCEPT \
+SELECT  source_name,process_name,val_dt,run_dt,line_indicator,total_record_count,total_record_amount,sel_record_count,sel_record_amount,\
+byp_record_count,byp_record_amount,zero_record_count,zero_record_amount\
+FROM retirement.aud_copy_view\
+\
+SELECT source_name,process_name,val_dt,run_dt FROM retirement.aud_copy WHERE run_dt NOT IN\
+ (SELECT distinct run_dt FROM retirement.aud_copy_view)\
+\
+DROP VIEW retirement.aud_copy_view;\
+\
+create or replace view retirement.aud_copy_view AS\
+SELECT source_name,process_name,val_dt,run_dt,line_indicator,total_record_count,total_record_amount,sel_record_count,sel_record_amount,\
+byp_record_count,byp_record_amount,zero_record_count,zero_record_amount,\
+MAX(created_date) AS LATEST_CREATED_DATE\
+FROM retirement.aud_copy\
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13\
+ORDER BY  1,2,3,4,5,6,7,8,9,10,11,12,13;\
+\
+SELECT * FROM  retirement.aud_copy_view;\
+\
+--23874,30,000\
+DROP VIEW retirement.aud_copy_view\
+\
+DROP TABLE aud_copy_update\
+\
+ALTER TABLE retirement.aud_copy\
+DROP COLUMN row_num\
+\
+commit\
+CREATE VIEW retirement.aud_view AS\
+SELECT DISTINCT a.source_name,a.process_name,a.val_dt,a.run_dt,line_indicator,total_record_count,total_record_amount,sel_record_count,sel_record_amount,\
+byp_record_count,byp_record_amount,zero_record_count,zero_record_amount,b.LATEST_CREATED_DATE\
+FROM retirement.aud_copy a\
+INNER JOIN\
+(\
+SELECT source_name,process_name,val_dt,run_dt,\
+MAX(CREATED_DATE) AS LATEST_CREATED_DATE\
+FROM retirement.aud_copy  \
+GROUP BY 1,2,3,4\
+ORDER BY 1,2,3,4) b\
+ON a.source_name = b.source_name \
+AND a.process_name = b.process_name \
+AND a.val_dt = b.val_dt \
+AND a.run_dt = b.run_dt\
+AND a.created_date = b.latest_created_date\
+ORDER BY 4,5\
+\
+\
+\
+SELECT * FROM retirement.aud_copy  \
+DELETE FROM retirement.aud_copy WHERE row_num = 88\
+COMMIT\
+-- 24,874 , 32,0000,382,22492\
+\
+\
+\
+WHERE \
+\
+\
+\
+\
+\
+\
+SELECT DISTINCT source_name,process_name,val_dt,run_dt\
+FROM retirement.aud_copy_view;\
+\
+SELECT DISTINCT source_name,process_name,val_dt,run_dt,total_record_count,total_record_amount,LATEST_CREATED_DATE\
+FROM retirement.aud_copy_view;\
+\
+SELECT DISTINCT run_dt FROM retirement.aud_copy\
+\
+SELECT *, ROW_NUMBER() OVER() FROM retirement.aud_copy_view;\
+\
+INSERT INTO retirement.aud_copy\
+VLAUES\
+\
+INSERT INTO retirement.aud_copy \
+VALUES('210DE1','PN ','04-30-2022','04-19-2022','1   ','     24,874','  32,0000                ','         382','                  ','      22,492','                  ','           0','                  ','2022-05-15 00:00:00.000');\
+\
+UPDATE retirement.aud_copy \
+SET created_date = ''\
+\
+DROP TABLE  retirement.aud_copy \
+\
+INSERT INTO retirement.aud_copy \
+SELECT * FROM retirement.aud_copy_update \
+\
+SELECT * INTO retirement.aud_copy FROM retirement.aud_copy_update\
+\
+SELECT * FROM retirement.aud_copy\
+\
+select * from retirement.aud_copy where created_date = '2022-05-04'\
+-- DITINCT : source_name,process_name,val_dt,run_dt\
+\
+INSERT INTO retirement.aud_copy \
+--VALUES('210DE1','PN ','04-30-2022','04-19-2022','1   ','     22,874','                  ','         382','                  ','      22,492','                  ','           0','                  ','2022-05-04 00:00:00.000')\
+VALUES('210DE1','PN ','04-30-2022','04-19-2022','1   ','     22,874','                  ','         382','                  ','      22,492','                  ','           0','                  ','2022-05-10 00:00:00.000');\
+\
+SELECT * FROM retirement.aud_copy_update where created_date = '2022-05-05';\
+\
+update retirement.aud_copy_update\
+set created_date = '2022-05-05' where row_num >=175 and row_num <= 178\
+\
+\
+DROP TABLE retirement.aud_copy_update\
+\
+CREATE TABLE retirement.aud_copy_update AS\
+SELECT *,ROW_NUMBER() OVER() AS ROW_NUM\
+FROM retirement.aud_copy ;\
+\
+SELECT * FROM retirement.aud_copy_update\
+\
+UPDATE retirement.aud_copy_update\
+SET created_date = '05-02-2022' WHERE row_num >=59 and row_num <= 87\
+\
+UPDATE retirement.aud_copy_update\
+SET created_date = '05-03-2022' WHERE row_num >=88 and row_num <= 116\
+\
+UPDATE retirement.aud_copy_update\
+SET created_date = '05-04-2022' WHERE row_num >=117 and row_num <= 145\
+\
+UPDATE retirement.aud_copy_update\
+SET created_date = '05-05-2022' WHERE row_num >=146 and row_num <= 174\
+\
+UPDATE retirement.aud_copy_update\
+SET created_date = '05-06-2022' WHERE row_num =175 \
+   \
+\
+\
+\
+}
