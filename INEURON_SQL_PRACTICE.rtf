@@ -1,0 +1,452 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww37900\viewh21300\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 -- Create a database from the share.\
+create database snowflake_sample_data from share sfc_samples.sample_data;\
+\
+-- Grant the PUBLIC role access to the database.\
+-- Optionally change the role name to restrict access to a subset of users.\
+grant imported privileges on database snowflake_sample_data to role public;\
+\
+SELECT * FROM \
+(\
+SELECT *,ROW_NUMBER() OVER(ORDER BY L_COMMITDATE) AS ROW_NUM \
+FROM "SNOWFLAKE_SAMPLE_DATA"."TPCH_SF10"."LINEITEM") \
+WHERE ROW_NUM <= 200000;\
+\
+\
+SELECT *,ROW_NUMBER() OVER(PARTITION BY JOB_ROLE ORDER BY SALARY DESC) AS PART_ROW_NUM \
+\
+SELECT COUNT(*) FROM "SNOWFLAKE_SAMPLE_DATA"."TPCH_SF10"."LINEITEM";\
+\
+SELECT COUNT(*) FROM "SNOWFLAKE_SAMPLE_DATA"."TPCDS_SF100TCL"."CATALOG_SALES";\
+\
+SELECT * FROM "SNOWFLAKE_SAMPLE_DATA"."TPCDS_SF100TCL"."CATALOG_SALES" LIMIT 10000;\
+\
+\
+--1ST STEP\
+CREATE DATABASE AJ_INEURON_SNOWFLAKE;\
+--2ND STEP\
+USE DATABASE AJ_INEURON_SNOWFLAKE;\
+--3RD STEP\
+CREATE OR REPLACE TABLE INEURON_CONSUMER_COMPLAINTS\
+   (	\
+      DATE_RECEIVED STRING ,\
+      PRODUCT_NAME VARCHAR2(100) , \
+	  SUB_PRODUCT VARCHAR2(100) , \
+	  ISSUE VARCHAR2(100), \
+      SUB_ISSUE VARCHAR2(100),\
+      CONSUMER_COMPLAINT_NARRATIVE VARCHAR2(100),\
+      Company_Public_Response STRING,\
+      Company VARCHAR(100),\
+      State_Name CHAR(10),\
+      Zip_Code INTEGER,\
+      Tags VARCHAR(100),\
+      Consumer_Consent_Provided CHAR(10),\
+      Submitted_Via STRING,\
+      Date_Sent_to_Company STRING,\
+      Company_Response_to_Consumer VARCHAR(100),\
+      Timely_Response CHAR(10),\
+      CONSUMER_DISPUTED CHAR(10),\
+      COMPLAINT_ID NUMBER(12,0) NOT NULL PRIMARY KEY\
+);   \
+\
+select * from INEURON_CONSUMER_COMPLAINTS limit 10000;\
+\
+use database "AJ_INEURON_SNOWFLAKE";\
+CREATE OR REPLACE TABLE CONSUM_COMPLAINTS\
+  (   DATE_RECEIVED STRING ,\
+      PRODUCT_NAME VARCHAR2(50) , \
+	  SUB_PRODUCT  VARCHAR2(100) , \
+	  ISSUE  VARCHAR2(100), \
+      SUB_ISSUE  VARCHAR2(100),\
+      CONSUMER_COMPLAINT_NARRATIVE STRING,\
+      Company_Public_Response  STRING,\
+      Company VARCHAR(80),\
+      State_Name CHAR(4),\
+      Zip_Code STRING,\
+      Tags  VARCHAR(60),\
+      Consumer_Consent_Provided CHAR(20),\
+       Submitted_via STRING,\
+      Date_Sent_to_Company  STRING,\
+     Company_Response_to_Consumer VARCHAR(80),\
+     Timely_Response CHAR(4),\
+     CONSUMER_DISPUTED CHAR(4),\
+     COMPLAINT_ID  NUMBER(12,0) NOT NULL PRIMARY KEY\
+  ) ;\
+\
+SELECT * FROM CONSUM_COMPLAINTS;\
+\
+\
+##### LAODING A FILE FROM EXTERNAL STAGE - AWS ##########\
+\
+CREATE OR REPLACE TABLE CONSUM_COMPLAINTS_AWS LIKE CONSUM_COMPLAINTS;\
+SHOW COLUMNS IN CONSUM_COMPLAINTS_AWS;\
+\
+--list stage confirm if its empty\
+LIST @AWS_S3_STORAGE_SERVICE;\
+\
+----list stage confirm if its empty\
+LIST @AZURE_STORAGE;\
+\
+##### LOADING A FILE FROM EXTERNAL STAGE - AZURE ##########\
+CREATE OR REPLACE TABLE CONSUM_COMPLAINTS_AZURE LIKE CONSUM_COMPLAINTS;\
+SHOW COLUMNS IN CONSUM_COMPLAINTS_AZURE;\
+\
+--COPYING INTO AZURE STORAGE SERVICE\
+COPY INTO CONSUM_COMPLAINTS_AZURE FROM @AZURE_STORAGE\
+FILE_FORMAT = (TYPE = CSV FIELD_DELIMITER = ',' SKIP_HEADER = 1)\
+PURGE = TRUE;\
+\
+--BINGO\
+SELECT * FROM CONSUM_COMPLAINTS_AZURE;\
+\
+--REMOVE FILES\
+REMOVE @AWS_S3_STORAGE_SERVICE;\
+\
+\
+--\
+##COPYING INTO STORAGE SERVICE\
+COPY INTO CONSUM_COMPLAINTS_AWS FROM @AWS_S3_STORAGE_SERVICE\
+FILE_FORMAT = (TYPE = CSV FIELD_DELIMITER = ',' SKIP_HEADER = 1)\
+PURGE = TRUE;\
+\
+--BINGO DONE....\
+SELECT * FROM CONSUM_COMPLAINTS_AWS;\
+\
+\
+\
+\
+CREATE OR REPLACE TABLE CONSUM_COMPLAINTS_AWS AS\
+SELECT * FROM CONSUM_COMPLAINTS;\
+\
+SELECT COUNT(DISTINCT STATE_NAME) FROM CONSUM_COMPLAINTS;\
+\
+SELECT DISTINCT(PRODUCT_NAME) FROM CONSUM_COMPLAINTS;\
+\
+--CONSUMER LOAN\
+--STUDENT LOAN\
+--PAYDAY LOAN \
+\
+-- ALL ABOVE 3 INTO SINGLE COLUMN AS LOAN_TYPE\
+--AND REST OTHER  AS 'OTHER_FINANC_SERV'\
+\
+\
+SELECT *,\
+      CASE \
+           WHEN PRODUCT_NAME IN ('Consumer Loan','Student loan','Payday loan') THEN 'CSP_LOAN'\
+           ELSE 'OTHER_FINAN_SERV'\
+           END AS LOAN_TYPE\
+FROM CONSUM_COMPLAINTS;           \
+\
+SELECT DISTINCT DATE_RECEIVED FROM CONSUM_COMPLAINTS ;\
+\
+select distinct(extract(year from (to_date(date_received,'dd-mm-yyyy')))) from "CONSUM_COMPLAINTS";\
+\
+select distinct(extract(month from (to_date(date_received,'dd-mm-yyyy')))) from "CONSUM_COMPLAINTS";\
+\
+-- 2013 -2015\
+\
+--1st jan 2013 - 31st dec 2013 - PPR12_PERIOD\
+--1st jan 2014 - 31st dec 2014 - PR12_PERIOD\
+--1st jan 2015 - 31st dec 2015 - R12_PERIOD\
+--name it as TXN_PERIOD\
+\
+--1st jan 2015 - 31st dec 2015 - R12_PERIOD\
+\
+SELECT *,\
+CASE \
+WHEN (TO_DATE(DATE_RECEIVED,'DD-MM-YYYY'))>= '2013-01-01' AND (TO_DATE(DATE_RECEIVED,'DD-MM-YYYY'))<= '2013-12-01' THEN 'PPR12 PERIOD'\
+WHEN (TO_DATE(DATE_RECEIVED,'DD-MM-YYYY'))>= '2014-01-01' AND (TO_DATE(DATE_RECEIVED,'DD-MM-YYYY'))<= '2014-12-01' THEN 'PR12 PERIOD'\
+WHEN (TO_DATE(DATE_RECEIVED,'DD-MM-YYYY'))>= '2015-01-01' AND (TO_DATE(DATE_RECEIVED,'DD-MM-YYYY'))<= '2015-12-01' THEN 'R12 PERIOD'\
+ELSE 'INVALID_RANGE'\
+END AS TXN_PERIOD\
+FROM CONSUM_COMPLAINTS;\
+\
+SELECT DISTINCT substring(date_received,7,12) FROM CONSUM_COMPLAINTS;\
+\
+\
+show columns in INEURON_CONSUMER_COMPLAINTS;\
+\
+create or replace file format CSV_FORMAT\
+  type = csv\
+  record_delimiter = '\\n'\
+  field_delimiter = ','\
+  skip_header = 1\
+  null_if = ('NULL', 'null')\
+  empty_field_as_null = true;\
+\
+\
+USE DATABASE AJ_INEURON_SNOWFLAKE;\
+\
+CREATE OR REPLACE TABLE AJ_OWNER\
+(\
+   OwnerID INTEGER NOT NULL PRIMARY KEY ,\
+   Name VARCHAR2(20),\
+   Surname STRING,\
+   StreetAddress VARCHAR2(50),\
+   City STRING,\
+   State CHAR(4),\
+   StateFull STRING,\
+   ZipCode INTEGER\
+);\
+\
+SELECT * FROM AJ_OWNER;\
+\
+CREATE OR REPLACE TABLE AJ_PETS\
+(\
+    PetID VARCHAR(10) NOT NULL PRIMARY KEY,\
+    Name VARCHAR(20),\
+    Kind STRING,\
+    Gender CHAR(7),\
+    Age INTEGER,\
+    OwnerID INTEGER NOT NULL REFERENCES AJ_OWNER \
+);\
+\
+SELECT * FROM AJ_OWNER;-- 89 ROWS\
+SELECT * FROM AJ_PETS;-- 100 ROWS\
+\
+--SUBQUERY\
+SELECT * FROM OWNER WHERE OWNERID IN (SELECT DISTINCT OWNERID FROM PETS);\
+\
+SELECT NAME,SURNAME FROM OWNER WHERE OWNERID NOT IN (SELECT DISTINCT OWNERID FROM PETS WHERE KIND = 'Dog');\
+\
+\
+\
+\
+-- UNION ALL\
+SELECT OWNERID,NAME FROM AJ_OWNER\
+UNION ALL\
+SELECT OWNERID,NAME FROM AJ_PETS;\
+\
+--EXCEPT CLAUSE\
+SELECT OWNERID,NAME FROM AJ_OWNER\
+EXCEPT\
+SELECT OWNERID,NAME FROM AJ_PETS;\
+\
+--INTERSECT\
+SELECT OWNERID,NAME FROM AJ_OWNER\
+INTERSECT\
+SELECT OWNERID,NAME FROM AJ_PETS;\
+\
+SELECT COUNT(DISTINCT OwnerID) from OWNER;\
+SELECT COUNT(DISTINCT PetID) from PETS;\
+\
+USE DATABASE "AJ_INEURON_SNOWFLAKE";\
+select o.OwnerID ,o.Name,o.Surname ,p.PetID,p.Name,p.Kind \
+from AJ_OWNER o\
+LEFT outer join AJ_PETS p on o.Name = p.name;\
+\
+-- NEED THE NAME OF OWNER & THEIR DOGS NAME ALONG WITH THEIR AGE  ---- INNER JOIN\
+SELECT O.Name AS OWNER_NAME,p.NAME AS PET_NAME,p.age AS PET_AGE\
+FROM AJ_OWNER o\
+INNER JOIN AJ_PETS p ON o.OwnerID = p.OwnerID;\
+\
+--NEED THE NAME OF ALL THE OWNERS IRRESPECTIVE WETHER OR NOT THEY ARE HAVING PETS \
+SELECT O.Name AS OWNER_NAME,p.NAME AS PET_NAME,p.age AS PET_AGE\
+FROM AJ_OWNER o\
+LEFT OUTER JOIN AJ_PETS p ON o.OwnerID = p.OwnerID;\
+\
+--- COUNT OF PETS EACH OWNER HAS\
+SELECT O.Name AS OWNER_NAME,COUNT(DISTINCT p.PETID)\
+FROM AJ_OWNER o\
+INNER JOIN AJ_PETS p ON o.OwnerID = p.OwnerID\
+GROUP BY 1\
+ORDER BY 2 DESC;\
+\
+---RIGHT JOIN\
+SELECT O.Name AS OWNER_NAME,p.NAME AS PET_NAME,p.age AS PET_AGE\
+FROM AJ_OWNER o\
+RIGHT JOIN AJ_PETS p ON o.OwnerID = p.OwnerID;\
+\
+--FULL OUTER JOIN\
+SELECT O.*,P.*\
+FROM AJ_OWNER O\
+FULL OUTER JOIN AJ_PETS p ON o.OwnerID = p.OwnerID;\
+\
+-- INFO OF ALL THE PETS HOLD BY THEIR OWNER\
+SELECT DISTINCT KIND FROM AJ_PETS;\
+SELECT KIND,COUNT(*) FROM AJ_PETS\
+GROUP BY 1;\
+\
+--- CROSS JOIN \
+SELECT O.*,P.*\
+FROM OWNER O\
+CROSS JOIN PETS p ;\
+\
+USE DEMODATABASE;\
+------------------------\
+CREATE OR REPLACE TABLE EMPLOYEE\
+(\
+   EMPID INTEGER NOT NULL PRIMARY KEY,\
+   EMP_NAME VARCHAR2(20),\
+   JOB_ROLE STRING,\
+   SALARY NUMBER(10,2)\
+);\
+\
+INSERT INTO EMPLOYEE\
+VALUES('101','ANAND JHA','Analyst',50000);\
+\
+INSERT INTO EMPLOYEE\
+VALUES(102,'ALex', 'Data Enginner',60000);\
+\
+INSERT INTO EMPLOYEE\
+VALUES(103,'Ravi', 'Data Scientist',48000);\
+\
+INSERT INTO EMPLOYEE\
+VALUES(104,'Peter', 'Analyst',98000);\
+\
+INSERT INTO EMPLOYEE\
+VALUES(105,'Pulkit', 'Data Scientist',72000);\
+\
+INSERT INTO EMPLOYEE\
+VALUES(106,'Robert','Analyst',100000);\
+\
+INSERT INTO EMPLOYEE\
+VALUES(107,'Rishabh','Data Engineer',67000);\
+\
+INSERT INTO EMPLOYEE\
+VALUES(108,'Subhash','Manager',148000);\
+\
+INSERT INTO EMPLOYEE\
+VALUES(109,'Michaeal','Manager',213000);\
+\
+INSERT INTO EMPLOYEE\
+VALUES(110,'Dhruv','Data Scientist',89000);\
+\
+INSERT INTO EMPLOYEE\
+VALUES(111,'Amit Sharma','Analyst',72000);\
+\
+DELETE FROM EMPLOYEE WHERE EMPID = 110;\
+\
+SELECT * FROM EMPLOYEE;\
+\
+update employee \
+set job_role='Data Engineer'\
+where empid=102;\
+\
+update employee \
+set salary= 50000\
+where empid=104;\
+\
+\
+\
+  \
+  \
+ \
+-------------------------------------------------------------WINDOW FUNCTIONS------------------------------------------------------------\
+\
+-- SYNTAX : window_function_name(<exprsn>) OVER (<partition_by_clause> <order_clause>)\
+\
+--- display total salary based on job profile\
+SELECT JOB_ROLE,SUM(SALARY) FROM EMPLOYEE \
+GROUP BY 1;\
+\
+-- display total salary along with all the records ()every row value \
+SELECT * , SUM(SALARY) OVER() AS TOT_SAL\
+FROM EMPLOYEE;\
+\
+-- display the total salary per job category for all the rows \
+SELECT *,MAX(SALARY) OVER(PARTITION BY JOB_ROLE) AS MAX_JOB_SAL\
+FROM EMPLOYEE;\
+\
+select *,max(salary) over(partition by JOB_ROLE) as MAX_SAL , \
+min(salary) over(partition by JOB_ROLE) as MIN_SAL,\
+SUM(salary) over(partition by JOB_ROLE) as TOT_SAL\
+from Employee;\
+\
+\
+\
+--ARRANGING ROWS WITHIN EACH PARTITION BASED ON SALARY IN DESC ORDDER\
+select *,max(salary) over(partition by JOB_ROLE ORDER BY SALARY DESC) as MAX_SAL , \
+min(salary) over(partition by JOB_ROLE ORDER BY SALARY DESC) as MIN_SAL,\
+SUM(salary) over(partition by JOB_ROLE ORDER BY SALARY DESC) as TOT_SAL\
+from Employee;\
+\
+SELECT *,ROW_NUMBER() OVER(PARTITION BY JOB_ROLE ORDER BY SALARY DESC) AS PART_ROW_NUM \
+FROM EMPLOYEE;\
+\
+-- ROW_NUMBER() It assigns a unique sequential number to each row of the table ...\
+SELECT * FROM \
+(\
+SELECT *,ROW_NUMBER() OVER(PARTITION BY JOB_ROLE ORDER BY SALARY DESC) AS PART_ROW_NUM \
+FROM EMPLOYEE \
+)\
+WHERE PART_ROW_NUM <=2;\
+\
+/* The RANK() window function, as the name suggests, ranks the rows within their partition based on the given condition.\
+   In the case of ROW_NUMBER(), we have a sequential number. \
+   On the other hand, in the case of RANK(), we have the same rank for rows with the same value.\
+But there is a problem here. Although rows with the same value are assigned the same rank, the subsequent rank skips the missing rank. \
+This wouldn\'92t give us the desired results if we had to return \'93top N distinct\'94 values from a table. \
+Therefore we have a different function to resolve this issue. */\
+\
+SELECT *,ROW_NUMBER() OVER(PARTITION BY JOB_ROLE ORDER BY SALARY DESC) AS ROW_NUM ,\
+RANK() OVER(PARTITION BY JOB_ROLE ORDER BY SALARY DESC) AS RANK_ROW\
+FROM EMPLOYEE;\
+\
+/* The DENSE_RANK() function is similar to the RANK() except for one difference, it doesn\'92t skip any ranks when ranking rows\
+Here, all the ranks are distinct and sequentially increasing within each partition. \
+As compared to the RANK() function, it has not skipped any rank within a partition. */\
+\
+SELECT * FROM \
+(\
+SELECT *,ROW_NUMBER() OVER(ORDER BY SALARY) AS ROW_NUM ,\
+RANK() OVER(PARTITION BY JOB_ROLE ORDER BY SALARY) AS RANK_ROW,\
+DENSE_RANK() OVER(PARTITION BY JOB_ROLE ORDER BY SALARY) AS DENSE_RANK_ROW \
+FROM EMPLOYEE  \
+)\
+WHERE DENSE_RANK_ROW <=2;\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}
