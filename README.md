@@ -36,10 +36,15 @@ And all above comes ABSOLUTELY 🆓🆓🆓🆓🆓 🆓🥶🥶🥶🥶🥶🥶
 FOLLOWWWWWWW… NOWWWWWWW
 
 YOUTUBE: https://www.youtube.com/channel/UC59wHh4zTa8sGxhyQVdxMug
+
 LINKEDIN:  https://www.linkedin.com/company/analyticswithanand/
+
 FACEBOOK: https://www.facebook.com/analyticswithanand/
+
 INSTAGRAM: https://www.instagram.com/analyticswithanand/
+
 TELEGRAM : https://t.me/analytics_with_anand
+
 GITHUB: https://github.com/anandjha90/analyticswithanand/tree/SNOWFLAKE
 
 Contact Details :
