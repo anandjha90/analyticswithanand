@@ -48,7 +48,9 @@ TELEGRAM : https://t.me/analytics_with_anand
 GITHUB: https://github.com/anandjha90/analyticswithanand/tree/SNOWFLAKE
 
 Contact Details :
+
 EMAIL:  info@analyticswithanand.in
+
 Ph : +91 86188 00846
 .
 .
