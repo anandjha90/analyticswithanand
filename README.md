@@ -52,6 +52,7 @@ Contact Details :
 EMAIL:  info@analyticswithanand.in
 
 Ph : +91 86188 00846
+
 .
 .
 #datascience #datanalytics #datanalyst #datanalysis #sql #python #r #statistics #transition #tableau #powerbi #snowflake  #hacks  #aws #azure #googlecloud #data #datapipeline #datavisualization #datasecurity #jobready #jobsearch #jobseekers #job #jobready
