@@ -1,0 +1,42 @@
+<xml>
+<Colours>
+	<ColourID>1</ColourID>
+	<Colour>Red</Colour>
+</Colours>
+<Colours>
+	<ColourID>2</ColourID>
+	<Colour>Blue</Colour>
+</Colours>
+<Colours>
+	<ColourID>3</ColourID>
+	<Colour>Green</Colour>
+</Colours>
+<Colours>
+	<ColourID>4</ColourID>
+	<Colour>Silver</Colour>
+</Colours>
+<Colours>
+	<ColourID>5</ColourID>
+	<Colour>Canary Yellow</Colour>
+</Colours>
+<Colours>
+	<ColourID>6</ColourID>
+	<Colour>Night Blue</Colour>
+</Colours>
+<Colours>
+	<ColourID>7</ColourID>
+	<Colour>Black</Colour>
+</Colours>
+<Colours>
+	<ColourID>8</ColourID>
+	<Colour>British Racing Green</Colour>
+</Colours>
+<Colours>
+	<ColourID>9</ColourID>
+	<Colour>Dark Purple</Colour>
+</Colours>
+<Colours>
+	<ColourID>10</ColourID>
+	<Colour>Pink</Colour>
+</Colours>
+</xml>

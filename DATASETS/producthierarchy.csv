@@ -1,0 +1,700 @@
+product_id,product (brand),type,length x depth x width (in cm),category || sub_category
+P0000,"	serum	 (Livon)",Indian & Exotic Herbs,5 x 20 x 12,Fruits & Vegetables || Herbs & Seasonings
+P0001,"hand wash -	 moisture Shield (Savlon)",Hair Oil & Serum,13.5 x 22 x 20,Beauty & Hygiene || Hair Care
+P0002,"good 		day butter Cookies (Britannia)",Hand Wash & Sanitizers,22 x 40 x 22,Beauty & Hygiene || Bath & Hand Wash
+P0004,"Happy 		Happy Choco-Chip Cookies (Parle)",Cookies,2 x 13 x 4,Snacks & Branded Foods || Biscuits & Cookies
+P0005, 50-50 Timepass salted biscuits (Britannia),Glucose & Milk Biscuits,16 x 30 x 16,Snacks & Branded Foods || Biscuits & Cookies
+P0006, tiger Elaichi Cream Biscuits (Britannia),Salted Biscuits,8.5 x 15 x 15,Snacks & Branded Foods || Biscuits & Cookies
+P0007,"bounce 	Biscuits - Choco Creme (Sunfeast)",Glucose & Milk Biscuits,2 x 22 x 9.5,Snacks & Branded Foods || Biscuits & Cookies
+P0008,50-50 Timepass Biscuits (Britannia),Cream Biscuits & Wafers,5 x 16 x 5,Snacks & Branded Foods || Biscuits & Cookies
+P0009,Tiger Chocolate Cream Biscuits (Britannia),Salted Biscuits,5 x 18 x 14,Snacks & Branded Foods || Biscuits & Cookies
+P0010,Biscuits - Magix Kreams Choc (Parle),Cream Biscuits & Wafers,2 x 22 x 3,Snacks & Branded Foods || Biscuits & Cookies
+P0011,Dreams Cup Cake - Choco (Elite),Cream Biscuits & Wafers,9 x 22 x 15,Snacks & Branded Foods || Biscuits & Cookies
+P0012,Layer Cake - Chocolate (Winkies),Muffins & Cup Cakes,10 x 20 x 12.3,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0013,Layer Cake - Orange (Winkies),Tea Cakes & Slice Cakes,7.1 x 27.5 x 13.7,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0014,Sugar Coated Chocolate (Cadbury Gems),Tea Cakes & Slice Cakes,32.5 x 6 x 33,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0015,Cadbury Perk - Chocolate Bar (Cadbury),Chocolates,10 x 33 x 10,Snacks & Branded Foods || Chocolates & Candies
+P0016,Polo - The Mint With The Hole (Nestle ),Chocolates,2 x 18 x 8,Snacks & Branded Foods || Chocolates & Candies
+P0017,Orbit Sugar-Free Chewing Gum - Lemon & Lime (Wrigleys),"Toffee, Candy & Lollypop",8 x 28 x 8,Snacks & Branded Foods || Chocolates & Candies
+P0018,Sugar Free Chewing Gum - Mixed Fruit (Orbit),Mints & Chewing Gum,1 x 14 x 11,Snacks & Branded Foods || Chocolates & Candies
+P0019,Chewing Gum - Peppermint (Doublemint),Mints & Chewing Gum,1.5 x 42 x 32,Snacks & Branded Foods || Chocolates & Candies
+P0020,"Tomato - Local, Organically Grown (Fresho)",Mints & Chewing Gum,5 x 28 x 16,Snacks & Branded Foods || Chocolates & Candies
+P0021,"Tomato - Local, Organically Grown (Fresho)",Organic Vegetables,8 x 26 x 23,Fruits & Vegetables || Fresh Vegetables
+P0022,Marie Light Biscuits - Active (Sunfeast),Organic Vegetables,5.7 x 18.6 x 10.1,Fruits & Vegetables || Organic Fruits & Vegetables
+P0023,Fulltoss Thai Sriracha (Parle),Breakfast & Snack Mixes,1 x 1 x 1,Snacks & Branded Foods || Ready To Cook & Eat
+P0024,Fulltoss Tangy Tomato (Parle),Nachos & Chips,1 x 23 x 16,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0025,Exam Standard Scale (Camlin),Nachos & Chips,33 x 6 x 20,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0026,Dish Shine Bar (Exo),Exam Pads & Pencil Box,4 x 22 x 16,Cleaning & Household || Stationery
+P0027,Marigold Flower - Orange (Fresho),Dishwash Bars & Powders,5 x 28 x 16,Cleaning & Household || Detergents & Dishwash
+P0028,Tomato - Green (Fresho),Marigold,3.4 x 11.3 x 12,"Fruits & Vegetables || Flower Bouquets, Bunches"
+P0029,"Chilli - Green, Organically Grown (Fresho)","Potato, Onion & Tomato",2.5 x 18 x 8,Fruits & Vegetables || Fresh Vegetables
+P0030,Ginger - Organically Grown (Fresho),Organic Vegetables,9 x 9 x 37,Fruits & Vegetables || Herbs & Seasonings
+P0031,"Chilli - Green, Organically Grown (Fresho)",Organic Vegetables,,Fruits & Vegetables || Herbs & Seasonings
+P0032,Ginger - Organically Grown (Fresho),Organic Vegetables,5 x 12 x 4,Fruits & Vegetables || Organic Fruits & Vegetables
+P0033,Blue Detergent Bar (Wheel ),Organic Vegetables,5 x 28 x 16,Fruits & Vegetables || Organic Fruits & Vegetables
+P0035,"Tomato - Hybrid, Organically Grown (Fresho)",Detergent Bars,3 x 17 x 12.5,Cleaning & Household || Detergents & Dishwash
+P0036,"Tomato - Hybrid, Organically Grown (Fresho)",Organic Vegetables,6 x 20 x 10,Fruits & Vegetables || Fresh Vegetables
+P0037,Crackers - Cheese & Sugar (Gery Gone Mad),Organic Vegetables,3.5 x 10.5 x 3.5,Fruits & Vegetables || Organic Fruits & Vegetables
+P0038,Munch Crisp-Pop Chocolate Coated Crunchy Wafer (Nestle ),Crackers & Digestive,5 x 21.5 x 5,Gourmet & World Food || Chocolates & Biscuits
+P0039,Herbal Apple Massage Cream (Olivia),Chocolates,11.5 x 28 x 27,Snacks & Branded Foods || Chocolates & Candies
+P0040,Milk Shakti Biscuits - With The Goodness Of Milk (Parle),Body Care,7 x 26.5 x 7,Beauty & Hygiene || Skin Care
+P0041,Roll Yo! Strawberry Swiss Roll (Britannia),Glucose & Milk Biscuits,5 x 28 x 16,Snacks & Branded Foods || Biscuits & Cookies
+P0042,"Mint - Sugarfree, Fruity Flavour (Center Fresh)",Tea Cakes & Slice Cakes,1 x 16 x 10,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0043,Tomato - Local (Fresho),"Toffee, Candy & Lollypop",3.5 x 23 x 32,Snacks & Branded Foods || Chocolates & Candies
+P0044,Mint Leaves (Fresho),"Potato, Onion & Tomato",1 x 10 x 5,Fruits & Vegetables || Fresh Vegetables
+P0045,Fruit Salt - Lemon Flavor (Eno ),Leafy Vegetables,3 x 17 x 12.5,Fruits & Vegetables || Fresh Vegetables
+P0046,Instant Popcorn - BBQ (4700BC),Everyday Medicine,1.7 x 11.1 x 9.6,Beauty & Hygiene || Health & Medicine
+P0047,Instant Popcorn - Butter (4700BC),Gourmet Popcorn,5 x 28 x 16,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0048,Instant Popcorn - Seven Spices (4700BC),Gourmet Popcorn,29.3 x 14.7 x 19.8,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0049,Instant Popcorn - Natural Healthy (4700BC),Gourmet Popcorn,2 x 40 x 10,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0050,Drinking Water With Added Minerals (Kinley),Gourmet Popcorn,6.9 x 6 x 6.9,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0051,50-50 Jeera Masti Biscuits (Britannia),Packaged Water,1.7 x 17.5 x 4.5,Beverages || Water
+P0053,Puliogare Masala Powder (Eastern),Salted Biscuits,5 x 40 x 40,Snacks & Branded Foods || Biscuits & Cookies
+P0054,Secret Hot & Sour Instant Soup (Chings),Blended Masalas,8.5 x 14.6 x 8.5,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0055,Instant Popcorn - Chilly Surprise (ACT II),Soups,2.3 x 18.5 x 13.5,Snacks & Branded Foods || Ready To Cook & Eat
+P0056,Salt/Uppu - Iodised (Aashirvaad),Chips & Corn Snacks,12 x 10,Snacks & Branded Foods || Snacks & Namkeen
+P0057,Butter Milk - Spiced (Nandini),Salts,4 x 22 x 9,"Foodgrains, Oil & Masala || Salt, Sugar & Jaggery"
+P0058,Soap Bar - Care (Lifebuoy),Buttermilk & Lassi,3 x 21 x 8,"Bakery, Cakes & Dairy || Dairy"
+P0059,Lime Bath Soap - 99.9% Germ Protection (Cinthol),Bathing Bars & Soaps,9.1 x 29.7 x 13.2,Beauty & Hygiene || Bath & Hand Wash
+P0060,Fresh Splash Water Lily & Cooling Mint Soap Bar (Lux),Bathing Bars & Soaps,7.5 x 20.5 x 5.4,Beauty & Hygiene || Bath & Hand Wash
+P0061,Jasmine Bloom Soap Bar (Lux),Bathing Bars & Soaps,9.3 x 32 x 19.2,Beauty & Hygiene || Bath & Hand Wash
+P0062,50-50 Maska Chaska Salted Biscuits (Britannia),Bathing Bars & Soaps,,Beauty & Hygiene || Bath & Hand Wash
+P0063,Biscuits - Monaco Salted Snack (Parle),Salted Biscuits,7.5 x 7.5 x 7.5,Snacks & Branded Foods || Biscuits & Cookies
+P0064,Biscuits - Googly (Bisk Farm),Salted Biscuits,7 x 10 x 7,Snacks & Branded Foods || Biscuits & Cookies
+P0065,Marie Light Oats Biscuits (Sunfeast),Cookies,8.5 x 33 x 32,Snacks & Branded Foods || Biscuits & Cookies
+P0066,Marie Light Biscuits - Active (Sunfeast),"Marie, Health, Digestive",0.3 x 15.5 x 8.5,Snacks & Branded Foods || Biscuits & Cookies
+P0067,Cheese Cracker (Mcvities),"Marie, Health, Digestive",5.4 x 20.5 x 7.5,Snacks & Branded Foods || Biscuits & Cookies
+P0068,Bounce Biscuits - Pineapple Creme (Sunfeast),Salted Biscuits,13 x 9 x 13,Snacks & Branded Foods || Biscuits & Cookies
+P0069,Veda Marie Light Biscuits (Sunfeast),Cream Biscuits & Wafers,3 x 12 x 8.5,Snacks & Branded Foods || Biscuits & Cookies
+P0070,Thinz - Almond (Bisk Farm),"Marie, Health, Digestive",8.7 x 14 x 8.7,Snacks & Branded Foods || Biscuits & Cookies
+P0071,Dream Cream - Choco Vanilla Cream Biscuit - Cookie (Sunfeast),"Marie, Health, Digestive",4.9 x 16.5 x 6.5,Snacks & Branded Foods || Biscuits & Cookies
+P0072,Good Day Butter Cookies (Britannia),Cream Biscuits & Wafers,3 x 12 x 12,Snacks & Branded Foods || Biscuits & Cookies
+P0073,Bounce Biscuits - Elaichi Creme (Sunfeast),Cookies,2 x 30 x 30,Snacks & Branded Foods || Biscuits & Cookies
+P0074,Happy Happy Choco-Chip Cookies (Parle),Cream Biscuits & Wafers,9 x 6 x 9,Snacks & Branded Foods || Biscuits & Cookies
+P0075,Top Spin Crackers (Parle),Cookies,6 x 26.7 x 26,Snacks & Branded Foods || Biscuits & Cookies
+P0076,Biscuit - Nariyal (Patanjali),Salted Biscuits,2 x 10 x 2,Snacks & Branded Foods || Biscuits & Cookies
+P0077,Butter Cookies (Amul),Cookies,3 x 23.5 x 17,Snacks & Branded Foods || Biscuits & Cookies
+P0078,Chocos Crunchy Bites (Kelloggs),Cookies,7.5 x 11.5 x 7.5,Snacks & Branded Foods || Biscuits & Cookies
+P0079,Chocos - Magic Hearts (Kelloggs),Kids Cereal,2 x 13 x 6,Snacks & Branded Foods || Breakfast Cereals
+P0080,Chocos Webs - Spiderman (Kelloggs),Kids Cereal,2 x 24 x 2,Snacks & Branded Foods || Breakfast Cereals
+P0082,"Breakfast Cereal - Chocolate Flavour, Small Pack (Nestle Koko Krunch)",Kids Cereal,3.4 x 17.6 x 8.1,Snacks & Branded Foods || Breakfast Cereals
+P0083,Fiber Rich Choclaq (Zerobeli),Kids Cereal,2.2 x 7.7 x 10.6,Snacks & Branded Foods || Breakfast Cereals
+P0084,Honey Almond Corn Flakes (Zerobeli),Flakes,4 x 14 x 12,Snacks & Branded Foods || Breakfast Cereals
+P0085,Centre Filled Cup Cake - with Vanilla Cream (Winkies),Flakes,12 x 26 x 11,Snacks & Branded Foods || Breakfast Cereals
+P0086,Strawberry Muffils (Britannia),Muffins & Cup Cakes,39 x 34 x 49,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0087,Centre Filled Chocolate Cake - with Vanilla Cream (Winkies),Tea Cakes & Slice Cakes,2 x 5.7 x 19,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0088,Cake NOVO Finger - Chocolate (Winkies),Tea Cakes & Slice Cakes,18 x 24 x 8,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0089,"Chocolate Roll - Swiss, Mini (Winkies)",Tea Cakes & Slice Cakes,2 x 15 x 8,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0090,Choco Muffills (Britannia),Tea Cakes & Slice Cakes,1 x 5 x 6,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0091,Roll Yo! Choco Swiss Roll (Britannia),Tea Cakes & Slice Cakes,2 x 27 x 21,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0092,Happy Happy Egg Cake - Vanilla (Parle),Tea Cakes & Slice Cakes,6 x 15 x 8,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0093,Spyroll (Bauli),Tea Cakes & Slice Cakes,7 x 18 x 7,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0094,Roll - Swiss Single (Dream Bake),Tea Cakes & Slice Cakes,3.8 x 14.3 x 3.8,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0095,Choco Layer Cake (Britannia),Tea Cakes & Slice Cakes,40 x 100 x 50,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0096,Gems - Sugar Coated Chocolate (Cadbury),Tea Cakes & Slice Cakes,3.4 x 14.5 x 4.4,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0097,Shots (Cadbury Dairy Milk),Chocolates,1 x 19.2 x 9,Snacks & Branded Foods || Chocolates & Candies
+P0098,Chewing Gum - Peppermint (Doublemint),Chocolates,4 x 16 x 12.5,Snacks & Branded Foods || Chocolates & Candies
+P0099,Xtra Peppermint Flavour - Chewing Gum Stick (Center Fresh),Mints & Chewing Gum,3 x 11.3 x 10,Snacks & Branded Foods || Chocolates & Candies
+P0100,Chewing Gum Stick - Fruits Flavour (Center Fruit),Mints & Chewing Gum,2 x 27 x 21,Snacks & Branded Foods || Chocolates & Candies
+P0101,Jellicious - Jelimals (Candyman),Mints & Chewing Gum,4.5 x 17.6 x 4.5,Snacks & Branded Foods || Chocolates & Candies
+P0102,Breath Mint - The Mint With The Hole (Polo),"Toffee, Candy & Lollypop",7 x 27 x 40,Snacks & Branded Foods || Chocolates & Candies
+P0103,White Chocolate Bar (Nestle ),"Toffee, Candy & Lollypop",9 x 30 x 9,Snacks & Branded Foods || Chocolates & Candies
+P0104,Sunrise Coffee (Nescafe ),Chocolates,3 x 20 x 11,Snacks & Branded Foods || Chocolates & Candies
+P0105,Traditional Filter Coffee Decoction (iD),Instant Coffee,11 x 13 x 16,Beverages || Coffee
+P0108,"Coffee - Premix, Instant (Narasus)",Instant Coffee,10 x 25 x 32,Beverages || Coffee
+P0109,"Brinjal - Varikatri, Organically Grown (Fresho)",Instant Coffee,7 x 18 x 11,Beverages || Coffee
+P0110,Dill Leaves (Fresho),Organic Vegetables,6.2 x 16.8 x 6.2,Fruits & Vegetables || Fresh Vegetables
+P0111,Sugarcane (Fresho),Leafy Vegetables,7.8 x 9.5 x 9.4,Fruits & Vegetables || Fresh Vegetables
+P0112,Juice - Mango Refresh (Maaza),Seasonal Fruits,17.5 x 9.5 x 24,Fruits & Vegetables || Fresh Fruits
+P0113,Coriander Leaves (Fresho),Juices,2 x 17 x 6,Beverages || Fruit Juices & Drinks
+P0114,Lemon Grass (Fresho),Indian & Exotic Herbs,2 x 7.5 x 9,Fruits & Vegetables || Herbs & Seasonings
+P0115,"Chikki, Peanut Bar (Paper Boat)",Indian & Exotic Herbs,3 x 14 x 5.5,Fruits & Vegetables || Herbs & Seasonings
+P0116,Secret Schezwan Fried Rice Masala (Chings),Chikki & Gajjak,0.5 x 14 x 6,Snacks & Branded Foods || Indian Mithai
+P0117,Paneer Chilli Masala (Ching'S Secret),Blended Masalas,5 x 10.8 x 5.6,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0118,Secret Veg Manchurian Masala (Chings),Blended Masalas,5 x 28 x 16,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0119,Masala - Lemon Rice Powder (MTR),Blended Masalas,15 x 15 x 15,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0122,Masala - Tomato Rice Powder (MTR),Blended Masalas,5 x 28 x 16,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0123,Secret Chowmein Hakka Noodles Masala (Chings),Blended Masalas,5.5 x 22.5 x 19,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0124,Lime Bath Soap - 99.9% Germ Protection (Cinthol),Blended Masalas,17 x 24 x 17,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0125,Utensil Scrubber - Green (Milton - Spotzero),Bathing Bars & Soaps,2 x 5 x 9,Beauty & Hygiene || Men's Grooming
+P0126,Noodles - Fiery Chilli (Top Ramen ),"Utensil Scrub-Pad, Glove",4 x 16 x 5,"Cleaning & Household || Mops, Brushes & Scrubs"
+P0127,"Brinjal - Varikatri, Organically Grown (Fresho)",Instant Noodles,10 x 30 x 20,"Snacks & Branded Foods || Noodle, Pasta, Vermicelli"
+P0128,Mint - Organically Grown (Fresho),Organic Vegetables,9 x 14 x 9,Fruits & Vegetables || Organic Fruits & Vegetables
+P0129,Kale (Fresho),Organic Vegetables,22.2 x 22.2 x 44.4,Fruits & Vegetables || Organic Fruits & Vegetables
+P0130,Tulsi Leaves (Fresho),Organic Vegetables,2.5 x 17 x 13,Fruits & Vegetables || Organic Fruits & Vegetables
+P0131,Pooja Agarbatti - Treya 3 in 1 (Mangaldeep),Organic Vegetables,1 x 12 x 11,Fruits & Vegetables || Organic Fruits & Vegetables
+P0132,"Incense Sticks - Namo Paduka, Scented (GIRI)","Agarbatti, Incense Sticks",5 x 28 x 16,Cleaning & Household || Pooja Needs
+P0133,Instant Sweet Corn Cup-A-Soup (Knorr),"Agarbatti, Incense Sticks",9 x 28 x 20,Cleaning & Household || Pooja Needs
+P0134,Cup-A-Soup - Hot & Sour Veg (Knorr),Soups,6 x 30 x 10,Snacks & Branded Foods || Ready To Cook & Eat
+P0135,Instant Mixed Vegetable Cup-A-Soup (Knorr),Soups,3 x 15 x 55,Snacks & Branded Foods || Ready To Cook & Eat
+P0136,Namkeen - Aloo Bhujia (Haldirams ),Soups,3.3 x 25.9 x 8.5,Snacks & Branded Foods || Ready To Cook & Eat
+P0137,Namkeen - Bhujia Sev (Haldirams ),Namkeen & Savoury Snacks,23.6 x 24.1 x 8.3,Snacks & Branded Foods || Snacks & Namkeen
+P0138,Namkeen - Tasty Nuts (Haldirams ),Namkeen & Savoury Snacks,5 x 47 x 28.5,Snacks & Branded Foods || Snacks & Namkeen
+P0139,Potato Chips - Calm Cream & Onion Flavour (Lays),Namkeen & Savoury Snacks,4 x 17 x 11,Snacks & Branded Foods || Snacks & Namkeen
+P0140,Namkeen - Lite Chiwda (Haldirams ),Chips & Corn Snacks,2 x 27 x 21,Snacks & Branded Foods || Snacks & Namkeen
+P0141,Namkeen - Mixture (Haldirams ),Namkeen & Savoury Snacks,6 x 20 x 12,Snacks & Branded Foods || Snacks & Namkeen
+P0142,Nachos Cheese Tortilla Chips (Doritos),Namkeen & Savoury Snacks,7 x 12 x 12,Snacks & Branded Foods || Snacks & Namkeen
+P0143,Namkeen - Lemon Bhel (Haldirams ),Chips & Corn Snacks,3 x 26 x 13,Snacks & Branded Foods || Snacks & Namkeen
+P0144,Namkeen - Chilli Chatka (Kurkure),Namkeen & Savoury Snacks,4.5 x 21 x 14.3,Snacks & Branded Foods || Snacks & Namkeen
+P0145,Namkeen - Madras Mixture (Townbus),Chips & Corn Snacks,4 x 12.5 x 4,Snacks & Branded Foods || Snacks & Namkeen
+P0146,Namkeen - Ribbon Pakoda (Townbus),Namkeen & Savoury Snacks,3.6 x 3.5 x 20,Snacks & Branded Foods || Snacks & Namkeen
+P0147,Namkeen - Green Chutney Rajasthani Style (Kurkure),Namkeen & Savoury Snacks,12.5 x 37 x 12.5,Snacks & Branded Foods || Snacks & Namkeen
+P0148,Sweet Chilli Tortilla Chips (Doritos),Chips & Corn Snacks,6 x 7 x 12.2,Snacks & Branded Foods || Snacks & Namkeen
+P0149,Namkeen - Corn Flakes Mixture (Townbus),Chips & Corn Snacks,1.8 x 5.5 x 16.3,Snacks & Branded Foods || Snacks & Namkeen
+P0150,Mad Angles Chips - Tomato Madness (Bingo),Namkeen & Savoury Snacks,6 x 14 x 14,Snacks & Branded Foods || Snacks & Namkeen
+P0151,Namkeen - Naughty Tomatoes (Kurkure),Chips & Corn Snacks,2 x 15 x 11.5,Snacks & Branded Foods || Snacks & Namkeen
+P0152,Masala Balls Snacks (Cheetos),Chips & Corn Snacks,5 x 19 x 13,Snacks & Branded Foods || Snacks & Namkeen
+P0154,Mad Angles Achari Masti (Bingo),Chips & Corn Snacks,3 x 20 x 12,Snacks & Branded Foods || Snacks & Namkeen
+P0155,Instant Diet Popcorn - Contains Olive Oil (PIPO),Namkeen & Savoury Snacks,,Snacks & Branded Foods || Snacks & Namkeen
+P0156,Instant Popcorn - Chilli Surprise (PIPO),Chips & Corn Snacks,5 x 20 x 8,Snacks & Branded Foods || Snacks & Namkeen
+P0157,Instant Popcorn - Butter Lovers (PIPO),Chips & Corn Snacks,6 x 6 x 15,Snacks & Branded Foods || Snacks & Namkeen
+P0158,Namkeen - Moong Dal (Haldirams ),Chips & Corn Snacks,15 x 8 x 2,Snacks & Branded Foods || Snacks & Namkeen
+P0159,Hot & Sweet Chilli (Lays),Namkeen & Savoury Snacks,20 x 28 x 25,Snacks & Branded Foods || Snacks & Namkeen
+P0160,Namkeen - Butter Murukku (Townbus),Chips & Corn Snacks,30 x 1 x 21,Snacks & Branded Foods || Snacks & Namkeen
+P0161,Namkeen - Khara Boondi (Townbus),Namkeen & Savoury Snacks,7 x 6 x 7,Snacks & Branded Foods || Snacks & Namkeen
+P0162,Mad Angles Cheese Nachos Chips (Bingo),Namkeen & Savoury Snacks,2 x 8.8 x 3.6,Snacks & Branded Foods || Snacks & Namkeen
+P0163,Potato Crisps - Cream 'N' Onion (Parle),Chips & Corn Snacks,2 x 13 x 4,Snacks & Branded Foods || Snacks & Namkeen
+P0164,"Gel Pen - Black, Octane (Classmate)",Chips & Corn Snacks,4.4 x 15.8 x 9,Snacks & Branded Foods || Snacks & Namkeen
+P0165,Butter Gelpen - Blue (Cello),"Pen, Pencils",1 x 13 x 12,Cleaning & Household || Stationery
+P0166,Glare Mech Pencil (Nataraj),"Pen, Pencils",5 x 19 x 13,Cleaning & Household || Stationery
+P0167,Tru Mango (Amul),"Pen, Pencils",20 x 33.5 x 21.8,Cleaning & Household || Stationery
+P0169,Tru Litchi (Amul),"Flavoured, Soya Milk",8 x 19 x 12,"Bakery, Cakes & Dairy || Dairy"
+P0170,Tru Orange (Amul),"Flavoured, Soya Milk",23.7 x 11.7 x 22.3,"Bakery, Cakes & Dairy || Dairy"
+P0171,Tru Apple (Amul),"Flavoured, Soya Milk",4.5 x 17 x 4.5,"Bakery, Cakes & Dairy || Dairy"
+P0172,Daily Fresh Dahi (Britannia),"Flavoured, Soya Milk",28 x 4.5 x 28,"Bakery, Cakes & Dairy || Dairy"
+P0173,Dishwash Bar (Pril),Curd,2 x 27 x 21,"Bakery, Cakes & Dairy || Dairy"
+P0174,Active - Detergent Cake Blue (Wheel ),Dishwash Bars & Powders,3 x 17 x 9,Cleaning & Household || Detergents & Dishwash
+P0175,Strawberry Drink (Ala Fresh),Detergent Bars,2 x 20 x 10,Cleaning & Household || Detergents & Dishwash
+P0176,Apple Drink (Ala Fresh),Gourmet Juices & Drinks,,Gourmet & World Food || Drinks & Beverages
+P0177,Pineapple Drink (Ala Fresh),Gourmet Juices & Drinks,1 x 12 x 8,Gourmet & World Food || Drinks & Beverages
+P0178,Watermelon Drink (Ala Fresh),Gourmet Juices & Drinks,3.5 x 16.5 x 4.5,Gourmet & World Food || Drinks & Beverages
+P0179,Orange Drink (Ala Fresh),Gourmet Juices & Drinks,7 x 14 x 12,Gourmet & World Food || Drinks & Beverages
+P0180,Litchi Drink (Ala Fresh),Gourmet Juices & Drinks,22 x 59 x 29,Gourmet & World Food || Drinks & Beverages
+P0181,Kiwi Drink (Ala Fresh),Gourmet Juices & Drinks,4.1 x 17.3 x 10.1,Gourmet & World Food || Drinks & Beverages
+P0182,Apple Juice Based Drink (Appy Fizz),Gourmet Juices & Drinks,5 x 37 x 27,Gourmet & World Food || Drinks & Beverages
+P0183,Mint - Organically Grown (Fresho),Cold Drinks,14.2 x 3.8 x 11,Beverages || Energy & Soft Drinks
+P0184,Lemon Grass (Fresho),Organic Vegetables,6 x 30 x 10,Fruits & Vegetables || Exotic Fruits & Veggies
+P0185,"Sanitary Napkin - Extra Long, Travel Pack (Niine)",Indian & Exotic Herbs,1 x 20 x 30,Fruits & Vegetables || Exotic Fruits & Veggies
+P0186,Cabbage (Fresho),Sanitary Napkins,8 x 16 x 8,Beauty & Hygiene || Feminine Hygiene
+P0187,Cucumber (Fresho),Cabbage & Cauliflower,9 x 25 x 19,Fruits & Vegetables || Fresh Vegetables
+P0188,Colocasia (Fresho),Cucumber & Capsicum,10 x 30 x 25,Fruits & Vegetables || Fresh Vegetables
+P0189,Betel Leaf (Fresho),Root Vegetables,4 x 14.7 x 11,Fruits & Vegetables || Fresh Vegetables
+P0190,Colocasia - Organically Grown (Fresho),Leafy Vegetables,6 x 19 x 14,Fruits & Vegetables || Fresh Vegetables
+P0192,Colocasia - Organically Grown (Fresho),Organic Vegetables,15 x 15 x 40,Fruits & Vegetables || Fresh Vegetables
+P0193,Organic Garlic Powder - Dehydrated (bb Royal),Organic Vegetables,6 x 3 x 6,Fruits & Vegetables || Organic Fruits & Vegetables
+P0194,Orange Chewy Dragees (Mentos),Organic Masalas & Spices,6 x 7 x 9,"Foodgrains, Oil & Masala || Organic Staples"
+P0195,Moonfils Orange (Bauli),"Toffee, Candy & Lollypop",6.5 x 7.5 x 12,Snacks & Branded Foods || Chocolates & Candies
+P0196,Beetroot (Fresho),"Croissants, Bagels",5 x 23 x 20,"Bakery, Cakes & Dairy || Gourmet Breads"
+P0197,Basale Leaf (Fresho),Root Vegetables,6 x 18 x 10,Fruits & Vegetables || Fresh Vegetables
+P0198,Pain Relief Cream (Moov),Leafy Vegetables,1 x 16 x 3,Fruits & Vegetables || Fresh Vegetables
+P0199,Yippee Magic Masala Noodles (Sunfeast),Everyday Medicine,15 x 24.9 x 9.3,Beauty & Hygiene || Health & Medicine
+P0200,1-2-3 Noodles - Chicken Flavour (Wai Wai),Instant Noodles,4 x 13.5 x 9,"Snacks & Branded Foods || Noodle, Pasta, Vermicelli"
+P0201,1-2-3 Noodles - Veg Masala Flavour (Wai Wai),Instant Noodles,3 x 14.5 x 4.9,"Snacks & Branded Foods || Noodle, Pasta, Vermicelli"
+P0202,"Capsicum - Green, Organically Grown (Fresho)",Instant Noodles,1 x 1 x 1,"Snacks & Branded Foods || Noodle, Pasta, Vermicelli"
+P0203,Puja Wicks - Lingam Batti (Jaji),Organic Vegetables,1 x 1 x 1,Fruits & Vegetables || Organic Fruits & Vegetables
+P0204,1-2-3 Noodles - Chicken Flavour (Wai Wai),Camphor & Wicks,1.6 x 24 x 7,Cleaning & Household || Pooja Needs
+P0205,1-2-3 Noodles - Veg Masala Flavour (Wai Wai),Instant Noodles,4 x 17.5 x 10,Snacks & Branded Foods || Snacks & Namkeen
+P0206,Khatta Meetha (Tasties),Instant Noodles,6 x 12 x 6,Snacks & Branded Foods || Snacks & Namkeen
+P0208,Moong Dal (Tasties),Namkeen & Savoury Snacks,1 x 1 x 1,Snacks & Branded Foods || Snacks & Namkeen
+P0209,Aloo Bhujia (Tasties),Namkeen & Savoury Snacks,6 x 30.4 x 20,Snacks & Branded Foods || Snacks & Namkeen
+P0210,CUBE Detergent Bar 2 In 1 (Ok),Namkeen & Savoury Snacks,5.2 x 33.5 x 12,Snacks & Branded Foods || Snacks & Namkeen
+P0211,"Capsicum - Green, Organically Grown (Fresho)",Detergent Bars,14 x 7.2 x 15.7,Cleaning & Household || Detergents & Dishwash
+P0212,Snake Gourd (Fresho),Organic Vegetables,6.5 x 12 x 18.5,Fruits & Vegetables || Exotic Fruits & Veggies
+P0213,"Chilli - Green Long, Medium (Fresho)","Gourd, Pumpkin, Drumstick",1.5 x 24 x 7,Fruits & Vegetables || Fresh Vegetables
+P0214,"Gold Glow Face Wash For Radiant Skin With Gold, Chandan, Turmeric (Olivia)","Lemon, Ginger & Garlic",,Fruits & Vegetables || Herbs & Seasonings
+P0215,"Ultra-Fresh Fairness Face Wash With Milk, Licorice, Saffron (Olivia)",Face Care,3 x 12 x 10,Beauty & Hygiene || Skin Care
+P0216,"Herbal Acne Repair Face Wash For Clear Skin With Neem, Tulsi, Aloe Vera (Olivia)",Face Care,1 x 1 x 1,Beauty & Hygiene || Skin Care
+P0217,Safal Steel Scrubber (Exo),Face Care,8 x 6 x 14,Beauty & Hygiene || Skin Care
+P0218,Spring Onion (Fresho),"Utensil Scrub-Pad, Glove",7.5 x 15 x 13,"Cleaning & Household || Mops, Brushes & Scrubs"
+P0219,Coccinia - Organically Grown (Fresho),Leafy Vegetables,8.7 x 12.5 x 8.7,Fruits & Vegetables || Fresh Vegetables
+P0220,Drumstick - Organically Grown (Fresho),Organic Vegetables,5 x 17 x 13,Fruits & Vegetables || Fresh Vegetables
+P0221,Neem Giloy (Amruta Balli) - Organically Grown (Fresho),Organic Vegetables,2.7 x 12 x 6,Fruits & Vegetables || Fresh Vegetables
+P0222,Curry Leaves - Organically Grown (Fresho),Organic Vegetables,14.5 x 20.5 x 18,Fruits & Vegetables || Herbs & Seasonings
+P0223,Coccinia - Organically Grown (Fresho),Organic Vegetables,5.3 x 23.7 x 11.1,Fruits & Vegetables || Organic Fruits & Vegetables
+P0224,Drumstick - Organically Grown (Fresho),Organic Vegetables,13 x 19 x 15,Fruits & Vegetables || Organic Fruits & Vegetables
+P0225,Neem Giloy (Amruta Balli) - Organically Grown (Fresho),Organic Vegetables,4 x 8 x 4,Fruits & Vegetables || Organic Fruits & Vegetables
+P0226,Post It - 1.5 x 2 Inches (Oddy ),Organic Vegetables,6.5 x 7 x 6.5,Fruits & Vegetables || Organic Fruits & Vegetables
+P0227,"Treat Croissant - Cocoa Creme Roll, 100% Veg (Britannia)","Scissor, Glue & Tape",2 x 27 x 21,Cleaning & Household || Stationery
+P0228,"Treat Croissant - Vanilla Creme Roll, 100% Veg (Britannia)",Gourmet Bread,5 x 28 x 16,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0229,"Treat Croissant - Cocoa Creme Roll, 100% Veg (Britannia)",Gourmet Bread,5.6 x 8.4 x 5.6,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0230,"Treat Croissant - Vanilla Creme Roll, 100% Veg (Britannia)",Gourmet Bread,2 x 36 x 19.5,"Bakery, Cakes & Dairy || Gourmet Breads"
+P0231,Masala - Lemon Rice Powder (MTR),Gourmet Bread,3.7 x 18.9 x 7.7,"Bakery, Cakes & Dairy || Gourmet Breads"
+P0232,Masala - Tomato Rice Powder (MTR),Blended Masalas,2.3 x 17 x 7.3,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0233,Nacho Crisps - Tikka Masala (Cornitos),Blended Masalas,1 x 56 x 30,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0234,Nacho Crisps - Tomato Mexicana (Cornitos),Nachos & Chips,10.9 x 35.1 x 23.2,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0235,Nacho Crisps - Cheese & Herbs (Cornitos),Nachos & Chips,15 x 31.2 x 11.8,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0237,Nacho Crisps - Barbeque (Cornitos),Nachos & Chips,24 x 77 x 2,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0238,Chewy Candy Stick - Strawberry Flavour (Mentos),Nachos & Chips,6 x 20 x 6,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0239,Chalk Cockroach Killer (HIT),Mints & Chewing Gum,4 x 18 x 14,Snacks & Branded Foods || Chocolates & Candies
+P0240,Capsicum - Green (Fresho),Insect Repellent,9.4 x 14 x 8,Cleaning & Household || Fresheners & Repellents
+P0241,Beans - Cluster (Fresho),Cucumber & Capsicum,5 x 13.8 x 5,Fruits & Vegetables || Fresh Vegetables
+P0242,Brinjal - Varikatri (Fresho),"Beans, Brinjals & Okra",4.3 x 17.5 x 4.3,Fruits & Vegetables || Fresh Vegetables
+P0243,Tomato - Hybrid (Fresho),"Beans, Brinjals & Okra",1 x 1 x 1,Fruits & Vegetables || Fresh Vegetables
+P0245,Bitter Gourd - Organically Grown (Fresho),"Potato, Onion & Tomato",1.5 x 7.6 x 16.5,Fruits & Vegetables || Fresh Vegetables
+P0246,Lettuce - Green (Fresho),Organic Vegetables,1.6 x 21 x 14,Fruits & Vegetables || Fresh Vegetables
+P0247,Fresh Turmeric - Organically Grown (Fresho),Exotic Vegetables,5 x 28 x 15,Fruits & Vegetables || Fresh Vegetables
+P0249,"Chilli - Bajji, Mild (Fresho)",Organic Vegetables,7.7 x 25.5 x 7.7,Fruits & Vegetables || Herbs & Seasonings
+P0250,Mustard/Sasive/Rai - Small (bb Popular),"Lemon, Ginger & Garlic",4 x 16.3 x 10.8,Fruits & Vegetables || Herbs & Seasonings
+P0251,Bitter Gourd - Organically Grown (Fresho),Whole Spices,8 x 18 x 13,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0252,Fresh Turmeric - Organically Grown (Fresho),Organic Vegetables,2 x 14 x 7,Fruits & Vegetables || Organic Fruits & Vegetables
+P0253,Salt/Uppu - Free Flow (Akar),Organic Vegetables,4 x 20 x 6,Fruits & Vegetables || Organic Fruits & Vegetables
+P0254,Lettuce - Green (Fresho),Salts,3 x 5 x 17,"Foodgrains, Oil & Masala || Salt, Sugar & Jaggery"
+P0255,Snake Gourd - Organically Grown (Fresho),Exotic Vegetables,6 x 9 x 7.5,Fruits & Vegetables || Exotic Fruits & Veggies
+P0256,Toothbrush - Junior (Patanjali),Organic Vegetables,5.8 x 21.1 x 5.8,Fruits & Vegetables || Organic Fruits & Vegetables
+P0257,Aloe Vera Kanti - Body Cleanser Soap (Patanjali),Baby Oral Care,6 x 7 x 13,Baby Care || Baby Bath & Hygiene
+P0258,Marie Light Biscuit - Vita Orange (Sunfeast),Shower Gel & Body Wash,6 x 19 x 13,Beauty & Hygiene || Bath & Hand Wash
+P0259,Kitkat 2 Fingers (Nestle ),"Marie, Health, Digestive",,Snacks & Branded Foods || Biscuits & Cookies
+P0260,Platina - Nutricrunch Digestive Marie (Parle),Chocolates,4.5 x 16 x 8,Snacks & Branded Foods || Biscuits & Cookies
+P0261,NutriChoice Oats Cookies - Orange Almond (Britannia),"Marie, Health, Digestive",2 x 21.5 x 13.5,Snacks & Branded Foods || Biscuits & Cookies
+P0263,NutriChoice Oats Cookies - Milk Almond (Britannia),"Marie, Health, Digestive",25 x 18 x 2,Snacks & Branded Foods || Biscuits & Cookies
+P0264,Bun - Burger (English Oven),"Marie, Health, Digestive",4 x 4 x 15,Snacks & Branded Foods || Biscuits & Cookies
+P0265,Masala Oats - Classic Masala (Saffola),"Buns, Pavs & Pizza Base",6.5 x 11.5 x 6.5,"Bakery, Cakes & Dairy || Breads & Buns"
+P0266,Masala Oats - Masala & Coriander (Saffola),Oats & Porridge,10 x 23 x 25.5,Snacks & Branded Foods || Breakfast Cereals
+P0267,Masala Oats - Peppy Tomato (Saffola),Oats & Porridge,15 x 5 x 25,Snacks & Branded Foods || Breakfast Cereals
+P0268,Masala Oats - Curry & Pepper (Saffola),Oats & Porridge,4.5 x 13 x 9,Snacks & Branded Foods || Breakfast Cereals
+P0269,Masala Oats - Pongal Surprise (Saffola),Oats & Porridge,6 x 23 x 18,Snacks & Branded Foods || Breakfast Cereals
+P0270,Moonfils - Vanilla (Bauli),Oats & Porridge,5 x 28 x 16,Snacks & Branded Foods || Breakfast Cereals
+P0271,Pineapple Cake (Britannia),Tea Cakes & Slice Cakes,24 x 1.5 x 38,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0272,Moonfils Veg - Choco (Bauli),Tea Cakes & Slice Cakes,7.4 x 19.5 x 12.9,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0274,Moonfils - Strawberry (Bauli),Tea Cakes & Slice Cakes,3.5 x 12 x 50,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0275,Gobbles Orange Bites Cake (Britannia),Tea Cakes & Slice Cakes,3 x 3 x 12,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0276,Milk Cake (Britannia),Tea Cakes & Slice Cakes,5 x 20.2 x 8,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0277,Moonfils Veg - Strawberry (Bauli),Tea Cakes & Slice Cakes,6.7 x 24 x 7.5,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0278,Kitkat 2 Fingers (Nestle ),Tea Cakes & Slice Cakes,1 x 1 x 1,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0279,Chewy Candy Stick - Mint Flavour (Mentos),Chocolates,5.2 x 15 x 7.3,Snacks & Branded Foods || Chocolates & Candies
+P0280,Marigold Flower - Yellow (Fresho),"Toffee, Candy & Lollypop",6 x 19 x 13,Snacks & Branded Foods || Chocolates & Candies
+P0281,Bottle Gourd (Fresho),Marigold,6 x 19 x 6,"Fruits & Vegetables || Flower Bouquets, Bunches"
+P0282,Ash Gourd - Cut (Fresho),"Gourd, Pumpkin, Drumstick",10 x 11 x 11,Fruits & Vegetables || Fresh Vegetables
+P0283,Baby Corn - Unpeeled (Fresho),Cut & Peeled Veggies,1.5 x 12 x 17,Fruits & Vegetables || Fresh Vegetables
+P0284,Drink - Fresh 'N' Juicy Mango (Frooti),Exotic Vegetables,5 x 28 x 11,Fruits & Vegetables || Fresh Vegetables
+P0285,Moonfils Choco Cream (Bauli),Juices,3.5 x 21 x 9,Beverages || Fruit Juices & Drinks
+P0286,Comb - 5 Flat Pocket Derby No 58 (Ego of Paris),"Croissants, Bagels",4.5 x 13 x 9,"Bakery, Cakes & Dairy || Gourmet Breads"
+P0287,Shanti - Badam Amla Hair Oil (Nihar),Tools & Accessories,7.3 x 10.6 x 7.3,Beauty & Hygiene || Hair Care
+P0289,Comb - Derby Deluxe No 05 (Ego of Paris),Hair Oil & Serum,1 x 1 x 1,Beauty & Hygiene || Hair Care
+P0290,Ginger (Fresho),Tools & Accessories,5 x 19 x 13,Beauty & Hygiene || Hair Care
+P0291,Ready Masala - Hyderabadi Biryani (Kohinoor),"Lemon, Ginger & Garlic",5 x 28 x 16,Fruits & Vegetables || Herbs & Seasonings
+P0292,Ready Masala - Punjabi Paneer (Kohinoor),Blended Masalas,8.8 x 15.1 x 8.8,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0293,Ready Masala - Mumbai Pav Bhaji (Kohinoor),Blended Masalas,3 x 23.5 x 17,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0294,Ready Masala - Dilli Choley (Kohinoor),Blended Masalas,9 x 31 x 9,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0295,Ready Masala - Jammu Rajma (Kohinoor),Blended Masalas,5 x 28 x 16,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0296,Ready Masala - Punjabi Butter Chicken (Kohinoor),Blended Masalas,3.5 x 3 x 14,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0297,Instant Creamy Cup-a-Soup - Spinach (Keya),Blended Masalas,11.5 x 18 x 11.5,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0298,Scrub Pad (Scotch brite),Herbs & Seasoning,,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0299,Anti Bacto Scrub (Exo),"Utensil Scrub-Pad, Glove",11 x 5 x 6,"Cleaning & Household || Mops, Brushes & Scrubs"
+P0300,Scrub Pad - Medium (Scrubit),"Utensil Scrub-Pad, Glove",11 x 27 x 19,"Cleaning & Household || Mops, Brushes & Scrubs"
+P0301,Noodles - Chicken (Top Ramen ),"Utensil Scrub-Pad, Glove",5 x 12 x 8,"Cleaning & Household || Mops, Brushes & Scrubs"
+P0302,Mogra Agarbatti (Arham),Instant Noodles,15 x 28 x 60,"Snacks & Branded Foods || Noodle, Pasta, Vermicelli"
+P0303,Herbal Incense Sticks - Goudhooli (Gou Ganga),"Agarbatti, Incense Sticks",6 x 17 x 10,Cleaning & Household || Pooja Needs
+P0304,Cup-A-Soup - Chicken Delite (Knorr),"Agarbatti, Incense Sticks",3.9 x 15.4 x 8.1,Cleaning & Household || Pooja Needs
+P0305,Instant Creamy - Mushroom Soup (Keya),Soups,14 x 35 x 14,Snacks & Branded Foods || Ready To Cook & Eat
+P0309,Instant Cup-A-Soup - Creamy Chicken (Keya),Soups,30 x 31 x 42,Snacks & Branded Foods || Ready To Cook & Eat
+P0310,Instant Creamy Cup-a-Soup - Tomato (Keya),Soups,5 x 15 x 10,Snacks & Branded Foods || Ready To Cook & Eat
+P0311,Instant Cup-A-Soup - Hot & Sour Vegetable (Keya),Soups,1 x 20 x 30,Snacks & Branded Foods || Ready To Cook & Eat
+P0312,Instant Soup - Creamy Mix Veg (Keya),Soups,6 x 10 x 8,Snacks & Branded Foods || Ready To Cook & Eat
+P0313,Instant Cup-A-Soup - Sweet Corn Vegetable (Keya),Soups,11.8 x 24.6 x 9.3,Snacks & Branded Foods || Ready To Cook & Eat
+P0314,Namak (Patanjali),Soups,3 x 18 x 10,Snacks & Branded Foods || Ready To Cook & Eat
+P0316,Masala Oats - Classic Masala (Saffola),Salts,1 x 1 x 1,"Foodgrains, Oil & Masala || Salt, Sugar & Jaggery"
+P0317,Masala Oats - Masala & Coriander (Saffola),Oats & Porridge,3.1 x 19 x 8.8,Snacks & Branded Foods || Snacks & Namkeen
+P0318,Masala Oats - Peppy Tomato (Saffola),Oats & Porridge,3 x 14 x 10,Snacks & Branded Foods || Snacks & Namkeen
+P0319,Masala Oats - Curry & Pepper (Saffola),Oats & Porridge,7.5 x 21.1 x 4.3,Snacks & Branded Foods || Snacks & Namkeen
+P0321,Corn Rings - Masala Mania (Crax),Oats & Porridge,4.3 x 23.3 x 8.5,Snacks & Branded Foods || Snacks & Namkeen
+P0322,Fritts - Cream & Onion (Crax),Chips & Corn Snacks,59 x 88 x 59,Snacks & Branded Foods || Snacks & Namkeen
+P0323,Corn Rings - Tangy Tomato (Crax),Chips & Corn Snacks,6 x 32.5 x 23,Snacks & Branded Foods || Snacks & Namkeen
+P0324,Masala Oats - Pongal Surprise (Saffola),Chips & Corn Snacks,7.5 x 12.5 x 7.5,Snacks & Branded Foods || Snacks & Namkeen
+P0325,Flax Seeds (The Nibble Box),Oats & Porridge,6 x 18.5 x 11,Snacks & Branded Foods || Snacks & Namkeen
+P0326,Fresh Tomato Ketchup (Kissan),Dry Fruits & Berries,3 x 18 x 10,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0327,"Mechanical Pencil - Da Vinci Ii, 0.7mm (Classmate)",Tomato Ketchup & Sauces,2 x 4 x 13,"Snacks & Branded Foods || Spreads, Sauces, Ketchup"
+P0328,Ash Gourd - Cut (Fresho),"Pen, Pencils",2 x 7 x 11,Cleaning & Household || Stationery
+P0329,"Butter Milk - Uht, Spicy (Godrej Jersey)",Cut & Peeled Veggies,5 x 49.5 x 2.5,Fruits & Vegetables || Cuts & Sprouts
+P0330,Soya Chunks - Mini (Nutrela),Buttermilk & Lassi,5 x 10 x 5,"Bakery, Cakes & Dairy || Dairy"
+P0331,Soya Chunks (Nutrela),Cereals & Millets,40.6 x 37 x 36.5,"Foodgrains, Oil & Masala || Dals & Pulses"
+P0332,Filter Coffee (Lavazza),Cereals & Millets,6.9 x 13.2 x 6.9,"Foodgrains, Oil & Masala || Dals & Pulses"
+P0333,Baby Corn - Unpeeled (Fresho),Coffee & Pre-Mix,7.5 x 21 x 10.5,Gourmet & World Food || Drinks & Beverages
+P0334,7 O Clock - Ready Ii Disposable Razor (Gillette),Exotic Vegetables,6 x 20 x 6,Fruits & Vegetables || Exotic Fruits & Veggies
+P0335,Sweet Potato (Fresho),Shaving Care,4.1 x 11 x 4.1,Beauty & Hygiene || Men's Grooming
+P0336,Gold Caramel Candy Stick (ALPENLIEBE),"Potato, Onion & Tomato",11 x 43 x 24,Fruits & Vegetables || Fresh Vegetables
+P0337,Classic Milk Chocolate Candy (Nestle ),"Toffee, Candy & Lollypop",17 x 40 x 30,Snacks & Branded Foods || Chocolates & Candies
+P0339,"Chocolate Bar - Bar One, Charge (Nestle )",Chocolates,12 x 16 x 11.8,Snacks & Branded Foods || Chocolates & Candies
+P0340,Lettuce - Romaine (Fresho),Chocolates,5 x 20 x 13,Snacks & Branded Foods || Chocolates & Candies
+P0341,Lettuce - Red (Fresho),Exotic Vegetables,8.5 x 29.1 x 5.8,Fruits & Vegetables || Fresh Vegetables
+P0342,Leeks (Fresho),Exotic Vegetables,4.5 x 14 x 15,Fruits & Vegetables || Fresh Vegetables
+P0343,Raw Mango (Fresho),Exotic Vegetables,3 x 6 x 4,Fruits & Vegetables || Fresh Vegetables
+P0344,Tasty Twist Sizzling Tandoori Multi-Use Seasoning (Kohinoor),Seasonal Fruits,,Fruits & Vegetables || Fresh Fruits
+P0345,Tasty Twist Dilli Chatpata Multi-Use Seasoning (Kohinoor),Herbs & Seasoning,7 x 23.6 x 8,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0346,Tasty Twist Zingy Schezwan Multi-Use Seasoning (Kohinoor),Herbs & Seasoning,9 x 12 x 9,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0347,Tasty Twist Mumbai Chowpatty Multi-Use Seasoning (Kohinoor),Herbs & Seasoning,4 x 9 x 9,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0348,Tasty Twist Special Navratan Multi-Use Seasoning (Kohinoor),Herbs & Seasoning,7.4 x 15.3 x 12.9,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0350,Kumkum (GOPURAM),Herbs & Seasoning,2 x 15 x 10,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0351,Winter Glow Face Cream (Glow & Lovely),Other Pooja Needs,1.8 x 11.2 x 9.5,Cleaning & Household || Pooja Needs
+P0352,Water Plus (Tata ),Face Care,5 x 20 x 15,Beauty & Hygiene || Skin Care
+P0353,Organic Spouts Horse Gram (Fresho),Packaged Water,4 x 22 x 7.5,Beverages || Water
+P0354,Lettuce - Romaine (Fresho),Fresh Salads & Sprouts,5 x 28 x 16,Fruits & Vegetables || Cuts & Sprouts
+P0355,Lettuce - Red (Fresho),Exotic Vegetables,30 x 5 x 28,Fruits & Vegetables || Exotic Fruits & Veggies
+P0356,Leeks (Fresho),Exotic Vegetables,2 x 6 x 10,Fruits & Vegetables || Exotic Fruits & Veggies
+P0357,Turmeric Powder/Arisina Pudi (Eastern),Exotic Vegetables,1 x 1 x 1,Fruits & Vegetables || Exotic Fruits & Veggies
+P0358,Celery (Fresho),Powdered Spices,10 x 10 x 10,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0360,Celery (Fresho),Indian & Exotic Herbs,5 x 28 x 16,Fruits & Vegetables || Herbs & Seasonings
+P0361,Hommade - Imli Sauce (Saunth) (Dabur),Indian & Exotic Herbs,6 x 48 x 6,Fruits & Vegetables || Exotic Fruits & Veggies
+P0362,Chow Chow (Fresho),Tomato Ketchup & Sauces,6 x 7 x 12.2,"Snacks & Branded Foods || Spreads, Sauces, Ketchup"
+P0363,Tapioca (Fresho),"Gourd, Pumpkin, Drumstick",5 x 12 x 8,Fruits & Vegetables || Fresh Vegetables
+P0364,Black Mustard/Sasive/Rai - Big (bb Popular),Root Vegetables,4 x 4 x 12.5,Fruits & Vegetables || Fresh Vegetables
+P0365,Toothbrush - Triple Clean Soft (Pepsodent),Whole Spices,8 x 14 x 40.5,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0366,Triple Clean Toothbrush - Medium (Pepsodent),Toothbrush,6.8 x 8.5 x 7,Beauty & Hygiene || Oral Care
+P0367,"Dog Treats - Real Chicken Biscuits, Chicken Flavour (Purepet)",Toothbrush,3 x 26.5 x 17,Beauty & Hygiene || Oral Care
+P0368,"Dog Food - Chicken & Egg, Adult (Drools)",Pet Meals & Treats,2.5 x 11.5 x 11.5,"Kitchen, Garden & Pets || Pet Food & Accessories"
+P0369,Salt/Uppu - Crystal (Akar),Pet Meals & Treats,7 x 8 x 13,"Kitchen, Garden & Pets || Pet Food & Accessories"
+P0370,Skin Lightening Natural Fruit Bleach (Olivia),Salts,2 x 21 x 11,"Foodgrains, Oil & Masala || Salt, Sugar & Jaggery"
+P0371,Skin Lightening Shiner Bleach With Diamond Dust (Olivia),Face Care,6.2 x 16.8 x 6.2,Beauty & Hygiene || Skin Care
+P0372,Skin Lightening Oxygen Bleach - Rich Fairness (Olivia),Face Care,2 x 7 x 2.5,Beauty & Hygiene || Skin Care
+P0373,Mini Puffs - Cheese N Herbs (GoodDiet),Face Care,5 x 18 x 14,Beauty & Hygiene || Skin Care
+P0374,Packaged Drinking Water (Bindu),"Healthy, Baked Snacks",27 x 26.5 x 25,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0375,Anti Bacteria Fabric Stiffener - Instant Starch (Revive),Packaged Water,1 x 1 x 1,Beverages || Water
+P0376,Paste - Ginger Garlic (Eastern),"Detergent Powder, Liquid",2 x 13 x 8,Cleaning & Household || Detergents & Dishwash
+P0377,Powder - Tomato Rice (Annapoorna),Cooking Pastes,2 x 27 x 21,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0379,Jeera Masala Flavoured Soda (Dhishoom),Blended Masalas,8 x 13 x 8,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0380,Digestive Biscuits - No Added Sugar (Mcvities),Cold Drinks,2.5 x 16.4 x 7,Beverages || Energy & Soft Drinks
+P0381,Treat Stars - Creme & Milk Choco Duo Cream Biscuits (Britannia),Cookies,2 x 9 x 3,Snacks & Branded Foods || Biscuits & Cookies
+P0382,Treat Stars - Creme & White Choco Duo Cream Biscuits (Britannia),Cream Biscuits & Wafers,3.2 x 13.7 x 12.7,Snacks & Branded Foods || Biscuits & Cookies
+P0383,Masala Oats - Chinese (Saffola),Cream Biscuits & Wafers,24 x 8 x 18,Snacks & Branded Foods || Biscuits & Cookies
+P0384,Tapioca - Organically Grown (Fresho),Oats & Porridge,1 x 1 x 1,Snacks & Branded Foods || Breakfast Cereals
+P0385,Pre Mixed Cubes - Rat Killer (HIT),Organic Vegetables,3.8 x 15.4 x 6.6,Fruits & Vegetables || Fresh Vegetables
+P0386,Green Chilly - Chopped (Fresho),Insect Repellent,9.2 x 16 x 6.5,Cleaning & Household || Fresheners & Repellents
+P0387,Chat Masala (bb Royal),Cut & Peeled Veggies,2 x 10 x 8,Fruits & Vegetables || Herbs & Seasonings
+P0388,Pani Puri Masala (bb Royal),Powdered Spices,1 x 20 x 30,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0389,Sambar Masala (bb Royal),Powdered Spices,10.2 x 31.7 x 10.2,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0390,Paneer Masala (bb Royal),Powdered Spices,4.5 x 17 x 4.5,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0391,Powder - Chilli (Aashirvaad),Powdered Spices,6.8 x 22 x 14,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0392,Fennel/Saunf/Sompu - Small (bb Popular),Powdered Spices,6 x 32.5 x 40.5,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0393,Extra Clean Toothbrush Medium (Colgate),Whole Spices,7 x 12 x 7,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0394,Tapioca - Organically Grown (Fresho),Toothbrush,14 x 6 x 3,Beauty & Hygiene || Oral Care
+P0395,Instant Noodle - Special Chicken Flavour (Indomie),Organic Vegetables,14 x 23 x 13,Fruits & Vegetables || Organic Fruits & Vegetables
+P0396,Instant Noodle - Chicken Flavour (Indomie),Imported Noodles,3 x 7 x 3,"Gourmet & World Food || Pasta, Soup & Noodles"
+P0397,Candy - Kusari (Balaji foods),Imported Noodles,1 x 23 x 4,"Gourmet & World Food || Pasta, Soup & Noodles"
+P0398,Candy - Kusari (Kiara Foods),Other Pooja Needs,5 x 5 x 5,Cleaning & Household || Pooja Needs
+P0399,Synthetic Food Colour Preparation Kesar Yellow (999),Other Pooja Needs,2.3 x 7.5 x 4,Cleaning & Household || Pooja Needs
+P0400,Iodized (Tata Salt),Home Baking,2 x 27 x 21,Snacks & Branded Foods || Ready To Cook & Eat
+P0401,Iodised Crystal Salt/Uppu (Tata Salt),Salts,2 x 22 x 6,"Foodgrains, Oil & Masala || Salt, Sugar & Jaggery"
+P0402,Multigrain Chips - Tangy Tomato (Too Yumm!),Salts,2.8 x 7.3 x 7,"Foodgrains, Oil & Masala || Salt, Sugar & Jaggery"
+P0403,Veggie Stix - Chilly Chataka (Too Yumm!),Chips & Corn Snacks,1 x 5.1 x 9.2,Snacks & Branded Foods || Snacks & Namkeen
+P0405,Groovy Chips - Spicy Tomato (Time Pass),Chips & Corn Snacks,5.2 x 20.4 x 10.2,Snacks & Branded Foods || Snacks & Namkeen
+P0406,Time Pass Chips - Minty Pudina (Time Pass),Namkeen & Savoury Snacks,4.5 x 4.5 x 31,Snacks & Branded Foods || Snacks & Namkeen
+P0407,Masala Oats - Chinese (Saffola),Namkeen & Savoury Snacks,5 x 28 x 16,Snacks & Branded Foods || Snacks & Namkeen
+P0408,Green Chilly - Chopped (Fresho),Oats & Porridge,6.5 x 28.2 x 19,Snacks & Branded Foods || Snacks & Namkeen
+P0409,Kool - Kesar (Amul),Cut & Peeled Veggies,3 x 14 x 6,Fruits & Vegetables || Cuts & Sprouts
+P0410,Winkin Cow Classic Lassi (Britannia),"Flavoured, Soya Milk",16.5 x 1 x 8,"Bakery, Cakes & Dairy || Dairy"
+P0411,New Born - 2 Diaper Pants (Pampers ),"Flavoured, Soya Milk",9.7 x 17.3 x 12.5,"Bakery, Cakes & Dairy || Dairy"
+P0412,Soda - The Club (Bisleri ),Diapers,4 x 11.3 x 4,Baby Care || Diapers & Wipes
+P0413,Cauliflower (Fresho),Soda & Cocktail Mix,0 x 0 x 0,Beverages || Energy & Soft Drinks
+P0414,Fenugreek/Methi/Menthya (bb Popular),Cabbage & Cauliflower,4.6 x 21.8 x 8.6,Fruits & Vegetables || Fresh Vegetables
+P0415,Crystals - Citric Acid (Eagle),Whole Spices,23 x 17 x 1,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0416,Pineapple Flavouring Agent (Bush),Home Baking,5 x 28 x 16,Snacks & Branded Foods || Ready To Cook & Eat
+P0417,Rose White Flavouring Agent (Bush),Home Baking,17 x 5 x 17,Snacks & Branded Foods || Ready To Cook & Eat
+P0418,Farmlite Veda Digestive Biscuit (Sunfeast),Home Baking,3 x 16 x 8,Snacks & Branded Foods || Ready To Cook & Eat
+P0419,Cucumber - Organically Grown (Fresho),"Marie, Health, Digestive",8 x 15 x 13,Snacks & Branded Foods || Biscuits & Cookies
+P0420,Mustard Leaves (Sarso Saag) (Fresho),Organic Vegetables,3 x 3 x 35,Fruits & Vegetables || Fresh Vegetables
+P0421,Snake gourd - Diced (Fresho),Leafy Vegetables,5 x 28 x 16,Fruits & Vegetables || Fresh Vegetables
+P0422,Sugarcane - Diced (Fresho),Cut & Peeled Veggies,5 x 16 x 6,Fruits & Vegetables || Fresh Vegetables
+P0423,"Pineapple - Chunks, Single Serve (Fresho)","Cut Fruit, Tender Coconut",,Fruits & Vegetables || Fresh Fruits
+P0424,Fruit Power - Masala Sugarcane (Real),"Cut Fruit, Tender Coconut",2 x 17 x 14,Fruits & Vegetables || Fresh Fruits
+P0425,Juice - Rose Lychee (B Natural),Juices,9.7 x 25 x 9.7,Beverages || Fruit Juices & Drinks
+P0426,Juice - Pink Guava (B Natural),Juices,1.6 x 12 x 8,Beverages || Fruit Juices & Drinks
+P0427,Juice - Orange (B Natural),Juices,8.5 x 24 x 9,Beverages || Fruit Juices & Drinks
+P0428,Mustard/Sasive/Rai - Yellow (bb Royal),Juices,9.5 x 23.5 x 15.5,Beverages || Fruit Juices & Drinks
+P0429,Black Salt/Kala Namak - Whole (bb Royal),Whole Spices,8 x 15 x 12,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0430,Ready Masala - Kashmiri Meat (Kohinoor),Whole Spices,10 x 10 x 15,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0431,Kitchen Scrubber - Stainless Steel (Liao),Blended Masalas,5 x 21 x 11.3,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0432,Vermicelli (Anil),"Utensil Scrub-Pad, Glove",13.6 x 7 x 14.4,"Cleaning & Household || Mops, Brushes & Scrubs"
+P0433,Cucumber - Organically Grown (Fresho),Vermicelli,24 x 10 x 34,"Snacks & Branded Foods || Noodle, Pasta, Vermicelli"
+P0435,Birthday Candle - No. 5 (B Vishal),Organic Vegetables,1 x 4 x 10,Fruits & Vegetables || Organic Fruits & Vegetables
+P0436,Birthday Candle - No. 1 (B Vishal),"Caps, Balloons & Candles",5 x 25 x 15,Cleaning & Household || Party & Festive Needs
+P0437,Namkeen - Cornflakes Masala (Sln  ),"Caps, Balloons & Candles",9 x 23 x 13,Cleaning & Household || Party & Festive Needs
+P0438,Namkeen - Rice Kodubale (Sln  ),Namkeen & Savoury Snacks,1.5 x 14 x 10,Snacks & Branded Foods || Snacks & Namkeen
+P0439,"Crayons - Wax Colour, 75X8mm (Classmate)",Namkeen & Savoury Snacks,2.5 x 17 x 13,Snacks & Branded Foods || Snacks & Namkeen
+P0440,Sugarcane - Diced (Fresho),Colours & Crayons,5 x 5 x 5,Cleaning & Household || Stationery
+P0441,"Pineapple - Chunks, Single Serve (Fresho)","Cut Fruit, Tender Coconut",6 x 11 x 6,Fruits & Vegetables || Cuts & Sprouts
+P0442,Snake gourd - Diced (Fresho),"Cut Fruit, Tender Coconut",7.1 x 16.4 x 7.1,Fruits & Vegetables || Cuts & Sprouts
+P0443,Cucumber - English (Fresho),Cut & Peeled Veggies,2 x 22.5 x 9,Fruits & Vegetables || Cuts & Sprouts
+P0444,Bitter Gourd (Fresho),Cucumber & Capsicum,2 x 15 x 10,Fruits & Vegetables || Fresh Vegetables
+P0445,Cucumber - English (Fresho),"Gourd, Pumpkin, Drumstick",8 x 25 x 20,Fruits & Vegetables || Fresh Vegetables
+P0446,Hapima Crispy Fry Mix (Ajinomoto),Cucumber & Capsicum,7 x 24 x 10,Fruits & Vegetables || Exotic Fruits & Veggies
+P0447,Prickly Heat Powder - Sandal (Dermi Cool),Rice & Other Flours,6.5 x 7 x 17.5,"Foodgrains, Oil & Masala || Atta, Flours & Sooji"
+P0448,Milk Bikis Milk Cream Biscuits (Britannia),Talcum Powder,2 x 19 x 14,Beauty & Hygiene || Bath & Hand Wash
+P0450,Good Day Butter Cookies (Britannia),Cream Biscuits & Wafers,3.3 x 8.6 x 3.3,Snacks & Branded Foods || Biscuits & Cookies
+P0451,Dream Cream - Strawberry Vanilla (Sunfeast),Cookies,2 x 15 x 8,Snacks & Branded Foods || Biscuits & Cookies
+P0452,Dream Cream - Choco Vanilla Biscuits (Sunfeast),Cream Biscuits & Wafers,8 x 6 x 26.5,Snacks & Branded Foods || Biscuits & Cookies
+P0453,Dream Cream Biscuits - Butterscotch Zing (Sunfeast),Cream Biscuits & Wafers,1 x 25 x 18,Snacks & Branded Foods || Biscuits & Cookies
+P0454,Fruit Bread (Britannia),Cream Biscuits & Wafers,4.5 x 18.5 x 14,Snacks & Branded Foods || Biscuits & Cookies
+P0455,Bread - Fruit (English Oven),"Milk, White & Sandwich",2.1 x 19 x 14,"Bakery, Cakes & Dairy || Breads & Buns"
+P0456,Corn Flakes (Kelloggs),"Milk, White & Sandwich",4 x 11 x 10,"Bakery, Cakes & Dairy || Breads & Buns"
+P0457,Chocos Corn Flakes (Kelloggs),Flakes,5 x 28 x 16,Snacks & Branded Foods || Breakfast Cereals
+P0458,"Snacks - Sticks, Carrot & Cumin, 2+ Years, 100% Natural & Healthy (Timios)",Kids Cereal,4 x 6.5 x 11,Snacks & Branded Foods || Breakfast Cereals
+P0459,"Snacks - Rings, Tomato & Cheese, 2+ Years, 100% Natural & Healthy (Timios)",Chips & Corn Snacks,9.5 x 34.5 x 9.5,Snacks & Branded Foods || Breakfast Cereals
+P0460,"Snacks - Stars, Banana & Honey, 2+ Years, 100% Natural & Healthy (Timios)",Chips & Corn Snacks,5 x 28 x 16,Snacks & Branded Foods || Breakfast Cereals
+P0461,Yum Yum - Vanilla Cake (Milk Ma),Chips & Corn Snacks,7 x 20 x 13,Snacks & Branded Foods || Breakfast Cereals
+P0462,Yum Yum - Pineapple Cake (Milk Ma),Tea Cakes & Slice Cakes,5 x 8.5 x 5,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0463,Yum Yum - Chocolate Cake (Milk Ma),Tea Cakes & Slice Cakes,5 x 28 x 16,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0464,Millet Based Nutrition Bar - Classic (Ah!rogya Bar),Tea Cakes & Slice Cakes,2.3 x 20 x 10.5,"Bakery, Cakes & Dairy || Cakes & Pastries"
+P0465,Kitkat 3 Fingers (Nestle ),Cereal & Granola Bars,,Gourmet & World Food || Cereals & Breakfast
+P0466,Creamy Milky & Cocoa Chocolate With Extruded Rice (Kinder),Chocolates,4.5 x 7 x 7,Snacks & Branded Foods || Chocolates & Candies
+P0467,Choco Deck - French Dessert Inspired Layered Bar (Fabelle),Chocolates,2.5 x 17 x 7,Snacks & Branded Foods || Chocolates & Candies
+P0468,White Xylitol Sugarfree Spearmint Flavour Chewing Gum - Fliptop (Happydent ),Chocolates,5 x 42 x 12,Snacks & Branded Foods || Chocolates & Candies
+P0469,Rusk - Original (Elite),Mints & Chewing Gum,3.8 x 21.6 x 35,Snacks & Branded Foods || Chocolates & Candies
+P0470,Multigrain Biscuit (Chai Point),Rusks,7 x 18 x 19,"Bakery, Cakes & Dairy || Cookies, Rusk & Khari"
+P0471,Masala Biscuit (Chai Point),"Bakery Biscuits, Cookies",14 x 35 x 14,"Bakery, Cakes & Dairy || Cookies, Rusk & Khari"
+P0473,Amaranthus - Red (Fresho),"Bakery Biscuits, Cookies",5 x 5 x 5,"Bakery, Cakes & Dairy || Cookies, Rusk & Khari"
+P0474,Baby Potato (Fresho),Leafy Vegetables,5 x 5 x 5,Fruits & Vegetables || Fresh Vegetables
+P0475,Beetroot - Organically Grown (Fresho),Exotic Vegetables,4.5 x 16.7 x 9,Fruits & Vegetables || Fresh Vegetables
+P0476,Amaranthus - Green (Fresho),Organic Vegetables,22 x 10 x 32,Fruits & Vegetables || Fresh Vegetables
+P0477,Gongura Leaves/Pulicha (Fresho),Leafy Vegetables,1 x 15 x 7,Fruits & Vegetables || Fresh Vegetables
+P0478,"Beans - Cluster, Organically Grown (Fresho)",Leafy Vegetables,3 x 17 x 12.5,Fruits & Vegetables || Fresh Vegetables
+P0480,Arai Keerai (Fresho),Organic Vegetables,5 x 15.2 x 9.9,Fruits & Vegetables || Fresh Vegetables
+P0481,Snake Gourd - Organically Grown (Fresho),Leafy Vegetables,5 x 24 x 16,Fruits & Vegetables || Fresh Vegetables
+P0482,Cabbage - Organically Grown (Fresho),Organic Vegetables,,Fruits & Vegetables || Fresh Vegetables
+P0483,Chalk Strong - For Cockroaches (Krazy Lines),Organic Vegetables,2 x 27 x 21,Fruits & Vegetables || Fresh Vegetables
+P0484,Grapes - Bangalore Blue with Seed (Fresho),Insect Repellent,1 x 1 x 1,Cleaning & Household || Fresheners & Repellents
+P0485,Banana - Raw Green (Fresho),Seasonal Fruits,8.5 x 12 x 16,Fruits & Vegetables || Fresh Fruits
+P0486,Coconut - (For Kalash with Jatta) (Fresho),"Banana, Sapota & Papaya",6.5 x 7.5 x 12,Fruits & Vegetables || Fresh Fruits
+P0487,Soft Drink - With Real Lemon Juice (7 Up Nimbooz),Seasonal Fruits,5 x 28 x 16,Fruits & Vegetables || Fresh Fruits
+P0489,"Lychee Ras, Litchi Juice (Paper Boat)",Juices,3.3 x 13 x 16,Beverages || Fruit Juices & Drinks
+P0490,Fruit Power Juice - Mango (Real),Juices,7.1 x 6.6 x 7.1,Beverages || Fruit Juices & Drinks
+P0491,Aam Panna - Mango Drink (Paper Boat),Juices,25 x 10 x 12,Beverages || Fruit Juices & Drinks
+P0492,Amla Plus (Dabur),Juices,8 x 9 x 10,Beverages || Fruit Juices & Drinks
+P0493,Apple Juice Based Drink (Appy Fizz),Juices,4 x 45 x 12,Beverages || Fruit Juices & Drinks
+P0494,Juice - Mixed Fruit & Dry Fruits (B Natural),Juices,10 x 14 x 11,Beverages || Fruit Juices & Drinks
+P0495,Guava Delight Juice - Aseptic Pack (Tropicana),Juices,3 x 10 x 3,Beverages || Fruit Juices & Drinks
+P0496,Coconut Oil - 100 % Pure (Parachute ),Juices,20 x 12 x 20,Beverages || Fruit Juices & Drinks
+P0497,Comb - Derby Deluxe No 02 (Ego of Paris),Hair Oil & Serum,4 x 11 x 21,Beauty & Hygiene || Hair Care
+P0498,Cough Drops - Ginger (Vicks),Tools & Accessories,20 x 35 x 24,Beauty & Hygiene || Hair Care
+P0499,Cough Drops - Menthol (Vicks),Everyday Medicine,2.5 x 5.8 x 15.5,Beauty & Hygiene || Health & Medicine
+P0500,Bay Leaf/Lavangada Ele (bb Royal),Everyday Medicine,8 x 23 x 8,Beauty & Hygiene || Health & Medicine
+P0501,Organic - Mustard/Sasive/Rai Yellow (bb Royal),Whole Spices,5.8 x 16.6 x 9,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0502,Veg Dum Biryani Masala (Keya),Organic Masalas & Spices,1.5 x 10 x 8.5,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0503,Awadhi Kadhai Veg Masala (Keya),Blended Masalas,2.7 x 23 x 4.5,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0504,Awadhi Kadhai Chicken Masala (Keya),Blended Masalas,4.5 x 16.7 x 9,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0505,Masala - Chilly Gobi (Annapoorna),Blended Masalas,1 x 14 x 14,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0506,Chakra Stainless Steel Scrub (Scotch brite),Blended Masalas,2.5 x 16.5 x 16.5,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0507,"Scrub Pad - Anti- Bacterial, Regular (Scotch brite)","Utensil Scrub-Pad, Glove",1 x 3.5 x 13.5,"Cleaning & Household || Mops, Brushes & Scrubs"
+P0508,Scrub Pad - Regular Large (Good Home),"Utensil Scrub-Pad, Glove",1 x 25 x 7,"Cleaning & Household || Mops, Brushes & Scrubs"
+P0509,Fusian Hong Kong Spicy Garlic Noodles (MAGGI ),"Utensil Scrub-Pad, Glove",4.4 x 22 x 8.8,"Cleaning & Household || Mops, Brushes & Scrubs"
+P0510,Strong Garlic Instant Noodles (A&M),Instant Noodles,4.9 x 21.3 x 8.4,"Snacks & Branded Foods || Noodle, Pasta, Vermicelli"
+P0511,Super Shine Soft Bristle Toothbrush (Colgate),Instant Noodles,3.5 x 4 x 26,"Snacks & Branded Foods || Noodle, Pasta, Vermicelli"
+P0512,Super Shine Medium Bristle Toothbrush (Colgate),Toothbrush,5 x 26 x 10,Beauty & Hygiene || Oral Care
+P0513,Toothbrush Fighter - Soft (Pepsodent),Toothbrush,5 x 35 x 5,Beauty & Hygiene || Oral Care
+P0514,Tongue Scraper (Refresh Plus),Toothbrush,2 x 27 x 21,Beauty & Hygiene || Oral Care
+P0515,Beetroot - Organically Grown (Fresho),Toothbrush,40 x 30 x 40,Beauty & Hygiene || Oral Care
+P0516,Sweet Potato - Organically Grown (Fresho),Organic Vegetables,20 x 30 x 34,Fruits & Vegetables || Organic Fruits & Vegetables
+P0517,"Beans - Cluster, Organically Grown (Fresho)",Organic Vegetables,5 x 28 x 16,Fruits & Vegetables || Organic Fruits & Vegetables
+P0518,Cabbage - Organically Grown (Fresho),Organic Vegetables,2 x 19 x 10.5,Fruits & Vegetables || Organic Fruits & Vegetables
+P0519,Organic - Mustard/Sasive/Rai Yellow (bb Royal),Organic Vegetables,1 x 11 x 2.5,Fruits & Vegetables || Organic Fruits & Vegetables
+P0520,Fields Of Gold Organic Mustard/Sasive - Bold (PRISTINE),Organic Masalas & Spices,6.2 x 16.8 x 6.2,"Foodgrains, Oil & Masala || Organic Staples"
+P0521,Surabhi Dhoop - Natural Perfume (Gou Ganga),Organic Masalas & Spices,5.5 x 5.5 x 31,"Foodgrains, Oil & Masala || Organic Staples"
+P0522,Dhoop Cone (Om sri Kar),Other Pooja Needs,16 x 16 x 27,Cleaning & Household || Pooja Needs
+P0523,Powder - Viboothi (Murugesan),"Agarbatti, Incense Sticks",3 x 17 x 12,Cleaning & Household || Pooja Needs
+P0524,Pooja Essential (Gomutra),Other Pooja Needs,2 x 25 x 9,Cleaning & Household || Pooja Needs
+P0525,Agarbathi Natural Incense Sticks - Chandan Sandalwood (Gou Ganga),Other Pooja Needs,6 x 17 x 17,Cleaning & Household || Pooja Needs
+P0526,Agarbathi - Velvet (Soft Touch),"Agarbatti, Incense Sticks",1 x 1 x 1,Cleaning & Household || Pooja Needs
+P0527,Puja Wicks - Pulla Vathulu long Batti (Jaji),"Agarbatti, Incense Sticks",4.5 x 20 x 15.5,Cleaning & Household || Pooja Needs
+P0528,Fragrance of Temple Gold Tradition (Mangaldeep),Camphor & Wicks,3 x 12 x 10,Cleaning & Household || Pooja Needs
+P0529,Puja Flower Wicks - Puvvu Vathulu Batti (Jaji),"Agarbatti, Incense Sticks",2 x 16.5 x 9.5,Cleaning & Household || Pooja Needs
+P0531,Agarbathi Natural Incense Sticks - Lavender (Gou Ganga),Camphor & Wicks,6 x 19 x 6,Cleaning & Household || Pooja Needs
+P0532,Agarbathi - Natural Incense Sticks (Jasmine) (Gou Ganga),"Agarbatti, Incense Sticks",17 x 4 x 22,Cleaning & Household || Pooja Needs
+P0533,"Snacks - Sticks, Carrot & Cumin, 2+ Years, 100% Natural & Healthy (Timios)","Agarbatti, Incense Sticks",6 x 6 x 15,Cleaning & Household || Pooja Needs
+P0534,"Snacks - Rings, Tomato & Cheese, 2+ Years, 100% Natural & Healthy (Timios)",Chips & Corn Snacks,3 x 17 x 9,Snacks & Branded Foods || Ready To Cook & Eat
+P0535,Synthetic Food Colour Preparation Orange Red (999),Chips & Corn Snacks,5 x 28 x 16,Snacks & Branded Foods || Ready To Cook & Eat
+P0536,"Snacks - Stars, Banana & Honey, 2+ Years, 100% Natural & Healthy (Timios)",Home Baking,7 x 22 x 7,Snacks & Branded Foods || Ready To Cook & Eat
+P0537,Synthetic Food Colour Preparation Apple Green (999),Chips & Corn Snacks,4.4 x 18.6 x 7.5,Snacks & Branded Foods || Ready To Cook & Eat
+P0538,Synthetic Food Colour Preparation Lemon Yellow (999),Home Baking,24.5 x 6.3 x 31.9,Snacks & Branded Foods || Ready To Cook & Eat
+P0539,Masala Upma (MOM Meal of the Moment),Home Baking,6 x 22 x 23,Snacks & Branded Foods || Ready To Cook & Eat
+P0540,Khatta Meetha Poha (MOM),Heat & Eat Ready Meals,5 x 3 x 3,Snacks & Branded Foods || Ready To Cook & Eat
+P0541,Glucose - Liquid (Ask Foods),Heat & Eat Ready Meals,22 x 22 x 25,Snacks & Branded Foods || Ready To Cook & Eat
+P0543,Salt/Uppu - Proactive (Aashirvaad),Home Baking,5.5 x 12.5 x 12,Snacks & Branded Foods || Ready To Cook & Eat
+P0544,Black Salt/Uppu Powder (Grocery Farm),Salts,10 x 30 x 30,"Foodgrains, Oil & Masala || Salt, Sugar & Jaggery"
+P0545,Potato Chips - Simple Classic Salted (Lays),Salts,5 x 7 x 24,"Foodgrains, Oil & Masala || Salt, Sugar & Jaggery"
+P0546,Potato Chips - Spanish Tomato Tango (Lays),Chips & Corn Snacks,15.2 x 7.5 x 15.2,Snacks & Branded Foods || Snacks & Namkeen
+P0547,Namkeen - Masala Munch (Kurkure),Chips & Corn Snacks,5 x 10 x 5,Snacks & Branded Foods || Snacks & Namkeen
+P0548,"Snacks - Sticks, Carrot & Cumin, 2+ Years, 100% Natural & Healthy (Timios)",Chips & Corn Snacks,5 x 12 x 5,Snacks & Branded Foods || Snacks & Namkeen
+P0549,"Snacks - Rings, Tomato & Cheese, 2+ Years, 100% Natural & Healthy (Timios)",Chips & Corn Snacks,5.5 x 23.4 x 7.3,Snacks & Branded Foods || Snacks & Namkeen
+P0550,Mad Angles - Very Peri Peri (Bingo),Chips & Corn Snacks,1 x 1 x 1,Snacks & Branded Foods || Snacks & Namkeen
+P0551,"Snacks - Stars, Banana & Honey, 2+ Years, 100% Natural & Healthy (Timios)",Namkeen & Savoury Snacks,2 x 15 x 13,Snacks & Branded Foods || Snacks & Namkeen
+P0552,Potato Chips - Salted (Bingo),Chips & Corn Snacks,20 x 2 x 25,Snacks & Branded Foods || Snacks & Namkeen
+P0553,No Rulz Cheese Curlz Corn Puffs (Bingo),Chips & Corn Snacks,6 x 32.5 x 21.5,Snacks & Branded Foods || Snacks & Namkeen
+P0554,Tortilla Chips - Sweet Chili Flavour (Doritos),Chips & Corn Snacks,30 x 2 x 24,Snacks & Branded Foods || Snacks & Namkeen
+P0555,RTE BUTTER POPCORN PP (ACT II),Chips & Corn Snacks,5 x 17 x 12,Snacks & Branded Foods || Snacks & Namkeen
+P0556,Vitamin Enriched Khakhro - Peri Peri Africana (Befikar),Chips & Corn Snacks,6.6 x 15 x 6.6,Snacks & Branded Foods || Snacks & Namkeen
+P0557,Vitamin Enriched Khakhro - Cheesy Oregano (Befikar),Namkeen & Savoury Snacks,7 x 39 x 16,Snacks & Branded Foods || Snacks & Namkeen
+P0559,Namkeen - Double Mazza (Crax),Namkeen & Savoury Snacks,13.4 x 31.1 x 13.4,Snacks & Branded Foods || Snacks & Namkeen
+P0560,Namkeen - Nav Rattan (Crax),Namkeen & Savoury Snacks,3 x 25.5 x 15,Snacks & Branded Foods || Snacks & Namkeen
+P0561,Namkeen - Aloo Bhujia (Crax),Namkeen & Savoury Snacks,1 x 1 x 1,Snacks & Branded Foods || Snacks & Namkeen
+P0563,Namkeen - Khatta Mitha (Crax),Namkeen & Savoury Snacks,9 x 6.5 x 25.5,Snacks & Branded Foods || Snacks & Namkeen
+P0564,Ragi Bites - Epic Masala (Soulfull),Namkeen & Savoury Snacks,1.5 x 9 x 12,Snacks & Branded Foods || Snacks & Namkeen
+P0565,Namkeen - Moong Dal (Crax),Namkeen & Savoury Snacks,4.5 x 16 x 17,Snacks & Branded Foods || Snacks & Namkeen
+P0566,Namkeen - Bikaneri Bhujia (Crax),Namkeen & Savoury Snacks,5 x 20 x 15,Snacks & Branded Foods || Snacks & Namkeen
+P0567,Ragi Bites - Cra-azy Cheese (Soulfull),Namkeen & Savoury Snacks,4 x 2 x 6,Snacks & Branded Foods || Snacks & Namkeen
+P0568,Naan Chips - Chatpata Pudina (Wingreens Farms),Namkeen & Savoury Snacks,5 x 20 x 30,Snacks & Branded Foods || Snacks & Namkeen
+P0569,Watermelon Seeds (The Nibble Box),Nachos & Chips,5 x 25 x 15,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0570,Mixed Fruit Jam (Kissan),Dry Fruits & Berries,2 x 11 x 3.5,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0571,Secret Dark Soy Sauce (Chings),"Jam, Conserve, Marmalade",10 x 45 x 10,"Snacks & Branded Foods || Spreads, Sauces, Ketchup"
+P0572,Secret Green Chilli Sauce (Chings),Chilli & Soya Sauce,1 x 18.6 x 2,"Snacks & Branded Foods || Spreads, Sauces, Ketchup"
+P0574,Secret Red Chilli Sauce (Chings),Chilli & Soya Sauce,1.7 x 4.5 x 14.2,"Snacks & Branded Foods || Spreads, Sauces, Ketchup"
+P0575,Permanent Marker Pen - Blue (Camlin),Chilli & Soya Sauce,26 x 28 x 9,"Snacks & Branded Foods || Spreads, Sauces, Ketchup"
+P0576,Fevikwik One Drop Instant Adhesive (Pidilite),"Pen, Pencils",15 x 17.5 x 15,Cleaning & Household || Stationery
+P0577,Glue Stick Non Toxic - Small (Kores),"Scissor, Glue & Tape",8 x 47 x 28,Cleaning & Household || Stationery
+P0578,Lassi (Amul),"Scissor, Glue & Tape",4 x 14 x 4,Cleaning & Household || Stationery
+P0579,Kool - Badam (Amul),Buttermilk & Lassi,4.8 x 20.5 x 14.3,"Bakery, Cakes & Dairy || Dairy"
+P0580,Daily Fresh - Dahi (Britannia),"Flavoured, Soya Milk",4.5 x 21.8 x 4.5,"Bakery, Cakes & Dairy || Dairy"
+P0581,Kool - Elaichi (Amul),Curd,3.5 x 19 x 14.5,"Bakery, Cakes & Dairy || Dairy"
+P0582,Lassi (Paper Boat),"Flavoured, Soya Milk",4.9 x 16.5 x 7,"Bakery, Cakes & Dairy || Dairy"
+P0583,Rose Lassi (Cavins),Buttermilk & Lassi,2 x 9 x 9,"Bakery, Cakes & Dairy || Dairy"
+P0584,Irish Drink Shot (Amul),Buttermilk & Lassi,10 x 17.5 x 11,"Bakery, Cakes & Dairy || Dairy"
+P0585,Fruit Yoghurt - Blueberry (Milky Mist),"Flavoured, Soya Milk",4.6 x 19.9 x 12.9,"Bakery, Cakes & Dairy || Dairy"
+P0587,Kool - Thandai Flavour (Amul),Yogurt & Shrikhand,5.7 x 8.8 x 9.1,"Bakery, Cakes & Dairy || Dairy"
+P0588,Dishwash Liquid (Pril),"Flavoured, Soya Milk",10 x 40 x 30,"Bakery, Cakes & Dairy || Dairy"
+P0589,Tamarind Dishwash Liquid (Pril),Dishwash Liquids & Pastes,7.5 x 21.1 x 4.3,Cleaning & Household || Detergents & Dishwash
+P0590,Sparkling Water - Club Soda (Kinley),Dishwash Liquids & Pastes,2 x 17.5 x 3,Cleaning & Household || Detergents & Dishwash
+P0591,Club Soda - Evervess (Lehar),Soda & Cocktail Mix,8.5 x 12 x 8.5,Beverages || Energy & Soft Drinks
+P0592,Soft  Drink (Thums Up),Soda & Cocktail Mix,5 x 28 x 16,Beverages || Energy & Soft Drinks
+P0593,Glucose D (Moti's),Cold Drinks,44 x 88 x 47,Beverages || Energy & Soft Drinks
+P0594,Spyci  - Masala Maar Ke (Bisleri ),Sports & Energy Drinks,8 x 6 x 8,Beverages || Energy & Soft Drinks
+P0595,Grapes - Bangalore Blue with Seed (Fresho),Cold Drinks,3.5 x 7 x 11,Beverages || Energy & Soft Drinks
+P0596,Amaranthus - Red (Fresho),Seasonal Fruits,14 x 2 x 5,Fruits & Vegetables || Exotic Fruits & Veggies
+P0597,Baby Potato (Fresho),Leafy Vegetables,4 x 10 x 4,Fruits & Vegetables || Exotic Fruits & Veggies
+P0598,Sweet Potato - Organically Grown (Fresho),Exotic Vegetables,6.2 x 16.8 x 6.2,Fruits & Vegetables || Exotic Fruits & Veggies
+P0599,Marie Biscuits (Parle),Organic Vegetables,2 x 17.5 x 10,Fruits & Vegetables || Exotic Fruits & Veggies
+P0600,Hide & Seek Caffe Mocha Cookies (Parle),"Marie, Health, Digestive",3 x 10 x 7,Snacks & Branded Foods || Biscuits & Cookies
+P0601,Milano Choco Chip Cookies (Parle),Cookies,1 x 14 x 9.5,Snacks & Branded Foods || Biscuits & Cookies
+P0602,Gojju Magic Masala Powder (MTR),Cookies,4.5 x 16.7 x 4.5,Snacks & Branded Foods || Biscuits & Cookies
+P0603,Wafers - Piri Piri (Parle),Blended Masalas,6 x 19 x 26,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0604,Potato Crisps - Classic Salted (Parle),Chips & Corn Snacks,3.5 x 13 x 8.5,Snacks & Branded Foods || Snacks & Namkeen
+P0605,Wafers - Aloo Chaat (Parle),Chips & Corn Snacks,0.1 x 14 x 9.5,Snacks & Branded Foods || Snacks & Namkeen
+P0606,Milk Shake - Vanilla (Milky Mist),Chips & Corn Snacks,3 x 17 x 7,Snacks & Branded Foods || Snacks & Namkeen
+P0607,Milk Shake - Chocolate (Milky Mist),"Flavoured, Soya Milk",8 x 12 x 12,"Bakery, Cakes & Dairy || Dairy"
+P0608,Milk Shake - Strawberry (Milky Mist),"Flavoured, Soya Milk",7.5 x 17.5 x 8.8,"Bakery, Cakes & Dairy || Dairy"
+P0609,Muskmelon -  Netted Small (Fresho),"Flavoured, Soya Milk",3 x 15 x 15,"Bakery, Cakes & Dairy || Dairy"
+P0610,Shikakai - Amla and Bhringraj (Godrej),"Kiwi, Melon, Citrus Fruit",5 x 20 x 30,Fruits & Vegetables || Fresh Fruits
+P0611,Sweet Corn - Chaat Masala (ACT II),Bathing Bars & Soaps,2 x 27 x 21,Beauty & Hygiene || Bath & Hand Wash
+P0613,Sandwich Biscuits Fab - Jam In Fruit Flavour (Parle),Chips & Corn Snacks,12 x 3 x 9,Snacks & Branded Foods || Snacks & Namkeen
+P0614,Capsicum - Diced (Fresho),Cream Biscuits & Wafers,6.8 x 16.5 x 10,Snacks & Branded Foods || Biscuits & Cookies
+P0615,Banana Flower (Fresho),Cut & Peeled Veggies,7 x 12.5 x 7,Fruits & Vegetables || Fresh Vegetables
+P0616,Pav Bhaji Masala (bb Royal),"Banana, Sapota & Papaya",6 x 9.5 x 7.5,Fruits & Vegetables || Fresh Fruits
+P0617,Chicken Tandoori Masala (bb Royal),Powdered Spices,35 x 35,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0618,Meat/Mutton Masala (bb Royal),Powdered Spices,4 x 14 x 14,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0619,Chicken Masala (bb Royal),Powdered Spices,5 x 28 x 16,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0620,Channa Masala (bb Royal),Powdered Spices,12 x 4 x 5,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0621,Kitchen King Masala (bb Royal),Powdered Spices,100 x 160 x 100,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0622,Jeera Kadu/Bitter Cumin (bb Royal),Powdered Spices,3 x 26.5 x 17,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0623,Powder - Tamarind Rice (Annapoorna),Whole Spices,8.2 x 8.2 x 8.2,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0625,Capsicum - Diced (Fresho),Blended Masalas,4 x 4 x 36.5,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0626,Flavoured Milk - Pista (Nandini),Cut & Peeled Veggies,8 x 10 x 8,Fruits & Vegetables || Cuts & Sprouts
+P0627,3 Layer Gum - Sugarfreee Strawberry Flavour (Center Fresh),"Flavoured, Soya Milk",1 x 1 x 1,"Bakery, Cakes & Dairy || Dairy"
+P0628,3 Layer Gum - Sugarfreee Peppermint Flavour (Center Fresh),"Toffee, Candy & Lollypop",3 x 18 x 7,Snacks & Branded Foods || Chocolates & Candies
+P0629,Methi/Menthya Dana - Whole (Catch),"Toffee, Candy & Lollypop",5.7 x 17.5 x 5.7,Snacks & Branded Foods || Chocolates & Candies
+P0630,Rai - Whole (Catch),Whole Spices,,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0631,Purepet Wet Cat Food - Real Tuna and Chicken Liver in Gravy (Purepet),Whole Spices,6 x 12 x 6,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0632,Wet Dog Food - Chicken & Vegetable Chunks In Gravy (Purepet),Pet Meals & Treats,36.5 x 38 x 57,"Kitchen, Garden & Pets || Pet Food & Accessories"
+P0633,Haldi Doodh Shot (Amul),Pet Meals & Treats,6 x 14 x 6,"Kitchen, Garden & Pets || Pet Food & Accessories"
+P0634,Star Anise Doodh Shot (Amul),"Flavoured, Soya Milk",15 x 15 x 40,"Bakery, Cakes & Dairy || Dairy"
+P0635,Honey Doodh Shot (Amul),"Flavoured, Soya Milk",1 x 21 x 11,"Bakery, Cakes & Dairy || Dairy"
+P0636,"Namkeen - Chow Chow, Special (Sln  )","Flavoured, Soya Milk",5 x 5 x 21.5,"Bakery, Cakes & Dairy || Dairy"
+P0637,7 O Click - Permasharp Stainless Blade (Gillette),Namkeen & Savoury Snacks,5 x 25 x 9,Snacks & Branded Foods || Snacks & Namkeen
+P0638,Powder - Sambar (Sakthi),Shaving Care,9 x 24 x 18,Beauty & Hygiene || Men's Grooming
+P0639,Drumstick/Moringa (Fresho),Blended Masalas,4.6 x 21.5 x 14.2,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0640,Fruity Soap Enriched with Narural Lemon Extract (Harmony),"Gourd, Pumpkin, Drumstick",7 x 7 x 7,Fruits & Vegetables || Fresh Vegetables
+P0641,Fruity Soap Enriched with Narural Lime Extract (Harmony),Bathing Bars & Soaps,1 x 17 x 8,Beauty & Hygiene || Bath & Hand Wash
+P0642,Bath Soap - Fruity Orange Flavour (Harmony),Bathing Bars & Soaps,7 x 7.5 x 20,Beauty & Hygiene || Bath & Hand Wash
+P0643,Honey Oats Cookies (Tasties),Bathing Bars & Soaps,2 x 18 x 12,Beauty & Hygiene || Bath & Hand Wash
+P0644,"Banana - Raw, Organically Grown (Fresho)",Cookies,62 x 89 x 57,Snacks & Branded Foods || Biscuits & Cookies
+P0645,Bottle Gourd - Organically Grown (Fresho),Organic Vegetables,4 x 38 x 38,Fruits & Vegetables || Fresh Vegetables
+P0646,Radish - Organically Grown (Fresho),Organic Vegetables,4.5 x 19 x 29.5,Fruits & Vegetables || Fresh Vegetables
+P0647,"Brinjal - Green, Round (Fresho)",Organic Vegetables,5 x 19 x 13,Fruits & Vegetables || Fresh Vegetables
+P0649,Ready to Cook - Potato French Fries (Fresho),"Beans, Brinjals & Okra",1 x 23 x 10,Fruits & Vegetables || Fresh Vegetables
+P0651,Onion - Thin Sliced (Fresho),Cut & Peeled Veggies,5.9 x 24.5 x 6.4,Fruits & Vegetables || Fresh Vegetables
+P0652,Tomato - Diced (Fresho),Cut & Peeled Veggies,15.5 x 5.4 x 6.5,Fruits & Vegetables || Fresh Vegetables
+P0654,Masala - Fish Curry (Annapoorna),Cut & Peeled Veggies,6 x 18.5 x 11.5,Fruits & Vegetables || Fresh Vegetables
+P0655,Instant Pasta - Tomato Salsa (Weikfield),Blended Masalas,26.3 x 45.7 x 29.3,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0656,"Banana - Raw, Organically Grown (Fresho)",Instant Pasta,3 x 21 x 21,"Snacks & Branded Foods || Noodle, Pasta, Vermicelli"
+P0657,Bottle Gourd - Organically Grown (Fresho),Organic Vegetables,3 x 11.5 x 16.5,Fruits & Vegetables || Organic Fruits & Vegetables
+P0658,Radish - Organically Grown (Fresho),Organic Vegetables,13.5 x 20 x 21,Fruits & Vegetables || Organic Fruits & Vegetables
+P0659,Baking Powder (Weikfield),Organic Vegetables,5 x 18.5 x 9,Fruits & Vegetables || Organic Fruits & Vegetables
+P0660,Sauce - Hot and Sweet Tomato Chilli (MAGGI ),Home Baking,6.5 x 7.5 x 13,Snacks & Branded Foods || Ready To Cook & Eat
+P0661,Binder Clip - 19mm (Ravi Agencies),Tomato Ketchup & Sauces,1 x 12 x 8.4,"Snacks & Branded Foods || Spreads, Sauces, Ketchup"
+P0662,Organic Sprouts Mixed Gram (Fresho),"Notebooks, Files, Folders",22 x 3.5 x 22,Cleaning & Household || Stationery
+P0663,Ready to Cook - Potato French Fries (Fresho),Fresh Salads & Sprouts,5.3 x 13.4 x 5.3,Fruits & Vegetables || Cuts & Sprouts
+P0664,Organic Sprouts Channa Brown (Fresho),Cut & Peeled Veggies,4 x 4 x 15,Fruits & Vegetables || Cuts & Sprouts
+P0665,Potato - Wedges (Fresho),Fresh Salads & Sprouts,6.5 x 13.6 x 6.5,Fruits & Vegetables || Cuts & Sprouts
+P0666,Onion - Thin Sliced (Fresho),Cut & Peeled Veggies,28 x 10.5 x 12,Fruits & Vegetables || Cuts & Sprouts
+P0667,Chutney Mix (Fresho),Cut & Peeled Veggies,2 x 12.4 x 7.7,Fruits & Vegetables || Cuts & Sprouts
+P0668,Tomato - Diced (Fresho),Recipe Packs,2 x 27 x 21,Fruits & Vegetables || Cuts & Sprouts
+P0669,Butterscotch Milkshake (Amul),Cut & Peeled Veggies,5 x 28 x 16,Fruits & Vegetables || Cuts & Sprouts
+P0670,Ginger Doodh Shot (Amul),"Flavoured, Soya Milk",3.8 x 15.5 x 3.8,"Bakery, Cakes & Dairy || Dairy"
+P0671,Tulsi Doodh Shot (Amul),"Flavoured, Soya Milk",7.4 x 10.8 x 7.4,"Bakery, Cakes & Dairy || Dairy"
+P0672,Potato - Wedges (Fresho),"Flavoured, Soya Milk",8 x 13 x 8,"Bakery, Cakes & Dairy || Dairy"
+P0673,Sanitary Pads (Comfy Snug Fit),Cut & Peeled Veggies,8 x 18 x 10,Fruits & Vegetables || Exotic Fruits & Veggies
+P0674,Bake Rusk Toast (Britannia),Sanitary Napkins,12 x 10.5 x 8.2,Beauty & Hygiene || Feminine Hygiene
+P0675,Gulabari Premium Rose Water - Paraben Free Skin Toner (Dabur),Rusks,6.5 x 26 x 13,"Bakery, Cakes & Dairy || Cookies, Rusk & Khari"
+P0676,Hand Sanitizer (Godrej Protekt),Face Care,2 x 2 x 44.5,Beauty & Hygiene || Skin Care
+P0678,Wafers - Waffy (Vanilla Flavor) (Dukes),Hand Wash & Sanitizers,1.5 x 12 x 7.5,Beauty & Hygiene || Bath & Hand Wash
+P0679,Cookies - Butter (Unibic),Cream Biscuits & Wafers,16 x 19.5 x 16,Snacks & Branded Foods || Biscuits & Cookies
+P0680,Wafers - Waffy (Strawberry Flavor) (Dukes),Cookies,9.5 x 20 x 14,Snacks & Branded Foods || Biscuits & Cookies
+P0681,Cookies - Choconut (Unibic),Cream Biscuits & Wafers,5.5 x 23.8 x 7.5,Snacks & Branded Foods || Biscuits & Cookies
+P0682,Wafers - Waffy (Orange Flavor) (Dukes),Cookies,5 x 16 x 5,Snacks & Branded Foods || Biscuits & Cookies
+P0683,Wafers - Waffy (Pineapple Flavor) (Dukes),Cream Biscuits & Wafers,1 x 29.5 x 21,Snacks & Branded Foods || Biscuits & Cookies
+P0684,Treat Wafers - Chocolate (Britannia),Cream Biscuits & Wafers,15 x 55 x 32,Snacks & Branded Foods || Biscuits & Cookies
+P0685,Treat Wafers - Strawberry (Britannia),Cream Biscuits & Wafers,3 x 26.5 x 17,Snacks & Branded Foods || Biscuits & Cookies
+P0687,Waffy Cheese Flavor Wafer (Dukes),Cream Biscuits & Wafers,5 x 15.2 x 9.9,Snacks & Branded Foods || Biscuits & Cookies
+P0688,Wafers - Waffy (Chocolate Flavor) (Dukes),Cream Biscuits & Wafers,1 x 23 x 7.5,Snacks & Branded Foods || Biscuits & Cookies
+P0689,"Wafers - Waffy, Golden Cream (Dukes)",Cream Biscuits & Wafers,9.2 x 27.4 x 11.5,Snacks & Branded Foods || Biscuits & Cookies
+P0690,Corn Flour (Puramate),Cream Biscuits & Wafers,9 x 5.5 x 9,Snacks & Branded Foods || Biscuits & Cookies
+P0691,Hair Gel Super Hold (Vi-john),Flours & Pre-Mixes,1 x 20 x 30,Gourmet & World Food || Cooking & Baking Needs
+P0692,Hair Gel Vertical Hold (Vi-john),Hair Care & Styling,3.5 x 4 x 11.5,Beauty & Hygiene || Men's Grooming
+P0693,Hair Gel Cool Hold (Vi-john),Hair Care & Styling,6 x 33 x 10.5,Beauty & Hygiene || Men's Grooming
+P0694,Hair Gel Regular Hold (Vi-john),Hair Care & Styling,11 x 16 x 16,Beauty & Hygiene || Men's Grooming
+P0695,Subhmangal Semi Economy Box - FG00825 (Shalimar),Hair Care & Styling,2 x 10 x 20,Beauty & Hygiene || Men's Grooming
+P0696,Microwave Popcorn - Butter (ACT II),"Agarbatti, Incense Sticks",4.6 x 10.3 x 4.8,Cleaning & Household || Pooja Needs
+P0697,Sterilised Double Toned Flavored Milk - Strawberry (THIRUMALA),Chips & Corn Snacks,8 x 16 x 10,Snacks & Branded Foods || Snacks & Namkeen
+P0698,Pineapple 100% Fruit Juice - No Added Sugar (Storia),"Flavoured, Soya Milk",11.1 x 11.1 x 11.1,"Bakery, Cakes & Dairy || Dairy"
+P0699,Green Mango 100% Fruit Juice - No Added Sugar (Storia),Juices,2 x 20 x 15,Beverages || Fruit Juices & Drinks
+P0700,Banana - Robusta (Fresho),Juices,40 x 100 x 50,Beverages || Fruit Juices & Drinks
+P0701,Masala 2 Minute Instant Noodles (MAGGI ),"Banana, Sapota & Papaya",4.5 x 18.5 x 8.5,Fruits & Vegetables || Fresh Fruits
+P0702,"Battery - Hyper, D, 1U, Hyper, Heavy Duty (Nippo)",Instant Noodles,4.5 x 7 x 7,"Snacks & Branded Foods || Noodle, Pasta, Vermicelli"
+P0703,Brinjal - Bottle Shape (Fresho),Battery & Electrical,26 x 26 x 26,"Kitchen, Garden & Pets || Appliances & Electricals"
+P0704,Sambhar Onion (Small Onion) (Fresho),"Beans, Brinjals & Okra",6 x 20 x 13,Fruits & Vegetables || Fresh Vegetables
+P0705,Cabbage - Red (Fresho),"Potato, Onion & Tomato",4.6 x 23.3 x 8.6,Fruits & Vegetables || Fresh Vegetables
+P0706,Coriander Leaves - Chopped (Fresho),Cabbage & Cauliflower,1 x 10 x 10,Fruits & Vegetables || Fresh Vegetables
+P0707,Coccinia - Julienne (Fresho),Cut & Peeled Veggies,4.3 x 13.5 x 4.3,Fruits & Vegetables || Fresh Vegetables
+P0708,Coccinia - Sliced (Fresho),Cut & Peeled Veggies,5 x 15 x 10,Fruits & Vegetables || Fresh Vegetables
+P0709,Red Cabbage - Grated (Fresho),Cut & Peeled Veggies,6 x 21 x 11,Fruits & Vegetables || Fresh Vegetables
+P0710,Green Salad (Fresho),Cut & Peeled Veggies,,Fruits & Vegetables || Fresh Vegetables
+P0711,"Organic, Fennel /Saunf/Sompu Powder (bb Royal)",Fresh Salads & Sprouts,2.5 x 18 x 8,Fruits & Vegetables || Fresh Vegetables
+P0712,Ready Mix - Chettinad Kara Kulambu (Annapoorna),Organic Masalas & Spices,3.7 x 4.5 x 16.7,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0713,Cheese Macaroni Pazzta (MAGGI ),Blended Masalas,5 x 16 x 7,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0714,"Organic, Fennel /Saunf/Sompu Powder (bb Royal)",Instant Pasta,15 x 15 x 8,"Snacks & Branded Foods || Noodle, Pasta, Vermicelli"
+P0715,"Hommade Tomato Puree -  Made From 100% Ripe Tomatoes, No Added Preservatives (Dabur)",Organic Masalas & Spices,7 x 13 x 7,"Foodgrains, Oil & Masala || Organic Staples"
+P0716,Baby Corn - Peeled (Fresho),Tomato Ketchup & Sauces,12.7 x 6.5 x 21,"Snacks & Branded Foods || Spreads, Sauces, Ketchup"
+P0718,Coriander Leaves - Chopped (Fresho),Cut & Peeled Veggies,5 x 18 x 10,Fruits & Vegetables || Cuts & Sprouts
+P0719,Coccinia - Julienne (Fresho),Cut & Peeled Veggies,6 x 17 x 6,Fruits & Vegetables || Cuts & Sprouts
+P0720,Coccinia - Sliced (Fresho),Cut & Peeled Veggies,47.8 x 80 x 47.8,Fruits & Vegetables || Cuts & Sprouts
+P0721,Red Cabbage - Grated (Fresho),Cut & Peeled Veggies,1.5 x 25 x 12.5,Fruits & Vegetables || Cuts & Sprouts
+P0722,Green Salad (Fresho),Cut & Peeled Veggies,5 x 7 x 5,Fruits & Vegetables || Cuts & Sprouts
+P0724,Accel Detergent Cake (Ponvandu),Fresh Salads & Sprouts,6 x 24 x 10,Fruits & Vegetables || Cuts & Sprouts
+P0725,Baby Corn - Peeled (Fresho),Detergent Bars,,Cleaning & Household || Detergents & Dishwash
+P0726,Cabbage - Red (Fresho),Cut & Peeled Veggies,1 x 15 x 10,Fruits & Vegetables || Exotic Fruits & Veggies
+P0727,Coriander Powder (Orika),Cabbage & Cauliflower,,Fruits & Vegetables || Exotic Fruits & Veggies
+P0728,Toned Milk (Nandini),Powdered Spices,3 x 4 x 4,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0729,Masala - Fish Curry (Aachi),Milk,19 x 23 x 20,"Bakery, Cakes & Dairy || Dairy"
+P0730,Masala - Fish Fry (Aachi),Blended Masalas,4.8 x 21.2 x 8.9,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0731,Corn Twist - Pizza (Makino),Blended Masalas,8 x 18 x 8,"Foodgrains, Oil & Masala || Masalas & Spices"
+P0732,Winkin' Cow Vanillicious Thick Milkshake (Britannia),"Healthy, Baked Snacks",4.5 x 18.2 x 4.5,"Gourmet & World Food || Snacks, Dry Fruits, Nuts"
+P0733,KitKat Chocolate Wafer Bar - 4 Fingers Pack (Nestle ),"Flavoured, Soya Milk",2 x 4 x 9,"Bakery, Cakes & Dairy || Dairy"
+P0735,KitKat Chocolate Wafer Bar - 4 Fingers Pack (Nestle ),Chocolates,5 x 22.5 x 6.1,Snacks & Branded Foods || Biscuits & Cookies
+P0736,Organic Seeds - Black Mustard/Sasive (Organic Tattva),Chocolates,70 x 165 x 36,Snacks & Branded Foods || Chocolates & Candies
+P0737,Organic Seeds - Brown Mustard/Sasive (Organic Tattva),Organic Masalas & Spices,2 x 25 x 9,"Foodgrains, Oil & Masala || Organic Staples"
+P0738,Fevicol MR Angular Tip (Pidilite),Organic Masalas & Spices,3.5 x 8.5 x 3.5,"Foodgrains, Oil & Masala || Organic Staples"
+P0739,Haldi Milk (mother dairy),"Scissor, Glue & Tape",8.5 x 9 x 8.5,Cleaning & Household || Stationery
+P0740,Sterilised Double Toned Flavored Milk - Pista (THIRUMALA),"Flavoured, Soya Milk",1 x 20 x 10,"Bakery, Cakes & Dairy || Dairy"
+P0741,Dark Fantasy - Choco Fills Biscuits - Cookies (Sunfeast),"Flavoured, Soya Milk",3.8 x 16.4 x 9.5,"Bakery, Cakes & Dairy || Dairy"
+P0742,Coke Zero Soft Drink - No Sugar (Coca-Cola),Cream Biscuits & Wafers,6.4 x 7 x 6.4,Snacks & Branded Foods || Biscuits & Cookies
+P0744,Bleaching Powder - Strong (Zermisol),Cold Drinks,2 x 7 x 7,Beverages || Energy & Soft Drinks
+P0745,Cornflour (Weikfield),Floor & Other Cleaners,,Cleaning & Household || All Purpose Cleaners
+P0746,Haldi Chandan Soap (Jiva Ayurveda),Rice & Other Flours,1 x 1 x 1,"Foodgrains, Oil & Masala || Atta, Flours & Sooji"
+P0747,Pure Magic Deuce Vanilla Biscuits (Britannia),Bathing Bars & Soaps,23 x 23 x 33.3,Beauty & Hygiene || Bath & Hand Wash
+P0748, (),Cream Biscuits & Wafers,3.8 x 4.8 x 15.3,Snacks & Branded Foods || Biscuits & Cookies

@@ -1,0 +1,145 @@
+store_id,storetype_id,store_szie,city_id,state - state abr - city,lat / long
+S0091,ST04,19 m�,C013,AR - Arkansas - Hot Springs National Park,34.5137 / -92.9685
+S0012,ST04,28 m�,C005,TX - Texas - Huntsville,30.7813 / -95.5953
+S0045,ST04,17 qm,C008,NC - North Carolina - Asheville,35.6004 / -82.4918
+S0032,ST03,14 m�,C019,CA - California - Los Angeles,33.7866 / -118.2987
+S0027,ST04,24 qm,C022,TX - Texas - Texarkana,33.3934 / -94.3404
+S0088,ST04,20 qm,C009,OK - Oklahoma - Tulsa,36.1398 / -96.0297
+S0095,ST02,44 qm,C014,OH - Ohio - Cincinnati,39.0706 / -84.4179
+S0055,ST04,24 qm,C014,FL - Florida - Gainesville,29.6813 / -82.3539
+S0099,ST03,14 qm,C014,DE - Delaware - Wilmington,39.8188 / -75.5064
+S0078,ST04,19 m�,C036,GA - Georgia - Alpharetta,34.0268 / -84.2422
+S0006,ST03,8 qm,C024,CO - Colorado - Arvada,39.8422 / -105.1097
+S0135,ST03,16 qm,C035,GA - Georgia - Savannah,32.0391 / -81.1242
+S0066,ST04,47 qm,C033,CA - California - Sacramento,38.3774 / -121.4444
+S0106,ST04,21 qm,C031,FL - Florida - Miami,25.5584 / -80.4582
+S0112,ST04,46 qm,C031,AL - Alabama - Birmingham,33.5446 / -86.9292
+S0059,ST03,15 qm,C014,TX - Texas - San Antonio,29.4106 / -98.4128
+S0129,ST04,18 qm,C021,GA - Georgia - Atlanta,33.7217 / -84.3339
+S0116,ST03,15 qm,C031,IN - Indiana - Indianapolis,39.8647 / -86.0136
+S0098,ST03,15 qm,C022,TX - Texas - Gatesville,31.3902 / -97.7993
+S0049,ST04,25 qm,C031,TX - Texas - Irving,32.7673 / -96.7776
+S0144,ST04,21 qm,C022,FL - Florida - Saint Petersburg,27.6705 / -82.7119
+S0097,ST04,45 qm,C014,IA - Iowa - Des Moines,41.6727 / -93.5722
+S0130,ST03,17 qm,C037,CA - California - San Francisco,37.7848 / -122.7278
+S0041,ST03,8 qm,C013,TX - Texas - San Antonio,29.4375 / -98.4616
+S0142,ST04,31 qm,C006,TX - Texas - Corpus Christi,27.777 / -97.4632
+S0123,ST04,20 qm,C021,MA - Massachusetts - Watertown,42.37 / -71.1773
+S0007,ST03,16 qm,C014,DC - District of Columbia - Washington,38.884 / -77.0221
+S0107,ST04,19 qm,C014,FL - Florida - Delray Beach,26.6459 / -80.4303
+S0036,ST04,21 qm,C001,TX - Texas - Wichita Falls,33.9995 / -98.3938
+S0044,ST03,6 qm,C022,WI - Wisconsin - Racine,42.7161 / -87.8233
+S0052,ST04,17 qm,C014,PA - Pennsylvania - Pittsburgh,40.4344 / -80.0248
+S0101,ST04,30 qm,C026,KS - Kansas - Kansas City,39.085 / -94.6356
+S0043,ST04,37 qm,C025,AL - Alabama - Birmingham,33.6493 / -86.7057
+S0141,ST03,12 qm,C005,NC - North Carolina - Wilmington,34.0881 / -77.8526
+S0040,ST04,42 qm,C017,MA - Massachusetts - Springfield,42.1223 / -72.4876
+S0037,ST04,18 qm,C035,TX - Texas - Fort Worth,32.7714 / -97.2915
+S0140,ST03,16 qm,C022,CA - California - Oakland,37.8044 / -122.2698
+S0016,ST03,11 qm,C014,MN - Minnesota - Saint Paul,45.0059 / -93.1059
+S0009,ST03,13 qm,C020,WA - Washington - Tacoma,47.2325 / -122.3594
+S0074,ST03,12 qm,C022,PA - Pennsylvania - Pittsburgh,40.4344 / -80.0248
+S0128,ST03,13 qm,C022,AZ - Arizona - Phoenix,33.2765 / -112.1872
+S0105,ST04,25 qm,C032,NY - New York - Syracuse,43.0354 / -76.1282
+S0053,ST03,11 qm,C031,VA - Virginia - Ashburn,39.0853 / -77.6452
+S0011,ST03,15 qm,C031,CA - California - San Francisco,37.7864 / -122.3892
+S0070,ST04,24 qm,C030,OH - Ohio - Cincinnati,39.1668 / -84.5382
+S0084,ST04,19 qm,C022,DC - District of Columbia - Washington,38.8933 / -77.0146
+S0017,ST04,27 qm,C030,TX - Texas - Denton,33.1428 / -97.0727
+S0113,ST04,25 qm,C024,NY - New York - Buffalo,42.8614 / -78.8206
+S0119,ST03,15 qm,C031,IL - Illinois - Chicago,41.9399 / -87.6528
+S0089,ST03,18 qm,C014,CA - California - Torrance,33.8106 / -118.3507
+S0068,ST03,14 qm,C003,AL - Alabama - Montgomery,32.2334 / -86.2085
+S0103,ST04,22 qm,C022,IL - Illinois - Springfield,39.7495 / -89.606
+S0087,ST04,23 qm,C031,GA - Georgia - Macon,32.8926 / -83.7455
+S0029,ST03,15 qm,C022,CT - Connecticut - Hartford,41.7665 / -72.6933
+S0008,ST04,27 qm,C024,OK - Oklahoma - Oklahoma City,35.5514 / -97.4075
+S0046,ST04,26 qm,C017,KS - Kansas - Topeka,39.0142 / -95.6982
+S0120,ST03,16 qm,C014,IA - Iowa - Des Moines,41.6727 / -93.5722
+S0092,ST04,23 qm,C005,OK - Oklahoma - Tulsa,36.0467 / -95.8841
+S0108,ST04,35 qm,C016,AZ - Arizona - Phoenix,33.3022 / -112.1226
+S0124,ST03,15 qm,C030,CA - California - Sacramento,38.5568 / -121.4929
+S0133,ST04,24 qm,C028,TN - Tennessee - Memphis,35.0425 / -90.0732
+S0131,ST04,22 qm,C012,WA - Washington - Seattle,47.4511 / -122.353
+S0080,ST03,14 qm,C014,MN - Minnesota - Minneapolis,45.0159 / -93.4719
+S0014,ST03,14 qm,C014,OK - Oklahoma - Edmond,35.6665 / -97.4798
+S0075,ST03,12 qm,C024,GA - Georgia - Alpharetta,34.0268 / -84.2422
+S0048,ST01,101 qm,C031,TN - Tennessee - Memphis,35.2017 / -89.9715
+S0073,ST04,19 qm,C014,CO - Colorado - Boulder,39.9807 / -105.2531
+S0002,ST04,39 qm,C007,CO - Colorado - Littleton,39.7388 / -104.4083
+S0063,ST04,23 qm,C033,FL - Florida - Miami,25.8655 / -80.1936
+S0004,ST04,20 qm,C022,IL - Illinois - Springfield,39.7495 / -89.606
+S0122,ST04,23 qm,C008,CA - California - Santa Ana,33.754 / -117.7919
+S0020,ST04,36 qm,C014,TX - Texas - El Paso,31.6948 / -106.3
+S0094,ST04,45 qm,C006,MN - Minnesota - Saint Cloud,45.5289 / -94.5933
+S0082,ST04,23 qm,C024,OK - Oklahoma - Oklahoma City,35.421 / -97.5616
+S0132,ST04,31 qm,C011,OH - Ohio - Cleveland,41.5008 / -81.5516
+S0085,ST01,60 qm,C014,OK - Oklahoma - Oklahoma City,35.5514 / -97.4075
+S0035,ST04,17 qm,C022,NY - New York - Buffalo,42.7684 / -78.8871
+S0125,ST04,24 qm,C022,IA - Iowa - Cedar Rapids,41.9804 / -91.7098
+S0100,ST03,18 qm,C030,ID - Idaho - Boise,43.4599 / -116.244
+S0033,ST03,16 qm,C025,MO - Missouri - Kansas City,39.035 / -94.3567
+S0115,ST04,45 qm,C020,KY - Kentucky - Louisville,38.1913 / -85.7847
+S0102,ST04,27 qm,C018,FL - Florida - Naples,26.045 / -81.6669
+S0136,ST03,12 qm,C005,MD - Maryland - Silver Spring,39.144 / -77.2076
+S0096,ST04,30 qm,C029,CA - California - San Jose,37.3894 / -121.8868
+S0072,ST04,29 qm,C014,CA - California - Hayward,37.6374 / -122.067
+S0021,ST03,15 qm,C024,TX - Texas - San Antonio,29.4375 / -98.4616
+S0079,ST03,15 qm,C028,ND - North Dakota - Bismarck,46.8165 / -100.7805
+S0031,ST04,41 qm,C036,AZ - Arizona - Phoenix,33.2765 / -112.1872
+S0018,ST04,27 qm,C029,CO - Colorado - Denver,39.7388 / -104.4083
+S0090,ST02,28 qm,C036,OH - Ohio - Toledo,41.6782 / -83.4972
+S0110,ST04,40 qm,C025,OH - Ohio - Columbus,39.9671 / -83.0044
+S0067,ST04,16 qm,C014,FL - Florida - Boca Raton,26.3462 / -80.0844
+S0061,ST04,35 qm,C019,FL - Florida - Tampa,27.872 / -82.4388
+S0076,ST03,11 qm,C014,MN - Minnesota - Saint Paul,45.071 / -92.9391
+S0023,ST04,31 qm,C008,VA - Virginia - Arlington,38.8808 / -77.113
+S0083,ST04,23 qm,C010,MN - Minnesota - Duluth,46.8147 / -92.1998
+S0109,ST04,20 qm,C005,NY - New York - Buffalo,42.9255 / -78.7481
+S0057,ST03,16 qm,C034,HI - Hawaii - Honolulu,21.3068 / -157.8607
+S0062,ST04,47 qm,C014,MO - Missouri - Saint Louis,38.7072 / -90.3055
+S0104,ST04,47 qm,C002,OK - Oklahoma - Oklahoma City,35.5704 / -97.5257
+S0071,ST04,32 qm,C014,CA - California - Ventura,34.0324 / -119.1343
+S0060,ST04,25 qm,C029,PA - Pennsylvania - Philadelphia,39.9845 / -75.2282
+S0111,ST03,17 qm,C022,AL - Alabama - Birmingham,33.5446 / -86.9292
+S0121,ST03,18 qm,C022,FL - Florida - Fort Lauderdale,26.0663 / -80.3339
+S0019,ST03,12 qm,C030,CA - California - Sacramento,38.3774 / -121.4444
+S0047,ST03,14 qm,C031,CA - California - Concord,37.7772 / -121.9554
+S0051,ST04,39 qm,C027,AZ - Arizona - Phoenix,33.6299 / -112.1316
+S0026,ST04,41 qm,C014,OH - Ohio - Toledo,41.6782 / -83.4972
+S0025,ST04,25 qm,C024,MO - Missouri - Kansas City,39.3432 / -94.8516
+S0015,ST04,19 qm,C014,TN - Tennessee - Knoxville,35.9924 / -84.1201
+S0001,ST04,41 qm,C031,MO - Missouri - Saint Louis,38.6111 / -90.3225
+S0127,ST03,8 qm,C029,MN - Minnesota - Young America,44.8055 / -93.7665
+S0126,ST04,34 qm,C014,VA - Virginia - Roanoke,37.2742 / -79.9579
+S0114,ST03,15 qm,C020,MD - Maryland - Baltimore,39.2847 / -76.6205
+S0117,ST04,17 qm,C031,CA - California - Los Angeles,34.0434 / -118.2716
+S0024,ST04,26 qm,C022,TX - Texas - Lubbock,33.571 / -101.8507
+S0003,ST03,17 qm,C014,FL - Florida - Orlando,28.5469 / -81.2571
+S0028,ST01,86 qm,C036,IA - Iowa - Des Moines,41.6727 / -93.5722
+S0077,ST03,12 qm,C014,OH - Ohio - Toledo,41.6492 / -83.6706
+S0093,ST04,16 qm,C022,AL - Alabama - Anniston,33.7358 / -85.7933
+S0010,ST04,17 qm,C014,AZ - Arizona - Scottsdale,33.6968 / -111.8892
+S0034,ST03,14 qm,C022,PA - Pennsylvania - Valley Forge,39.9832 / -75.7481
+S0022,ST04,16 qm,C014,AZ - Arizona - Phoenix,33.2765 / -112.1872
+S0038,ST01,63 qm,C004,TX - Texas - Dallas,32.7699 / -96.743
+S0058,ST04,17 qm,C014,CA - California - Irvine,33.6462 / -117.8398
+S0069,ST02,18 qm,C031,FL - Florida - Lehigh Acres,26.6492 / -81.6167
+S0143,ST03,13 qm,C014,AZ - Arizona - Gilbert,33.2781 / -111.7096
+S0039,ST03,15 qm,C014,TX - Texas - Dallas,32.6722 / -96.7774
+S0137,ST04,15 qm,C022,DC - District of Columbia - Washington,38.8933 / -77.0146
+S0081,ST03,15 qm,C022,MD - Maryland - Baltimore,39.2847 / -76.6205
+S0065,ST02,41 qm,C036,SC - South Carolina - Anderson,34.5271 / -82.7087
+S0139,ST04,20 qm,C035,IN - Indiana - Fort Wayne,41.0977 / -85.1189
+S0054,ST03,15 qm,C022,UT - Utah - Salt Lake City,40.6681 / -111.9083
+S0030,ST03,13 qm,C006,IL - Illinois - Evanston,42.0586 / -87.6845
+S0056,ST04,42 qm,C015,CA - California - Pasadena,33.7866 / -118.2987
+S0138,ST04,30 qm,C022,MO - Missouri - Springfield,37.1136 / -93.2896
+S0050,ST04,31 qm,C014,FL - Florida - Miami,25.8507 / -80.2366
+S0005,ST04,19 qm,C001,KY - Kentucky - Louisville,38.2306 / -85.7905
+S0064,ST03,17 qm,C026,LA - Louisiana - Shreveport,32.4589 / -93.7143
+S0013,ST04,33 qm,C026,TX - Texas - Katy,29.8678 / -95.8298
+S0118,ST03,20 qm,C023,CO - Colorado - Denver,39.7388 / -104.4083
+S0042,ST04,25 qm,C020,OH - Ohio - Dayton,39.7617 / -84.1498
+S0086,ST03,12 qm,C003,TX - Texas - El Paso,31.6948 / -106.3
+S0134,ST03,12 qm,C020,CA - California - Torrance,33.7866 / -118.2987
