@@ -1,0 +1,61 @@
+use "DEMODATABASE";
+CREATE OR REPLACE TABLE PATIENTS(
+PATIENTID INT,
+FIRST_NAME VARCHAR(100),
+CITY VARCHAR(100),
+REGISTATIONYEAR INT
+);
+
+DROP TABLE HEALTHCARE;
+
+CREATE OR REPLACE TABLE HEALTHCARE(
+Patientid VARCHAR(15),	
+gender CHAR(8),	
+age VARCHAR(5)	,
+hypertension CHAR(20),	
+heart_disease CHAR(20),	
+ever_married CHAR(30),	
+work_type VARCHAR(60),	
+Residence_type CHAR(30)	,
+avg_glucose_level VARCHAR(20),	
+bmi VARCHAR(20)	,
+smoking_status	VARCHAR(20),
+stroke CHAR(20)
+);
+--CREATE OR REPLACE STORAGE integration s3_int
+TYPE = EXTERNAL_STAGE
+STORAGE_PROVIDER = S3
+ENABLED = TRUE
+STORAGE_AWS_ROLE_ARN ='arn:aws:iam::516104601311:role/snowpiperole'
+STORAGE_ALLOWED_LOCATIONS =('s3://awshealthcarebucket');
+---desc integration s3_int;
+
+
+CREATE OR REPLACE STAGE HEALTHCARE_SP
+URL ='s3://awshealthcarebucket'
+credentials=(aws_key_id='AKIAXQKR3H3PSG72XFMK'aws_secret_key='eKL6a6FjlQHic4s8Ne712Aelzg2ou4j6tNsVvFq5')
+file_format=CSV;
+--storage_integration =s3_int;
+
+LIST @HEALTHCARE_SP;
+
+SHOW STAGES;
+
+--CREATE SNOWPIPE THAT RECOGNISES CSV THAT ARE INGESTED FROM EXTERNAL STAGE AND COPIES THE DATA INTO PATIENTS TABLE
+--The AUTO_INGEST=true parameter specifies to read event notifications sent from an S3 bucket to an SQS queue when new data is ready to load.
+
+
+CREATE OR REPLACE PIPE HEALTHCARE_SNOWPIPE AUTO_INGEST = TRUE AS
+COPY INTO "DEMODATABASE"."PUBLIC"."HEALTHCARE"
+FROM @HEALTHCARE_SP
+FILE_FORMAT = CSV;
+
+
+SHOW PIPES;
+
+SELECT count(*) FROM HEALTHCARE;
+
+select * from HEALTHCARE;
+alter pipe HEALTHCARE_SNOWPIPE refresh;
+
+SELECT SYSTEM$PIPE_STATUS('HEALTHCARE_SNOWPIPE');
