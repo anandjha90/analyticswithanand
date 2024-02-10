@@ -1,4 +1,4 @@
-CREATE OR REPLACE table aj_ccare_testing
+CREATE OR REPLACE table parsing_json_data
 ( 
   src variant
 )
@@ -35,7 +35,7 @@ FROM VALUES
 }') v;
 
 
-SELECT * FROM aj_ccare_testing;
+SELECT * FROM parsing_json_data;
 
 ---- Traversing Semi-structured Data
 --- Insert a colon : between the VARIANT column name and any first-level element: <column>:<level1_element>.
@@ -47,7 +47,7 @@ In the following examples, the query output is enclosed in double quotes because
 
 
 SELECT src:dealership
-FROM aj_ccare_testing
+FROM parsing_json_data
 ORDER BY 1;
 
 
@@ -72,7 +72,7 @@ Optionally enclose element names in double quotes: <column>:"<level1_element>"."
 --Get the names of all salespeople who sold cars:;
 
 SELECT src:salesperson.name
-FROM aj_ccare_testing
+FROM parsing_json_data
 ORDER BY 1;
 
 Bracket Notation
@@ -81,7 +81,7 @@ Alternatively, use bracket notation to traverse the path in an object: <column>[
 Get the names of all salespeople who sold cars:;
 
 SELECT src['salesperson']['name']
-FROM aj_ccare_testing
+FROM parsing_json_data
 ORDER BY 1;
 
 
@@ -95,12 +95,12 @@ Note that to retrieve all instances of a child element in a repeating array, it 
 Get the vehicle details for each sale:;
 
 SELECT src:customer[0].name, src:vehicle[0]
- FROM aj_ccare_testing
+ FROM parsing_json_data
 ORDER BY 1;
 
 Get the price of each car sold:;
 SELECT src:customer[0].name, src:vehicle[0].price
-FROM aj_ccare_testing
+FROM parsing_json_data
 ORDER BY 1;
 
 
@@ -109,14 +109,14 @@ When you extract values from a VARIANT, you can explicitly cast the values to th
 For example, you can extract the prices as numeric values and perform calculations on them:;
 
 SELECT src:vehicle[0].price::NUMBER * 0.10 AS tax
-FROM aj_ccare_testing
+FROM parsing_json_data
 ORDER BY tax;
 
 By default, when VARCHARs, DATEs, TIMEs, and TIMESTAMPs are retrieved from a VARIANT column, the values are surrounded by double quotes. 
 You can eliminate the double quotes by explicitly casting the values. For example:;
 
 SELECT src:dealership, src:dealership::VARCHAR
-FROM aj_ccare_testing
+FROM parsing_json_data
 ORDER BY 2;
 
 
@@ -128,7 +128,7 @@ Get the names and addresses of all customers. Cast the VARIANT output to string 
 SELECT
   value:name::string as "Customer Name",
   value:address::string as "Address"
-  FROM aj_ccare_testing, LATERAL FLATTEN(INPUT => SRC:customer);
+  FROM parsing_json_data, LATERAL FLATTEN(INPUT => SRC:customer);
 
 Using the FLATTEN Function to Parse Nested Arrays¶
 The extras array is nested within the vehicle array in the sample data:
@@ -143,7 +143,7 @@ SELECT
   vm.value:model::string as model,
   ve.value::string as "Extras Purchased"
   FROM
-    aj_ccare_testing
+    parsing_json_data
     , LATERAL FLATTEN(INPUT => SRC:vehicle) vm
     , LATERAL FLATTEN(INPUT => vm.value:extras) ve
   ORDER BY make, model, "Extras Purchased";
