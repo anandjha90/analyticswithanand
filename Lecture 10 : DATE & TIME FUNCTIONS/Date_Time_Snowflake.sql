@@ -129,6 +129,100 @@ select dateadd('year',-5,'2022-06-01');
 select WEEK(CURRENT_DATE); -- FROM 1ST JAN 2022 HOW MNAY EEKS HAVE SURPASSED
 select MONTH(CURRENT_DATE); -- -- FROM 1ST JAN 2022 HOW MNAY MONTHS HAVE SURPASSED
 
+--1. Extracting Components of Date and Time
+--Use Case: Extract specific parts (e.g., year, month, day) from a date or timestamp.
+
+-- Extract Year, Month, Day from a Date
+SELECT 
+    YEAR(CURRENT_DATE) AS year, 
+    MONTH(CURRENT_DATE) AS month, 
+    DAY(CURRENT_DATE) AS day;
+    
+--2. Date Arithmetic
+---Use Case: Add or subtract intervals from a date or timestamp.
+-- Add 10 days to the current date
+SELECT CURRENT_DATE + INTERVAL '10 DAY' AS future_date; 
+SELECT CURRENT_DATE - INTERVAL '1 MONTH' AS PAST_MONTH;
+
+-- Subtract 2 months from the current date
+SELECT DATEADD(MONTH, -2, CURRENT_DATE) AS past_date;
+
+--3. Date Difference
+--Use Case: Calculate the difference between two dates or timestamps.
+
+-- Difference in days between two dates
+SELECT DATEDIFF(DAY, '2024-01-01', CURRENT_DATE) AS days_diff;
+
+-- Difference in months between two dates
+SELECT DATEDIFF(MONTH, '2023-01-01', CURRENT_DATE) AS months_diff;
+
+--4. Formatting Dates
+--Use Case: Convert a date into a specific format string.
+
+-- Format date as 'DD/MM/YYYY'
+SELECT TO_CHAR(CURRENT_DATE, '') AS formatted_date;
+SELECT TO_CHAR(CURRENT_DATE, 'DD-MM-YYYY') AS formatted_date;
+SELECT TO_CHAR(CURRENT_DATE, 'DD/MM/YYYY') AS formatted_date;
+SELECT TO_CHAR(CURRENT_DATE, 'MM/DD/YYYY') AS formatted_date;
+SELECT TO_CHAR(CURRENT_DATE, 'MM-DD-YYYY') AS formatted_date;
+SELECT TO_CHAR(CURRENT_DATE, 'YYYY-MM') AS formatted_date;
+SELECT TO_CHAR(CURRENT_DATE, 'MM-DD-YY') AS formatted_date;
+
+-- Format timestamp with hour, minute, and second
+SELECT TO_CHAR(CURRENT_TIMESTAMP, 'YYYY-MM-DD HH24:MI:SS') AS formatted_timestamp;
+
+--Truncating Date/Time
+--Use Case: Truncate date/time to a specified precision (e.g., hour, day, month).
+
+-- Truncate to start of the month
+SELECT DATE_TRUNC('MONTH', CURRENT_DATE) AS month_start;
+
+-- Truncate to start of the hour
+SELECT DATE_TRUNC('HOUR', CURRENT_TIMESTAMP) AS hour_start;
+
+--6. Handling Time Zones
+--Use Case: Convert timestamps between time zones.
+-- Convert current timestamp to 'America/New_York' timezone
+SELECT CONVERT_TIMEZONE('UTC', 'America/New_York', CURRENT_TIMESTAMP) AS est_time;
+
+-- Convert from one timezone to another
+SELECT CONVERT_TIMEZONE('America/Los_Angeles', 'Europe/London', CURRENT_TIMESTAMP) AS london_time;
+
+--7. Extracting Week Information
+--Use Case: Get the week number or weekday from a date.
+-- Get the week number of the year
+SELECT WEEK(CURRENT_DATE) AS week_number;
+
+-- Get the day of the week (0 = Sunday, 6 = Saturday)
+SELECT DAYOFWEEK(CURRENT_DATE) AS day_of_week;
+
+--8. Creating Date/Time Values
+--Use Case: Create date or time values from components.
+-- Create a date from year, month, and day
+SELECT DATE_FROM_PARTS(2024, 9, 8) AS custom_date;
+
+-- Create a timestamp from components
+SELECT TIMESTAMP_FROM_PARTS(2024, 9, 8, 12, 30, 45) AS custom_timestamp;
+
+--9. Working with Epoch Time
+--Use Case: Convert between epoch time and a human-readable date.
+-- Convert epoch time (seconds since 1970-01-01) to timestamp
+SELECT TO_TIMESTAMP(1627764000) AS readable_timestamp;
+
+-- Convert a timestamp to epoch seconds
+SELECT EXTRACT(EPOCH_SECOND FROM CURRENT_TIMESTAMP) AS epoch_time;
+
+--10. Adjusting Dates for Business Days
+--Use Case: Add business days (excluding weekends) to a date.
+-- Add 10 business days to the current date
+
+SELECT DATEADD('day', 10, CURRENT_DATE) AS future_business_day;
+
+--11. Comparing Timestamps
+--Use Case: Compare two timestamps and find the difference in hours, minutes, etc.
+
+-- Difference in hours between two timestamps
+
 
 
 
