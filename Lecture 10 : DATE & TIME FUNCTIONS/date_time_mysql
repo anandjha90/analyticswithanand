@@ -1,0 +1,278 @@
+/*
+Snowflake provides a rich set of date and time functions that allow you to perform various operations on date, time, and timestamp data types. Here are different use cases demonstrating common datetime functions in Snowflake:
+*/
+-- Get current timestamp
+SELECT NOW(); -- 2024-09-08 13:05:55
+
+-- GET CURRENT DATE
+SELECT CURRENT_DATE; -- 2024-09-08
+
+-- GET CURRENT TIME
+SELECT CURRENT_TIMESTAMP; -- 2024-09-08 13:06:12
+
+-- GET CURRENT DATE
+SELECT CURRENT_TIME; -- 13:06:23
+
+-- 1. Extracting Components of Date and Time
+-- Use Case: 
+-- Extract specific parts (e.g., year, month, day) from a date or timestamp.
+
+-- Extract Year, Month, Day from a Date
+SELECT 
+    YEAR(CURRENT_DATE) AS year, 
+    MONTH(CURRENT_DATE) AS month, 
+    WEEK(CURDATE()) AS week_number,
+	DAY(CURRENT_DATE) AS day_num;
+    
+-- Extract hour, minute, second from a timestamp
+SELECT 
+    HOUR(NOW()) AS hour, 
+    MINUTE(NOW()) AS minute, 
+    SECOND(NOW()) AS second;
+    
+-- Get the day of the year (1-365/366)
+SELECT DAYOFYEAR(CURDATE()) AS day_of_year; -- 252
+SELECT DAYOFYEAR('2022-12-31') AS day_of_year; -- 365
+
+-- Get the day of the month (1-31)
+SELECT DAYOFMONTH(CURDATE()) AS day_of_mnth; -- 8
+SELECT DAYOFMONTH('2022-12-31') AS day_of_mnth; -- 31
+
+-- Get the day of the week (1 = Sunday,2 = Monday , 3 = Tuesday , 4 = Wednesday , 5 = Thursday , 6 = Friday , 7 = Saturday)
+SELECT DAYOFWEEK(CURDATE()) AS day_of_week;
+SELECT DAYOFWEEK('2024-09-10') AS day_of_week; -- 3 = TUESDAY
+    
+-- Add 5 days to the current date
+SELECT CURDATE() + INTERVAL 5 DAY AS future_date_ahead_5_days; -- 2024-09-13
+SELECT CURDATE() - INTERVAL 2 QUARTER AS past_date_quarter; -- 2024-03-08
+SELECT CURDATE() + INTERVAL 2 WEEK AS future_date_week; -- 2024-09-22
+
+-- Subtract 2 months from the current date
+SELECT CURDATE() - INTERVAL 2 MONTH AS past_date;
+
+-- Difference in days between two dates
+SELECT DATEDIFF('2024-12-31', CURDATE()) AS days_until_year_end; -- 114
+
+-- The EXTRACT function in MySQL allows you to retrieve specific parts (e.g., year, month, day, hour, minute) from date, time, or timestamp values. 
+-- Extract the year from a date
+SELECT EXTRACT(YEAR FROM now()) AS YR; -- 2024
+SELECT EXTRACT(YEAR FROM '2023-07-08') AS YR; -- 2023
+
+SELECT EXTRACT(MONTH FROM now()) AS MNTH; -- 9
+SELECT EXTRACT(MONTH FROM '2023-07-08') AS MNTH; -- 7
+
+SELECT EXTRACT(QUARTER FROM now()) AS QTR; -- 3
+SELECT EXTRACT(QUARTER FROM '2023-07-08') AS QTR; -- 3
+
+SELECT EXTRACT(WEEK FROM NOW()) AS WEEK_FROM_CURR_DATE; -- 36
+SELECT EXTRACT(WEEK FROM curdate()) AS WEEK_FROM_CURR_DATE; -- 36
+SELECT EXTRACT(WEEK FROM '2023-07-08') AS WEEK; -- 27
+
+SELECT EXTRACT(DAY FROM now()) AS DAY; -- 8
+SELECT EXTRACT(DAY FROM '2023-07-08') AS DAY_FROM_DATE; -- 8
+
+-- Extract the hour, minute, and second from a timestamp
+select now(); -- 2024-09-08 13:30:27
+SELECT 
+    EXTRACT(HOUR FROM current_time()) AS curr_hr_from_curr_time, 
+    EXTRACT(HOUR FROM current_timestamp()) AS curr_hr_from_tstamp, 
+    EXTRACT(HOUR FROM now()) AS curr_hr_from_now, 
+    EXTRACT(MINUTE FROM now()) AS curr_min_from_now, 
+    EXTRACT(SECOND FROM now()) AS curr_sec_from_now,
+    EXTRACT(HOUR FROM '2024-09-08 14:30:45') AS hour_from_date, 
+    EXTRACT(MINUTE FROM '2024-09-08 14:30:45') AS minute_from_date, 
+    EXTRACT(SECOND FROM '2024-09-08 14:30:45') AS second_from_date,
+    EXTRACT(MICROSECOND FROM '2024-09-08 14:30:45.123456') AS microsec_from_date;
+-- Difference in months between two dates
+SELECT EXTRACT(YEAR_MONTH FROM '2024-12-31'); -- 202412
+SELECT EXTRACT(YEAR_MONTH FROM '2023-06-01'); -- 202306
+
+-- Extract the microseconds from a timestamp
+
+
+SELECT PERIOD_DIFF(EXTRACT(YEAR_MONTH FROM '2024-12-31'), EXTRACT(YEAR_MONTH FROM '2023-06-01')) AS months_diff; -- 202412 - 202306 = 18 MONTHS
+SELECT PERIOD_DIFF('2024-09-23','2023-12-15') AS months_diff; -- Incorrect Arguments 
+
+
+-- USE CASE PRACTICE
+DROP TABLE orders;
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,                  -- Unique identifier for each order
+    customer_name VARCHAR(100),                -- Name of the customer
+    order_date DATE,                           -- Date when the order was placed
+    delivery_date_time  DATETIME                -- Date and time when the order was delivered
+);
+
+INSERT INTO orders (order_id, customer_name, order_date, delivery_date_time)
+VALUES 
+    (1, 'John Doe', '2024-01-15', '2024-01-17 12:30:45'),
+    (2, 'Jane Smith', '2024-03-10', '2024-03-15 14:45:00'),
+    (3, 'Mark Brown', '2024-07-22', '2024-07-23 09:15:30'),
+    (4, 'Sarah Johnson', '2024-08-05', '2024-08-11 16:20:15'),
+    (5, 'David Lee', '2024-12-01', '2024-12-10 18:05:25');
+
+SELECT * FROM ORDERS;
+
+-- Extracting Part of a Timestamp for Filtering
+-- Use Case: Use EXTRACT to filter records based on specific parts of a timestamp.
+-- Get all records created in 2024
+SELECT * 
+FROM orders 
+WHERE EXTRACT(YEAR FROM order_date) = 2024;
+
+-- Get all records created in September, regardless of the year
+SELECT * 
+FROM orders 
+WHERE EXTRACT(MONTH FROM order_date) = 8;
+
+-- Format delivery time as 'DD/MM/YYYY HH:MM:SS'
+SELECT 
+    order_id,
+    customer_name,
+    DATE_FORMAT(delivery_date_time, '%d/%m/%Y %H:%i:%s') AS formatted_delivery_time
+FROM orders;
+
+-- Truncate delivery time to the start of the hour
+SELECT 
+    order_id,
+    customer_name,
+    delivery_date_time,
+    DATE_FORMAT(delivery_date_time, '%Y-%m-%d %H:00:00') AS truncated_delivery_time
+FROM orders;
+
+
+-- Extract Year, Month, and Day from order_date
+DROP TABLE MASTER_ORDER;
+CREATE TABLE MASTER_ORDER AS
+SELECT 
+    order_id,
+    customer_name,
+    order_date,
+    delivery_date_time,
+    EXTRACT(YEAR FROM order_date) AS order_year,
+    EXTRACT(MONTH FROM order_date) AS order_month,
+    EXTRACT(WEEK FROM order_date) AS order_week,
+    EXTRACT(DAY FROM order_date) AS order_day,
+    EXTRACT(DAY FROM delivery_date_time) AS delivery_day,
+    DATEDIFF(delivery_date_time, order_date) AS days_to_delivery,
+    TIMESTAMPDIFF(HOUR, order_date, delivery_date_time) AS time_taken_hrs_order_delivery,
+    TIMESTAMPDIFF(MINUTE, order_date, delivery_date_time) AS time_taken_min_order_delivery,
+    TIMESTAMPDIFF(SECOND, order_date, delivery_date_time) AS time_taken_sec_order_delivery
+FROM orders;
+
+SELECT * FROM MASTER_ORDER;
+
+-- Add 5 days to the order date
+SELECT 
+    order_id,
+    customer_name,
+    order_date,
+    order_date + INTERVAL 5 DAY AS delivery_due_date
+FROM orders;
+
+SELECT * FROM VW_MASTER_ORDER;
+
+-- Create a datetime from components (year, month, day, hour, minute, second)
+SELECT 
+    order_id,
+    customer_name,
+    MAKEDATE(2024, 120) AS made_date,  -- 120th day of the year 2024
+    MAKETIME(14, 30, 45) AS made_time  -- 14:30:45 time
+FROM orders;
+
+
+-- Convert delivery_time from UTC to 'America/New_York' timezone
+SELECT 
+    order_id,
+    customer_name,
+    delivery_date_time,
+    CONVERT_TZ(delivery_date_time, '+00:00', 'America/New_York') AS ny_delivery_time
+FROM orders;
+
+-- Convert delivery_time to epoch time (seconds since 1970-01-01)
+SELECT 
+    order_id,
+    customer_name,
+    UNIX_TIMESTAMP(delivery_date_time) AS epoch_delivery_time
+FROM orders;
+
+-- Convert epoch time to human-readable datetime
+SELECT 
+    FROM_UNIXTIME(1627764000) AS readable_time;
+
+SELECT 
+    order_id, 
+    customer_name, 
+    delivery_date_time, 
+    CONVERT_TZ(delivery_date_time, '+00:00', 'America/New_York') AS ny_delivery_time
+FROM orders;
+
+SELECT 
+    order_id, 
+    customer_name, 
+    delivery_date_time, 
+    CONVERT_TZ(delivery_date_time, '+00:00', 'Asia/Kolkata') AS india_delivery_time
+FROM orders;
+
+SELECT 
+    TIMEDIFF(CONVERT_TZ('2024-03-10 12:00:00', '+00:00', 'Europe/London'), '2024-03-10 12:00:00') AS time_difference;
+
+SELECT 
+    CONVERT_TZ('2024-03-10 12:00:00', '+00:00', 'America/New_York') AS ny_time_before_dst,
+    CONVERT_TZ('2024-07-10 12:00:00', '+00:00', 'America/New_York') AS ny_time_after_dst;
+
+SELECT 
+    order_id, 
+    customer_name, 
+    order_date, 
+    delivery_date_time
+FROM orders
+WHERE CONVERT_TZ(delivery_date_time, '+00:00', 'Asia/Kolkata') > '2024-01-15 12:00:00';
+
+-- Let’s start with setting the timezone in MySQL.
+-- To see what value they are set to:
+SELECT @@global.time_zone;
+-- To set a value for it use either one:
+SET GLOBAL time_zone = '+8:00';
+SET GLOBAL time_zone = 'Europe/Helsinki';
+SET @@global.time_zone = '+00:00';
+SELECT @@global.time_zone;
+
+-- To set it use either one:
+SELECT @@session.time_zone;
+SET time_zone = 'Europe/Helsinki';
+SET time_zone = "+00:00";
+SET @@session.time_zone = "+00:00";
+
+-- The above query sets the session timezone to UTC. You can replace ‘+00:00’ with your desired timezone offset or a named timezone like ‘Europe/London’.
+SET time_zone = '+00:00';
+
+-- To get the current timezone offset as TIME
+SELECT TIMEDIFF(NOW(), UTC_TIMESTAMP);
+-- It will return 02:00:00 if your timezone is +2:00.
+
+-- To get the current UNIX timestamp:
+SELECT UNIX_TIMESTAMP(); -- 1725788312
+SELECT UNIX_TIMESTAMP(NOW()); -- 1725788320
+
+CREATE TABLE events (
+    id INT PRIMARY KEY,
+    event_name VARCHAR(50),
+    event_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO events (id, event_name) VALUES (1, 'Event One');
+
+-- Now, if you select data, the event_timestamp will reflect the timestamp of when the row was inserted, in the session’s timezone.
+SELECT * FROM events;
+
+SELECT CONVERT_TZ(event_timestamp, '+00:00', 'Europe/London') as london_time FROM events;
+
+-- Let’s find all events that happened after 5 PM London time:
+SELECT * FROM events
+WHERE CONVERT_TZ(event_timestamp, '+00:00', 'Europe/London') > '17:00:00';
+
+-- Though MySQL does not store timezone information within a TIMESTAMP column, you could store it in a separate column if needed:
+
+ALTER TABLE events 
+ADD COLUMN timezone VARCHAR(25);
