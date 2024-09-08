@@ -1,0 +1,164 @@
+/* 
+In Snowflake, time zone-related functions are particularly useful for handling and manipulating time zones, especially when dealing with datasets that span multiple regions or need to be standardized across different time zones. 
+
+ALTER SESSION SET TIMEZONE                  : Changes the session’s default time zone.
+CONVERT_TIMEZONE(from_tz, to_tz, timestamp) : Converts a timestamp from one time zone to another.
+TO_TIMEZONE(timestamp_tz)                   : Extracts the time zone from a TIMESTAMP_TZ value.
+CURRENT_TIMESTAMP()                         : Gets the current timestamp in UTC or the session time zone.
+EXTRACT() and DATE_PART()                   : Extract parts of a timestamp in a specific time zone.
+
+*/
+
+-- GET CURRENT DATE
+SELECT CURRENT_DATE;
+
+-- GET CURRENT TIME
+SELECT CURRENT_TIMESTAMP AS UTC_NOW;
+
+-- GET CURRENT DATE
+SELECT CURRENT_TIME;
+
+-- 5. Setting Default Time Zone for a Session
+-- You can use ALTER SESSION SET TIMEZONE to set a default time zone for the entire session. 
+-- This way, all timestamp outputs will be displayed in -- the specified time zone.
+
+--Example:
+--Set the session time zone to 'Europe/Paris'.
+
+-- This will make the session aware of the time zone, and all timestamp outputs will reflect the Europe/Paris time zone.
+
+ALTER SESSION SET TIMEZONE = 'America/New_York';
+SELECT CURRENT_TIMESTAMP() AS ny_current_time; -- 2024-09-08 05:18:25.879 -0400
+
+ALTER SESSION SET TIMEZONE = 'UTC';
+SELECT CURRENT_TIMESTAMP() AS utc_current_time; -- 2024-09-08 09:17:24.234 +0000
+
+ALTER SESSION SET TIMEZONE = 'Europe/London';
+SELECT CURRENT_TIMESTAMP() AS europe_current_time; -- 2024-09-08 10:26:15.500 +0100
+
+ALTER SESSION SET TIMEZONE = 'Europe/Paris';
+SELECT CURRENT_TIMESTAMP() AS europe_current_time; -- 2024-09-08 11:17:52.927 +0200
+
+ALTER SESSION SET TIMEZONE = 'Asia/Kolkata';
+SELECT CURRENT_TIMESTAMP() AS asia_kol_current_time; -- 2024-09-08 14:50:15.170 +0530
+
+ALTER SESSION SET TIMEZONE = 'Asia/Tokyo';
+SELECT CURRENT_TIMESTAMP() AS asia_tokyo_current_time; -- 2024-09-08 18:24:35.321 +0900
+
+
+-- CONVERT TIMEZONE
+SELECT CONVERT_TIMEZONE('UTC',CURRENT_TIMESTAMP) AS UTC_TIMEZONE;
+
+-- Converting TIMESTAMP to a Specific Time Zone
+-- The CONVERT_TIMEZONE function allows you to convert a timestamp from one time zone to another.
+
+--Example:
+--Convert a timestamp stored in UTC to 'America/New_York' time zone.
+SELECT 
+    order_id,
+    customer_name,
+    delivery_date_time, 
+    CONVERT_TIMEZONE('UTC', 'America/New_York', delivery_date_time) AS ny_delivery_time
+FROM orders;
+
+-- Converting Current Timestamp to Specific Time Zones
+-- You can use CONVERT_TIMEZONE() with the current timestamp using CURRENT_TIMESTAMP or NOW().
+
+--Example:
+--Get the current timestamp in UTC and convert it to 'Asia/Kolkata'.
+
+SELECT 
+    CURRENT_TIMESTAMP() AS utc_now,
+    CONVERT_TIMEZONE('UTC', 'Asia/Kolkata', CURRENT_TIMESTAMP()) AS india_current_time;
+    
+-- Extract Time Zone Information from a TIMESTAMP
+-- The TO_TIMEZONE function can extract the time zone portion from a TIMESTAMP_TZ type.
+
+--Example:
+--Extract the time zone of a timestamp that already has a time zone associated with it.
+
+SELECT 
+    order_id,
+    customer_name,
+    delivery_date_time,
+    delivery_date_time::TIMESTAMP_TZ AS delivery_time_tz
+FROM orders;
+
+-- Handling Daylight Saving Time (DST) Automatically
+-- When converting time zones, Snowflake handles Daylight Saving Time (DST) automatically. If you specify a time zone that observes DST, Snowflake adjusts the timestamp accordingly.
+
+--Example:
+--Convert a timestamp to 'America/New_York', and Snowflake will adjust for DST.
+
+
+SELECT 
+    delivery_date_time, 
+    CONVERT_TIMEZONE('UTC', 'America/New_York', delivery_date_time) AS ny_delivery_time_before_dst,
+    CONVERT_TIMEZONE('UTC', 'America/New_York', '2024-07-22 09:15:30') AS ny_delivery_time_after_dst
+FROM orders;
+
+
+-- Converting Between TIMESTAMP Types
+-- In Snowflake, there are three timestamp types: TIMESTAMP_NTZ (no time zone), TIMESTAMP_LTZ (local time zone), and TIMESTAMP_TZ (with time zone). You may want to convert between these types, depending on your data needs.
+
+--Example:
+--Convert a TIMESTAMP_NTZ to TIMESTAMP_TZ and assign a specific time zone.
+SELECT 
+    order_id,
+    delivery_date_time::TIMESTAMP_NTZ AS ntz_delivery_time,
+    delivery_date_time::TIMESTAMP_TZ AS tz_delivery_time,
+    CONVERT_TIMEZONE('UTC', 'America/Los_Angeles', delivery_date_time) AS la_delivery_time
+FROM orders;
+
+-- Handling Time Zone in Date Arithmetic
+-- Snowflake handles time zone differences when performing date arithmetic.
+
+-- Example:
+-- Add 2 hours to a timestamp and convert it to a specific time zone.
+
+SELECT 
+    order_id,
+    delivery_date_time, 
+    CONVERT_TIMEZONE('UTC', 'Asia/Tokyo', delivery_date_time + INTERVAL '2 HOUR') AS tokyo_delivery_time_plus_2_hours
+FROM orders;
+
+-- Filtering Based on Time Zone-Aware Timestamps
+-- You can filter records based on time zone-aware timestamps using TIMESTAMP_TZ.
+
+-- Example:
+-- Find all orders that were delivered after 6 PM in 'Europe/London'.
+
+SELECT 
+    order_id,
+    customer_name,
+    delivery_date_time
+FROM orders
+WHERE CONVERT_TIMEZONE('UTC', 'Europe/London', delivery_date_time) > '2024-01-15 18:00:00';
+
+-- Extracting Parts of a Timestamp in a Specific Time Zone
+-- You can extract specific components (like year, month, day, hour) from a timestamp in a specific time zone using DATE_PART or EXTRACT.
+
+-- Example:
+-- Extract the hour of delivery in the 'America/Los_Angeles' time zone.
+
+SELECT 
+    order_id,
+    customer_name,
+    delivery_date_time, 
+    EXTRACT(HOUR FROM CONVERT_TIMEZONE('UTC', 'America/Los_Angeles', delivery_date_time)) AS delivery_hour_la
+FROM orders;
+
+-- Using Time Zones in Scheduling
+-- When scheduling queries or tasks (e.g., Snowflake Tasks), you may want to specify that the execution is aligned to a specific time zone.
+
+-- Example:
+-- Schedule a task to run daily at 6 AM in 'Asia/Kolkata' time zone.
+
+CREATE OR REPLACE TASK daily_report_task
+    WAREHOUSE = DEMO_WAREHOUSE
+    SCHEDULE = 'USING CRON 0 6 * * * Asia/Kolkata'
+AS
+SELECT * FROM orders;
+
+-- This task will now run every day at 6 AM in the Asia/Kolkata time zone.
+
