@@ -1,0 +1,1001 @@
+feedback_id,customer_id,feedback_text
+1,25,"Amazing experience, will buy again!"
+2,100,The product was bad and customer support is poor
+3,614,I am not satisfied with the quality
+4,620,Good job with the delivery service!
+5,799,The product was bad and customer support is poor
+6,142,"Amazing experience, will buy again!"
+7,190,The product was bad and customer support is poor
+8,248,"The service was excellent, I loved it!"
+9,58,I am not satisfied with the quality
+10,458,"The service was excellent, I loved it!"
+11,510,Good job with the delivery service!
+12,128,"The service was excellent, I loved it!"
+13,894,Good job with the delivery service!
+14,117,Good job with the delivery service!
+15,428,I am not satisfied with the quality
+16,965,The product was bad and customer support is poor
+17,73,The product was bad and customer support is poor
+18,450,"The service was excellent, I loved it!"
+19,169,The product was bad and customer support is poor
+20,550,I am not satisfied with the quality
+21,804,"The service was excellent, I loved it!"
+22,780,The product was bad and customer support is poor
+23,57,The product was bad and customer support is poor
+24,291,"The service was excellent, I loved it!"
+25,475,The product was bad and customer support is poor
+26,209,"Amazing experience, will buy again!"
+27,492,I am not satisfied with the quality
+28,845,I am not satisfied with the quality
+29,965,The product was bad and customer support is poor
+30,740,"The service was excellent, I loved it!"
+31,73,"Amazing experience, will buy again!"
+32,28,The product was bad and customer support is poor
+33,718,Good job with the delivery service!
+34,370,The product was bad and customer support is poor
+35,491,The product was bad and customer support is poor
+36,886,Good job with the delivery service!
+37,385,Good job with the delivery service!
+38,926,The product was bad and customer support is poor
+39,715,Good job with the delivery service!
+40,157,"The service was excellent, I loved it!"
+41,219,"Amazing experience, will buy again!"
+42,907,Good job with the delivery service!
+43,279,"The service was excellent, I loved it!"
+44,417,The product was bad and customer support is poor
+45,832,"The service was excellent, I loved it!"
+46,914,"The service was excellent, I loved it!"
+47,544,Good job with the delivery service!
+48,530,"Amazing experience, will buy again!"
+49,552,The product was bad and customer support is poor
+50,152,Good job with the delivery service!
+51,604,The product was bad and customer support is poor
+52,841,The product was bad and customer support is poor
+53,135,"Amazing experience, will buy again!"
+54,336,"Amazing experience, will buy again!"
+55,799,The product was bad and customer support is poor
+56,145,"The service was excellent, I loved it!"
+57,350,The product was bad and customer support is poor
+58,776,"The service was excellent, I loved it!"
+59,693,I am not satisfied with the quality
+60,421,I am not satisfied with the quality
+61,491,"The service was excellent, I loved it!"
+62,165,Good job with the delivery service!
+63,820,"Amazing experience, will buy again!"
+64,57,"Amazing experience, will buy again!"
+65,228,Good job with the delivery service!
+66,901,I am not satisfied with the quality
+67,386,"The service was excellent, I loved it!"
+68,576,"The service was excellent, I loved it!"
+69,467,"Amazing experience, will buy again!"
+70,758,"Amazing experience, will buy again!"
+71,814,The product was bad and customer support is poor
+72,915,"The service was excellent, I loved it!"
+73,219,"Amazing experience, will buy again!"
+74,458,I am not satisfied with the quality
+75,181,I am not satisfied with the quality
+76,607,The product was bad and customer support is poor
+77,722,Good job with the delivery service!
+78,92,The product was bad and customer support is poor
+79,31,"Amazing experience, will buy again!"
+80,813,"Amazing experience, will buy again!"
+81,158,"The service was excellent, I loved it!"
+82,353,I am not satisfied with the quality
+83,472,Good job with the delivery service!
+84,2,Good job with the delivery service!
+85,791,I am not satisfied with the quality
+86,156,I am not satisfied with the quality
+87,892,I am not satisfied with the quality
+88,113,"Amazing experience, will buy again!"
+89,473,"Amazing experience, will buy again!"
+90,18,I am not satisfied with the quality
+91,643,I am not satisfied with the quality
+92,431,"Amazing experience, will buy again!"
+93,122,The product was bad and customer support is poor
+94,819,"Amazing experience, will buy again!"
+95,437,I am not satisfied with the quality
+96,823,The product was bad and customer support is poor
+97,277,"Amazing experience, will buy again!"
+98,632,Good job with the delivery service!
+99,395,The product was bad and customer support is poor
+100,151,"Amazing experience, will buy again!"
+101,88,I am not satisfied with the quality
+102,135,I am not satisfied with the quality
+103,606,"The service was excellent, I loved it!"
+104,172,The product was bad and customer support is poor
+105,172,"The service was excellent, I loved it!"
+106,144,I am not satisfied with the quality
+107,806,The product was bad and customer support is poor
+108,824,The product was bad and customer support is poor
+109,983,I am not satisfied with the quality
+110,528,The product was bad and customer support is poor
+111,416,I am not satisfied with the quality
+112,564,"The service was excellent, I loved it!"
+113,76,The product was bad and customer support is poor
+114,510,"Amazing experience, will buy again!"
+115,269,The product was bad and customer support is poor
+116,407,Good job with the delivery service!
+117,679,"Amazing experience, will buy again!"
+118,171,"Amazing experience, will buy again!"
+119,245,The product was bad and customer support is poor
+120,943,Good job with the delivery service!
+121,494,"Amazing experience, will buy again!"
+122,503,The product was bad and customer support is poor
+123,651,"The service was excellent, I loved it!"
+124,255,"The service was excellent, I loved it!"
+125,104,"The service was excellent, I loved it!"
+126,222,"The service was excellent, I loved it!"
+127,939,I am not satisfied with the quality
+128,916,Good job with the delivery service!
+129,909,Good job with the delivery service!
+130,386,"The service was excellent, I loved it!"
+131,966,The product was bad and customer support is poor
+132,266,"Amazing experience, will buy again!"
+133,889,I am not satisfied with the quality
+134,457,The product was bad and customer support is poor
+135,249,"Amazing experience, will buy again!"
+136,734,"Amazing experience, will buy again!"
+137,686,"The service was excellent, I loved it!"
+138,507,I am not satisfied with the quality
+139,858,"The service was excellent, I loved it!"
+140,700,"The service was excellent, I loved it!"
+141,334,Good job with the delivery service!
+142,469,I am not satisfied with the quality
+143,411,"The service was excellent, I loved it!"
+144,634,Good job with the delivery service!
+145,977,Good job with the delivery service!
+146,648,The product was bad and customer support is poor
+147,520,The product was bad and customer support is poor
+148,599,"The service was excellent, I loved it!"
+149,269,"The service was excellent, I loved it!"
+150,787,"Amazing experience, will buy again!"
+151,504,"Amazing experience, will buy again!"
+152,742,"The service was excellent, I loved it!"
+153,42,I am not satisfied with the quality
+154,57,The product was bad and customer support is poor
+155,380,"The service was excellent, I loved it!"
+156,723,Good job with the delivery service!
+157,301,The product was bad and customer support is poor
+158,371,"The service was excellent, I loved it!"
+159,374,"Amazing experience, will buy again!"
+160,431,"Amazing experience, will buy again!"
+161,352,I am not satisfied with the quality
+162,941,The product was bad and customer support is poor
+163,955,I am not satisfied with the quality
+164,875,Good job with the delivery service!
+165,545,I am not satisfied with the quality
+166,397,The product was bad and customer support is poor
+167,673,"The service was excellent, I loved it!"
+168,659,I am not satisfied with the quality
+169,659,I am not satisfied with the quality
+170,519,"The service was excellent, I loved it!"
+171,392,The product was bad and customer support is poor
+172,595,Good job with the delivery service!
+173,379,"The service was excellent, I loved it!"
+174,543,I am not satisfied with the quality
+175,315,I am not satisfied with the quality
+176,906,"Amazing experience, will buy again!"
+177,928,"Amazing experience, will buy again!"
+178,335,"Amazing experience, will buy again!"
+179,542,"The service was excellent, I loved it!"
+180,276,"The service was excellent, I loved it!"
+181,513,Good job with the delivery service!
+182,949,I am not satisfied with the quality
+183,999,"Amazing experience, will buy again!"
+184,735,I am not satisfied with the quality
+185,83,I am not satisfied with the quality
+186,881,"Amazing experience, will buy again!"
+187,940,"Amazing experience, will buy again!"
+188,108,"Amazing experience, will buy again!"
+189,679,"The service was excellent, I loved it!"
+190,612,I am not satisfied with the quality
+191,436,I am not satisfied with the quality
+192,845,"The service was excellent, I loved it!"
+193,160,The product was bad and customer support is poor
+194,118,"Amazing experience, will buy again!"
+195,117,Good job with the delivery service!
+196,393,The product was bad and customer support is poor
+197,898,I am not satisfied with the quality
+198,945,The product was bad and customer support is poor
+199,33,"The service was excellent, I loved it!"
+200,557,Good job with the delivery service!
+201,997,The product was bad and customer support is poor
+202,241,Good job with the delivery service!
+203,719,Good job with the delivery service!
+204,317,"Amazing experience, will buy again!"
+205,431,The product was bad and customer support is poor
+206,34,Good job with the delivery service!
+207,528,Good job with the delivery service!
+208,432,"Amazing experience, will buy again!"
+209,669,"Amazing experience, will buy again!"
+210,98,Good job with the delivery service!
+211,611,"Amazing experience, will buy again!"
+212,877,Good job with the delivery service!
+213,599,Good job with the delivery service!
+214,971,I am not satisfied with the quality
+215,856,"Amazing experience, will buy again!"
+216,202,"Amazing experience, will buy again!"
+217,178,"Amazing experience, will buy again!"
+218,530,I am not satisfied with the quality
+219,339,I am not satisfied with the quality
+220,471,I am not satisfied with the quality
+221,263,"The service was excellent, I loved it!"
+222,468,"The service was excellent, I loved it!"
+223,779,I am not satisfied with the quality
+224,665,Good job with the delivery service!
+225,677,Good job with the delivery service!
+226,98,I am not satisfied with the quality
+227,79,"The service was excellent, I loved it!"
+228,804,Good job with the delivery service!
+229,115,The product was bad and customer support is poor
+230,376,Good job with the delivery service!
+231,337,I am not satisfied with the quality
+232,256,"The service was excellent, I loved it!"
+233,763,I am not satisfied with the quality
+234,980,The product was bad and customer support is poor
+235,902,"Amazing experience, will buy again!"
+236,345,The product was bad and customer support is poor
+237,227,"The service was excellent, I loved it!"
+238,920,Good job with the delivery service!
+239,371,"The service was excellent, I loved it!"
+240,975,"The service was excellent, I loved it!"
+241,255,Good job with the delivery service!
+242,315,"Amazing experience, will buy again!"
+243,723,Good job with the delivery service!
+244,957,Good job with the delivery service!
+245,548,I am not satisfied with the quality
+246,548,"The service was excellent, I loved it!"
+247,422,"Amazing experience, will buy again!"
+248,113,The product was bad and customer support is poor
+249,911,"The service was excellent, I loved it!"
+250,169,The product was bad and customer support is poor
+251,750,"Amazing experience, will buy again!"
+252,624,The product was bad and customer support is poor
+253,57,"Amazing experience, will buy again!"
+254,522,I am not satisfied with the quality
+255,288,"Amazing experience, will buy again!"
+256,834,The product was bad and customer support is poor
+257,802,I am not satisfied with the quality
+258,159,Good job with the delivery service!
+259,475,"The service was excellent, I loved it!"
+260,920,"The service was excellent, I loved it!"
+261,460,I am not satisfied with the quality
+262,632,Good job with the delivery service!
+263,73,I am not satisfied with the quality
+264,884,Good job with the delivery service!
+265,277,"The service was excellent, I loved it!"
+266,239,"Amazing experience, will buy again!"
+267,15,The product was bad and customer support is poor
+268,187,I am not satisfied with the quality
+269,927,"The service was excellent, I loved it!"
+270,566,"Amazing experience, will buy again!"
+271,267,The product was bad and customer support is poor
+272,283,I am not satisfied with the quality
+273,212,The product was bad and customer support is poor
+274,173,I am not satisfied with the quality
+275,444,"The service was excellent, I loved it!"
+276,97,Good job with the delivery service!
+277,57,"The service was excellent, I loved it!"
+278,217,Good job with the delivery service!
+279,758,Good job with the delivery service!
+280,797,The product was bad and customer support is poor
+281,98,Good job with the delivery service!
+282,747,The product was bad and customer support is poor
+283,543,The product was bad and customer support is poor
+284,461,The product was bad and customer support is poor
+285,691,"The service was excellent, I loved it!"
+286,295,I am not satisfied with the quality
+287,571,I am not satisfied with the quality
+288,422,"Amazing experience, will buy again!"
+289,533,The product was bad and customer support is poor
+290,200,The product was bad and customer support is poor
+291,809,Good job with the delivery service!
+292,625,The product was bad and customer support is poor
+293,196,I am not satisfied with the quality
+294,424,The product was bad and customer support is poor
+295,291,The product was bad and customer support is poor
+296,5,Good job with the delivery service!
+297,234,"Amazing experience, will buy again!"
+298,410,The product was bad and customer support is poor
+299,845,Good job with the delivery service!
+300,292,The product was bad and customer support is poor
+301,665,"The service was excellent, I loved it!"
+302,804,The product was bad and customer support is poor
+303,717,Good job with the delivery service!
+304,553,Good job with the delivery service!
+305,961,The product was bad and customer support is poor
+306,853,Good job with the delivery service!
+307,596,The product was bad and customer support is poor
+308,563,I am not satisfied with the quality
+309,888,"The service was excellent, I loved it!"
+310,723,I am not satisfied with the quality
+311,817,The product was bad and customer support is poor
+312,257,I am not satisfied with the quality
+313,738,The product was bad and customer support is poor
+314,959,The product was bad and customer support is poor
+315,987,"Amazing experience, will buy again!"
+316,558,I am not satisfied with the quality
+317,71,"The service was excellent, I loved it!"
+318,75,"The service was excellent, I loved it!"
+319,735,I am not satisfied with the quality
+320,932,"The service was excellent, I loved it!"
+321,545,Good job with the delivery service!
+322,133,"Amazing experience, will buy again!"
+323,55,I am not satisfied with the quality
+324,853,Good job with the delivery service!
+325,663,"The service was excellent, I loved it!"
+326,968,Good job with the delivery service!
+327,779,Good job with the delivery service!
+328,959,"Amazing experience, will buy again!"
+329,411,The product was bad and customer support is poor
+330,502,I am not satisfied with the quality
+331,277,"The service was excellent, I loved it!"
+332,780,Good job with the delivery service!
+333,375,Good job with the delivery service!
+334,705,Good job with the delivery service!
+335,709,Good job with the delivery service!
+336,378,The product was bad and customer support is poor
+337,450,The product was bad and customer support is poor
+338,199,Good job with the delivery service!
+339,970,Good job with the delivery service!
+340,319,Good job with the delivery service!
+341,107,"The service was excellent, I loved it!"
+342,586,Good job with the delivery service!
+343,589,"Amazing experience, will buy again!"
+344,64,"The service was excellent, I loved it!"
+345,667,I am not satisfied with the quality
+346,293,"Amazing experience, will buy again!"
+347,82,"The service was excellent, I loved it!"
+348,541,Good job with the delivery service!
+349,854,"The service was excellent, I loved it!"
+350,300,Good job with the delivery service!
+351,931,"Amazing experience, will buy again!"
+352,218,"Amazing experience, will buy again!"
+353,988,"The service was excellent, I loved it!"
+354,582,I am not satisfied with the quality
+355,799,I am not satisfied with the quality
+356,281,"Amazing experience, will buy again!"
+357,458,"The service was excellent, I loved it!"
+358,1,"Amazing experience, will buy again!"
+359,423,"The service was excellent, I loved it!"
+360,152,"The service was excellent, I loved it!"
+361,342,"The service was excellent, I loved it!"
+362,769,Good job with the delivery service!
+363,332,I am not satisfied with the quality
+364,631,Good job with the delivery service!
+365,830,"The service was excellent, I loved it!"
+366,128,I am not satisfied with the quality
+367,58,"The service was excellent, I loved it!"
+368,950,Good job with the delivery service!
+369,339,Good job with the delivery service!
+370,479,I am not satisfied with the quality
+371,301,"Amazing experience, will buy again!"
+372,345,"Amazing experience, will buy again!"
+373,15,"Amazing experience, will buy again!"
+374,118,"The service was excellent, I loved it!"
+375,932,"Amazing experience, will buy again!"
+376,858,I am not satisfied with the quality
+377,296,I am not satisfied with the quality
+378,673,"Amazing experience, will buy again!"
+379,577,The product was bad and customer support is poor
+380,106,"The service was excellent, I loved it!"
+381,884,The product was bad and customer support is poor
+382,799,The product was bad and customer support is poor
+383,342,Good job with the delivery service!
+384,850,I am not satisfied with the quality
+385,186,Good job with the delivery service!
+386,366,I am not satisfied with the quality
+387,84,The product was bad and customer support is poor
+388,289,I am not satisfied with the quality
+389,130,Good job with the delivery service!
+390,599,"Amazing experience, will buy again!"
+391,212,Good job with the delivery service!
+392,689,"Amazing experience, will buy again!"
+393,26,"The service was excellent, I loved it!"
+394,954,The product was bad and customer support is poor
+395,962,Good job with the delivery service!
+396,536,The product was bad and customer support is poor
+397,298,I am not satisfied with the quality
+398,227,Good job with the delivery service!
+399,545,"Amazing experience, will buy again!"
+400,60,Good job with the delivery service!
+401,937,The product was bad and customer support is poor
+402,853,"Amazing experience, will buy again!"
+403,124,The product was bad and customer support is poor
+404,164,"The service was excellent, I loved it!"
+405,800,Good job with the delivery service!
+406,320,"Amazing experience, will buy again!"
+407,838,Good job with the delivery service!
+408,338,Good job with the delivery service!
+409,161,"Amazing experience, will buy again!"
+410,742,Good job with the delivery service!
+411,182,"The service was excellent, I loved it!"
+412,607,I am not satisfied with the quality
+413,268,The product was bad and customer support is poor
+414,375,"Amazing experience, will buy again!"
+415,85,I am not satisfied with the quality
+416,438,"Amazing experience, will buy again!"
+417,975,I am not satisfied with the quality
+418,528,Good job with the delivery service!
+419,307,The product was bad and customer support is poor
+420,226,I am not satisfied with the quality
+421,926,Good job with the delivery service!
+422,581,"Amazing experience, will buy again!"
+423,603,"The service was excellent, I loved it!"
+424,896,I am not satisfied with the quality
+425,149,"Amazing experience, will buy again!"
+426,362,The product was bad and customer support is poor
+427,603,Good job with the delivery service!
+428,496,"Amazing experience, will buy again!"
+429,671,The product was bad and customer support is poor
+430,554,The product was bad and customer support is poor
+431,355,I am not satisfied with the quality
+432,982,"The service was excellent, I loved it!"
+433,502,"Amazing experience, will buy again!"
+434,186,The product was bad and customer support is poor
+435,689,The product was bad and customer support is poor
+436,35,"The service was excellent, I loved it!"
+437,253,Good job with the delivery service!
+438,72,Good job with the delivery service!
+439,824,I am not satisfied with the quality
+440,733,"Amazing experience, will buy again!"
+441,718,I am not satisfied with the quality
+442,151,The product was bad and customer support is poor
+443,737,"The service was excellent, I loved it!"
+444,291,"The service was excellent, I loved it!"
+445,879,Good job with the delivery service!
+446,121,The product was bad and customer support is poor
+447,1000,Good job with the delivery service!
+448,134,Good job with the delivery service!
+449,599,The product was bad and customer support is poor
+450,869,"Amazing experience, will buy again!"
+451,73,"Amazing experience, will buy again!"
+452,655,"Amazing experience, will buy again!"
+453,787,Good job with the delivery service!
+454,414,Good job with the delivery service!
+455,65,"Amazing experience, will buy again!"
+456,201,I am not satisfied with the quality
+457,8,"The service was excellent, I loved it!"
+458,230,"The service was excellent, I loved it!"
+459,351,"Amazing experience, will buy again!"
+460,629,Good job with the delivery service!
+461,557,Good job with the delivery service!
+462,677,I am not satisfied with the quality
+463,637,Good job with the delivery service!
+464,971,"The service was excellent, I loved it!"
+465,356,I am not satisfied with the quality
+466,461,"The service was excellent, I loved it!"
+467,229,I am not satisfied with the quality
+468,214,"Amazing experience, will buy again!"
+469,57,The product was bad and customer support is poor
+470,813,"The service was excellent, I loved it!"
+471,96,The product was bad and customer support is poor
+472,15,Good job with the delivery service!
+473,452,The product was bad and customer support is poor
+474,911,The product was bad and customer support is poor
+475,728,I am not satisfied with the quality
+476,752,The product was bad and customer support is poor
+477,732,"Amazing experience, will buy again!"
+478,563,"The service was excellent, I loved it!"
+479,735,"Amazing experience, will buy again!"
+480,471,"The service was excellent, I loved it!"
+481,306,I am not satisfied with the quality
+482,815,"The service was excellent, I loved it!"
+483,424,I am not satisfied with the quality
+484,385,The product was bad and customer support is poor
+485,53,"Amazing experience, will buy again!"
+486,976,I am not satisfied with the quality
+487,819,"Amazing experience, will buy again!"
+488,720,I am not satisfied with the quality
+489,896,The product was bad and customer support is poor
+490,834,I am not satisfied with the quality
+491,109,I am not satisfied with the quality
+492,673,"The service was excellent, I loved it!"
+493,145,"The service was excellent, I loved it!"
+494,842,"The service was excellent, I loved it!"
+495,371,I am not satisfied with the quality
+496,640,I am not satisfied with the quality
+497,119,Good job with the delivery service!
+498,64,The product was bad and customer support is poor
+499,979,Good job with the delivery service!
+500,267,"Amazing experience, will buy again!"
+501,991,"The service was excellent, I loved it!"
+502,896,I am not satisfied with the quality
+503,487,I am not satisfied with the quality
+504,133,The product was bad and customer support is poor
+505,37,The product was bad and customer support is poor
+506,842,"Amazing experience, will buy again!"
+507,454,I am not satisfied with the quality
+508,624,The product was bad and customer support is poor
+509,463,"The service was excellent, I loved it!"
+510,481,I am not satisfied with the quality
+511,143,The product was bad and customer support is poor
+512,666,The product was bad and customer support is poor
+513,591,"The service was excellent, I loved it!"
+514,46,"The service was excellent, I loved it!"
+515,808,The product was bad and customer support is poor
+516,277,Good job with the delivery service!
+517,504,The product was bad and customer support is poor
+518,746,The product was bad and customer support is poor
+519,398,"The service was excellent, I loved it!"
+520,212,"Amazing experience, will buy again!"
+521,123,The product was bad and customer support is poor
+522,628,The product was bad and customer support is poor
+523,204,I am not satisfied with the quality
+524,791,"Amazing experience, will buy again!"
+525,854,"Amazing experience, will buy again!"
+526,774,"Amazing experience, will buy again!"
+527,313,Good job with the delivery service!
+528,764,The product was bad and customer support is poor
+529,111,"The service was excellent, I loved it!"
+530,515,I am not satisfied with the quality
+531,331,"Amazing experience, will buy again!"
+532,486,"The service was excellent, I loved it!"
+533,604,"The service was excellent, I loved it!"
+534,931,"Amazing experience, will buy again!"
+535,907,"The service was excellent, I loved it!"
+536,707,I am not satisfied with the quality
+537,345,"Amazing experience, will buy again!"
+538,986,I am not satisfied with the quality
+539,286,I am not satisfied with the quality
+540,941,I am not satisfied with the quality
+541,707,"The service was excellent, I loved it!"
+542,670,The product was bad and customer support is poor
+543,957,Good job with the delivery service!
+544,50,I am not satisfied with the quality
+545,791,"The service was excellent, I loved it!"
+546,54,"Amazing experience, will buy again!"
+547,167,"Amazing experience, will buy again!"
+548,804,The product was bad and customer support is poor
+549,888,Good job with the delivery service!
+550,311,The product was bad and customer support is poor
+551,123,Good job with the delivery service!
+552,801,"The service was excellent, I loved it!"
+553,502,I am not satisfied with the quality
+554,385,"Amazing experience, will buy again!"
+555,780,"The service was excellent, I loved it!"
+556,123,I am not satisfied with the quality
+557,867,Good job with the delivery service!
+558,213,I am not satisfied with the quality
+559,724,The product was bad and customer support is poor
+560,984,"The service was excellent, I loved it!"
+561,851,The product was bad and customer support is poor
+562,756,"Amazing experience, will buy again!"
+563,826,The product was bad and customer support is poor
+564,10,"The service was excellent, I loved it!"
+565,919,The product was bad and customer support is poor
+566,113,The product was bad and customer support is poor
+567,68,I am not satisfied with the quality
+568,888,I am not satisfied with the quality
+569,53,"Amazing experience, will buy again!"
+570,57,"Amazing experience, will buy again!"
+571,344,"The service was excellent, I loved it!"
+572,32,"The service was excellent, I loved it!"
+573,262,The product was bad and customer support is poor
+574,951,"The service was excellent, I loved it!"
+575,184,Good job with the delivery service!
+576,566,Good job with the delivery service!
+577,531,I am not satisfied with the quality
+578,881,Good job with the delivery service!
+579,600,I am not satisfied with the quality
+580,556,"The service was excellent, I loved it!"
+581,151,Good job with the delivery service!
+582,703,Good job with the delivery service!
+583,960,Good job with the delivery service!
+584,678,"The service was excellent, I loved it!"
+585,201,"Amazing experience, will buy again!"
+586,592,"The service was excellent, I loved it!"
+587,456,I am not satisfied with the quality
+588,540,"Amazing experience, will buy again!"
+589,221,Good job with the delivery service!
+590,251,"The service was excellent, I loved it!"
+591,864,"Amazing experience, will buy again!"
+592,792,The product was bad and customer support is poor
+593,354,I am not satisfied with the quality
+594,798,I am not satisfied with the quality
+595,677,I am not satisfied with the quality
+596,160,I am not satisfied with the quality
+597,312,The product was bad and customer support is poor
+598,367,"The service was excellent, I loved it!"
+599,264,"The service was excellent, I loved it!"
+600,95,The product was bad and customer support is poor
+601,470,"Amazing experience, will buy again!"
+602,664,Good job with the delivery service!
+603,634,The product was bad and customer support is poor
+604,30,I am not satisfied with the quality
+605,331,"The service was excellent, I loved it!"
+606,276,The product was bad and customer support is poor
+607,520,"The service was excellent, I loved it!"
+608,512,Good job with the delivery service!
+609,977,"The service was excellent, I loved it!"
+610,246,"Amazing experience, will buy again!"
+611,491,Good job with the delivery service!
+612,702,I am not satisfied with the quality
+613,256,The product was bad and customer support is poor
+614,31,The product was bad and customer support is poor
+615,614,"The service was excellent, I loved it!"
+616,925,The product was bad and customer support is poor
+617,221,"The service was excellent, I loved it!"
+618,985,The product was bad and customer support is poor
+619,333,"The service was excellent, I loved it!"
+620,781,I am not satisfied with the quality
+621,113,The product was bad and customer support is poor
+622,950,Good job with the delivery service!
+623,612,I am not satisfied with the quality
+624,540,Good job with the delivery service!
+625,435,Good job with the delivery service!
+626,719,"The service was excellent, I loved it!"
+627,612,"Amazing experience, will buy again!"
+628,353,Good job with the delivery service!
+629,288,"The service was excellent, I loved it!"
+630,467,"Amazing experience, will buy again!"
+631,996,"The service was excellent, I loved it!"
+632,946,"Amazing experience, will buy again!"
+633,482,Good job with the delivery service!
+634,903,"The service was excellent, I loved it!"
+635,565,"The service was excellent, I loved it!"
+636,401,Good job with the delivery service!
+637,631,The product was bad and customer support is poor
+638,137,"Amazing experience, will buy again!"
+639,514,I am not satisfied with the quality
+640,482,"The service was excellent, I loved it!"
+641,163,"Amazing experience, will buy again!"
+642,922,I am not satisfied with the quality
+643,827,I am not satisfied with the quality
+644,425,"Amazing experience, will buy again!"
+645,447,I am not satisfied with the quality
+646,495,"The service was excellent, I loved it!"
+647,929,"The service was excellent, I loved it!"
+648,172,"The service was excellent, I loved it!"
+649,855,Good job with the delivery service!
+650,657,Good job with the delivery service!
+651,401,"Amazing experience, will buy again!"
+652,114,Good job with the delivery service!
+653,84,I am not satisfied with the quality
+654,132,The product was bad and customer support is poor
+655,289,I am not satisfied with the quality
+656,942,Good job with the delivery service!
+657,535,Good job with the delivery service!
+658,852,"Amazing experience, will buy again!"
+659,443,Good job with the delivery service!
+660,113,"The service was excellent, I loved it!"
+661,157,"Amazing experience, will buy again!"
+662,377,Good job with the delivery service!
+663,956,The product was bad and customer support is poor
+664,925,I am not satisfied with the quality
+665,308,The product was bad and customer support is poor
+666,257,I am not satisfied with the quality
+667,996,"Amazing experience, will buy again!"
+668,483,"The service was excellent, I loved it!"
+669,634,I am not satisfied with the quality
+670,869,"The service was excellent, I loved it!"
+671,218,Good job with the delivery service!
+672,384,The product was bad and customer support is poor
+673,187,"Amazing experience, will buy again!"
+674,534,Good job with the delivery service!
+675,800,Good job with the delivery service!
+676,899,The product was bad and customer support is poor
+677,435,I am not satisfied with the quality
+678,40,"Amazing experience, will buy again!"
+679,902,"The service was excellent, I loved it!"
+680,301,"Amazing experience, will buy again!"
+681,892,Good job with the delivery service!
+682,713,"Amazing experience, will buy again!"
+683,273,I am not satisfied with the quality
+684,16,Good job with the delivery service!
+685,237,I am not satisfied with the quality
+686,156,The product was bad and customer support is poor
+687,592,Good job with the delivery service!
+688,512,Good job with the delivery service!
+689,489,Good job with the delivery service!
+690,70,"The service was excellent, I loved it!"
+691,860,"The service was excellent, I loved it!"
+692,51,Good job with the delivery service!
+693,973,Good job with the delivery service!
+694,836,The product was bad and customer support is poor
+695,803,"The service was excellent, I loved it!"
+696,660,The product was bad and customer support is poor
+697,591,"Amazing experience, will buy again!"
+698,758,I am not satisfied with the quality
+699,687,"Amazing experience, will buy again!"
+700,837,I am not satisfied with the quality
+701,642,I am not satisfied with the quality
+702,18,"The service was excellent, I loved it!"
+703,760,"The service was excellent, I loved it!"
+704,964,The product was bad and customer support is poor
+705,565,I am not satisfied with the quality
+706,209,Good job with the delivery service!
+707,622,"The service was excellent, I loved it!"
+708,557,"Amazing experience, will buy again!"
+709,974,The product was bad and customer support is poor
+710,312,The product was bad and customer support is poor
+711,341,Good job with the delivery service!
+712,452,"The service was excellent, I loved it!"
+713,200,"Amazing experience, will buy again!"
+714,612,The product was bad and customer support is poor
+715,622,Good job with the delivery service!
+716,357,Good job with the delivery service!
+717,27,"Amazing experience, will buy again!"
+718,430,"The service was excellent, I loved it!"
+719,659,I am not satisfied with the quality
+720,548,The product was bad and customer support is poor
+721,113,I am not satisfied with the quality
+722,453,The product was bad and customer support is poor
+723,87,"Amazing experience, will buy again!"
+724,587,The product was bad and customer support is poor
+725,300,Good job with the delivery service!
+726,176,"Amazing experience, will buy again!"
+727,686,"The service was excellent, I loved it!"
+728,139,I am not satisfied with the quality
+729,2,I am not satisfied with the quality
+730,484,I am not satisfied with the quality
+731,466,The product was bad and customer support is poor
+732,242,Good job with the delivery service!
+733,583,"The service was excellent, I loved it!"
+734,870,Good job with the delivery service!
+735,728,The product was bad and customer support is poor
+736,707,"Amazing experience, will buy again!"
+737,416,"Amazing experience, will buy again!"
+738,552,"The service was excellent, I loved it!"
+739,931,Good job with the delivery service!
+740,834,The product was bad and customer support is poor
+741,394,"Amazing experience, will buy again!"
+742,804,Good job with the delivery service!
+743,153,"Amazing experience, will buy again!"
+744,570,I am not satisfied with the quality
+745,578,The product was bad and customer support is poor
+746,428,I am not satisfied with the quality
+747,549,I am not satisfied with the quality
+748,532,The product was bad and customer support is poor
+749,993,"Amazing experience, will buy again!"
+750,673,I am not satisfied with the quality
+751,148,Good job with the delivery service!
+752,871,"Amazing experience, will buy again!"
+753,621,"Amazing experience, will buy again!"
+754,382,The product was bad and customer support is poor
+755,997,Good job with the delivery service!
+756,920,Good job with the delivery service!
+757,423,"The service was excellent, I loved it!"
+758,753,"Amazing experience, will buy again!"
+759,955,"Amazing experience, will buy again!"
+760,389,Good job with the delivery service!
+761,858,"Amazing experience, will buy again!"
+762,364,The product was bad and customer support is poor
+763,693,I am not satisfied with the quality
+764,447,The product was bad and customer support is poor
+765,852,I am not satisfied with the quality
+766,885,Good job with the delivery service!
+767,208,I am not satisfied with the quality
+768,965,Good job with the delivery service!
+769,954,The product was bad and customer support is poor
+770,756,"The service was excellent, I loved it!"
+771,787,The product was bad and customer support is poor
+772,536,The product was bad and customer support is poor
+773,249,"Amazing experience, will buy again!"
+774,967,Good job with the delivery service!
+775,787,I am not satisfied with the quality
+776,288,"The service was excellent, I loved it!"
+777,489,"The service was excellent, I loved it!"
+778,149,"The service was excellent, I loved it!"
+779,879,"Amazing experience, will buy again!"
+780,920,The product was bad and customer support is poor
+781,343,I am not satisfied with the quality
+782,842,Good job with the delivery service!
+783,27,"Amazing experience, will buy again!"
+784,526,"Amazing experience, will buy again!"
+785,603,"The service was excellent, I loved it!"
+786,290,The product was bad and customer support is poor
+787,765,Good job with the delivery service!
+788,986,"Amazing experience, will buy again!"
+789,931,The product was bad and customer support is poor
+790,324,"The service was excellent, I loved it!"
+791,802,The product was bad and customer support is poor
+792,149,Good job with the delivery service!
+793,721,The product was bad and customer support is poor
+794,497,The product was bad and customer support is poor
+795,91,I am not satisfied with the quality
+796,43,I am not satisfied with the quality
+797,498,I am not satisfied with the quality
+798,865,"The service was excellent, I loved it!"
+799,291,"The service was excellent, I loved it!"
+800,758,The product was bad and customer support is poor
+801,992,"Amazing experience, will buy again!"
+802,881,I am not satisfied with the quality
+803,286,"Amazing experience, will buy again!"
+804,753,Good job with the delivery service!
+805,642,Good job with the delivery service!
+806,253,I am not satisfied with the quality
+807,299,The product was bad and customer support is poor
+808,577,"The service was excellent, I loved it!"
+809,872,"Amazing experience, will buy again!"
+810,258,"Amazing experience, will buy again!"
+811,179,"Amazing experience, will buy again!"
+812,858,I am not satisfied with the quality
+813,68,Good job with the delivery service!
+814,194,The product was bad and customer support is poor
+815,38,The product was bad and customer support is poor
+816,344,The product was bad and customer support is poor
+817,171,Good job with the delivery service!
+818,944,"The service was excellent, I loved it!"
+819,512,"Amazing experience, will buy again!"
+820,775,Good job with the delivery service!
+821,788,"Amazing experience, will buy again!"
+822,425,The product was bad and customer support is poor
+823,855,"The service was excellent, I loved it!"
+824,83,"The service was excellent, I loved it!"
+825,586,The product was bad and customer support is poor
+826,977,Good job with the delivery service!
+827,383,The product was bad and customer support is poor
+828,749,"Amazing experience, will buy again!"
+829,980,"The service was excellent, I loved it!"
+830,13,The product was bad and customer support is poor
+831,214,"The service was excellent, I loved it!"
+832,875,The product was bad and customer support is poor
+833,771,"Amazing experience, will buy again!"
+834,625,"Amazing experience, will buy again!"
+835,207,"Amazing experience, will buy again!"
+836,860,"The service was excellent, I loved it!"
+837,272,"Amazing experience, will buy again!"
+838,100,Good job with the delivery service!
+839,711,I am not satisfied with the quality
+840,586,I am not satisfied with the quality
+841,437,"The service was excellent, I loved it!"
+842,290,"Amazing experience, will buy again!"
+843,898,"The service was excellent, I loved it!"
+844,599,"The service was excellent, I loved it!"
+845,464,I am not satisfied with the quality
+846,901,The product was bad and customer support is poor
+847,815,Good job with the delivery service!
+848,999,The product was bad and customer support is poor
+849,109,The product was bad and customer support is poor
+850,305,The product was bad and customer support is poor
+851,383,Good job with the delivery service!
+852,484,Good job with the delivery service!
+853,509,"Amazing experience, will buy again!"
+854,819,"Amazing experience, will buy again!"
+855,553,"Amazing experience, will buy again!"
+856,816,The product was bad and customer support is poor
+857,961,The product was bad and customer support is poor
+858,925,I am not satisfied with the quality
+859,184,I am not satisfied with the quality
+860,231,Good job with the delivery service!
+861,268,The product was bad and customer support is poor
+862,980,The product was bad and customer support is poor
+863,373,"The service was excellent, I loved it!"
+864,880,The product was bad and customer support is poor
+865,695,"Amazing experience, will buy again!"
+866,859,Good job with the delivery service!
+867,924,"Amazing experience, will buy again!"
+868,642,The product was bad and customer support is poor
+869,15,The product was bad and customer support is poor
+870,853,The product was bad and customer support is poor
+871,819,"The service was excellent, I loved it!"
+872,843,"The service was excellent, I loved it!"
+873,313,Good job with the delivery service!
+874,731,The product was bad and customer support is poor
+875,155,Good job with the delivery service!
+876,319,Good job with the delivery service!
+877,56,"Amazing experience, will buy again!"
+878,368,Good job with the delivery service!
+879,517,Good job with the delivery service!
+880,145,"The service was excellent, I loved it!"
+881,526,Good job with the delivery service!
+882,272,"Amazing experience, will buy again!"
+883,32,"Amazing experience, will buy again!"
+884,505,I am not satisfied with the quality
+885,8,"The service was excellent, I loved it!"
+886,762,"Amazing experience, will buy again!"
+887,586,"Amazing experience, will buy again!"
+888,384,Good job with the delivery service!
+889,217,The product was bad and customer support is poor
+890,703,I am not satisfied with the quality
+891,416,"The service was excellent, I loved it!"
+892,231,I am not satisfied with the quality
+893,322,I am not satisfied with the quality
+894,806,The product was bad and customer support is poor
+895,191,I am not satisfied with the quality
+896,582,"The service was excellent, I loved it!"
+897,149,"Amazing experience, will buy again!"
+898,607,The product was bad and customer support is poor
+899,260,The product was bad and customer support is poor
+900,557,Good job with the delivery service!
+901,578,Good job with the delivery service!
+902,737,"The service was excellent, I loved it!"
+903,657,"Amazing experience, will buy again!"
+904,216,"The service was excellent, I loved it!"
+905,512,"Amazing experience, will buy again!"
+906,372,The product was bad and customer support is poor
+907,616,"The service was excellent, I loved it!"
+908,300,Good job with the delivery service!
+909,641,Good job with the delivery service!
+910,517,The product was bad and customer support is poor
+911,75,Good job with the delivery service!
+912,68,"The service was excellent, I loved it!"
+913,435,The product was bad and customer support is poor
+914,86,Good job with the delivery service!
+915,901,The product was bad and customer support is poor
+916,721,"The service was excellent, I loved it!"
+917,93,"The service was excellent, I loved it!"
+918,562,Good job with the delivery service!
+919,859,The product was bad and customer support is poor
+920,920,"The service was excellent, I loved it!"
+921,254,The product was bad and customer support is poor
+922,948,"Amazing experience, will buy again!"
+923,613,I am not satisfied with the quality
+924,937,The product was bad and customer support is poor
+925,976,The product was bad and customer support is poor
+926,515,The product was bad and customer support is poor
+927,670,Good job with the delivery service!
+928,951,Good job with the delivery service!
+929,857,"Amazing experience, will buy again!"
+930,88,"Amazing experience, will buy again!"
+931,86,"Amazing experience, will buy again!"
+932,264,The product was bad and customer support is poor
+933,7,The product was bad and customer support is poor
+934,568,"Amazing experience, will buy again!"
+935,949,Good job with the delivery service!
+936,170,The product was bad and customer support is poor
+937,74,Good job with the delivery service!
+938,544,I am not satisfied with the quality
+939,74,"Amazing experience, will buy again!"
+940,699,Good job with the delivery service!
+941,616,I am not satisfied with the quality
+942,236,I am not satisfied with the quality
+943,126,"The service was excellent, I loved it!"
+944,978,I am not satisfied with the quality
+945,671,"The service was excellent, I loved it!"
+946,385,"Amazing experience, will buy again!"
+947,597,Good job with the delivery service!
+948,736,Good job with the delivery service!
+949,674,I am not satisfied with the quality
+950,162,Good job with the delivery service!
+951,900,"The service was excellent, I loved it!"
+952,390,"Amazing experience, will buy again!"
+953,462,I am not satisfied with the quality
+954,65,I am not satisfied with the quality
+955,242,"Amazing experience, will buy again!"
+956,866,"The service was excellent, I loved it!"
+957,619,"Amazing experience, will buy again!"
+958,819,Good job with the delivery service!
+959,451,"The service was excellent, I loved it!"
+960,128,I am not satisfied with the quality
+961,500,"Amazing experience, will buy again!"
+962,675,I am not satisfied with the quality
+963,751,I am not satisfied with the quality
+964,198,"The service was excellent, I loved it!"
+965,273,I am not satisfied with the quality
+966,428,I am not satisfied with the quality
+967,675,"The service was excellent, I loved it!"
+968,217,"The service was excellent, I loved it!"
+969,64,I am not satisfied with the quality
+970,318,"The service was excellent, I loved it!"
+971,229,"Amazing experience, will buy again!"
+972,211,"Amazing experience, will buy again!"
+973,131,The product was bad and customer support is poor
+974,21,I am not satisfied with the quality
+975,173,Good job with the delivery service!
+976,857,"Amazing experience, will buy again!"
+977,175,"The service was excellent, I loved it!"
+978,754,I am not satisfied with the quality
+979,617,"Amazing experience, will buy again!"
+980,679,"The service was excellent, I loved it!"
+981,184,"The service was excellent, I loved it!"
+982,283,"The service was excellent, I loved it!"
+983,909,Good job with the delivery service!
+984,750,The product was bad and customer support is poor
+985,299,"The service was excellent, I loved it!"
+986,154,The product was bad and customer support is poor
+987,585,"The service was excellent, I loved it!"
+988,774,The product was bad and customer support is poor
+989,422,"The service was excellent, I loved it!"
+990,755,The product was bad and customer support is poor
+991,961,I am not satisfied with the quality
+992,641,"Amazing experience, will buy again!"
+993,352,The product was bad and customer support is poor
+994,222,Good job with the delivery service!
+995,735,"The service was excellent, I loved it!"
+996,438,The product was bad and customer support is poor
+997,607,The product was bad and customer support is poor
+998,707,Good job with the delivery service!
+999,636,"The service was excellent, I loved it!"
+1000,589,Good job with the delivery service!
