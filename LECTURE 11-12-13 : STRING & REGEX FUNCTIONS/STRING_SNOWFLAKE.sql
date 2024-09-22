@@ -29,6 +29,12 @@ INSERT INTO AGENTS VALUES ('A009', 'Benjamin', 'Hampshair', '0.11', '008-2253617
 
 SELECT * FROM AGENTS;
 
+--LIKE
+select * from AGENTS where working_area LIKE '%e';-- ending with e
+select * from AGENTS where working_area LIKE 'B%';-- starting with B followed by any other character
+select * from AGENTS where lower(working_area) LIKE '%c%'; -- c apperaing anywhee
+select * from AGENTS where lower(working_area) LIKE '__n%'; --3rd character is n and 1st 2 characters can be anaything
+
 /* The SUBSTRING () function returns the position of a string or binary value from the complete string, 
 starting with the character specified by substring_start_index. If any input is null, null is returned */
 
