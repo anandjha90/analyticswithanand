@@ -1,0 +1,170 @@
+/*
+Regular expressions (REGEX) are powerful for data validation, extraction, transformation, and analysis. 
+
+A great use case for regular expressions (RegEx) in data analytics involves cleaning and transforming unstructured or semi-structured data, such as parsing email addresses, extracting specific patterns from strings, or validating the format of data. 
+
+
+Use Case: Extracting Domain Names from Email Addresses
+
+Scenario:
+
+Scenario: Imagine you have a large dataset with customer information that contains inconsistencies in formatting for emails, phone numbers, and addresses. 
+You want to clean and analyze the data by extracting, matching, and standardizing these fields.
+
+*/
+
+CREATE OR REPLACE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(255)
+);
+
+SELECT * FROM customers LIMIT 1000;
+
+SELECT TOP 10* FROM customers;
+
+CREATE OR REPLACE TABLE customers_with_phone (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    phone VARCHAR(20)
+);
+
+SELECT * FROM customers_with_phone  LIMIT 1000;
+
+SELECT TOP 100 * FROM customers_with_phone;
+
+--SQL Query to Extract Valid Emails Using REGEXP:
+SELECT customer_id, name, 
+       REGEXP_SUBSTR(email, '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}') AS valid_email
+FROM customers
+WHERE REGEXP_LIKE(email, '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}');
+
+-- REGEXP_SUBSTR extracts the portion of the email that matches the pattern of a valid email address.
+-- REGEXP_LIKE is used to filter rows that have valid email addresses based on the same pattern.
+
+-- Use Case: Extracting Phone Numbers
+-- Problem: The phone column has inconsistent phone number formats, such as "(123) 456-7890", "123-456-7890", or even "1234567890". 
+-- You need to standardize them.
+
+SELECT customer_id, name, 
+       REGEXP_REPLACE(phone, '[^0-9]', '') AS standardized_phone  -- REGEXP_REPLACE removes any non-numeric characters from the phone field, leaving only digits.
+FROM customers_with_phone;
+
+
+-- Use Case: Extract the domain part from email addresses (e.g., @gmail.com, @yahoo.com).
+SELECT customer_id, email, 
+       REGEXP_SUBSTR(email, '@[a-zA-Z0-9.-]+' ) AS domain -- The REGEXP_SUBSTR extracts the domain part after the "@" symbol.
+FROM customers;
+
+
+-- Validating Social Security Numbers (SSNs)
+-- Use Case: Validate if the values in a column are formatted like U.S. Social Security Numbers (SSNs) in the format XXX-XX-XXXX.
+SELECT customer_id, ssn 
+FROM customers
+WHERE REGEXP_LIKE(ssn, '^\d{3}-\d{2}-\d{4}$'); 
+--^\d{3}-\d{2}-\d{4}$ validates that the SSN contains exactly 3 digits, followed by a hyphen, 2 digits, a hyphen, and 4 digits.
+
+
+--Extracting Hashtags from Social Media Text
+-- Use Case: Extract hashtags (e.g., #DataAnalytics, #SQL) from a social media post column.
+
+SELECT post_id, post_text, 
+       REGEXP_SUBSTR(post_text, '#[A-Za-z0-9_]+') AS hashtag
+FROM social_media_posts
+WHERE REGEXP_LIKE(post_text, '#[A-Za-z0-9_]+');
+
+-- Identifying Invalid Phone Numbers
+-- Use Case: Identify phone numbers that don’t match a specific format, such as (XXX) XXX-XXXX or XXX-XXX-XXXX.
+SELECT customer_id, phone 
+FROM customers_with_phone
+WHERE NOT REGEXP_LIKE(phone, '^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$');
+--The pattern ^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$ allows for phone numbers with or without parentheses and dashes.
+
+-- Validate date formats in columns where the date might be entered as YYYY-MM-DD or MM/DD/YYYY.
+SELECT event_id, event_date
+FROM events
+WHERE REGEXP_LIKE(event_date, '^\d{4}-\d{2}-\d{2}$') -- Format: YYYY-MM-DD
+   OR REGEXP_LIKE(event_date, '^\d{2}/\d{2}/\d{4}$'); -- Format: MM/DD/YYYY
+
+-- Finding Records with Alphabetic Characters in a Numeric Field
+-- Use Case: Identify records where a numeric field, such as a product code or ID, contains alphabetic characters by mistake.
+
+SELECT product_id, product_code
+FROM products
+WHERE REGEXP_LIKE(product_code, '[A-Za-z]');
+-- The REGEXP_LIKE checks if the product_code field contains any alphabetic characters, flagging those entries as errors.   
+
+
+-- Extracting First and Last Name from Full Name
+-- Use Case: Split a full_name column into first_name and last_name.
+
+SELECT full_name,
+       REGEXP_SUBSTR(full_name, '^[A-Za-z]+') AS first_name,
+       REGEXP_SUBSTR(full_name, '[A-Za-z]+$') AS last_name
+FROM customers;
+
+-- ^[A-Za-z]+ extracts the first name (first word before a space).
+--  [A-Za-z]+$ extracts the last name (last word after a space).
+
+
+-- Extracting Numbers from Alphanumeric Strings
+-- Use Case: Extract the numeric part from an alphanumeric product code like ABC12345 or Product567.
+
+SELECT product_id, product_code, 
+       REGEXP_SUBSTR(product_code, '\d+') AS numeric_part ----REGEXP_SUBSTR extracts the numeric portion from the alphanumeric product_code.
+FROM products
+WHERE REGEXP_LIKE(product_code, '\d+');
+
+-- Matching Specific Word Patterns in Sentences
+-- Use Case: Find rows in a text column that contain specific words like error, failed, or success.
+
+
+SELECT log_id, log_message
+FROM system_logs
+WHERE REGEXP_LIKE(log_message, '(error|failed|success)', 'i');
+
+-- This pattern searches for any occurrence of the words "error", "failed", or "success" in the log_message column, case-insensitive ('i' flag).
+
+-- Replacing Substrings with REGEXP_REPLACE
+-- Use Case: Replace all non-alphanumeric characters from a column.
+
+SELECT customer_id, name, 
+       REGEXP_REPLACE(name, '[^A-Za-z0-9 ]', '') AS clean_name
+FROM customers;
+
+--REGEXP_REPLACE removes any character that is not a letter, digit, or space from the name field.
+
+-- Detecting Leading and Trailing Spaces
+-- Use Case: Identify and clean entries that have leading or trailing spaces in a name column.
+
+SELECT customer_id, name
+FROM customers
+WHERE REGEXP_LIKE(name, '^\s+|\s+$');
+
+-- ^\s+|\s+$ detects any leading (^\s+) or trailing (\s+$) spaces in the name column.
+
+-- Matching URL Patterns
+-- Use Case: Extract valid URLs from a text field or check if a URL format is valid.
+
+SELECT article_id, url, 
+       REGEXP_SUBSTR(url, 'https?://[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}') AS valid_url
+FROM articles
+WHERE REGEXP_LIKE(url, 'https?://[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}');
+
+-- This regular expression captures URLs that start with http:// or https://, followed by a domain name.13. Extracting IP Addresses
+-- Use Case: Extract valid IP addresses from a log table.
+
+SELECT log_id, log_message, 
+       REGEXP_SUBSTR(log_message, '\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b') AS ip_address
+FROM logs
+WHERE REGEXP_LIKE(log_message, '\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b');
+
+-- This pattern matches IP addresses in the format XXX.XXX.XXX.XXX where each block is between 1 and 3 digits.
+
+--Detecting Duplicates in a Text Column
+-- Use Case: Detect duplicate words in a single column value.
+
+SELECT comment_id, comment, 
+       REGEXP_LIKE(comment, '\b(\w+)\s+\1\b') AS has_duplicate_words -- This regular expression checks for duplicate consecutive words in a string.
+FROM user_comments;
+
