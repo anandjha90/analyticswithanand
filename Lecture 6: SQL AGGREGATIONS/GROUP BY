@@ -36,16 +36,22 @@ ORDER BY
 -- Objective: Analyze the revenue trends by region and identify regions that have consistently performed well.
 
 SELECT 
-    region, 
+    NVL(region, 'Unspecified') AS region, 
     year(transaction_date) as TXN_YR, 
-    month(transaction_date) AS TXN_MNTH, 
-    SUM(sales_amount) AS total_sales
-FROM 
-    sales_data
-GROUP BY 
-    region, year(transaction_date), month(transaction_date)
-ORDER BY 
-    region,year(transaction_date), month(transaction_date);
+    quarter(transaction_date) AS TXN_QTR,
+    month(transaction_date) AS TXN_MNTH,
+    count(distinct customer_id) as total_customer,
+    count(transaction_id) as total_txns,
+    sum(units_sold) as total_units_sold,
+    round(SUM(sales_amount),0) AS total_rev,
+    round(AVG(sales_amount),0) AS avg_rev,
+    round(sum(units_sold)/count(transaction_id),0) as UPT,
+    round(count(transaction_id)/ count(distinct customer_id),0) as TPC
+     
+FROM sales_data
+GROUP BY region, year(transaction_date),quarter(transaction_date),month(transaction_date)
+having UPT > 1
+ORDER BY region, year(transaction_date),quarter(transaction_date),month(transaction_date);
     
 --GROUP BY: Aggregates revenue data by region, year, and month to calculate monthly totals for each region.
 --ORDER BY: Orders the result set by region, year, and month to visualize trends over time.
