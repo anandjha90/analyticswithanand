@@ -1,0 +1,109 @@
+/*
+The NVL function in SQL is used to replace NULL values with a specified value. 
+In the context of the sales dataset you provided, the NVL function can be useful in scenarios where certain fields might have missing or NULL values. Here are several business use cases where the NVL function can be applied:
+
+In SQL, NVL() converts a null value to an actual value.
+   Data types that can be used are date, character and number.
+   The data type must match with each other i.e. expr1 and expr2 must be the same data type.
+Syntax – NVL (expr1, expr2)
+*/
+
+--Use Case 1: Substitute Missing Sales Amounts
+--In some cases, sales transactions might be missing a sales_amount due to data entry errors or incomplete records. 
+--You can use the NVL function to replace these NULL values with a default value, such as 0.
+
+SELECT 
+    transaction_id, 
+    sales_amount,
+    NVL(sales_amount, 0) AS sales_amount_corrected,
+    product_category, 
+    customer_id, 
+    region
+FROM 
+    sales_data
+WHERE sales_amount IS NULL;
+    
+--Explanation: If sales_amount is NULL, the query will substitute it with 0, ensuring that you do not encounter issues when calculating total sales.
+
+--CURRENT_DATEUse Case 2: Calculate Average Sales per Customer with Default Values
+-- Scenario: If a customer’s transaction record has NULL values for sales_amount, you might want to treat those missing values as zero to avoid skewing the average.
+
+SELECT 
+    customer_id, 
+    ROUND(AVG(NVL(sales_amount, 0)),2) AS avg_sales
+FROM 
+    sales_data
+GROUP BY 
+    customer_id
+ORDER BY
+    avg_sales DESC;
+    
+--Explanation: This query calculates the average sales per customer, treating NULL sales amounts as 0. 
+--This can give a more accurate view of customer activity when data is incomplete.
+
+--Use Case 3: Handle Missing Product Categories
+--Scenario: Sometimes a product category might be missing from the dataset. You can use NVL to replace missing product categories with a placeholder such as 'Unknown'.
+
+SELECT 
+    transaction_id, product_category,
+    NVL(product_category, 'Unknown') AS product_category,
+    sales_amount, 
+    region
+FROM 
+    sales_data
+WHERE 
+    product_category IS NULL ;
+    
+--Explanation: Any transactions missing a product_category will be labeled as 'Unknown'.
+--This ensures cleaner and more consistent reporting when analyzing product sales.
+
+--Use Case 4: Region-Specific Analysis with Default Region
+--Scenario: In some cases, the region field may be NULL due to incomplete data entry. 
+--You can substitute NULL regions with a default, like 'Unspecified', to ensure all transactions are categorized.
+
+SELECT
+    region,
+    NVL(region, 'Unspecified') AS region, 
+    COUNT(transaction_id) AS total_transactions
+FROM 
+    sales_data
+WHERE 
+    region IS NULL    
+GROUP BY 
+    region,NVL(region, 'Unspecified');
+
+--Explanation: This query replaces NULL values in the region column with 'Unspecified', allowing you to track transactions from unspecified regions.
+
+--Use Case 5: Revenue Analysis with Default Units Sold
+--Scenario: In some transactions, the units_sold field may be missing or NULL. You can treat missing values as 1 to ensure calculations for total revenue are accurate.
+
+SELECT 
+    transaction_id, 
+    sales_amount, 
+    NVL(sales_amount, 0) AS sales_amount_corrected,
+    units_sold,
+    NVL(units_sold, 0) AS corrected_units_sold,
+    sales_amount * units_sold as tot_rev_uncorrected,
+    (sales_amount_corrected * corrected_units_sold) AS total_rev_corrected
+FROM 
+    sales_data;
+--Explanation: This query treats NULL values in units_sold as 1, ensuring that revenue calculations do not fail due to missing data.
+
+--Use Case 6: Customer Segmentation with Default Customer ID
+--Scenario: If some transactions are missing customer_id values, you can assign a default customer ID like 9999 to represent unidentified customers.
+
+SELECT 
+    NVL(customer_id, 9999) AS customer_id, 
+    SUM(sales_amount) AS total_sales
+FROM 
+    sales_data
+GROUP BY 
+    NVL(customer_id, 9999)
+ORDER BY NVL(customer_id, 9999);
+
+--Explanation: This query replaces NULL values in customer_id with 9999, allowing you to analyze sales associated with unidentified customers.
+
+
+
+
+
