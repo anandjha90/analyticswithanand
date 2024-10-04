@@ -1,4 +1,4 @@
-use database "DEMO_DATABASE";
+
 CREATE OR REPLACE TABLE Employee 
 ( 
 EmployeeID INT  PRIMARY KEY, 
@@ -26,10 +26,7 @@ INSERT INTO EMPLOYEE VALUES (210, 'Salvador', 'M', 'Co', 75000.0000);
 
 SELECT * FROM EMPLOYEE;
 
-
-
 --The SQL CASE statement allows you to perform IF-THEN-ELSE functionality within an SQL statement. 
-
 -- The CASE statement allows you to perform an IF-THEN-ELSE check within an SQL statement.
 
 /* It’s good for displaying a value in the SELECT query based on logic that you have defined. 
@@ -58,20 +55,16 @@ we want to get designation using a Case statement.
 In the following query, we are using a comparison operator and evaluate an expression.
 */
 
-CREATE OR REPLACE TABLE AJ_EMPLOYEE_DESIGNATION_BUCKET AS
-Select *,
+SELECT *,
  CASE
       WHEN Salary >=10000 AND Salary < 30000 THEN 'Data Analyst Trainee'
       WHEN Salary >=30000 AND Salary < 50000 THEN 'Data Analyst'
       WHEN Salary >=50000 AND Salary < 80000 THEN 'Consultant'
       WHEN Salary >=80000 AND Salary < 100000 THEN 'Senior Consultant'
       WHEN Salary >= 100000 THEN 'Senior Folks'
-Else 'Contractor'
+ELSE 'Contractor'
 END AS Designation
-from Employee;
-
-select * from AJ_EMPLOYEE_DESIGNATION_BUCKET;
-grant select on AJ_EMPLOYEE_DESIGNATION_BUCKET to public;
+FROM Employee;
 
 
 /* Case Statement with Order by clause
@@ -87,11 +80,11 @@ In the following query, you can see we specified Order By and Case together.
 We defined sort conditions in case expression. */
 
 
-Select EmployeeName,Gender,Salary
- from Employee
- ORDER BY  CASE Gender WHEN 'F' THEN Salary END DESC ,
-           CASE WHEN Gender = 'M' THEN Salary 
-           END;
+SELECT EmployeeName,Gender,Salary
+FROM Employee
+ORDER BY  
+     CASE Gender WHEN 'F' THEN Salary END DESC ,
+     CASE WHEN Gender = 'M' THEN Salary END;
 
 /*
 Case Statement in SQL with Group by clause
@@ -105,27 +98,19 @@ In the following query, you can see that we have Group By clause and it contains
 
 DESCRIBE TABLE EMPLOYEE;
 
-Select 
+SELECT 
  CASE
       WHEN Salary >=10000 AND Salary < 30000 THEN 'Data Analyst Trainee'
       WHEN Salary >=30000 AND Salary < 50000 THEN 'Data Analyst'
       WHEN Salary >=50000 AND Salary < 80000 THEN 'Consultant'
       WHEN Salary >=80000 AND Salary < 100000 THEN 'Senior Consultant'
       WHEN Salary >= 100000 THEN 'Senior Folks'
-Else 'Contractor'
+ELSE 'Contractor'
 END AS Designation,
-Min(salary) as MinimumSalary,
-Max(Salary) as MaximumSalary
-from Employee
-Group By
-   CASE
-      WHEN Salary >=10000 AND Salary < 30000 THEN 'Data Analyst Trainee'
-      WHEN Salary >=30000 AND Salary < 50000 THEN 'Data Analyst'
-      WHEN Salary >=50000 AND Salary < 80000 THEN 'Consultant'
-      WHEN Salary >=80000 AND Salary < 100000 THEN 'Senior Consultant'
-      WHEN Salary >= 100000 THEN 'Senior Folks'
-Else 'Contractor'
-END;
+Min(salary) as Min_Salary,
+Max(Salary) as Max_Salary
+FROM Employee
+Group By Designation;
 
 /* Case Statement limitations
 We cannot control the execution flow of stored procedures, functions using a Case statement in SQL
