@@ -1,0 +1,200 @@
+/*
+Here are more advanced use cases specifically focused on leveraging GROUPING SETS, ROLLUP, and CUBE for multi-dimensional analysis using the sales, regions, and products datasets. These functions allow flexible and efficient aggregation across multiple levels of dimensions.
+
+Use Case 1: Analyzing Sales by Region and Year Using GROUPING SETS
+
+You want to generate summaries of sales data for different levels of granularity—at the region, year, and product category level.
+This allows you to see regional trends over time, as well as overall sales per year and product category.
+
+Query: Sales by Region, Year, and Product Category
+This query uses GROUPING SETS to get various combinations of aggregation (year, region, product category).
+
+*/
+
+SELECT 
+    EXTRACT(YEAR FROM s.sale_date) AS sale_year,
+    r.region_name,
+    p.product_category,
+    SUM(s.sale_amount) AS total_sales
+FROM sales s
+JOIN regions r ON s.region_id = r.region_id
+JOIN products p ON s.product_id = p.product_id
+GROUP BY GROUPING SETS (
+    (EXTRACT(YEAR FROM s.sale_date), r.region_name, p.product_category), -- Year, Region, Product Category
+    (EXTRACT(YEAR FROM s.sale_date), r.region_name), -- Year, Region
+    (EXTRACT(YEAR FROM s.sale_date), p.product_category), -- Year, Product Category
+    (r.region_name, p.product_category) -- Region, Product Category
+)
+ORDER BY sale_year, region_name, product_category;
+
+/*
+This will produce results for:
+
+Total sales per year, region, and product category.
+Total sales per year and region (ignoring product).
+Total sales per year and product category (ignoring region).
+Total sales by region and product category.
+Use Case 2: Sales Breakdown by Product Hierarchy Using ROLLUP
+*/
+
+/*
+You want to generate a hierarchical summary that drills down from the total sales, to product categories, and finally to individual product names. This helps management review sales at multiple levels of the product hierarchy.
+
+Query: Hierarchical Sales Summary Using ROLLUP (Category > Product)
+This query summarizes sales by product category and individual product names using ROLLUP, allowing drill-down analysis from the overall total to individual products.
+
+*/
+
+SELECT 
+    p.product_category,
+    p.product_name,
+    SUM(s.sale_amount) AS total_sales
+FROM sales s
+JOIN products p ON s.product_id = p.product_id
+GROUP BY ROLLUP (
+    p.product_category,  -- First level of rollup: Product category
+    p.product_name       -- Second level: Product name within category
+)
+ORDER BY p.product_category, p.product_name;
+
+/*
+This will output:
+
+Total sales across all products.
+Total sales by product category.
+Total sales by individual product.
+*/
+
+-- Use Case 3: Quarterly Regional Sales Drilldown Using ROLLUP
+-- This query drills down through the sales data by year, quarter, and region. 
+-- This hierarchical structure allows you to see overall annual sales, then drill down to quarterly sales, and finally to region-level sales.
+
+-- Query: Hierarchical Regional Sales Using ROLLUP (Year > Quarter > Region)
+SELECT 
+    EXTRACT(YEAR FROM s.sale_date) AS sale_year,
+    EXTRACT(QUARTER FROM s.sale_date) AS sale_quarter,
+    r.region_name,
+    SUM(s.sale_amount) AS total_sales
+FROM sales s
+JOIN regions r ON s.region_id = r.region_id
+GROUP BY ROLLUP (
+    EXTRACT(YEAR FROM s.sale_date),    -- First level of rollup: Year
+    EXTRACT(QUARTER FROM s.sale_date), -- Second level: Quarter within year
+    r.region_name                      -- Third level: Region within quarter
+)
+ORDER BY sale_year, sale_quarter, r.region_name;
+
+/*
+This provides:
+
+Total annual sales.
+Quarterly breakdowns within each year.
+Regional breakdowns within each quarter.
+*/
+
+--Use Case 4: Full Combination Analysis Using CUBE for Sales by Region, Product, and Year
+-- Using CUBE, you can get all possible combinations of aggregations for sales by region, product category, and year. 
+-- This query allows you to explore every possible angle of the data in terms of region, product category, and year.
+
+-- Query: Full Combination of Sales by Region, Product Category, and Year Using CUBE
+
+SELECT 
+    EXTRACT(YEAR FROM s.sale_date) AS sale_year,
+    r.region_name,
+    p.product_category,
+    SUM(s.sale_amount) AS total_sales
+FROM sales s
+JOIN regions r ON s.region_id = r.region_id
+JOIN products p ON s.product_id = p.product_id
+GROUP BY CUBE (
+    EXTRACT(YEAR FROM s.sale_date), -- Cube on year
+    r.region_name,                  -- Cube on region
+    p.product_category              -- Cube on product category
+)
+ORDER BY sale_year, region_name, p.product_category;
+
+/*
+The result set will include:
+
+Total sales for all regions, all product categories, and all years.
+Total sales for each combination of year, region, and product category.
+Subtotals for:
+Each year, across all regions and product categories.
+Each region, across all years and product categories.
+Each product category, across all years and regions.
+
+*/
+
+
+--Use Case 5: Sales Aggregation at Different Levels Using GROUPING SETS
+/*
+You want to analyze total sales at three levels:
+
+Total sales across all dimensions.
+Sales by year and region.
+Sales by year and product category.
+This allows flexibility in viewing sales data across different dimensions without producing unwanted subtotals.
+*/
+
+--Query: Flexible Aggregation Using GROUPING SETS (Year > Region, Year > Product Category)
+
+SELECT 
+    EXTRACT(YEAR FROM s.sale_date) AS sale_year,
+    r.region_name,
+    p.product_category,
+    SUM(s.sale_amount) AS total_sales
+FROM sales s
+JOIN regions r ON s.region_id = r.region_id
+JOIN products p ON s.product_id = p.product_id
+GROUP BY GROUPING SETS (
+    (),                                      -- Total sales
+    (EXTRACT(YEAR FROM s.sale_date), r.region_name),  -- Sales by year and region
+    (EXTRACT(YEAR FROM s.sale_date), p.product_category) -- Sales by year and product category
+)
+ORDER BY sale_year, region_name, p.product_category;
+
+/*
+This will show:
+
+Total sales (when no dimensions are grouped).
+Sales by year and region.
+Sales by year and product category.
+*/
+
+--Use Case 6: Product and Region Performance Over Time Using CUBE
+-- For a more exhaustive analysis, you want to evaluate how well different product categories perform across regions and time, taking into account all possible
+--  groupings of year, region, and product category.
+
+-- Query: Full Breakdown Using CUBE for Product, Region, and Time (Quarterly)
+
+SELECT 
+    EXTRACT(YEAR FROM s.sale_date) AS sale_year,
+    EXTRACT(QUARTER FROM s.sale_date) AS sale_quarter,
+    r.region_name,
+    p.product_category,
+    SUM(s.sale_amount) AS total_sales
+FROM sales s
+JOIN regions r ON s.region_id = r.region_id
+JOIN products p ON s.product_id = p.product_id
+GROUP BY CUBE (
+    EXTRACT(YEAR FROM s.sale_date),   -- Cube on year
+    EXTRACT(QUARTER FROM s.sale_date), -- Cube on quarter
+    r.region_name,                    -- Cube on region
+    p.product_category                -- Cube on product category
+)
+ORDER BY sale_year, sale_quarter, region_name, p.product_category;
+
+/*
+This will give you:
+
+Total sales across all years, quarters, regions, and product categories.
+Subtotals at all combinations of year, quarter, region, and product category.
+
+These use cases demonstrate how you can use GROUPING SETS, ROLLUP, and CUBE in Snowflake to perform efficient multi-level aggregation and flexible analysis.
+They offer tremendous value in summarizing data for reporting, trend analysis, and strategic decision-making. 
+
+
+
+
+
+
