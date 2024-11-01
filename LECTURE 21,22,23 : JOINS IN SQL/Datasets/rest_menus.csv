@@ -1,0 +1,1001 @@
+menu_id,item_name,category,price
+1,Item_1,Appetizer,17.76
+2,Item_2,Main Course,43.6
+3,Item_3,Main Course,13.19
+4,Item_4,Main Course,21.34
+5,Item_5,Main Course,48.7
+6,Item_6,Main Course,40.11
+7,Item_7,Appetizer,31.09
+8,Item_8,Dessert,40.86
+9,Item_9,Main Course,43.48
+10,Item_10,Appetizer,42.48
+11,Item_11,Dessert,41.97
+12,Item_12,Appetizer,28.4
+13,Item_13,Appetizer,49.34
+14,Item_14,Appetizer,5.47
+15,Item_15,Appetizer,45.35
+16,Item_16,Dessert,34.1
+17,Item_17,Appetizer,38.38
+18,Item_18,Main Course,44.06
+19,Item_19,Dessert,12.63
+20,Item_20,Appetizer,27.63
+21,Item_21,Dessert,33.91
+22,Item_22,Dessert,12.49
+23,Item_23,Appetizer,17.73
+24,Item_24,Main Course,30.41
+25,Item_25,Main Course,43.56
+26,Item_26,Appetizer,40.7
+27,Item_27,Dessert,9.63
+28,Item_28,Main Course,22.52
+29,Item_29,Dessert,10.66
+30,Item_30,Main Course,44.3
+31,Item_31,Dessert,5.79
+32,Item_32,Appetizer,46.92
+33,Item_33,Appetizer,40.4
+34,Item_34,Appetizer,6.14
+35,Item_35,Dessert,41.76
+36,Item_36,Main Course,20.05
+37,Item_37,Dessert,48.84
+38,Item_38,Dessert,18.94
+39,Item_39,Dessert,37.44
+40,Item_40,Dessert,30.48
+41,Item_41,Main Course,32.84
+42,Item_42,Main Course,41.55
+43,Item_43,Appetizer,28.11
+44,Item_44,Main Course,35.79
+45,Item_45,Appetizer,41.55
+46,Item_46,Dessert,22.75
+47,Item_47,Main Course,35.81
+48,Item_48,Dessert,35.34
+49,Item_49,Dessert,36.27
+50,Item_50,Appetizer,10.77
+51,Item_51,Dessert,44.85
+52,Item_52,Appetizer,33.16
+53,Item_53,Main Course,32.6
+54,Item_54,Appetizer,25.99
+55,Item_55,Dessert,18.77
+56,Item_56,Main Course,6.43
+57,Item_57,Dessert,28.16
+58,Item_58,Main Course,30.64
+59,Item_59,Appetizer,12.4
+60,Item_60,Main Course,12.63
+61,Item_61,Main Course,13.15
+62,Item_62,Main Course,17.64
+63,Item_63,Appetizer,16.67
+64,Item_64,Appetizer,37.3
+65,Item_65,Main Course,22.6
+66,Item_66,Appetizer,28.91
+67,Item_67,Appetizer,35.42
+68,Item_68,Main Course,47.47
+69,Item_69,Dessert,48.72
+70,Item_70,Appetizer,19.39
+71,Item_71,Main Course,19.55
+72,Item_72,Appetizer,27.24
+73,Item_73,Dessert,18.34
+74,Item_74,Main Course,41.86
+75,Item_75,Appetizer,49.73
+76,Item_76,Main Course,35.25
+77,Item_77,Dessert,47.19
+78,Item_78,Appetizer,5.9
+79,Item_79,Appetizer,36.37
+80,Item_80,Dessert,25.43
+81,Item_81,Appetizer,26.11
+82,Item_82,Dessert,48.74
+83,Item_83,Appetizer,33.44
+84,Item_84,Main Course,5.09
+85,Item_85,Main Course,16.77
+86,Item_86,Dessert,39.01
+87,Item_87,Appetizer,6.02
+88,Item_88,Appetizer,13.38
+89,Item_89,Appetizer,47.01
+90,Item_90,Dessert,28.04
+91,Item_91,Appetizer,18.66
+92,Item_92,Dessert,6.76
+93,Item_93,Dessert,18.92
+94,Item_94,Main Course,43.68
+95,Item_95,Main Course,16.33
+96,Item_96,Dessert,36.18
+97,Item_97,Appetizer,10.93
+98,Item_98,Appetizer,13.07
+99,Item_99,Appetizer,36.4
+100,Item_100,Dessert,7.25
+101,Item_101,Main Course,22.75
+102,Item_102,Appetizer,5.0
+103,Item_103,Dessert,36.06
+104,Item_104,Main Course,15.15
+105,Item_105,Appetizer,9.25
+106,Item_106,Dessert,26.27
+107,Item_107,Main Course,36.9
+108,Item_108,Dessert,6.58
+109,Item_109,Main Course,23.6
+110,Item_110,Main Course,20.87
+111,Item_111,Appetizer,41.72
+112,Item_112,Main Course,16.43
+113,Item_113,Main Course,32.94
+114,Item_114,Appetizer,46.62
+115,Item_115,Dessert,29.96
+116,Item_116,Appetizer,6.66
+117,Item_117,Dessert,5.83
+118,Item_118,Appetizer,39.28
+119,Item_119,Appetizer,39.88
+120,Item_120,Main Course,41.72
+121,Item_121,Appetizer,49.9
+122,Item_122,Dessert,31.14
+123,Item_123,Dessert,8.92
+124,Item_124,Main Course,26.14
+125,Item_125,Dessert,24.68
+126,Item_126,Main Course,32.97
+127,Item_127,Main Course,35.52
+128,Item_128,Appetizer,35.04
+129,Item_129,Appetizer,31.57
+130,Item_130,Dessert,33.65
+131,Item_131,Main Course,37.11
+132,Item_132,Dessert,20.41
+133,Item_133,Main Course,22.29
+134,Item_134,Appetizer,25.99
+135,Item_135,Dessert,23.93
+136,Item_136,Main Course,22.7
+137,Item_137,Dessert,31.66
+138,Item_138,Dessert,48.61
+139,Item_139,Dessert,13.15
+140,Item_140,Dessert,31.67
+141,Item_141,Dessert,30.64
+142,Item_142,Main Course,23.69
+143,Item_143,Main Course,40.33
+144,Item_144,Appetizer,8.71
+145,Item_145,Dessert,36.2
+146,Item_146,Dessert,14.05
+147,Item_147,Dessert,40.82
+148,Item_148,Dessert,21.8
+149,Item_149,Dessert,42.53
+150,Item_150,Dessert,47.82
+151,Item_151,Appetizer,20.9
+152,Item_152,Main Course,5.54
+153,Item_153,Dessert,9.35
+154,Item_154,Main Course,43.01
+155,Item_155,Main Course,31.42
+156,Item_156,Main Course,42.68
+157,Item_157,Dessert,14.3
+158,Item_158,Main Course,35.72
+159,Item_159,Main Course,42.24
+160,Item_160,Main Course,13.34
+161,Item_161,Appetizer,10.7
+162,Item_162,Appetizer,46.77
+163,Item_163,Appetizer,44.04
+164,Item_164,Dessert,8.64
+165,Item_165,Main Course,29.16
+166,Item_166,Appetizer,41.63
+167,Item_167,Appetizer,39.22
+168,Item_168,Dessert,27.51
+169,Item_169,Dessert,9.69
+170,Item_170,Main Course,26.96
+171,Item_171,Appetizer,12.22
+172,Item_172,Dessert,21.51
+173,Item_173,Dessert,38.53
+174,Item_174,Appetizer,33.28
+175,Item_175,Main Course,32.28
+176,Item_176,Main Course,5.6
+177,Item_177,Main Course,28.4
+178,Item_178,Appetizer,24.3
+179,Item_179,Main Course,7.34
+180,Item_180,Appetizer,29.69
+181,Item_181,Main Course,24.69
+182,Item_182,Dessert,15.6
+183,Item_183,Dessert,23.15
+184,Item_184,Dessert,36.56
+185,Item_185,Appetizer,7.66
+186,Item_186,Dessert,14.87
+187,Item_187,Appetizer,6.78
+188,Item_188,Appetizer,14.36
+189,Item_189,Appetizer,21.5
+190,Item_190,Main Course,40.11
+191,Item_191,Main Course,22.03
+192,Item_192,Appetizer,8.97
+193,Item_193,Dessert,11.61
+194,Item_194,Appetizer,27.45
+195,Item_195,Appetizer,41.25
+196,Item_196,Dessert,7.5
+197,Item_197,Appetizer,49.15
+198,Item_198,Main Course,25.74
+199,Item_199,Appetizer,13.58
+200,Item_200,Appetizer,41.87
+201,Item_201,Main Course,22.56
+202,Item_202,Main Course,12.67
+203,Item_203,Dessert,30.13
+204,Item_204,Appetizer,24.35
+205,Item_205,Main Course,33.52
+206,Item_206,Appetizer,35.37
+207,Item_207,Appetizer,16.5
+208,Item_208,Dessert,45.46
+209,Item_209,Appetizer,30.74
+210,Item_210,Dessert,38.39
+211,Item_211,Dessert,49.46
+212,Item_212,Dessert,32.8
+213,Item_213,Appetizer,18.82
+214,Item_214,Dessert,9.56
+215,Item_215,Dessert,30.22
+216,Item_216,Dessert,44.8
+217,Item_217,Appetizer,12.6
+218,Item_218,Appetizer,8.41
+219,Item_219,Appetizer,35.11
+220,Item_220,Dessert,46.08
+221,Item_221,Appetizer,13.89
+222,Item_222,Dessert,48.85
+223,Item_223,Main Course,28.26
+224,Item_224,Appetizer,30.17
+225,Item_225,Dessert,26.6
+226,Item_226,Appetizer,47.97
+227,Item_227,Appetizer,6.8
+228,Item_228,Appetizer,32.65
+229,Item_229,Appetizer,33.18
+230,Item_230,Main Course,40.7
+231,Item_231,Main Course,17.02
+232,Item_232,Main Course,13.94
+233,Item_233,Main Course,31.43
+234,Item_234,Appetizer,32.93
+235,Item_235,Appetizer,37.61
+236,Item_236,Main Course,25.87
+237,Item_237,Appetizer,37.0
+238,Item_238,Dessert,33.93
+239,Item_239,Appetizer,6.81
+240,Item_240,Appetizer,18.1
+241,Item_241,Main Course,32.22
+242,Item_242,Main Course,26.35
+243,Item_243,Dessert,15.83
+244,Item_244,Dessert,26.36
+245,Item_245,Dessert,46.7
+246,Item_246,Dessert,34.62
+247,Item_247,Dessert,35.92
+248,Item_248,Appetizer,30.34
+249,Item_249,Dessert,8.59
+250,Item_250,Dessert,6.74
+251,Item_251,Dessert,37.15
+252,Item_252,Dessert,27.35
+253,Item_253,Dessert,10.39
+254,Item_254,Main Course,36.15
+255,Item_255,Appetizer,6.79
+256,Item_256,Appetizer,24.19
+257,Item_257,Dessert,47.67
+258,Item_258,Main Course,19.46
+259,Item_259,Dessert,13.6
+260,Item_260,Dessert,49.59
+261,Item_261,Appetizer,7.48
+262,Item_262,Dessert,40.51
+263,Item_263,Appetizer,18.99
+264,Item_264,Dessert,20.86
+265,Item_265,Appetizer,14.2
+266,Item_266,Appetizer,20.08
+267,Item_267,Main Course,7.44
+268,Item_268,Dessert,24.82
+269,Item_269,Main Course,36.23
+270,Item_270,Main Course,21.89
+271,Item_271,Appetizer,48.59
+272,Item_272,Main Course,11.04
+273,Item_273,Main Course,47.42
+274,Item_274,Dessert,48.09
+275,Item_275,Appetizer,15.98
+276,Item_276,Appetizer,34.24
+277,Item_277,Appetizer,31.91
+278,Item_278,Appetizer,34.36
+279,Item_279,Main Course,15.45
+280,Item_280,Dessert,49.77
+281,Item_281,Appetizer,15.78
+282,Item_282,Appetizer,48.75
+283,Item_283,Main Course,35.33
+284,Item_284,Dessert,32.21
+285,Item_285,Dessert,34.79
+286,Item_286,Dessert,41.3
+287,Item_287,Appetizer,33.42
+288,Item_288,Appetizer,12.12
+289,Item_289,Appetizer,24.41
+290,Item_290,Dessert,42.09
+291,Item_291,Main Course,32.99
+292,Item_292,Appetizer,43.14
+293,Item_293,Appetizer,32.92
+294,Item_294,Appetizer,9.82
+295,Item_295,Dessert,19.51
+296,Item_296,Main Course,14.64
+297,Item_297,Dessert,25.16
+298,Item_298,Main Course,41.3
+299,Item_299,Dessert,9.18
+300,Item_300,Dessert,38.43
+301,Item_301,Main Course,34.81
+302,Item_302,Dessert,8.16
+303,Item_303,Dessert,6.28
+304,Item_304,Dessert,18.69
+305,Item_305,Dessert,16.98
+306,Item_306,Main Course,41.12
+307,Item_307,Main Course,40.35
+308,Item_308,Main Course,45.7
+309,Item_309,Main Course,15.77
+310,Item_310,Appetizer,48.63
+311,Item_311,Appetizer,16.35
+312,Item_312,Dessert,34.08
+313,Item_313,Dessert,43.04
+314,Item_314,Dessert,32.46
+315,Item_315,Appetizer,24.49
+316,Item_316,Dessert,44.14
+317,Item_317,Main Course,19.79
+318,Item_318,Appetizer,13.4
+319,Item_319,Main Course,47.48
+320,Item_320,Dessert,24.3
+321,Item_321,Dessert,29.34
+322,Item_322,Main Course,26.12
+323,Item_323,Main Course,44.11
+324,Item_324,Dessert,44.48
+325,Item_325,Dessert,8.98
+326,Item_326,Appetizer,49.12
+327,Item_327,Appetizer,27.62
+328,Item_328,Dessert,36.19
+329,Item_329,Main Course,6.54
+330,Item_330,Dessert,20.19
+331,Item_331,Dessert,5.01
+332,Item_332,Dessert,19.56
+333,Item_333,Appetizer,25.59
+334,Item_334,Main Course,48.0
+335,Item_335,Main Course,14.42
+336,Item_336,Dessert,16.6
+337,Item_337,Dessert,40.75
+338,Item_338,Main Course,13.86
+339,Item_339,Appetizer,15.28
+340,Item_340,Dessert,10.61
+341,Item_341,Main Course,49.23
+342,Item_342,Dessert,22.78
+343,Item_343,Appetizer,9.37
+344,Item_344,Dessert,18.99
+345,Item_345,Appetizer,48.44
+346,Item_346,Dessert,49.87
+347,Item_347,Dessert,18.69
+348,Item_348,Main Course,27.34
+349,Item_349,Main Course,42.4
+350,Item_350,Appetizer,8.1
+351,Item_351,Dessert,45.3
+352,Item_352,Appetizer,32.04
+353,Item_353,Main Course,5.25
+354,Item_354,Main Course,12.98
+355,Item_355,Appetizer,29.25
+356,Item_356,Main Course,49.02
+357,Item_357,Main Course,33.38
+358,Item_358,Main Course,43.63
+359,Item_359,Appetizer,7.56
+360,Item_360,Dessert,22.45
+361,Item_361,Appetizer,27.21
+362,Item_362,Appetizer,33.55
+363,Item_363,Main Course,8.45
+364,Item_364,Appetizer,47.82
+365,Item_365,Main Course,5.23
+366,Item_366,Dessert,34.65
+367,Item_367,Appetizer,19.83
+368,Item_368,Dessert,16.52
+369,Item_369,Main Course,8.24
+370,Item_370,Dessert,10.13
+371,Item_371,Main Course,15.61
+372,Item_372,Main Course,16.24
+373,Item_373,Appetizer,29.12
+374,Item_374,Main Course,34.03
+375,Item_375,Main Course,27.05
+376,Item_376,Main Course,48.56
+377,Item_377,Main Course,10.86
+378,Item_378,Dessert,7.82
+379,Item_379,Dessert,16.91
+380,Item_380,Appetizer,8.43
+381,Item_381,Main Course,41.55
+382,Item_382,Main Course,47.41
+383,Item_383,Main Course,9.62
+384,Item_384,Main Course,13.43
+385,Item_385,Dessert,39.27
+386,Item_386,Appetizer,42.37
+387,Item_387,Main Course,39.94
+388,Item_388,Dessert,21.18
+389,Item_389,Appetizer,38.26
+390,Item_390,Appetizer,32.13
+391,Item_391,Main Course,30.79
+392,Item_392,Main Course,36.23
+393,Item_393,Appetizer,39.58
+394,Item_394,Appetizer,28.78
+395,Item_395,Appetizer,9.33
+396,Item_396,Main Course,29.56
+397,Item_397,Appetizer,15.04
+398,Item_398,Main Course,20.61
+399,Item_399,Appetizer,15.33
+400,Item_400,Dessert,34.49
+401,Item_401,Dessert,14.31
+402,Item_402,Appetizer,12.74
+403,Item_403,Main Course,26.83
+404,Item_404,Appetizer,37.67
+405,Item_405,Appetizer,6.22
+406,Item_406,Appetizer,20.67
+407,Item_407,Dessert,39.44
+408,Item_408,Main Course,13.59
+409,Item_409,Main Course,5.42
+410,Item_410,Appetizer,18.73
+411,Item_411,Appetizer,26.85
+412,Item_412,Dessert,40.77
+413,Item_413,Appetizer,41.08
+414,Item_414,Appetizer,34.38
+415,Item_415,Main Course,20.13
+416,Item_416,Dessert,14.83
+417,Item_417,Appetizer,14.49
+418,Item_418,Appetizer,21.69
+419,Item_419,Main Course,45.28
+420,Item_420,Main Course,23.0
+421,Item_421,Main Course,46.65
+422,Item_422,Appetizer,44.29
+423,Item_423,Main Course,22.92
+424,Item_424,Main Course,18.21
+425,Item_425,Dessert,49.48
+426,Item_426,Appetizer,30.13
+427,Item_427,Dessert,41.78
+428,Item_428,Main Course,36.92
+429,Item_429,Appetizer,38.76
+430,Item_430,Appetizer,46.67
+431,Item_431,Dessert,12.12
+432,Item_432,Appetizer,32.33
+433,Item_433,Appetizer,12.2
+434,Item_434,Main Course,29.58
+435,Item_435,Dessert,22.83
+436,Item_436,Dessert,28.06
+437,Item_437,Dessert,28.12
+438,Item_438,Appetizer,23.78
+439,Item_439,Dessert,47.7
+440,Item_440,Main Course,44.58
+441,Item_441,Dessert,19.77
+442,Item_442,Appetizer,40.04
+443,Item_443,Appetizer,44.45
+444,Item_444,Main Course,29.55
+445,Item_445,Dessert,10.71
+446,Item_446,Dessert,39.42
+447,Item_447,Appetizer,30.72
+448,Item_448,Main Course,49.17
+449,Item_449,Main Course,35.09
+450,Item_450,Dessert,43.49
+451,Item_451,Main Course,18.88
+452,Item_452,Appetizer,36.01
+453,Item_453,Main Course,29.28
+454,Item_454,Appetizer,16.25
+455,Item_455,Appetizer,23.75
+456,Item_456,Appetizer,26.38
+457,Item_457,Main Course,45.44
+458,Item_458,Main Course,8.48
+459,Item_459,Appetizer,24.6
+460,Item_460,Main Course,18.46
+461,Item_461,Appetizer,28.48
+462,Item_462,Dessert,11.01
+463,Item_463,Appetizer,20.65
+464,Item_464,Appetizer,42.86
+465,Item_465,Appetizer,16.12
+466,Item_466,Dessert,36.74
+467,Item_467,Dessert,20.24
+468,Item_468,Appetizer,6.88
+469,Item_469,Appetizer,25.22
+470,Item_470,Dessert,48.76
+471,Item_471,Main Course,24.34
+472,Item_472,Dessert,12.96
+473,Item_473,Dessert,41.72
+474,Item_474,Appetizer,5.19
+475,Item_475,Appetizer,24.1
+476,Item_476,Main Course,18.54
+477,Item_477,Main Course,45.24
+478,Item_478,Appetizer,13.84
+479,Item_479,Main Course,38.25
+480,Item_480,Appetizer,16.41
+481,Item_481,Dessert,8.02
+482,Item_482,Main Course,6.98
+483,Item_483,Appetizer,45.24
+484,Item_484,Dessert,32.01
+485,Item_485,Appetizer,42.23
+486,Item_486,Appetizer,32.05
+487,Item_487,Main Course,8.79
+488,Item_488,Main Course,42.57
+489,Item_489,Main Course,10.38
+490,Item_490,Appetizer,26.43
+491,Item_491,Dessert,11.46
+492,Item_492,Main Course,10.69
+493,Item_493,Appetizer,6.56
+494,Item_494,Main Course,20.94
+495,Item_495,Dessert,15.4
+496,Item_496,Appetizer,39.0
+497,Item_497,Appetizer,44.91
+498,Item_498,Appetizer,39.13
+499,Item_499,Dessert,26.81
+500,Item_500,Main Course,48.07
+501,Item_501,Dessert,18.13
+502,Item_502,Dessert,37.55
+503,Item_503,Dessert,24.76
+504,Item_504,Main Course,27.84
+505,Item_505,Main Course,45.52
+506,Item_506,Appetizer,34.39
+507,Item_507,Dessert,44.36
+508,Item_508,Dessert,8.21
+509,Item_509,Appetizer,10.13
+510,Item_510,Appetizer,26.85
+511,Item_511,Appetizer,47.29
+512,Item_512,Main Course,36.23
+513,Item_513,Appetizer,41.03
+514,Item_514,Main Course,31.65
+515,Item_515,Dessert,20.72
+516,Item_516,Appetizer,14.41
+517,Item_517,Dessert,7.21
+518,Item_518,Appetizer,9.6
+519,Item_519,Appetizer,11.69
+520,Item_520,Main Course,39.99
+521,Item_521,Dessert,23.16
+522,Item_522,Appetizer,30.5
+523,Item_523,Main Course,49.02
+524,Item_524,Appetizer,42.97
+525,Item_525,Appetizer,20.69
+526,Item_526,Appetizer,33.65
+527,Item_527,Appetizer,8.86
+528,Item_528,Appetizer,14.22
+529,Item_529,Main Course,34.98
+530,Item_530,Dessert,30.85
+531,Item_531,Dessert,37.61
+532,Item_532,Appetizer,8.99
+533,Item_533,Dessert,46.74
+534,Item_534,Main Course,26.68
+535,Item_535,Main Course,17.89
+536,Item_536,Appetizer,30.81
+537,Item_537,Appetizer,39.97
+538,Item_538,Appetizer,37.33
+539,Item_539,Appetizer,18.68
+540,Item_540,Appetizer,26.57
+541,Item_541,Appetizer,12.06
+542,Item_542,Dessert,34.09
+543,Item_543,Appetizer,7.57
+544,Item_544,Dessert,10.32
+545,Item_545,Main Course,16.75
+546,Item_546,Main Course,25.12
+547,Item_547,Dessert,31.31
+548,Item_548,Appetizer,34.57
+549,Item_549,Main Course,49.17
+550,Item_550,Appetizer,40.84
+551,Item_551,Main Course,27.95
+552,Item_552,Main Course,9.96
+553,Item_553,Main Course,38.0
+554,Item_554,Main Course,18.81
+555,Item_555,Dessert,49.43
+556,Item_556,Main Course,24.0
+557,Item_557,Dessert,48.99
+558,Item_558,Main Course,35.44
+559,Item_559,Main Course,24.5
+560,Item_560,Main Course,39.9
+561,Item_561,Appetizer,10.48
+562,Item_562,Dessert,26.48
+563,Item_563,Appetizer,17.51
+564,Item_564,Dessert,43.15
+565,Item_565,Appetizer,24.83
+566,Item_566,Appetizer,16.18
+567,Item_567,Dessert,36.69
+568,Item_568,Main Course,16.04
+569,Item_569,Appetizer,38.74
+570,Item_570,Appetizer,49.24
+571,Item_571,Dessert,34.98
+572,Item_572,Dessert,32.0
+573,Item_573,Main Course,41.11
+574,Item_574,Appetizer,30.78
+575,Item_575,Appetizer,6.7
+576,Item_576,Main Course,16.68
+577,Item_577,Dessert,12.12
+578,Item_578,Appetizer,46.63
+579,Item_579,Main Course,47.45
+580,Item_580,Dessert,40.26
+581,Item_581,Appetizer,28.14
+582,Item_582,Appetizer,23.65
+583,Item_583,Main Course,7.93
+584,Item_584,Appetizer,34.41
+585,Item_585,Main Course,31.62
+586,Item_586,Dessert,25.83
+587,Item_587,Dessert,18.45
+588,Item_588,Appetizer,35.64
+589,Item_589,Appetizer,40.29
+590,Item_590,Dessert,6.76
+591,Item_591,Appetizer,8.36
+592,Item_592,Main Course,30.32
+593,Item_593,Main Course,9.65
+594,Item_594,Main Course,13.41
+595,Item_595,Main Course,38.19
+596,Item_596,Main Course,41.84
+597,Item_597,Dessert,33.23
+598,Item_598,Main Course,13.35
+599,Item_599,Appetizer,37.25
+600,Item_600,Main Course,48.93
+601,Item_601,Main Course,32.45
+602,Item_602,Dessert,38.27
+603,Item_603,Dessert,26.9
+604,Item_604,Appetizer,33.86
+605,Item_605,Appetizer,37.9
+606,Item_606,Main Course,36.04
+607,Item_607,Appetizer,28.46
+608,Item_608,Main Course,23.21
+609,Item_609,Dessert,31.27
+610,Item_610,Appetizer,9.8
+611,Item_611,Dessert,10.92
+612,Item_612,Appetizer,22.84
+613,Item_613,Dessert,47.34
+614,Item_614,Dessert,21.1
+615,Item_615,Main Course,32.44
+616,Item_616,Main Course,20.23
+617,Item_617,Main Course,7.27
+618,Item_618,Main Course,21.36
+619,Item_619,Main Course,9.69
+620,Item_620,Appetizer,23.05
+621,Item_621,Main Course,14.98
+622,Item_622,Dessert,35.85
+623,Item_623,Dessert,14.12
+624,Item_624,Dessert,17.61
+625,Item_625,Dessert,18.12
+626,Item_626,Main Course,34.38
+627,Item_627,Main Course,46.2
+628,Item_628,Main Course,30.93
+629,Item_629,Appetizer,29.4
+630,Item_630,Main Course,16.43
+631,Item_631,Dessert,6.08
+632,Item_632,Appetizer,6.67
+633,Item_633,Main Course,12.54
+634,Item_634,Appetizer,41.16
+635,Item_635,Main Course,38.86
+636,Item_636,Appetizer,14.87
+637,Item_637,Appetizer,20.32
+638,Item_638,Appetizer,19.05
+639,Item_639,Main Course,38.18
+640,Item_640,Dessert,6.7
+641,Item_641,Main Course,41.08
+642,Item_642,Main Course,8.4
+643,Item_643,Dessert,21.48
+644,Item_644,Appetizer,21.23
+645,Item_645,Appetizer,22.59
+646,Item_646,Main Course,26.03
+647,Item_647,Dessert,17.82
+648,Item_648,Appetizer,22.9
+649,Item_649,Dessert,28.0
+650,Item_650,Dessert,27.87
+651,Item_651,Appetizer,33.81
+652,Item_652,Appetizer,19.37
+653,Item_653,Appetizer,26.7
+654,Item_654,Main Course,15.11
+655,Item_655,Dessert,47.02
+656,Item_656,Dessert,36.54
+657,Item_657,Main Course,17.18
+658,Item_658,Appetizer,7.4
+659,Item_659,Main Course,12.29
+660,Item_660,Appetizer,7.77
+661,Item_661,Appetizer,15.21
+662,Item_662,Main Course,28.26
+663,Item_663,Appetizer,41.49
+664,Item_664,Dessert,10.14
+665,Item_665,Dessert,22.1
+666,Item_666,Appetizer,11.53
+667,Item_667,Appetizer,14.45
+668,Item_668,Appetizer,41.74
+669,Item_669,Dessert,36.32
+670,Item_670,Main Course,34.17
+671,Item_671,Dessert,39.17
+672,Item_672,Appetizer,36.34
+673,Item_673,Dessert,9.48
+674,Item_674,Main Course,7.91
+675,Item_675,Appetizer,16.92
+676,Item_676,Appetizer,41.98
+677,Item_677,Main Course,25.38
+678,Item_678,Main Course,18.18
+679,Item_679,Main Course,34.7
+680,Item_680,Appetizer,29.93
+681,Item_681,Main Course,39.84
+682,Item_682,Main Course,37.42
+683,Item_683,Appetizer,38.01
+684,Item_684,Dessert,22.95
+685,Item_685,Main Course,37.03
+686,Item_686,Main Course,17.94
+687,Item_687,Appetizer,44.22
+688,Item_688,Main Course,38.69
+689,Item_689,Appetizer,37.82
+690,Item_690,Appetizer,42.14
+691,Item_691,Dessert,39.62
+692,Item_692,Main Course,34.52
+693,Item_693,Dessert,24.69
+694,Item_694,Main Course,17.51
+695,Item_695,Main Course,10.66
+696,Item_696,Dessert,15.16
+697,Item_697,Main Course,44.1
+698,Item_698,Appetizer,36.25
+699,Item_699,Main Course,45.29
+700,Item_700,Appetizer,12.32
+701,Item_701,Appetizer,32.06
+702,Item_702,Dessert,48.79
+703,Item_703,Main Course,37.73
+704,Item_704,Appetizer,8.95
+705,Item_705,Main Course,34.48
+706,Item_706,Dessert,47.43
+707,Item_707,Main Course,22.13
+708,Item_708,Appetizer,15.01
+709,Item_709,Dessert,28.35
+710,Item_710,Main Course,31.31
+711,Item_711,Dessert,25.97
+712,Item_712,Main Course,30.85
+713,Item_713,Main Course,15.17
+714,Item_714,Main Course,37.19
+715,Item_715,Main Course,35.61
+716,Item_716,Main Course,44.69
+717,Item_717,Dessert,33.02
+718,Item_718,Main Course,35.71
+719,Item_719,Main Course,23.18
+720,Item_720,Dessert,15.61
+721,Item_721,Main Course,39.46
+722,Item_722,Appetizer,7.42
+723,Item_723,Appetizer,25.24
+724,Item_724,Dessert,23.37
+725,Item_725,Main Course,36.89
+726,Item_726,Appetizer,12.57
+727,Item_727,Main Course,7.36
+728,Item_728,Main Course,30.72
+729,Item_729,Main Course,39.04
+730,Item_730,Appetizer,10.71
+731,Item_731,Main Course,23.89
+732,Item_732,Appetizer,40.38
+733,Item_733,Dessert,46.47
+734,Item_734,Main Course,43.63
+735,Item_735,Dessert,38.31
+736,Item_736,Main Course,13.27
+737,Item_737,Dessert,12.33
+738,Item_738,Dessert,14.94
+739,Item_739,Main Course,39.02
+740,Item_740,Appetizer,17.02
+741,Item_741,Main Course,38.97
+742,Item_742,Main Course,42.68
+743,Item_743,Appetizer,33.84
+744,Item_744,Main Course,25.13
+745,Item_745,Main Course,43.81
+746,Item_746,Dessert,32.27
+747,Item_747,Main Course,25.85
+748,Item_748,Appetizer,24.26
+749,Item_749,Appetizer,21.9
+750,Item_750,Main Course,44.54
+751,Item_751,Dessert,29.76
+752,Item_752,Main Course,41.1
+753,Item_753,Dessert,25.2
+754,Item_754,Main Course,28.78
+755,Item_755,Main Course,45.18
+756,Item_756,Main Course,44.28
+757,Item_757,Appetizer,22.87
+758,Item_758,Main Course,36.49
+759,Item_759,Main Course,43.03
+760,Item_760,Main Course,14.38
+761,Item_761,Main Course,16.9
+762,Item_762,Dessert,20.46
+763,Item_763,Dessert,47.95
+764,Item_764,Dessert,29.82
+765,Item_765,Dessert,14.33
+766,Item_766,Main Course,31.02
+767,Item_767,Appetizer,48.98
+768,Item_768,Main Course,20.48
+769,Item_769,Appetizer,15.68
+770,Item_770,Main Course,34.97
+771,Item_771,Appetizer,33.09
+772,Item_772,Dessert,40.74
+773,Item_773,Dessert,27.17
+774,Item_774,Main Course,45.48
+775,Item_775,Main Course,37.91
+776,Item_776,Appetizer,23.36
+777,Item_777,Main Course,47.46
+778,Item_778,Dessert,15.76
+779,Item_779,Appetizer,32.74
+780,Item_780,Appetizer,29.64
+781,Item_781,Dessert,48.77
+782,Item_782,Appetizer,45.78
+783,Item_783,Main Course,48.6
+784,Item_784,Dessert,41.92
+785,Item_785,Main Course,18.81
+786,Item_786,Appetizer,9.98
+787,Item_787,Appetizer,23.41
+788,Item_788,Appetizer,21.96
+789,Item_789,Appetizer,36.11
+790,Item_790,Appetizer,49.46
+791,Item_791,Main Course,25.39
+792,Item_792,Appetizer,25.66
+793,Item_793,Dessert,24.0
+794,Item_794,Appetizer,26.58
+795,Item_795,Main Course,28.31
+796,Item_796,Dessert,36.28
+797,Item_797,Dessert,10.97
+798,Item_798,Main Course,13.67
+799,Item_799,Dessert,36.73
+800,Item_800,Main Course,41.31
+801,Item_801,Appetizer,23.28
+802,Item_802,Appetizer,8.38
+803,Item_803,Appetizer,13.14
+804,Item_804,Dessert,29.96
+805,Item_805,Dessert,23.86
+806,Item_806,Appetizer,6.52
+807,Item_807,Dessert,48.04
+808,Item_808,Appetizer,44.83
+809,Item_809,Dessert,27.67
+810,Item_810,Appetizer,7.79
+811,Item_811,Dessert,11.85
+812,Item_812,Dessert,20.28
+813,Item_813,Main Course,18.29
+814,Item_814,Appetizer,7.37
+815,Item_815,Main Course,49.32
+816,Item_816,Appetizer,18.21
+817,Item_817,Main Course,6.69
+818,Item_818,Dessert,42.93
+819,Item_819,Dessert,43.03
+820,Item_820,Main Course,45.9
+821,Item_821,Main Course,41.13
+822,Item_822,Appetizer,31.53
+823,Item_823,Appetizer,43.12
+824,Item_824,Dessert,43.14
+825,Item_825,Appetizer,41.04
+826,Item_826,Appetizer,17.63
+827,Item_827,Main Course,29.1
+828,Item_828,Main Course,45.04
+829,Item_829,Dessert,6.37
+830,Item_830,Dessert,42.49
+831,Item_831,Dessert,14.11
+832,Item_832,Dessert,42.62
+833,Item_833,Dessert,40.39
+834,Item_834,Main Course,20.25
+835,Item_835,Appetizer,12.81
+836,Item_836,Dessert,22.95
+837,Item_837,Appetizer,19.52
+838,Item_838,Appetizer,47.17
+839,Item_839,Main Course,41.58
+840,Item_840,Appetizer,9.3
+841,Item_841,Appetizer,8.26
+842,Item_842,Main Course,28.28
+843,Item_843,Main Course,47.02
+844,Item_844,Main Course,12.89
+845,Item_845,Main Course,39.66
+846,Item_846,Appetizer,32.95
+847,Item_847,Appetizer,18.23
+848,Item_848,Appetizer,29.26
+849,Item_849,Dessert,17.25
+850,Item_850,Dessert,22.47
+851,Item_851,Main Course,14.11
+852,Item_852,Appetizer,18.68
+853,Item_853,Dessert,42.91
+854,Item_854,Appetizer,46.22
+855,Item_855,Appetizer,41.95
+856,Item_856,Dessert,17.63
+857,Item_857,Appetizer,34.03
+858,Item_858,Appetizer,42.44
+859,Item_859,Appetizer,18.84
+860,Item_860,Dessert,20.06
+861,Item_861,Appetizer,16.12
+862,Item_862,Dessert,23.48
+863,Item_863,Appetizer,38.88
+864,Item_864,Appetizer,15.08
+865,Item_865,Appetizer,18.25
+866,Item_866,Main Course,36.72
+867,Item_867,Main Course,37.38
+868,Item_868,Main Course,40.45
+869,Item_869,Appetizer,19.09
+870,Item_870,Main Course,35.47
+871,Item_871,Main Course,41.16
+872,Item_872,Main Course,8.55
+873,Item_873,Main Course,20.53
+874,Item_874,Appetizer,12.96
+875,Item_875,Main Course,24.92
+876,Item_876,Appetizer,37.34
+877,Item_877,Main Course,22.53
+878,Item_878,Appetizer,37.45
+879,Item_879,Main Course,44.56
+880,Item_880,Dessert,14.2
+881,Item_881,Appetizer,7.07
+882,Item_882,Dessert,23.08
+883,Item_883,Appetizer,37.6
+884,Item_884,Main Course,45.44
+885,Item_885,Dessert,47.38
+886,Item_886,Dessert,32.26
+887,Item_887,Appetizer,26.06
+888,Item_888,Main Course,31.08
+889,Item_889,Appetizer,5.2
+890,Item_890,Dessert,35.01
+891,Item_891,Main Course,31.36
+892,Item_892,Appetizer,6.79
+893,Item_893,Appetizer,23.26
+894,Item_894,Dessert,29.69
+895,Item_895,Main Course,37.93
+896,Item_896,Main Course,41.18
+897,Item_897,Dessert,42.38
+898,Item_898,Dessert,47.86
+899,Item_899,Main Course,31.48
+900,Item_900,Main Course,25.47
+901,Item_901,Main Course,45.88
+902,Item_902,Appetizer,47.97
+903,Item_903,Dessert,16.16
+904,Item_904,Main Course,35.03
+905,Item_905,Appetizer,28.39
+906,Item_906,Main Course,35.63
+907,Item_907,Appetizer,10.8
+908,Item_908,Dessert,35.13
+909,Item_909,Appetizer,38.82
+910,Item_910,Dessert,31.85
+911,Item_911,Dessert,42.8
+912,Item_912,Main Course,45.13
+913,Item_913,Main Course,40.8
+914,Item_914,Dessert,32.28
+915,Item_915,Main Course,12.24
+916,Item_916,Dessert,37.24
+917,Item_917,Dessert,14.4
+918,Item_918,Dessert,13.2
+919,Item_919,Dessert,12.99
+920,Item_920,Appetizer,39.77
+921,Item_921,Dessert,27.11
+922,Item_922,Appetizer,26.0
+923,Item_923,Dessert,41.69
+924,Item_924,Appetizer,22.48
+925,Item_925,Appetizer,45.72
+926,Item_926,Dessert,26.48
+927,Item_927,Main Course,48.1
+928,Item_928,Dessert,35.19
+929,Item_929,Dessert,49.36
+930,Item_930,Appetizer,30.34
+931,Item_931,Appetizer,13.97
+932,Item_932,Dessert,17.64
+933,Item_933,Main Course,34.94
+934,Item_934,Dessert,15.27
+935,Item_935,Main Course,25.06
+936,Item_936,Main Course,14.94
+937,Item_937,Main Course,39.75
+938,Item_938,Main Course,47.44
+939,Item_939,Appetizer,31.93
+940,Item_940,Appetizer,30.19
+941,Item_941,Dessert,5.9
+942,Item_942,Appetizer,27.21
+943,Item_943,Dessert,22.04
+944,Item_944,Main Course,11.65
+945,Item_945,Appetizer,36.22
+946,Item_946,Dessert,44.2
+947,Item_947,Appetizer,7.6
+948,Item_948,Main Course,14.38
+949,Item_949,Dessert,18.56
+950,Item_950,Dessert,37.0
+951,Item_951,Dessert,12.97
+952,Item_952,Appetizer,14.81
+953,Item_953,Appetizer,17.43
+954,Item_954,Main Course,11.81
+955,Item_955,Dessert,30.82
+956,Item_956,Main Course,31.12
+957,Item_957,Appetizer,11.82
+958,Item_958,Main Course,28.83
+959,Item_959,Appetizer,15.93
+960,Item_960,Appetizer,13.94
+961,Item_961,Appetizer,6.51
+962,Item_962,Dessert,36.68
+963,Item_963,Main Course,22.37
+964,Item_964,Main Course,25.89
+965,Item_965,Main Course,12.38
+966,Item_966,Dessert,8.46
+967,Item_967,Main Course,18.55
+968,Item_968,Appetizer,21.08
+969,Item_969,Appetizer,38.4
+970,Item_970,Main Course,19.01
+971,Item_971,Main Course,30.05
+972,Item_972,Appetizer,39.1
+973,Item_973,Dessert,26.82
+974,Item_974,Main Course,27.71
+975,Item_975,Appetizer,36.13
+976,Item_976,Dessert,10.74
+977,Item_977,Main Course,17.78
+978,Item_978,Appetizer,28.27
+979,Item_979,Dessert,32.68
+980,Item_980,Appetizer,11.76
+981,Item_981,Main Course,20.48
+982,Item_982,Main Course,42.74
+983,Item_983,Dessert,5.91
+984,Item_984,Main Course,45.58
+985,Item_985,Dessert,38.21
+986,Item_986,Main Course,49.43
+987,Item_987,Appetizer,9.97
+988,Item_988,Main Course,26.94
+989,Item_989,Appetizer,33.94
+990,Item_990,Main Course,34.5
+991,Item_991,Dessert,29.25
+992,Item_992,Main Course,13.18
+993,Item_993,Main Course,42.71
+994,Item_994,Main Course,49.45
+995,Item_995,Appetizer,15.48
+996,Item_996,Dessert,30.61
+997,Item_997,Appetizer,39.4
+998,Item_998,Appetizer,16.65
+999,Item_999,Main Course,15.89
+1000,Item_1000,Dessert,35.9
