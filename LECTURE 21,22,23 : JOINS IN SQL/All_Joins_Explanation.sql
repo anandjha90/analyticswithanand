@@ -139,6 +139,11 @@ NULLS LAST;
 
 -- Explanation: Returns all records from both tables, filling in NULL where there’s no match. Both unmatched employees and departments are included.
 
+SELECT e.emp_id, e.emp_name, e.salary, d.dept_name
+FROM employees AS e
+FULL OUTER JOIN departments AS d ON e.dept_id = d.dept_id;
+
+
 ----------------------------------------------------------------------CROSS/CARTESIAN JOIN ------------------------------------------------------------------------------
 /*
 5. Cross Join (Cartesian Join)
@@ -155,6 +160,10 @@ ORDER BY A.ID_A,B.ID_B
 NULLS LAST;
 
 -- Explanation: Every row from employees is combined with every row from departments, resulting in a large number of combinations. This join type is seldom used in production.
+
+SELECT e.emp_id, e.emp_name, d.dept_name
+FROM employees AS e
+CROSS JOIN departments AS d;
 
 ----------------------------------------------------------------------SELF JOIN ------------------------------------------------------------------------------
 /*
@@ -181,6 +190,184 @@ INNER JOIN employees e2 ON e1.emp_id <> e2.emp_id
 ORDER BY e1.emp_name;
 
 -- Explanation: Self join here shows each employee paired with every other employee (excluding self-pairs). It’s often used in hierarchical data.
+
+/*
+
+Certainly! A self-join is a technique where a table is joined with itself. This is especially useful for hierarchical relationships, like an employee-manager relationship, where each employee has a manager who is also an employee within the same table.
+
+Business Use Case
+In an organization, each employee reports to a manager, who is also an employee. By using a self-join, we can create a report that shows each employee along with their manager’s details.
+
+Table Structure
+Let’s create an employees table where each employee has:
+
+A unique employee_id
+A employee_name
+A position
+A salary
+A manager_id that references another employee_id in the same table (indicating who their manager is)
+*/
+
+CREATE OR REPLACE TABLE employees_self_join (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(100),
+    position VARCHAR(50),
+    salary DECIMAL(10, 2),
+    manager_id INT,
+    FOREIGN KEY (manager_id) REFERENCES employees_self_join(employee_id)
+);
+
+-- Insert records into the employees table
+INSERT INTO employees_self_join (employee_id, employee_name, position, salary, manager_id) VALUES 
+(1, 'Alice', 'CEO', 150000.00, NULL),         -- Alice is the CEO with no manager
+(2, 'Bob', 'CTO', 130000.00, 1),              -- Bob reports to Alice
+(3, 'Charlie', 'CFO', 130000.00, 1),          -- Charlie reports to Alice
+(4, 'David', 'Engineer', 90000.00, 2),        -- David reports to Bob
+(5, 'Eve', 'Engineer', 90000.00, 2),          -- Eve reports to Bob
+(6, 'Frank', 'Accountant', 80000.00, 3),      -- Frank reports to Charlie
+(7, 'Grace', 'HR Manager', 95000.00, 1),      -- Grace reports to Alice
+(8, 'Helen', 'HR Specialist', 70000.00, 7);   -- Helen reports to Grace
+
+
+-- Self-Join Query to Retrieve Employee and Manager Information
+-- To get a list of each employee along with their manager’s name and position, we can join the employees table with itself using a self-join.
+
+SELECT 
+    e.employee_id AS employee_id,
+    e.employee_name AS employee_name,
+    e.position AS employee_position,
+    e.salary AS employee_salary,
+    e.manager_id AS manager_id,
+    m.employee_name AS manager_name,
+    m.position AS manager_position
+FROM employees_self_join e
+-- links each employee to their manager’s details by matching manager_id in the employee record with the employee_id in the manager record.
+-- We use a LEFT JOIN so that employees without managers (like Alice) are still included in the result with NULL values for the manager fields.
+LEFT JOIN employees_self_join m ON e.manager_id = m.employee_id 
+ORDER BY e.employee_id ;
+
+
+-- To see each employee's direct and indirect managers, we can use a recursive CTE (Common Table Expression) along with a self-join. 
+-- This approach lets us trace the reporting hierarchy up to the top-level manager.
+
+-- Recursive CTE Setup:
+-- The CTE EmployeeHierarchy starts with each employee and their immediate (Level 1) manager.
+-- It then recursively joins back to the employees table to find the next level up.
+
+WITH RECURSIVE EmployeeHierarchy AS 
+(
+    -- Start with each employee and their immediate manager
+    SELECT 
+        employee_id,
+        employee_name,
+        manager_id,
+        1 AS level -- Level 1: Direct manager
+    FROM employees_self_join
+    WHERE manager_id IS NOT NULL
+
+    UNION ALL
+
+    -- Recursively join to find higher levels of management
+    SELECT 
+        e.employee_id,
+        e.employee_name,
+        eh.manager_id,
+        eh.level + 1 AS level
+    FROM employees_self_join e
+    JOIN EmployeeHierarchy eh ON e.manager_id = eh.employee_id
+)
+SELECT * FROM EmployeeHierarchy
+ORDER BY employee_id, level;
+
+-- In this result:
+
+-- David reports directly to Bob (Level 1) and indirectly to Alice (Level 2).
+-- Eve’s chain of command is the same as David’s.
+-- Frank reports to Charlie (Level 1) and indirectly to Alice (Level 2).
+-- Helen reports directly to Grace (Level 1) and indirectly to Alice (Level 2).
+
+-- To find the number of direct reports for each manager, we can use a simple self-join:
+
+SELECT 
+    m.employee_id AS manager_id,                -- m represents each manager , e represents the employees reporting to each manager.
+    m.employee_name AS manager_name,             
+    COUNT(e.employee_id) AS direct_reports_count -- counts the number of employees reporting directly to each manager.
+FROM employees_self_join m
+LEFT JOIN employees_self_join e ON m.employee_id = e.manager_id  -- The join condition links each manager to their direct reports.
+GROUP BY m.employee_id, m.employee_name
+ORDER BY direct_reports_count DESC;
+
+-- In this result:
+
+-- Alice has 3 direct reports: Bob, Charlie, and Grace.
+-- Bob has 2 direct reports: David and Eve.
+-- Charlie has 1 direct report: Frank.
+-- Grace has 1 direct report: Helen.
+-- The other employees (David, Eve, Frank, and Helen) don’t have any direct reports.
+
+-- Use Case : Step 1: Calculate Salary Budget for Direct Reports
+-- To calculate the total salary each manager is responsible for within their immediate reporting layer, we use a self-join:
+
+SELECT 
+    m.employee_id AS manager_id,
+    m.employee_name AS manager_name,
+    SUM(e.salary) AS direct_reports_salary_budget -- calculates the total salary of all employees directly reporting to each manager.
+FROM employees_self_join m
+LEFT JOIN employees_self_join e ON m.employee_id = e.manager_id
+GROUP BY m.employee_id, m.employee_name
+ORDER BY direct_reports_salary_budget DESC
+NULLS LAST;
+
+-- In this result:
+
+-- Alice has a direct salary budget of 355,000 for her direct reports (Bob, Charlie, and Grace).
+-- Bob is responsible for 180,000, the combined salaries of David and Eve.
+-- Charlie oversees Frank with a salary budget of 80,000.
+-- Grace oversees Helen with a budget of 70,000.
+-- Individual contributors without direct reports have NULL in their budget.
+
+-- Step 2: Calculate Total Hierarchical Salary Budget (Direct + Indirect Reports)
+-- To capture the full hierarchy’s salary budget each manager is responsible for, including all levels under them, we use a recursive CTE:
+
+-- The CTE SalaryHierarchy begins with each employee and their salary.
+-- It recursively joins to add the salaries of employees’ subordinates through successive levels.
+
+WITH RECURSIVE SalaryHierarchy AS (
+    -- Start with each employee and their salary
+    SELECT 
+        employee_id,
+        employee_name,
+        manager_id,
+        salary AS total_salary
+    FROM employees_self_join
+
+    UNION ALL
+
+    -- Recursively add salaries of each employee's subordinates
+    SELECT 
+        e.employee_id,
+        e.employee_name,
+        h.manager_id,
+        e.salary + h.total_salary AS total_salary
+    FROM employees_self_join e
+    JOIN SalaryHierarchy h ON e.manager_id = h.employee_id
+)
+-- Summarize total salary at each manager level
+SELECT 
+    manager_id,
+    SUM(total_salary) AS hierarchical_salary_budget
+FROM SalaryHierarchy
+GROUP BY manager_id
+ORDER BY hierarchical_salary_budget DESC;
+
+*/
+-- In this result:
+
+-- Alice(CEO) has a total salary budget of 2,370,000 across her entire reporting structure, including indirect layers.
+-- Bob, who reports directly to Alice, oversees a budget of 180,000 for his team (David & Eve)
+-- Charlie has a budget of 80,000 under her, as she only directly manages Frank.
+-- Grace has a budget of 70,000 under her, as she only directly manages Helen.
+
 
 ----------------------------------------------------------------------SEMI JOIN------------------------------------------------------------------------------
 /*
