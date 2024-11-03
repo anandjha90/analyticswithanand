@@ -1,0 +1,1001 @@
+customer_id,customer_name,join_date,loyalty_level,age,city
+1,Customer_1,2021-12-30,Gold,35,Chicago
+2,Customer_2,2023-05-28,Platinum,69,Los Angeles
+3,Customer_3,2024-04-06,Gold,38,Phoenix
+4,Customer_4,2023-06-16,Silver,54,Los Angeles
+5,Customer_5,2023-07-21,Platinum,67,Houston
+6,Customer_6,2023-04-22,Regular,64,Houston
+7,Customer_7,2022-06-12,Platinum,68,Phoenix
+8,Customer_8,2022-08-14,Silver,50,Phoenix
+9,Customer_9,2022-01-13,Silver,61,Phoenix
+10,Customer_10,2024-10-01,Regular,49,Houston
+11,Customer_11,2024-10-24,Regular,61,Los Angeles
+12,Customer_12,2023-02-15,Silver,59,New York
+13,Customer_13,2021-11-06,Silver,68,New York
+14,Customer_14,2023-10-21,Silver,45,New York
+15,Customer_15,2023-10-08,Gold,44,Houston
+16,Customer_16,2023-05-30,Silver,43,Phoenix
+17,Customer_17,2022-09-20,Platinum,49,Houston
+18,Customer_18,2022-10-03,Regular,42,Los Angeles
+19,Customer_19,2024-06-16,Platinum,54,Phoenix
+20,Customer_20,2024-03-12,Gold,63,New York
+21,Customer_21,2024-08-13,Silver,56,New York
+22,Customer_22,2024-07-16,Platinum,35,Chicago
+23,Customer_23,2023-08-29,Platinum,59,Houston
+24,Customer_24,2024-06-15,Gold,33,New York
+25,Customer_25,2022-04-27,Silver,41,Phoenix
+26,Customer_26,2022-06-24,Gold,26,Chicago
+27,Customer_27,2023-03-10,Gold,51,Phoenix
+28,Customer_28,2023-09-27,Silver,21,Los Angeles
+29,Customer_29,2023-11-16,Silver,53,Phoenix
+30,Customer_30,2022-12-09,Silver,68,New York
+31,Customer_31,2023-09-17,Silver,23,Phoenix
+32,Customer_32,2022-04-05,Regular,54,New York
+33,Customer_33,2023-07-19,Regular,21,Chicago
+34,Customer_34,2024-08-07,Regular,24,Houston
+35,Customer_35,2022-10-12,Gold,33,Los Angeles
+36,Customer_36,2022-09-29,Regular,40,New York
+37,Customer_37,2023-09-03,Regular,19,New York
+38,Customer_38,2023-06-10,Gold,57,Phoenix
+39,Customer_39,2022-01-09,Platinum,29,New York
+40,Customer_40,2021-11-23,Regular,25,Los Angeles
+41,Customer_41,2023-11-29,Silver,41,Chicago
+42,Customer_42,2021-12-09,Gold,23,Phoenix
+43,Customer_43,2022-04-01,Platinum,54,Houston
+44,Customer_44,2023-06-04,Regular,43,New York
+45,Customer_45,2024-08-03,Regular,29,New York
+46,Customer_46,2021-11-20,Platinum,38,Houston
+47,Customer_47,2023-04-25,Gold,39,New York
+48,Customer_48,2022-03-01,Regular,26,New York
+49,Customer_49,2022-09-15,Gold,65,Phoenix
+50,Customer_50,2024-10-06,Silver,21,Houston
+51,Customer_51,2022-12-11,Regular,27,Los Angeles
+52,Customer_52,2023-11-20,Regular,56,Phoenix
+53,Customer_53,2024-08-17,Silver,60,Phoenix
+54,Customer_54,2024-05-11,Regular,62,Houston
+55,Customer_55,2023-08-22,Platinum,64,Houston
+56,Customer_56,2023-01-15,Gold,62,New York
+57,Customer_57,2022-04-21,Regular,57,New York
+58,Customer_58,2022-08-30,Platinum,57,Los Angeles
+59,Customer_59,2023-04-14,Silver,26,Phoenix
+60,Customer_60,2023-08-03,Gold,30,New York
+61,Customer_61,2022-10-04,Regular,49,Houston
+62,Customer_62,2024-09-22,Regular,43,Houston
+63,Customer_63,2023-05-06,Silver,70,New York
+64,Customer_64,2023-07-26,Gold,41,Los Angeles
+65,Customer_65,2024-07-18,Gold,34,Phoenix
+66,Customer_66,2024-10-12,Silver,21,New York
+67,Customer_67,2022-11-20,Platinum,29,Houston
+68,Customer_68,2022-06-23,Platinum,29,Phoenix
+69,Customer_69,2022-06-22,Platinum,33,Houston
+70,Customer_70,2023-07-31,Silver,67,Chicago
+71,Customer_71,2023-07-06,Regular,37,Los Angeles
+72,Customer_72,2022-03-26,Silver,65,Chicago
+73,Customer_73,2024-08-18,Silver,65,Chicago
+74,Customer_74,2024-06-21,Gold,62,Houston
+75,Customer_75,2022-08-20,Gold,38,Chicago
+76,Customer_76,2024-06-11,Regular,41,Phoenix
+77,Customer_77,2022-09-03,Regular,40,Phoenix
+78,Customer_78,2022-03-04,Gold,43,Los Angeles
+79,Customer_79,2022-07-04,Gold,70,New York
+80,Customer_80,2023-01-19,Gold,28,Chicago
+81,Customer_81,2022-03-10,Regular,26,New York
+82,Customer_82,2023-02-06,Silver,23,Houston
+83,Customer_83,2024-08-12,Gold,27,Los Angeles
+84,Customer_84,2023-05-12,Platinum,19,Chicago
+85,Customer_85,2023-04-30,Regular,32,Chicago
+86,Customer_86,2024-05-23,Platinum,18,New York
+87,Customer_87,2024-07-22,Regular,51,New York
+88,Customer_88,2023-06-17,Regular,66,Chicago
+89,Customer_89,2023-10-16,Gold,25,Los Angeles
+90,Customer_90,2022-08-22,Platinum,51,Chicago
+91,Customer_91,2024-10-15,Gold,26,Houston
+92,Customer_92,2024-05-27,Silver,21,New York
+93,Customer_93,2024-06-26,Platinum,66,Houston
+94,Customer_94,2024-02-27,Regular,69,Houston
+95,Customer_95,2023-01-29,Silver,19,Phoenix
+96,Customer_96,2023-01-20,Platinum,66,Los Angeles
+97,Customer_97,2022-02-26,Platinum,47,Phoenix
+98,Customer_98,2024-03-27,Regular,38,Houston
+99,Customer_99,2024-02-25,Regular,33,New York
+100,Customer_100,2023-04-17,Silver,31,Houston
+101,Customer_101,2023-09-14,Platinum,30,New York
+102,Customer_102,2023-02-06,Gold,70,New York
+103,Customer_103,2024-04-15,Gold,68,Chicago
+104,Customer_104,2022-05-27,Regular,23,Chicago
+105,Customer_105,2023-06-26,Platinum,23,Phoenix
+106,Customer_106,2024-04-08,Gold,65,Los Angeles
+107,Customer_107,2024-08-15,Gold,29,New York
+108,Customer_108,2021-12-13,Regular,38,New York
+109,Customer_109,2022-07-13,Platinum,18,New York
+110,Customer_110,2022-05-07,Regular,44,Houston
+111,Customer_111,2024-09-09,Silver,25,Chicago
+112,Customer_112,2022-11-16,Silver,20,New York
+113,Customer_113,2022-09-06,Platinum,29,Chicago
+114,Customer_114,2023-09-19,Silver,43,New York
+115,Customer_115,2022-01-17,Platinum,44,Chicago
+116,Customer_116,2024-07-01,Platinum,35,Los Angeles
+117,Customer_117,2024-06-08,Gold,31,Phoenix
+118,Customer_118,2023-09-07,Regular,31,Los Angeles
+119,Customer_119,2023-10-05,Gold,28,Chicago
+120,Customer_120,2022-10-29,Platinum,66,New York
+121,Customer_121,2022-03-13,Regular,45,Houston
+122,Customer_122,2021-12-07,Regular,25,Chicago
+123,Customer_123,2022-04-15,Gold,38,Phoenix
+124,Customer_124,2022-10-21,Platinum,38,Chicago
+125,Customer_125,2023-11-18,Silver,49,Los Angeles
+126,Customer_126,2024-04-11,Regular,55,New York
+127,Customer_127,2023-10-19,Regular,28,New York
+128,Customer_128,2021-12-18,Regular,54,Phoenix
+129,Customer_129,2023-01-20,Regular,33,Houston
+130,Customer_130,2023-01-29,Gold,70,Chicago
+131,Customer_131,2024-06-01,Regular,41,Phoenix
+132,Customer_132,2022-08-31,Regular,33,Phoenix
+133,Customer_133,2023-05-06,Gold,39,Phoenix
+134,Customer_134,2024-07-25,Regular,60,Phoenix
+135,Customer_135,2023-01-23,Gold,69,Houston
+136,Customer_136,2021-12-14,Platinum,66,New York
+137,Customer_137,2021-12-22,Gold,22,Houston
+138,Customer_138,2023-04-03,Gold,42,New York
+139,Customer_139,2022-12-28,Gold,66,Phoenix
+140,Customer_140,2023-08-19,Gold,30,Houston
+141,Customer_141,2022-10-11,Regular,60,New York
+142,Customer_142,2022-12-27,Platinum,55,Los Angeles
+143,Customer_143,2024-02-14,Silver,53,Phoenix
+144,Customer_144,2024-08-05,Platinum,62,Phoenix
+145,Customer_145,2022-04-23,Regular,23,New York
+146,Customer_146,2022-09-29,Gold,30,Houston
+147,Customer_147,2023-10-26,Gold,66,Chicago
+148,Customer_148,2023-08-15,Regular,26,Los Angeles
+149,Customer_149,2024-07-12,Regular,43,New York
+150,Customer_150,2024-10-28,Regular,65,Los Angeles
+151,Customer_151,2023-08-25,Gold,22,Los Angeles
+152,Customer_152,2024-01-15,Platinum,37,Houston
+153,Customer_153,2021-11-13,Gold,43,Houston
+154,Customer_154,2023-03-26,Silver,50,Houston
+155,Customer_155,2022-07-27,Silver,58,Houston
+156,Customer_156,2024-06-28,Gold,56,Chicago
+157,Customer_157,2024-07-26,Silver,37,Los Angeles
+158,Customer_158,2022-02-01,Regular,51,Los Angeles
+159,Customer_159,2024-06-08,Platinum,27,Houston
+160,Customer_160,2022-10-02,Platinum,51,Houston
+161,Customer_161,2023-05-11,Silver,37,Phoenix
+162,Customer_162,2022-12-01,Gold,38,New York
+163,Customer_163,2022-06-25,Regular,36,Los Angeles
+164,Customer_164,2023-08-16,Gold,49,Houston
+165,Customer_165,2023-10-10,Regular,70,Los Angeles
+166,Customer_166,2024-01-13,Gold,61,New York
+167,Customer_167,2022-02-04,Regular,54,Los Angeles
+168,Customer_168,2023-09-21,Silver,61,Los Angeles
+169,Customer_169,2023-06-10,Gold,38,Los Angeles
+170,Customer_170,2022-04-30,Regular,45,New York
+171,Customer_171,2023-05-19,Gold,66,Houston
+172,Customer_172,2022-07-25,Gold,57,Phoenix
+173,Customer_173,2022-10-05,Gold,35,Houston
+174,Customer_174,2022-04-08,Regular,56,Chicago
+175,Customer_175,2024-03-12,Regular,68,Houston
+176,Customer_176,2022-07-05,Gold,35,Los Angeles
+177,Customer_177,2023-09-14,Gold,30,New York
+178,Customer_178,2022-10-21,Gold,33,New York
+179,Customer_179,2022-01-06,Platinum,32,Houston
+180,Customer_180,2022-04-06,Platinum,19,Chicago
+181,Customer_181,2022-09-03,Gold,28,Chicago
+182,Customer_182,2021-12-27,Silver,45,Houston
+183,Customer_183,2024-06-11,Silver,47,Los Angeles
+184,Customer_184,2023-03-03,Gold,48,Los Angeles
+185,Customer_185,2024-06-10,Silver,53,Los Angeles
+186,Customer_186,2022-06-26,Gold,21,Los Angeles
+187,Customer_187,2023-02-25,Silver,48,New York
+188,Customer_188,2024-05-23,Gold,63,Chicago
+189,Customer_189,2024-03-06,Platinum,30,Phoenix
+190,Customer_190,2024-10-04,Silver,26,Los Angeles
+191,Customer_191,2023-11-27,Regular,31,Los Angeles
+192,Customer_192,2023-05-19,Silver,23,Phoenix
+193,Customer_193,2024-04-30,Gold,67,Los Angeles
+194,Customer_194,2023-11-30,Silver,52,New York
+195,Customer_195,2022-04-19,Regular,48,Los Angeles
+196,Customer_196,2022-11-07,Gold,40,New York
+197,Customer_197,2022-09-30,Regular,40,Phoenix
+198,Customer_198,2024-05-29,Gold,48,New York
+199,Customer_199,2022-12-05,Gold,41,Los Angeles
+200,Customer_200,2022-10-04,Regular,40,New York
+201,Customer_201,2022-06-16,Platinum,47,Phoenix
+202,Customer_202,2023-07-29,Regular,57,New York
+203,Customer_203,2023-09-25,Platinum,46,Houston
+204,Customer_204,2024-01-23,Platinum,29,Phoenix
+205,Customer_205,2022-05-06,Silver,36,New York
+206,Customer_206,2022-02-17,Silver,44,New York
+207,Customer_207,2023-04-30,Silver,39,Houston
+208,Customer_208,2024-03-25,Gold,27,New York
+209,Customer_209,2022-03-25,Silver,38,Phoenix
+210,Customer_210,2024-10-12,Gold,33,Phoenix
+211,Customer_211,2022-04-02,Gold,28,New York
+212,Customer_212,2024-06-21,Silver,30,Chicago
+213,Customer_213,2023-05-17,Regular,66,New York
+214,Customer_214,2024-03-02,Silver,34,Los Angeles
+215,Customer_215,2022-05-17,Platinum,66,New York
+216,Customer_216,2021-11-10,Platinum,61,New York
+217,Customer_217,2024-04-15,Gold,65,Phoenix
+218,Customer_218,2022-10-19,Silver,70,Phoenix
+219,Customer_219,2024-10-14,Gold,68,New York
+220,Customer_220,2023-10-05,Regular,57,Houston
+221,Customer_221,2023-04-19,Regular,61,Houston
+222,Customer_222,2021-11-27,Gold,56,Houston
+223,Customer_223,2023-11-07,Silver,48,Houston
+224,Customer_224,2023-12-10,Platinum,56,Los Angeles
+225,Customer_225,2023-04-14,Silver,63,Phoenix
+226,Customer_226,2021-11-29,Regular,25,Houston
+227,Customer_227,2022-01-14,Gold,39,New York
+228,Customer_228,2022-09-04,Gold,31,Houston
+229,Customer_229,2023-10-15,Platinum,43,Phoenix
+230,Customer_230,2023-12-24,Platinum,25,Houston
+231,Customer_231,2024-06-22,Regular,54,Phoenix
+232,Customer_232,2023-11-10,Silver,53,New York
+233,Customer_233,2024-04-25,Platinum,33,Chicago
+234,Customer_234,2022-05-07,Regular,22,Phoenix
+235,Customer_235,2024-05-15,Silver,66,New York
+236,Customer_236,2023-07-15,Gold,23,Los Angeles
+237,Customer_237,2023-04-02,Silver,63,Phoenix
+238,Customer_238,2022-01-08,Platinum,41,New York
+239,Customer_239,2024-04-25,Platinum,33,Los Angeles
+240,Customer_240,2022-08-15,Silver,40,Houston
+241,Customer_241,2024-10-14,Gold,40,Chicago
+242,Customer_242,2024-04-17,Gold,33,Los Angeles
+243,Customer_243,2023-11-22,Platinum,24,Chicago
+244,Customer_244,2023-04-14,Platinum,45,Houston
+245,Customer_245,2022-10-16,Platinum,64,Chicago
+246,Customer_246,2021-12-08,Gold,27,Houston
+247,Customer_247,2024-09-23,Platinum,64,Houston
+248,Customer_248,2022-05-19,Platinum,21,New York
+249,Customer_249,2024-04-09,Regular,30,Houston
+250,Customer_250,2022-03-21,Platinum,58,New York
+251,Customer_251,2022-05-09,Gold,33,Chicago
+252,Customer_252,2022-10-11,Gold,34,Houston
+253,Customer_253,2024-01-26,Gold,61,New York
+254,Customer_254,2024-05-20,Silver,23,Chicago
+255,Customer_255,2022-11-18,Gold,25,Los Angeles
+256,Customer_256,2023-01-17,Regular,47,Los Angeles
+257,Customer_257,2022-07-29,Silver,70,New York
+258,Customer_258,2022-05-31,Regular,28,Houston
+259,Customer_259,2023-03-30,Platinum,69,Houston
+260,Customer_260,2023-08-29,Platinum,39,Los Angeles
+261,Customer_261,2022-05-31,Gold,33,Los Angeles
+262,Customer_262,2023-08-06,Gold,54,Houston
+263,Customer_263,2023-02-06,Gold,44,Chicago
+264,Customer_264,2023-05-06,Regular,38,Los Angeles
+265,Customer_265,2023-11-12,Gold,61,Phoenix
+266,Customer_266,2024-03-13,Regular,63,Houston
+267,Customer_267,2024-09-08,Regular,21,Houston
+268,Customer_268,2023-03-15,Platinum,22,Chicago
+269,Customer_269,2024-02-14,Platinum,67,Phoenix
+270,Customer_270,2022-04-09,Silver,35,Los Angeles
+271,Customer_271,2022-02-13,Gold,58,New York
+272,Customer_272,2022-10-06,Silver,54,Los Angeles
+273,Customer_273,2022-09-26,Gold,65,New York
+274,Customer_274,2022-01-25,Platinum,40,Chicago
+275,Customer_275,2022-08-05,Gold,39,New York
+276,Customer_276,2022-12-04,Gold,22,New York
+277,Customer_277,2023-09-09,Silver,36,Chicago
+278,Customer_278,2023-07-25,Regular,49,New York
+279,Customer_279,2022-12-23,Gold,32,Phoenix
+280,Customer_280,2022-08-08,Gold,19,Phoenix
+281,Customer_281,2024-10-28,Platinum,37,Chicago
+282,Customer_282,2023-11-30,Regular,69,Los Angeles
+283,Customer_283,2023-07-25,Gold,58,Chicago
+284,Customer_284,2024-03-11,Regular,60,Los Angeles
+285,Customer_285,2023-08-16,Platinum,37,Los Angeles
+286,Customer_286,2024-03-13,Gold,47,Los Angeles
+287,Customer_287,2024-04-18,Silver,19,Chicago
+288,Customer_288,2024-02-23,Silver,31,Chicago
+289,Customer_289,2023-05-24,Gold,70,Phoenix
+290,Customer_290,2023-12-26,Regular,34,New York
+291,Customer_291,2023-01-24,Gold,50,Houston
+292,Customer_292,2022-07-16,Regular,60,Chicago
+293,Customer_293,2024-03-15,Platinum,65,Phoenix
+294,Customer_294,2023-02-07,Gold,36,Los Angeles
+295,Customer_295,2023-10-23,Platinum,29,New York
+296,Customer_296,2023-07-29,Regular,67,Phoenix
+297,Customer_297,2023-09-13,Silver,32,Houston
+298,Customer_298,2023-09-01,Gold,65,Phoenix
+299,Customer_299,2024-03-29,Silver,24,New York
+300,Customer_300,2022-04-16,Platinum,47,Chicago
+301,Customer_301,2023-08-12,Regular,54,Chicago
+302,Customer_302,2024-05-07,Regular,21,Los Angeles
+303,Customer_303,2022-03-25,Silver,63,Los Angeles
+304,Customer_304,2021-12-15,Regular,62,Chicago
+305,Customer_305,2023-12-27,Gold,39,Los Angeles
+306,Customer_306,2024-09-02,Platinum,66,Houston
+307,Customer_307,2023-07-28,Gold,36,Los Angeles
+308,Customer_308,2022-09-07,Silver,34,New York
+309,Customer_309,2024-09-05,Silver,21,Houston
+310,Customer_310,2021-12-09,Regular,20,Chicago
+311,Customer_311,2024-09-16,Gold,68,New York
+312,Customer_312,2023-11-29,Silver,19,Phoenix
+313,Customer_313,2022-01-17,Platinum,28,Los Angeles
+314,Customer_314,2024-09-17,Platinum,25,Los Angeles
+315,Customer_315,2023-11-28,Gold,55,Los Angeles
+316,Customer_316,2023-06-27,Gold,23,Houston
+317,Customer_317,2024-06-25,Platinum,46,New York
+318,Customer_318,2022-10-25,Platinum,48,Houston
+319,Customer_319,2024-04-17,Gold,63,Los Angeles
+320,Customer_320,2022-04-08,Silver,29,Los Angeles
+321,Customer_321,2023-02-11,Gold,56,Houston
+322,Customer_322,2023-03-21,Silver,61,Houston
+323,Customer_323,2024-06-06,Regular,38,Chicago
+324,Customer_324,2023-04-29,Regular,30,Chicago
+325,Customer_325,2022-02-23,Silver,21,Houston
+326,Customer_326,2024-06-09,Silver,26,Los Angeles
+327,Customer_327,2023-04-10,Silver,27,Los Angeles
+328,Customer_328,2024-02-04,Silver,66,Los Angeles
+329,Customer_329,2021-11-05,Gold,62,Houston
+330,Customer_330,2024-03-31,Platinum,57,Los Angeles
+331,Customer_331,2023-11-26,Silver,69,Los Angeles
+332,Customer_332,2023-10-07,Gold,34,New York
+333,Customer_333,2022-11-27,Silver,53,Houston
+334,Customer_334,2023-07-18,Silver,38,New York
+335,Customer_335,2024-08-12,Platinum,18,Phoenix
+336,Customer_336,2023-08-19,Regular,29,Los Angeles
+337,Customer_337,2024-09-20,Regular,33,New York
+338,Customer_338,2023-11-17,Regular,28,Chicago
+339,Customer_339,2022-09-02,Platinum,24,Phoenix
+340,Customer_340,2023-03-17,Regular,69,Los Angeles
+341,Customer_341,2024-09-27,Platinum,60,Los Angeles
+342,Customer_342,2023-03-20,Gold,47,Houston
+343,Customer_343,2024-02-13,Regular,69,Phoenix
+344,Customer_344,2023-08-09,Regular,26,New York
+345,Customer_345,2023-12-27,Platinum,60,New York
+346,Customer_346,2023-06-18,Gold,36,Chicago
+347,Customer_347,2023-06-27,Silver,49,New York
+348,Customer_348,2022-04-10,Gold,24,New York
+349,Customer_349,2023-08-17,Silver,63,Phoenix
+350,Customer_350,2022-01-24,Platinum,41,New York
+351,Customer_351,2021-12-26,Platinum,23,New York
+352,Customer_352,2024-08-22,Regular,39,Chicago
+353,Customer_353,2024-07-05,Platinum,18,Chicago
+354,Customer_354,2024-05-04,Platinum,58,Houston
+355,Customer_355,2022-10-26,Gold,50,Houston
+356,Customer_356,2024-07-12,Platinum,68,Chicago
+357,Customer_357,2024-09-21,Regular,58,Los Angeles
+358,Customer_358,2024-03-20,Silver,28,Houston
+359,Customer_359,2024-07-14,Platinum,56,Houston
+360,Customer_360,2024-07-22,Platinum,50,Houston
+361,Customer_361,2022-01-31,Regular,21,New York
+362,Customer_362,2022-06-20,Silver,27,Houston
+363,Customer_363,2021-11-26,Gold,38,Chicago
+364,Customer_364,2024-06-11,Platinum,40,Los Angeles
+365,Customer_365,2021-11-07,Platinum,55,New York
+366,Customer_366,2024-01-28,Gold,19,Phoenix
+367,Customer_367,2022-04-28,Regular,52,Los Angeles
+368,Customer_368,2023-08-05,Gold,55,Chicago
+369,Customer_369,2022-08-23,Platinum,45,Los Angeles
+370,Customer_370,2024-09-23,Silver,50,Los Angeles
+371,Customer_371,2022-07-06,Regular,40,Chicago
+372,Customer_372,2024-06-24,Regular,69,New York
+373,Customer_373,2023-02-19,Silver,65,Phoenix
+374,Customer_374,2023-02-18,Platinum,62,Phoenix
+375,Customer_375,2022-06-22,Gold,35,Phoenix
+376,Customer_376,2022-05-20,Silver,18,New York
+377,Customer_377,2022-11-14,Gold,53,Houston
+378,Customer_378,2022-12-08,Regular,63,Houston
+379,Customer_379,2022-10-22,Regular,63,New York
+380,Customer_380,2023-04-11,Platinum,43,Chicago
+381,Customer_381,2024-06-16,Silver,39,Chicago
+382,Customer_382,2023-02-13,Platinum,46,Chicago
+383,Customer_383,2021-12-04,Regular,40,Chicago
+384,Customer_384,2023-09-03,Regular,67,New York
+385,Customer_385,2023-01-20,Regular,29,Phoenix
+386,Customer_386,2024-08-30,Gold,39,New York
+387,Customer_387,2024-09-19,Platinum,29,Los Angeles
+388,Customer_388,2022-01-28,Gold,28,Houston
+389,Customer_389,2021-12-27,Platinum,50,Houston
+390,Customer_390,2024-05-17,Silver,23,Los Angeles
+391,Customer_391,2022-07-12,Silver,30,Los Angeles
+392,Customer_392,2024-01-16,Gold,21,Chicago
+393,Customer_393,2022-01-10,Platinum,58,Houston
+394,Customer_394,2024-01-20,Silver,47,New York
+395,Customer_395,2022-07-23,Platinum,35,Phoenix
+396,Customer_396,2024-04-22,Platinum,32,Houston
+397,Customer_397,2024-05-08,Silver,38,Houston
+398,Customer_398,2023-03-23,Gold,69,New York
+399,Customer_399,2022-08-17,Gold,35,Los Angeles
+400,Customer_400,2024-02-25,Regular,63,Phoenix
+401,Customer_401,2024-09-10,Regular,31,Chicago
+402,Customer_402,2023-11-20,Platinum,32,Los Angeles
+403,Customer_403,2023-09-12,Silver,34,Chicago
+404,Customer_404,2022-12-09,Gold,46,Houston
+405,Customer_405,2023-10-26,Regular,56,Houston
+406,Customer_406,2021-12-08,Regular,65,Chicago
+407,Customer_407,2023-11-19,Silver,26,Los Angeles
+408,Customer_408,2023-04-16,Gold,49,Los Angeles
+409,Customer_409,2023-01-31,Silver,35,Los Angeles
+410,Customer_410,2023-05-29,Regular,61,Phoenix
+411,Customer_411,2021-12-10,Silver,28,Phoenix
+412,Customer_412,2022-10-13,Regular,24,Chicago
+413,Customer_413,2022-04-19,Gold,58,Los Angeles
+414,Customer_414,2024-04-30,Silver,46,Chicago
+415,Customer_415,2023-01-27,Regular,57,Chicago
+416,Customer_416,2023-03-29,Regular,54,Chicago
+417,Customer_417,2022-08-19,Platinum,37,Los Angeles
+418,Customer_418,2024-09-16,Platinum,69,New York
+419,Customer_419,2024-03-28,Silver,52,Los Angeles
+420,Customer_420,2024-06-04,Platinum,49,Houston
+421,Customer_421,2024-10-11,Platinum,26,Phoenix
+422,Customer_422,2024-06-16,Silver,67,Houston
+423,Customer_423,2022-07-23,Regular,46,Los Angeles
+424,Customer_424,2024-10-11,Silver,57,Houston
+425,Customer_425,2022-11-03,Silver,43,Houston
+426,Customer_426,2024-08-16,Platinum,38,Chicago
+427,Customer_427,2024-07-29,Platinum,53,Los Angeles
+428,Customer_428,2023-01-29,Regular,52,Los Angeles
+429,Customer_429,2022-01-29,Platinum,61,New York
+430,Customer_430,2024-01-18,Silver,24,Chicago
+431,Customer_431,2021-11-02,Regular,69,New York
+432,Customer_432,2024-07-31,Regular,40,Los Angeles
+433,Customer_433,2022-05-07,Platinum,40,Chicago
+434,Customer_434,2024-04-29,Silver,58,New York
+435,Customer_435,2022-11-13,Silver,18,New York
+436,Customer_436,2023-04-21,Platinum,58,Phoenix
+437,Customer_437,2022-05-13,Silver,27,New York
+438,Customer_438,2023-01-22,Gold,57,Houston
+439,Customer_439,2021-12-05,Regular,43,Chicago
+440,Customer_440,2024-06-15,Platinum,43,Houston
+441,Customer_441,2022-02-09,Silver,63,Phoenix
+442,Customer_442,2023-04-06,Silver,58,Los Angeles
+443,Customer_443,2022-03-10,Platinum,41,Phoenix
+444,Customer_444,2024-08-12,Gold,59,Houston
+445,Customer_445,2022-10-12,Gold,67,Phoenix
+446,Customer_446,2024-07-06,Gold,33,Phoenix
+447,Customer_447,2024-10-27,Gold,56,Phoenix
+448,Customer_448,2021-12-25,Gold,37,Chicago
+449,Customer_449,2024-06-17,Silver,52,Chicago
+450,Customer_450,2024-08-20,Silver,64,Phoenix
+451,Customer_451,2022-02-22,Regular,50,Phoenix
+452,Customer_452,2022-01-17,Silver,51,Chicago
+453,Customer_453,2024-08-04,Platinum,35,Houston
+454,Customer_454,2023-10-12,Silver,60,Los Angeles
+455,Customer_455,2023-09-14,Regular,31,Los Angeles
+456,Customer_456,2024-07-03,Silver,63,Chicago
+457,Customer_457,2022-07-25,Gold,63,Chicago
+458,Customer_458,2023-01-01,Gold,62,Phoenix
+459,Customer_459,2023-06-10,Platinum,24,Chicago
+460,Customer_460,2023-09-27,Silver,55,Chicago
+461,Customer_461,2024-08-12,Platinum,34,Chicago
+462,Customer_462,2023-09-08,Silver,24,New York
+463,Customer_463,2024-05-10,Gold,22,Los Angeles
+464,Customer_464,2024-08-01,Silver,25,Los Angeles
+465,Customer_465,2024-09-24,Platinum,31,Los Angeles
+466,Customer_466,2021-11-12,Silver,18,New York
+467,Customer_467,2022-11-02,Regular,39,Chicago
+468,Customer_468,2021-11-16,Silver,43,Phoenix
+469,Customer_469,2022-04-28,Platinum,62,Chicago
+470,Customer_470,2022-01-09,Gold,41,Los Angeles
+471,Customer_471,2024-09-17,Regular,36,Chicago
+472,Customer_472,2023-07-04,Platinum,23,Phoenix
+473,Customer_473,2021-12-02,Gold,45,New York
+474,Customer_474,2024-03-11,Gold,26,Chicago
+475,Customer_475,2024-04-17,Regular,29,Los Angeles
+476,Customer_476,2024-07-15,Regular,29,Los Angeles
+477,Customer_477,2023-03-26,Regular,61,New York
+478,Customer_478,2024-05-01,Gold,70,Houston
+479,Customer_479,2021-12-08,Platinum,57,Chicago
+480,Customer_480,2022-02-15,Silver,43,Los Angeles
+481,Customer_481,2024-05-08,Gold,19,Chicago
+482,Customer_482,2023-12-16,Regular,40,Chicago
+483,Customer_483,2021-11-13,Silver,23,Phoenix
+484,Customer_484,2024-06-20,Platinum,34,Chicago
+485,Customer_485,2023-06-08,Platinum,54,Houston
+486,Customer_486,2022-02-12,Regular,42,Chicago
+487,Customer_487,2023-07-10,Platinum,27,New York
+488,Customer_488,2024-04-01,Gold,46,Chicago
+489,Customer_489,2023-04-05,Gold,50,Chicago
+490,Customer_490,2024-07-18,Silver,37,Phoenix
+491,Customer_491,2024-03-08,Silver,55,New York
+492,Customer_492,2021-12-17,Silver,31,New York
+493,Customer_493,2023-06-07,Gold,54,Los Angeles
+494,Customer_494,2024-09-18,Gold,57,Los Angeles
+495,Customer_495,2024-06-03,Platinum,69,Phoenix
+496,Customer_496,2023-12-27,Platinum,28,Los Angeles
+497,Customer_497,2022-02-25,Platinum,67,Houston
+498,Customer_498,2022-03-16,Silver,24,Phoenix
+499,Customer_499,2023-01-23,Platinum,41,Phoenix
+500,Customer_500,2022-02-08,Regular,65,Phoenix
+501,Customer_501,2023-12-19,Platinum,32,Houston
+502,Customer_502,2022-08-26,Gold,60,Houston
+503,Customer_503,2023-12-11,Regular,53,Houston
+504,Customer_504,2023-10-22,Silver,51,Houston
+505,Customer_505,2022-08-26,Platinum,66,Chicago
+506,Customer_506,2024-02-19,Platinum,69,Los Angeles
+507,Customer_507,2024-06-29,Regular,50,New York
+508,Customer_508,2024-09-23,Regular,31,Los Angeles
+509,Customer_509,2022-11-21,Gold,27,New York
+510,Customer_510,2022-12-08,Gold,68,Phoenix
+511,Customer_511,2021-12-13,Platinum,58,Houston
+512,Customer_512,2024-08-04,Regular,28,Chicago
+513,Customer_513,2023-01-12,Silver,35,New York
+514,Customer_514,2021-12-12,Gold,60,New York
+515,Customer_515,2024-08-12,Regular,69,Phoenix
+516,Customer_516,2022-06-06,Gold,20,New York
+517,Customer_517,2021-11-07,Gold,53,New York
+518,Customer_518,2023-11-06,Silver,46,Houston
+519,Customer_519,2023-09-12,Platinum,62,Los Angeles
+520,Customer_520,2022-02-10,Regular,53,Los Angeles
+521,Customer_521,2022-08-18,Gold,53,Phoenix
+522,Customer_522,2024-07-16,Regular,34,Houston
+523,Customer_523,2022-07-08,Gold,51,Houston
+524,Customer_524,2022-04-23,Platinum,35,Phoenix
+525,Customer_525,2022-02-14,Silver,28,Phoenix
+526,Customer_526,2022-02-28,Silver,35,Los Angeles
+527,Customer_527,2023-02-24,Regular,27,Los Angeles
+528,Customer_528,2023-05-15,Gold,41,Los Angeles
+529,Customer_529,2024-04-13,Silver,32,New York
+530,Customer_530,2022-03-03,Silver,32,New York
+531,Customer_531,2022-04-12,Regular,59,New York
+532,Customer_532,2024-01-31,Regular,49,Chicago
+533,Customer_533,2023-09-19,Regular,45,Phoenix
+534,Customer_534,2022-05-23,Gold,65,Houston
+535,Customer_535,2022-02-27,Regular,40,New York
+536,Customer_536,2022-11-23,Silver,52,Los Angeles
+537,Customer_537,2024-05-07,Regular,59,New York
+538,Customer_538,2022-06-07,Regular,49,Phoenix
+539,Customer_539,2023-10-26,Gold,68,Houston
+540,Customer_540,2023-02-10,Platinum,61,Phoenix
+541,Customer_541,2023-11-03,Platinum,24,New York
+542,Customer_542,2022-10-09,Regular,69,Los Angeles
+543,Customer_543,2023-01-16,Regular,40,Chicago
+544,Customer_544,2023-12-15,Silver,61,New York
+545,Customer_545,2023-11-17,Platinum,18,Phoenix
+546,Customer_546,2024-09-13,Regular,19,Phoenix
+547,Customer_547,2022-08-16,Gold,36,Phoenix
+548,Customer_548,2022-06-16,Gold,44,Houston
+549,Customer_549,2022-06-03,Gold,61,Los Angeles
+550,Customer_550,2024-02-23,Platinum,56,Phoenix
+551,Customer_551,2024-02-12,Platinum,36,Phoenix
+552,Customer_552,2023-11-15,Silver,47,Houston
+553,Customer_553,2024-09-07,Silver,27,Phoenix
+554,Customer_554,2024-04-11,Gold,35,New York
+555,Customer_555,2022-03-06,Platinum,24,Chicago
+556,Customer_556,2022-06-16,Platinum,29,Chicago
+557,Customer_557,2024-01-29,Regular,47,New York
+558,Customer_558,2022-08-28,Regular,60,Chicago
+559,Customer_559,2024-05-29,Regular,52,Houston
+560,Customer_560,2022-12-27,Silver,52,New York
+561,Customer_561,2023-11-04,Gold,34,Phoenix
+562,Customer_562,2023-02-19,Platinum,38,New York
+563,Customer_563,2023-05-07,Regular,48,Houston
+564,Customer_564,2022-05-13,Regular,50,Phoenix
+565,Customer_565,2023-02-28,Platinum,56,Los Angeles
+566,Customer_566,2023-02-24,Gold,70,New York
+567,Customer_567,2021-12-20,Platinum,41,Houston
+568,Customer_568,2023-11-28,Gold,28,Phoenix
+569,Customer_569,2022-09-17,Platinum,41,Phoenix
+570,Customer_570,2021-12-19,Silver,36,Houston
+571,Customer_571,2021-12-13,Platinum,27,Los Angeles
+572,Customer_572,2022-12-25,Regular,29,Houston
+573,Customer_573,2022-08-29,Regular,48,Los Angeles
+574,Customer_574,2022-08-22,Platinum,56,New York
+575,Customer_575,2022-06-01,Regular,37,Los Angeles
+576,Customer_576,2022-02-17,Platinum,35,Phoenix
+577,Customer_577,2022-05-14,Silver,37,Phoenix
+578,Customer_578,2023-08-19,Gold,24,Phoenix
+579,Customer_579,2022-12-16,Platinum,41,Phoenix
+580,Customer_580,2023-08-27,Platinum,18,New York
+581,Customer_581,2024-10-13,Regular,27,Chicago
+582,Customer_582,2022-08-19,Silver,37,Chicago
+583,Customer_583,2023-12-19,Regular,43,Los Angeles
+584,Customer_584,2022-04-04,Regular,45,Phoenix
+585,Customer_585,2022-10-11,Platinum,34,Chicago
+586,Customer_586,2022-07-19,Regular,39,Chicago
+587,Customer_587,2022-11-05,Silver,65,Chicago
+588,Customer_588,2023-11-26,Regular,57,Phoenix
+589,Customer_589,2022-12-14,Gold,53,Chicago
+590,Customer_590,2022-04-23,Gold,62,Chicago
+591,Customer_591,2023-09-11,Gold,20,Phoenix
+592,Customer_592,2024-02-14,Silver,30,Los Angeles
+593,Customer_593,2022-10-05,Silver,53,Phoenix
+594,Customer_594,2023-07-15,Silver,51,New York
+595,Customer_595,2024-06-13,Silver,35,New York
+596,Customer_596,2022-10-17,Gold,25,Houston
+597,Customer_597,2024-01-19,Gold,55,Chicago
+598,Customer_598,2022-10-08,Silver,33,Chicago
+599,Customer_599,2021-12-19,Silver,22,Phoenix
+600,Customer_600,2023-09-05,Platinum,70,Los Angeles
+601,Customer_601,2022-09-25,Platinum,46,Houston
+602,Customer_602,2022-07-10,Gold,43,Houston
+603,Customer_603,2022-02-18,Regular,35,Los Angeles
+604,Customer_604,2023-02-19,Platinum,49,Phoenix
+605,Customer_605,2024-06-13,Platinum,32,Los Angeles
+606,Customer_606,2022-06-03,Regular,43,Phoenix
+607,Customer_607,2023-04-14,Silver,54,Chicago
+608,Customer_608,2022-06-16,Platinum,48,Houston
+609,Customer_609,2024-05-24,Silver,62,New York
+610,Customer_610,2023-05-16,Silver,70,New York
+611,Customer_611,2023-08-11,Silver,52,Chicago
+612,Customer_612,2022-03-24,Gold,64,New York
+613,Customer_613,2022-10-10,Platinum,62,New York
+614,Customer_614,2024-08-27,Regular,60,Phoenix
+615,Customer_615,2023-02-28,Regular,54,Phoenix
+616,Customer_616,2021-12-08,Gold,30,Houston
+617,Customer_617,2024-05-22,Gold,44,Los Angeles
+618,Customer_618,2024-08-23,Platinum,33,Phoenix
+619,Customer_619,2024-01-08,Regular,32,New York
+620,Customer_620,2021-12-31,Silver,58,Houston
+621,Customer_621,2022-07-04,Silver,24,Los Angeles
+622,Customer_622,2021-11-11,Silver,57,Los Angeles
+623,Customer_623,2022-09-24,Gold,25,Chicago
+624,Customer_624,2024-03-05,Gold,36,Los Angeles
+625,Customer_625,2022-11-18,Platinum,27,Phoenix
+626,Customer_626,2022-09-21,Gold,20,New York
+627,Customer_627,2023-08-21,Platinum,44,Chicago
+628,Customer_628,2024-08-15,Gold,29,Phoenix
+629,Customer_629,2022-01-10,Regular,23,Los Angeles
+630,Customer_630,2023-09-09,Silver,55,Phoenix
+631,Customer_631,2024-04-11,Gold,36,Houston
+632,Customer_632,2024-01-06,Gold,58,Los Angeles
+633,Customer_633,2022-05-25,Gold,48,Houston
+634,Customer_634,2023-03-17,Gold,46,Los Angeles
+635,Customer_635,2023-07-15,Gold,40,New York
+636,Customer_636,2023-03-18,Regular,67,Houston
+637,Customer_637,2022-10-28,Silver,60,New York
+638,Customer_638,2024-08-15,Regular,54,Chicago
+639,Customer_639,2022-04-09,Gold,52,Los Angeles
+640,Customer_640,2023-07-10,Gold,50,Phoenix
+641,Customer_641,2022-08-26,Platinum,65,Phoenix
+642,Customer_642,2023-06-07,Gold,66,Phoenix
+643,Customer_643,2024-09-02,Silver,49,New York
+644,Customer_644,2022-11-25,Gold,51,Phoenix
+645,Customer_645,2024-05-29,Gold,38,Houston
+646,Customer_646,2024-06-10,Platinum,70,Phoenix
+647,Customer_647,2022-11-20,Silver,19,Houston
+648,Customer_648,2023-01-30,Gold,70,Los Angeles
+649,Customer_649,2022-06-30,Silver,49,New York
+650,Customer_650,2022-11-28,Platinum,53,Chicago
+651,Customer_651,2023-10-22,Regular,34,Phoenix
+652,Customer_652,2024-09-05,Gold,20,Chicago
+653,Customer_653,2023-06-10,Silver,70,Houston
+654,Customer_654,2023-10-27,Platinum,46,Houston
+655,Customer_655,2024-07-29,Platinum,33,Houston
+656,Customer_656,2022-10-26,Regular,28,Los Angeles
+657,Customer_657,2022-01-14,Platinum,65,New York
+658,Customer_658,2023-10-13,Gold,57,Houston
+659,Customer_659,2022-10-30,Silver,58,Houston
+660,Customer_660,2023-10-29,Silver,34,Los Angeles
+661,Customer_661,2024-08-17,Platinum,52,Chicago
+662,Customer_662,2022-11-06,Platinum,58,Los Angeles
+663,Customer_663,2024-06-18,Regular,34,Houston
+664,Customer_664,2023-07-27,Platinum,27,Los Angeles
+665,Customer_665,2024-09-08,Platinum,39,Chicago
+666,Customer_666,2022-09-23,Gold,26,Phoenix
+667,Customer_667,2022-03-25,Gold,55,Houston
+668,Customer_668,2022-09-04,Regular,25,Chicago
+669,Customer_669,2024-01-14,Gold,39,New York
+670,Customer_670,2022-04-01,Silver,35,New York
+671,Customer_671,2022-04-25,Gold,27,Houston
+672,Customer_672,2022-10-27,Gold,55,Phoenix
+673,Customer_673,2024-05-09,Platinum,44,Chicago
+674,Customer_674,2024-10-06,Gold,60,New York
+675,Customer_675,2024-03-16,Regular,50,Chicago
+676,Customer_676,2022-04-01,Regular,61,Phoenix
+677,Customer_677,2023-12-21,Gold,68,New York
+678,Customer_678,2023-12-26,Silver,67,Chicago
+679,Customer_679,2024-02-25,Gold,54,New York
+680,Customer_680,2024-07-06,Regular,25,Houston
+681,Customer_681,2024-10-25,Silver,42,New York
+682,Customer_682,2023-02-05,Platinum,34,Phoenix
+683,Customer_683,2024-05-30,Silver,42,Houston
+684,Customer_684,2023-06-15,Regular,20,Los Angeles
+685,Customer_685,2023-02-20,Gold,52,Los Angeles
+686,Customer_686,2023-12-28,Regular,23,Houston
+687,Customer_687,2022-08-03,Regular,52,Houston
+688,Customer_688,2023-12-06,Gold,20,Los Angeles
+689,Customer_689,2024-05-29,Regular,29,Houston
+690,Customer_690,2023-04-23,Platinum,20,Chicago
+691,Customer_691,2022-10-06,Silver,61,Phoenix
+692,Customer_692,2023-05-05,Gold,48,Houston
+693,Customer_693,2023-02-28,Regular,63,Chicago
+694,Customer_694,2023-06-16,Silver,39,Houston
+695,Customer_695,2023-07-30,Regular,28,Houston
+696,Customer_696,2022-03-13,Gold,47,Chicago
+697,Customer_697,2024-03-02,Regular,33,Los Angeles
+698,Customer_698,2024-02-16,Platinum,54,Chicago
+699,Customer_699,2023-08-12,Platinum,41,Houston
+700,Customer_700,2022-10-02,Regular,20,Los Angeles
+701,Customer_701,2023-02-15,Platinum,26,Los Angeles
+702,Customer_702,2023-12-22,Regular,29,Chicago
+703,Customer_703,2024-03-23,Gold,56,Phoenix
+704,Customer_704,2023-07-05,Regular,53,Phoenix
+705,Customer_705,2023-08-30,Platinum,23,Chicago
+706,Customer_706,2024-07-06,Regular,22,Chicago
+707,Customer_707,2023-08-13,Silver,21,Los Angeles
+708,Customer_708,2022-03-08,Platinum,18,Chicago
+709,Customer_709,2022-10-30,Gold,37,Los Angeles
+710,Customer_710,2023-12-04,Platinum,33,New York
+711,Customer_711,2022-05-22,Silver,55,New York
+712,Customer_712,2023-09-14,Gold,25,Chicago
+713,Customer_713,2023-04-01,Gold,58,Phoenix
+714,Customer_714,2023-03-10,Regular,68,Houston
+715,Customer_715,2024-05-05,Platinum,41,Los Angeles
+716,Customer_716,2022-09-06,Regular,23,Houston
+717,Customer_717,2022-03-06,Platinum,64,Chicago
+718,Customer_718,2022-12-31,Gold,35,Los Angeles
+719,Customer_719,2022-03-20,Silver,67,Phoenix
+720,Customer_720,2024-03-15,Gold,51,Houston
+721,Customer_721,2022-12-01,Regular,44,New York
+722,Customer_722,2024-01-22,Platinum,65,Chicago
+723,Customer_723,2023-02-14,Silver,48,Los Angeles
+724,Customer_724,2024-01-22,Silver,58,Houston
+725,Customer_725,2023-03-05,Platinum,56,Los Angeles
+726,Customer_726,2021-11-07,Regular,67,Chicago
+727,Customer_727,2022-12-29,Regular,28,New York
+728,Customer_728,2022-04-09,Silver,56,Houston
+729,Customer_729,2022-10-14,Silver,65,Chicago
+730,Customer_730,2024-09-04,Silver,44,Phoenix
+731,Customer_731,2022-04-09,Platinum,66,Houston
+732,Customer_732,2024-07-06,Silver,43,Los Angeles
+733,Customer_733,2023-06-27,Gold,54,New York
+734,Customer_734,2022-11-16,Gold,44,New York
+735,Customer_735,2024-05-31,Gold,56,New York
+736,Customer_736,2024-04-13,Regular,45,Los Angeles
+737,Customer_737,2024-07-25,Gold,20,Chicago
+738,Customer_738,2022-06-21,Platinum,61,New York
+739,Customer_739,2023-11-30,Silver,42,Phoenix
+740,Customer_740,2023-09-17,Regular,58,Phoenix
+741,Customer_741,2024-07-21,Silver,22,Houston
+742,Customer_742,2021-12-24,Silver,63,Chicago
+743,Customer_743,2024-01-19,Platinum,62,Chicago
+744,Customer_744,2024-09-22,Gold,68,New York
+745,Customer_745,2024-08-04,Gold,44,Houston
+746,Customer_746,2021-12-10,Regular,45,New York
+747,Customer_747,2022-04-08,Silver,57,Houston
+748,Customer_748,2024-07-08,Gold,37,Los Angeles
+749,Customer_749,2022-10-06,Platinum,18,New York
+750,Customer_750,2022-08-14,Platinum,37,Chicago
+751,Customer_751,2023-12-05,Silver,53,New York
+752,Customer_752,2022-11-26,Platinum,24,Chicago
+753,Customer_753,2022-01-28,Regular,30,Phoenix
+754,Customer_754,2021-11-16,Regular,32,Chicago
+755,Customer_755,2024-04-14,Platinum,56,Houston
+756,Customer_756,2024-08-15,Silver,63,New York
+757,Customer_757,2022-06-08,Gold,54,New York
+758,Customer_758,2023-02-26,Platinum,30,New York
+759,Customer_759,2024-07-29,Silver,63,Phoenix
+760,Customer_760,2022-08-11,Regular,23,Houston
+761,Customer_761,2023-12-16,Platinum,20,Los Angeles
+762,Customer_762,2023-12-17,Gold,70,New York
+763,Customer_763,2024-05-05,Platinum,47,Houston
+764,Customer_764,2022-07-18,Silver,46,New York
+765,Customer_765,2023-07-13,Platinum,44,Houston
+766,Customer_766,2024-01-30,Regular,20,Phoenix
+767,Customer_767,2024-05-13,Silver,58,Chicago
+768,Customer_768,2022-10-29,Platinum,70,Houston
+769,Customer_769,2022-10-27,Silver,49,Los Angeles
+770,Customer_770,2023-04-15,Regular,43,Phoenix
+771,Customer_771,2023-09-14,Regular,70,Chicago
+772,Customer_772,2023-09-30,Platinum,47,New York
+773,Customer_773,2024-08-27,Platinum,42,New York
+774,Customer_774,2023-11-07,Platinum,63,New York
+775,Customer_775,2024-05-05,Regular,69,Houston
+776,Customer_776,2024-07-31,Regular,22,New York
+777,Customer_777,2023-12-31,Silver,55,New York
+778,Customer_778,2023-09-06,Platinum,33,Los Angeles
+779,Customer_779,2023-11-04,Gold,50,Phoenix
+780,Customer_780,2023-01-16,Silver,60,New York
+781,Customer_781,2021-11-03,Platinum,31,Los Angeles
+782,Customer_782,2021-12-16,Platinum,26,Phoenix
+783,Customer_783,2022-02-16,Gold,32,Chicago
+784,Customer_784,2022-05-05,Platinum,45,Phoenix
+785,Customer_785,2022-01-29,Gold,67,New York
+786,Customer_786,2024-07-10,Platinum,68,Chicago
+787,Customer_787,2022-02-27,Platinum,36,Houston
+788,Customer_788,2024-05-22,Regular,25,New York
+789,Customer_789,2023-03-23,Gold,27,Chicago
+790,Customer_790,2022-04-06,Platinum,68,New York
+791,Customer_791,2021-12-31,Platinum,55,Houston
+792,Customer_792,2021-12-08,Gold,43,New York
+793,Customer_793,2024-04-22,Regular,22,Houston
+794,Customer_794,2021-12-14,Platinum,44,Chicago
+795,Customer_795,2023-05-08,Regular,34,Chicago
+796,Customer_796,2024-09-14,Regular,35,Chicago
+797,Customer_797,2022-08-08,Silver,70,Phoenix
+798,Customer_798,2023-12-14,Gold,46,Phoenix
+799,Customer_799,2023-10-21,Silver,25,Chicago
+800,Customer_800,2024-05-29,Regular,47,New York
+801,Customer_801,2022-12-18,Platinum,56,New York
+802,Customer_802,2024-08-27,Regular,47,New York
+803,Customer_803,2024-10-21,Gold,24,Phoenix
+804,Customer_804,2023-06-02,Gold,66,Chicago
+805,Customer_805,2024-05-09,Silver,46,Phoenix
+806,Customer_806,2021-11-30,Regular,46,Chicago
+807,Customer_807,2022-09-10,Regular,34,New York
+808,Customer_808,2021-11-26,Regular,38,Houston
+809,Customer_809,2022-07-29,Gold,27,Los Angeles
+810,Customer_810,2023-05-10,Silver,65,Chicago
+811,Customer_811,2023-12-03,Regular,25,Houston
+812,Customer_812,2023-02-09,Regular,55,New York
+813,Customer_813,2022-12-06,Regular,46,New York
+814,Customer_814,2022-06-08,Regular,56,New York
+815,Customer_815,2024-09-06,Gold,63,Phoenix
+816,Customer_816,2024-06-04,Regular,35,Houston
+817,Customer_817,2022-09-10,Gold,40,Houston
+818,Customer_818,2023-01-26,Gold,61,New York
+819,Customer_819,2024-07-08,Platinum,47,Chicago
+820,Customer_820,2022-01-19,Platinum,37,Los Angeles
+821,Customer_821,2024-04-07,Regular,62,Chicago
+822,Customer_822,2023-11-07,Silver,63,Phoenix
+823,Customer_823,2023-07-03,Gold,35,Houston
+824,Customer_824,2024-04-25,Gold,52,Houston
+825,Customer_825,2023-08-24,Gold,55,Los Angeles
+826,Customer_826,2024-10-03,Platinum,46,Houston
+827,Customer_827,2024-07-07,Platinum,37,Phoenix
+828,Customer_828,2023-01-20,Gold,42,Los Angeles
+829,Customer_829,2022-05-11,Silver,51,New York
+830,Customer_830,2023-05-19,Platinum,61,Houston
+831,Customer_831,2022-03-20,Platinum,66,Chicago
+832,Customer_832,2022-06-29,Regular,69,New York
+833,Customer_833,2024-11-01,Gold,26,New York
+834,Customer_834,2024-03-28,Platinum,63,Chicago
+835,Customer_835,2022-11-19,Silver,37,Los Angeles
+836,Customer_836,2023-03-17,Silver,45,New York
+837,Customer_837,2021-12-20,Silver,50,Los Angeles
+838,Customer_838,2023-05-31,Gold,50,New York
+839,Customer_839,2023-08-09,Platinum,23,Phoenix
+840,Customer_840,2023-04-02,Gold,20,Chicago
+841,Customer_841,2024-08-05,Silver,20,Chicago
+842,Customer_842,2023-06-22,Gold,54,Chicago
+843,Customer_843,2022-12-31,Gold,31,Houston
+844,Customer_844,2024-06-17,Silver,48,Los Angeles
+845,Customer_845,2024-08-24,Silver,53,Chicago
+846,Customer_846,2023-11-13,Platinum,21,New York
+847,Customer_847,2022-03-04,Silver,57,Chicago
+848,Customer_848,2022-07-30,Silver,26,Houston
+849,Customer_849,2023-10-05,Regular,49,Los Angeles
+850,Customer_850,2022-04-08,Platinum,48,Chicago
+851,Customer_851,2023-09-24,Regular,22,Phoenix
+852,Customer_852,2024-05-24,Silver,65,Houston
+853,Customer_853,2023-08-29,Silver,61,Phoenix
+854,Customer_854,2024-04-05,Platinum,47,Chicago
+855,Customer_855,2024-05-13,Gold,22,Phoenix
+856,Customer_856,2022-12-26,Gold,59,New York
+857,Customer_857,2022-12-05,Gold,48,Phoenix
+858,Customer_858,2024-02-24,Silver,69,Los Angeles
+859,Customer_859,2023-04-13,Silver,68,Houston
+860,Customer_860,2024-05-21,Silver,34,Los Angeles
+861,Customer_861,2024-06-28,Regular,21,Los Angeles
+862,Customer_862,2023-08-15,Silver,54,Chicago
+863,Customer_863,2023-10-30,Gold,51,Chicago
+864,Customer_864,2022-02-07,Gold,51,Houston
+865,Customer_865,2022-11-02,Silver,20,New York
+866,Customer_866,2022-07-10,Platinum,18,New York
+867,Customer_867,2023-05-15,Platinum,25,Phoenix
+868,Customer_868,2022-10-21,Regular,31,Los Angeles
+869,Customer_869,2024-05-13,Platinum,45,Chicago
+870,Customer_870,2022-02-24,Silver,26,New York
+871,Customer_871,2023-05-06,Regular,64,New York
+872,Customer_872,2024-02-25,Platinum,54,Los Angeles
+873,Customer_873,2023-03-26,Silver,67,Los Angeles
+874,Customer_874,2022-11-03,Gold,53,Los Angeles
+875,Customer_875,2022-05-03,Silver,40,Los Angeles
+876,Customer_876,2022-04-16,Gold,55,Chicago
+877,Customer_877,2023-09-28,Regular,32,Chicago
+878,Customer_878,2022-02-06,Gold,35,Los Angeles
+879,Customer_879,2023-08-29,Platinum,46,Houston
+880,Customer_880,2023-02-25,Regular,37,New York
+881,Customer_881,2024-10-20,Platinum,67,Los Angeles
+882,Customer_882,2024-05-18,Regular,25,Chicago
+883,Customer_883,2022-06-20,Gold,63,Houston
+884,Customer_884,2021-12-03,Gold,25,Chicago
+885,Customer_885,2023-10-20,Silver,51,Chicago
+886,Customer_886,2023-01-31,Regular,43,New York
+887,Customer_887,2023-10-02,Gold,20,Los Angeles
+888,Customer_888,2022-08-06,Platinum,28,Houston
+889,Customer_889,2021-12-28,Silver,47,Phoenix
+890,Customer_890,2021-12-06,Platinum,28,Phoenix
+891,Customer_891,2024-06-09,Silver,33,Phoenix
+892,Customer_892,2022-05-29,Platinum,55,Chicago
+893,Customer_893,2022-09-10,Gold,33,New York
+894,Customer_894,2024-09-21,Silver,68,New York
+895,Customer_895,2022-06-03,Gold,47,Chicago
+896,Customer_896,2022-06-09,Regular,64,Houston
+897,Customer_897,2023-08-27,Silver,35,New York
+898,Customer_898,2022-06-14,Regular,68,Los Angeles
+899,Customer_899,2022-10-25,Silver,58,Chicago
+900,Customer_900,2023-10-09,Gold,36,Los Angeles
+901,Customer_901,2024-06-09,Regular,23,Houston
+902,Customer_902,2022-08-02,Platinum,41,Houston
+903,Customer_903,2023-01-14,Silver,42,Phoenix
+904,Customer_904,2023-12-04,Regular,54,Los Angeles
+905,Customer_905,2022-12-08,Platinum,30,Los Angeles
+906,Customer_906,2022-04-04,Platinum,37,Houston
+907,Customer_907,2022-04-11,Silver,48,Phoenix
+908,Customer_908,2023-03-15,Gold,23,Houston
+909,Customer_909,2023-04-08,Regular,35,Chicago
+910,Customer_910,2023-05-24,Gold,52,New York
+911,Customer_911,2022-12-03,Gold,32,New York
+912,Customer_912,2023-08-05,Platinum,54,New York
+913,Customer_913,2022-11-22,Platinum,34,Los Angeles
+914,Customer_914,2022-09-26,Platinum,60,Chicago
+915,Customer_915,2023-02-10,Silver,61,New York
+916,Customer_916,2023-05-06,Regular,30,New York
+917,Customer_917,2024-01-11,Silver,57,Houston
+918,Customer_918,2023-05-01,Gold,36,New York
+919,Customer_919,2024-01-08,Platinum,41,Phoenix
+920,Customer_920,2024-09-28,Platinum,59,New York
+921,Customer_921,2024-04-21,Platinum,52,Houston
+922,Customer_922,2022-10-14,Regular,65,New York
+923,Customer_923,2022-12-26,Platinum,55,Phoenix
+924,Customer_924,2023-02-09,Gold,68,Los Angeles
+925,Customer_925,2023-12-09,Regular,67,Los Angeles
+926,Customer_926,2022-01-12,Regular,46,Chicago
+927,Customer_927,2022-08-18,Platinum,56,New York
+928,Customer_928,2023-05-13,Silver,19,Houston
+929,Customer_929,2022-12-26,Platinum,51,Chicago
+930,Customer_930,2024-01-18,Gold,40,Phoenix
+931,Customer_931,2022-12-31,Gold,28,New York
+932,Customer_932,2024-06-10,Regular,24,Phoenix
+933,Customer_933,2024-06-27,Regular,64,Chicago
+934,Customer_934,2022-06-05,Platinum,18,New York
+935,Customer_935,2023-01-29,Regular,44,New York
+936,Customer_936,2024-07-09,Silver,20,New York
+937,Customer_937,2024-09-21,Silver,70,Houston
+938,Customer_938,2023-02-26,Gold,44,New York
+939,Customer_939,2024-03-06,Gold,59,Houston
+940,Customer_940,2023-08-03,Platinum,55,Chicago
+941,Customer_941,2022-06-09,Silver,36,Houston
+942,Customer_942,2024-08-27,Platinum,58,Phoenix
+943,Customer_943,2023-07-31,Regular,31,Houston
+944,Customer_944,2023-05-06,Regular,47,Houston
+945,Customer_945,2022-06-27,Gold,60,Houston
+946,Customer_946,2022-01-30,Silver,39,Houston
+947,Customer_947,2022-03-15,Regular,60,Chicago
+948,Customer_948,2024-03-30,Silver,23,Los Angeles
+949,Customer_949,2022-11-02,Regular,54,Phoenix
+950,Customer_950,2024-10-20,Regular,42,Phoenix
+951,Customer_951,2022-03-13,Gold,39,New York
+952,Customer_952,2023-06-27,Silver,52,Los Angeles
+953,Customer_953,2024-06-03,Platinum,57,Houston
+954,Customer_954,2022-12-02,Regular,67,Los Angeles
+955,Customer_955,2024-05-27,Gold,25,Phoenix
+956,Customer_956,2022-03-27,Silver,20,Los Angeles
+957,Customer_957,2023-03-14,Regular,46,Phoenix
+958,Customer_958,2022-07-31,Gold,45,New York
+959,Customer_959,2024-09-01,Regular,34,Los Angeles
+960,Customer_960,2023-11-07,Platinum,61,Houston
+961,Customer_961,2024-06-23,Regular,26,Phoenix
+962,Customer_962,2022-07-25,Gold,32,New York
+963,Customer_963,2024-10-02,Regular,67,Phoenix
+964,Customer_964,2023-08-06,Regular,62,Phoenix
+965,Customer_965,2022-11-12,Regular,62,Los Angeles
+966,Customer_966,2023-12-25,Gold,31,New York
+967,Customer_967,2023-05-16,Gold,50,Houston
+968,Customer_968,2024-10-31,Platinum,27,Chicago
+969,Customer_969,2024-10-09,Silver,18,Houston
+970,Customer_970,2021-12-18,Gold,26,Chicago
+971,Customer_971,2022-01-01,Gold,31,Phoenix
+972,Customer_972,2024-07-03,Regular,38,Los Angeles
+973,Customer_973,2024-03-05,Regular,24,New York
+974,Customer_974,2023-03-23,Platinum,44,Los Angeles
+975,Customer_975,2024-04-17,Gold,63,Chicago
+976,Customer_976,2022-11-25,Silver,25,Los Angeles
+977,Customer_977,2024-02-24,Regular,48,Chicago
+978,Customer_978,2022-10-13,Regular,35,Chicago
+979,Customer_979,2022-05-27,Gold,58,Chicago
+980,Customer_980,2022-08-16,Gold,44,Chicago
+981,Customer_981,2023-02-26,Regular,65,Los Angeles
+982,Customer_982,2022-04-03,Gold,19,Phoenix
+983,Customer_983,2024-10-26,Silver,55,Phoenix
+984,Customer_984,2024-09-16,Platinum,36,Phoenix
+985,Customer_985,2023-12-11,Platinum,60,Houston
+986,Customer_986,2022-11-05,Regular,57,Los Angeles
+987,Customer_987,2024-07-04,Regular,22,Chicago
+988,Customer_988,2024-02-28,Platinum,34,Chicago
+989,Customer_989,2023-11-24,Gold,62,Chicago
+990,Customer_990,2022-11-06,Silver,37,Houston
+991,Customer_991,2024-02-06,Regular,44,Phoenix
+992,Customer_992,2024-01-27,Gold,61,Chicago
+993,Customer_993,2023-06-24,Regular,51,Chicago
+994,Customer_994,2024-10-14,Platinum,27,Los Angeles
+995,Customer_995,2021-12-19,Platinum,32,New York
+996,Customer_996,2022-09-19,Gold,67,Chicago
+997,Customer_997,2023-04-17,Platinum,43,New York
+998,Customer_998,2021-12-20,Gold,31,Phoenix
+999,Customer_999,2023-03-04,Gold,26,Houston
+1000,Customer_1000,2022-09-30,Silver,18,New York
