@@ -26,17 +26,17 @@ CREATE SCHEMA sales;
 
 -- create tables
 CREATE TABLE production.categories (
-	category_id INT IDENTITY(1,1)  PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
+	category_id INT AUTO_INCREMENT  PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
 	category_name VARCHAR (255) NOT NULL
 );
 
 CREATE TABLE production.brands (
-	brand_id INT IDENTITY(1,1) PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
+	brand_id INT AUTO_INCREMENT PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
 	brand_name VARCHAR (255) NOT NULL
 );
 
 CREATE TABLE production.products (
-	product_id INT IDENTITY(1,1) PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
+	product_id INT AUTO_INCREMENT PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
 	product_name VARCHAR (255) NOT NULL,
 	brand_id INT NOT NULL,
 	category_id INT NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE production.products (
 );
 
 CREATE TABLE sales.customers (
-	customer_id INT IDENTITY(1,1) PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
+	customer_id INT AUTO_INCREMENT PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
 	first_name VARCHAR (255) NOT NULL,
 	last_name VARCHAR (255) NOT NULL,
 	phone VARCHAR (25),
@@ -59,7 +59,7 @@ CREATE TABLE sales.customers (
 );
 
 CREATE TABLE sales.stores (
-	store_id INT IDENTITY(1,1) PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
+	store_id INT AUTO_INCREMENT PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
 	store_name VARCHAR (255) NOT NULL,
 	phone VARCHAR (25),
 	email VARCHAR (255),
@@ -70,7 +70,7 @@ CREATE TABLE sales.stores (
 );
 
 CREATE TABLE sales.staffs (
-	staff_id INT IDENTITY(1,1) PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
+	staff_id INT AUTO_INCREMENT PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
 	first_name VARCHAR (50) NOT NULL,
 	last_name VARCHAR (50) NOT NULL,
 	email VARCHAR (255) NOT NULL UNIQUE,
@@ -83,14 +83,14 @@ CREATE TABLE sales.staffs (
 );
 
 CREATE TABLE sales.orders (
-	order_id INT IDENTITY(1,1) PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
+	order_id INT AUTO_INCREMENT PRIMARY KEY, -- USE AUTO_INCREMENT in place of Identy for MYSQL 
 	customer_id INT,
 	order_status tinyint NOT NULL,
 	-- Order status: 1 = Pending; 2 = Processing; 3 = Rejected; 4 = Completed
 	order_date DATE NOT NULL,
 	required_date DATE NOT NULL,
 	shipped_date DATE, -- while exporting data from MYSQL into csv and loading it in snowflake might give you error as few have NULLS or not in correct format YYYY-MM--DD 
-                     -- so either make this column as VARCHAR or clean the data in excel and add shipping date by using logic :  order_date + 1 and make other column values in proper DATE format so that snowflake can recognise
+                           -- so either make this column as VARCHAR or clean the data in excel and add shipping date by using logic :  order_date + 1 and make other column values in proper DATE format so that snowflake can recognise
 	store_id INT NOT NULL,
 	staff_id INT NOT NULL,
 	FOREIGN KEY (customer_id) REFERENCES sales.customers (customer_id) ON DELETE CASCADE ON UPDATE CASCADE,
