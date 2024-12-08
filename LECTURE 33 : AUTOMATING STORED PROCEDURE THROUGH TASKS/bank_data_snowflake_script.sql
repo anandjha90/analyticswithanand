@@ -20,13 +20,13 @@ No_committed_crime_2017	INT,
 No_committed_crime_2018 INT
 ) ;
 
-
-
 CREATE OR REPLACE TABLE ACCOUNT(
 account_id INT PRIMARY KEY,
 district_id	INT,
 frequency	VARCHAR(40),
 Date DATE ,
+ACC_TYPE VARCHAR(40),
+CARD_ASSIGNED VARCHAR(20),
 FOREIGN KEY (district_id) references DISTRICT(District_Code) 
 );
 
