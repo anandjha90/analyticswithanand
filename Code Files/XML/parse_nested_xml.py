@@ -30,6 +30,12 @@ for node in root.findall('.//Node'):
         node_data['Position X'] = position.get('x', '')
         node_data['Position Y'] = position.get('y', '')
 
+    # Extract OutputFileName
+    output_file = node.find('.//Properties/Configuration/File')
+    if output_file is not None:
+        output_file_name = output_file.get('OutputFileName', '')
+        node_data['OutputFileName'] = output_file_name
+
     # Extract Query (inside Configuration)
     query = node.find('.//Properties/Configuration/Query')
     if query is not None:
