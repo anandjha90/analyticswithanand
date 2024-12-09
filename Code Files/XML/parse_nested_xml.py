@@ -95,6 +95,23 @@ for node in root.findall('.//Node'):
             join_data.append(f"Connection: {connection}, Field: {field}")
         node_data['JoinFields'] = "; ".join(join_data)
 
+    
+    # Extract connection parameters from <Connections>
+    connections = root.find('.//Connections')
+    if connections is not None:
+        for connection in connections.findall('.//Connection'):
+            origin = connection.find('.//Origin')
+            destination = connection.find('.//Destination')
+            connection_data = {
+            "Origin ToolID": origin.get('ToolID', '') if origin is not None else '',
+            "Origin Connection": origin.get('Connection', '') if origin is not None else '',
+            "Destination ToolID": destination.get('ToolID', '') if destination is not None else '',
+            "Destination Connection": destination.get('Connection', '') if destination is not None else '',
+            "Wireless": connection.get('Wireless', 'False'),
+            "Name": connection.get('name', '')
+                               }
+        node_data['Connection'] = "; ".join(connection_data)    
+        
     # Append the node data to the list
     data.append(node_data)
 
