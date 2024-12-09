@@ -99,18 +99,26 @@ for node in root.findall('.//Node'):
     # Extract connection parameters from <Connections>
     connections = root.find('.//Connections')
     if connections is not None:
+        connection_data = []
         for connection in connections.findall('.//Connection'):
             origin = connection.find('.//Origin')
             destination = connection.find('.//Destination')
-            connection_data = {
-            "Origin ToolID": origin.get('ToolID', '') if origin is not None else '',
-            "Origin Connection": origin.get('Connection', '') if origin is not None else '',
-            "Destination ToolID": destination.get('ToolID', '') if destination is not None else '',
-            "Destination Connection": destination.get('Connection', '') if destination is not None else '',
-            "Wireless": connection.get('Wireless', 'False'),
-            "Name": connection.get('name', '')
-                               }
-        node_data['Connection'] = "; ".join(connection_data)    
+            connection_info = {
+                "Origin ToolID": origin.get('ToolID', '') if origin is not None else '',
+                "Origin Connection": origin.get('Connection', '') if origin is not None else '',
+                "Destination ToolID": destination.get('ToolID', '') if destination is not None else '',
+                "Destination Connection": destination.get('Connection', '') if destination is not None else '',
+                "Wireless": connection.get('Wireless', 'False'),
+                "Name": connection.get('name', '')
+            }
+            connection_data.append(
+                f"Origin ToolID: {connection_info['Origin ToolID']}, "
+                f"Origin Connection: {connection_info['Origin Connection']}, "
+                f"Destination ToolID: {connection_info['Destination ToolID']}, "
+                f"Destination Connection: {connection_info['Destination Connection']}, "
+                f"Wireless: {connection_info['Wireless']}, Name: {connection_info['Name']}"
+            )
+        node_data['Connection'] = "; ".join(connection_data)     
         
     # Append the node data to the list
     data.append(node_data)
