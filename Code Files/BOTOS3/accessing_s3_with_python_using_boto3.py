@@ -72,7 +72,7 @@ s3.download_file(bucket_name, s3_object_name, download_path)
 print(f"File '{s3_object_name}' downloaded from S3 bucket '{bucket_name}' to '{download_path}'.")
 # File 'NHANES/sales_data_df2.csv' downloaded from S3 bucket 'ssbucketdemo' to 'E:/Tiger_Analytics/BOTOS3'.
 
-# deleting A FILE FROM A SPECIFIC BUCKET
+# DELETING A FILE FROM A SPECIFIC BUCKET
 # Specify the name of your S3 bucket and the object to delete
 bucket_name = 'ssbucketdemo'
 s3_object_name = 'NHANES/sales_data_df2.csv'  # The key of the object to delete
