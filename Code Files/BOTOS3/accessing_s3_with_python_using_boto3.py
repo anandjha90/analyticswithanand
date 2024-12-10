@@ -82,3 +82,16 @@ s3.delete_object(Bucket=bucket_name, Key=s3_object_name)
 
 print(f"Object '{s3_object_name}' deleted from S3 bucket '{bucket_name}'.")
 # Object 'NHANES/sales_data_df2.csv' deleted from S3 bucket 'ssbucketdemo'.
+
+## CREATING A ZERO_BYTE_FILE IN S3
+# to create a zero-byte file (empty file) in S3:
+
+# Define the bucket and file name
+bucket_name = 'ssbucketdemo'
+file_name = 'your-zero-byte-file.txt'
+
+# Create a zero-byte file
+s3.put_object(Bucket=bucket_name, Key=file_name, Body=b'')
+print(f"Zero-byte file '{file_name}' created in bucket '{bucket_name}'.")
+# Zero-byte file 'your-zero-byte-file.txt' created in bucket 'ssbucketdemo'
+
