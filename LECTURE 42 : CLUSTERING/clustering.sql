@@ -1,3 +1,15 @@
+CREATE OR REPLACE WAREHOUSE DEMO_WAREHOUSE;
+CREATE OR REPLACE DATABASE DEMO_DATABASE;
+CREATE OR REPLACE SCHEMA DEMO_SCHEMA;
+
+--creating tsv ff
+create or replace file format clustering_csv
+type='csv'
+compression='none'
+field_delimiter=','
+field_optionally_enclosed_by='\042' -- double quotes ASCII value
+skip_header=1;
+
 -- CREATING SALES TABLE
 CREATE OR REPLACE TABLE SALES (
     Date DATE,
@@ -257,7 +269,7 @@ AS
 CALL LOG_CLUSTERING_METRICS();
 
 -- Step 4: Start the Task
-ALTER TASK MONITOR_CLUSTERING suspend;
+ALTER TASK MONITOR_CLUSTERING resume;
 
 -- SHOW TASKS
 SHOW TASKS;
@@ -266,7 +278,7 @@ SHOW TASKS;
 SELECT SYSTEM$CLUSTERING_INFORMATION('DEMO_DATABASE.DEMO_SCHEMA.SALES', '(Date, Region, ProductID)');
 SELECT SYSTEM$CLUSTERING_DEPTH('DEMO_DATABASE.DEMO_SCHEMA.SALES');
 
-
+-- code checking
 SELECT  
         CURRENT_TIMESTAMP AS LogTimestamp,
         'DEMO_DATABASE.DEMO_SCHEMA.SALES' AS TableName,
@@ -288,3 +300,65 @@ SELECT
     Metrics:total_partition_count::INT AS TotalPartitionCount
 FROM ClusteringMetrics
 );
+
+/*
+To analyze query performance in Snowflake, you can use Account Usage and Information Schema views. 
+Snowflake provides detailed metadata about query history, resource usage, and storage, 
+enabling you to identify and optimize slow queries, understand clustering efficiency, and monitor resource consumption.
+*/
+
+--1. Query Execution Metrics
+-- Create a view to retrieve detailed information about query execution time, scanned rows, and returned rows.
+
+/*
+Key Columns : 
+
+total_elapsed_time: Total execution time in milliseconds.
+rows_produced: Number of rows produced during query execution.
+bytes_scanned: Amount of data scanned, in bytes.
+
+*/
+
+CREATE OR REPLACE VIEW query_performance_metrics AS
+SELECT 
+    query_id,
+    user_name,
+    database_name,
+    schema_name,
+    query_text,
+    execution_status,
+    start_time,
+    end_time,
+    total_elapsed_time / 1000 AS elapsed_time_seconds,
+    rows_produced,
+    ROWS_INSERTED,
+    ROWS_UPDATED,
+    ROWS_DELETED,
+    PARTITIONS_SCANNED,
+    PARTITIONS_TOTAL,
+    ROUND(BYTES_SCANNED / 1024 / 1024,5) AS bytes_scanned_mb,
+    ROUND(BYTES_WRITTEN / 1024 / 1024.5) AS bytes_written_mb
+FROM snowflake.account_usage.query_history
+WHERE start_time >= DATEADD(DAY, -7, CURRENT_DATE) -- Last 7 days
+AND execution_status = 'SUCCESS'
+AND SCHEMA_NAME = 'DEMO_SCHEMA'
+ORDER BY total_elapsed_time DESC;
+
+select * from query_performance_metrics;
+
+-- 2. Long-Running Queries
+-- Identify queries with the highest execution times.
+
+CREATE OR REPLACE VIEW long_running_queries AS
+SELECT 
+    query_id,
+    user_name,
+    warehouse_name,
+    ROUND(total_elapsed_time / 1000,0) AS elapsed_time_seconds,
+    query_text
+FROM snowflake.account_usage.query_history
+WHERE start_time >= DATEADD(DAY, -30, CURRENT_DATE)
+AND total_elapsed_time > 60000 -- Queries running longer than 60 seconds
+ORDER BY total_elapsed_time DESC;
+
+SELECT * FROM long_running_queries;
