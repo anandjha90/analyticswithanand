@@ -362,3 +362,60 @@ AND total_elapsed_time > 60000 -- Queries running longer than 60 seconds
 ORDER BY total_elapsed_time DESC;
 
 SELECT * FROM long_running_queries;
+
+-- 3. Resource Usage by Query
+-- Analyze the compute cost of queries to identify resource-intensive ones.
+
+/*
+AUTOMATIC_CLUSTERING_HISTORY(
+      [ DATE_RANGE_START => <constant_expr> ]
+      [ , DATE_RANGE_END => <constant_expr> ]
+      [ , TABLE_NAME => '<string>' ] )
+*/      
+
+-- Reference Link : https://docs.snowflake.com/en/sql-reference/functions/automatic_clustering_history
+
+CREATE OR REPLACE VIEW resource_usage AS
+SELECT 
+    START_TIME,
+    END_TIME,
+    DATEDIFF('second', START_TIME, END_TIME) AS total_seconds,
+    FLOOR(DATEDIFF('second', START_TIME, END_TIME) / 3600) AS hours,
+    FLOOR((DATEDIFF('second', START_TIME, END_TIME) % 3600) / 60) AS minutes,
+    DATEDIFF('second', START_TIME, END_TIME) % 60 AS seconds,
+    credits_used,
+    credits_used * 3.3  AS Tot_Amt_USD,
+    ROUND(NUM_BYTES_RECLUSTERED / 1024 / 1024,2) AS bytes_reclustered_mb,
+    NUM_ROWS_RECLUSTERED,
+    TABLE_NAME
+FROM TABLE(information_schema.automatic_clustering_history(date_range_start=>dateadd(D, -7, current_date),date_range_end=>current_date)) -- Last 1 week
+ORDER BY credits_used DESC;
+
+
+SELECT 
+    START_TIME,
+    END_TIME,
+    DATEDIFF('second', START_TIME, END_TIME) AS total_seconds,
+    FLOOR(DATEDIFF('second', START_TIME, END_TIME) / 3600) AS hours,
+    FLOOR((DATEDIFF('second', START_TIME, END_TIME) % 3600) / 60) AS minutes,
+    DATEDIFF('second', START_TIME, END_TIME) % 60 AS seconds
+FROM (
+    SELECT 
+        TO_TIMESTAMP('2024-12-10 06:00:00.000 -0800') AS START_TIME,
+        TO_TIMESTAMP('2024-12-11 07:00:00.000 -0800') AS END_TIME
+) data;
+
+    
+-- Actions to Improve Clustering
+
+--1. Adjust Clustering Keys
+-- Re-evaluate and update clustering keys if they don’t align with frequent query filters.
+ALTER TABLE YOUR_TABLE_NAME CLUSTER BY (new_column1, new_column2);
+
+-- 2. Recluster the Table
+-- Manually recluster the table if the depth value is high.
+ALTER TABLE YOUR_TABLE_NAME RECLUSTER;
+
+-- 3. Enable Auto Clustering
+-- If the table experiences frequent changes, enable Snowflake’s auto-clustering.
+ALTER TABLE YOUR_TABLE_NAME SET CLUSTERING KEY (clustering_key_column1, clustering_key_column2);
