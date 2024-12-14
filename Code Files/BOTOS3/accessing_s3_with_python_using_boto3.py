@@ -64,7 +64,7 @@ print(f"File '{file_name}' uploaded to S3 bucket '{bucket_name}' as '{s3_object_
 # Specify the name of your S3 bucket and the file to download
 bucket_name = 'ssbucketdemo'
 s3_object_name = 'NHANES/sales_data_df2.csv'  # The key in S3
-download_path = 'E:/Tiger_Analytics/BOTOS3'  # Local path to save the downloaded file
+download_path = 'E:/Tiger_Analytics/BOTOS3/sales_data_df2.csv'  # Local path to save the downloaded file give complete path including file name so as to resolve access denied error
 
 # Download the file from the S3 bucket
 s3.download_file(bucket_name, s3_object_name, download_path)
