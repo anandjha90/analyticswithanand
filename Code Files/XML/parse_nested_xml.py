@@ -48,8 +48,11 @@ for node in root.findall('.//Node'):
         for formula in formula_fields:
             expression = formula.get('expression', '')
             field = formula.get('field', '')
-            formula_data.append(f"{field}: {expression}")
+            size = formula.get('size', '')
+            type = formula.get('type', '')
+            formula_data.append(f"{field}: {expression}, Size: {size}, Type: {type}")
         node_data['FormulaFields'] = "; ".join(formula_data)
+
 
     # Extract Fields and their attributes
     fields = node.findall('.//Field')
@@ -62,6 +65,13 @@ for node in root.findall('.//Node'):
             field_source = field.get('source', '')
             field_data.append(f"{field_name} (Type: {field_type}, Size: {field_size}, Source: {field_source})")
         node_data['Fields'] = "; ".join(field_data)
+
+    # Extract Filter fields
+    filter_fields = node.find('.//Properties/Configuration')
+    if filter_fields is not None:
+        custom_expression = filter_fields.findtext('Expression',default = '')
+        if custom_expression:
+            node_data['FilterFields'] = custom_expression.strip()
 
     # Extract Summarize fields
     summarize_fields = node.findall('.//SummarizeField')
@@ -95,7 +105,50 @@ for node in root.findall('.//Node'):
             join_data.append(f"Connection: {connection}, Field: {field}")
         node_data['JoinFields'] = "; ".join(join_data)
 
-    
+    # Extract Union fields
+    union_fields = node.find('.//Configuration')
+    if union_fields is not None:
+        ByName_ErrorMode = union_fields.find('.//ByName_ErrorMode').text if union_fields.find('.//ByName_ErrorMode') is not None else ''
+        ByName_OutputMode = union_fields.find('.//ByName_OutputMode').text if union_fields.find('.//ByName_OutputMode') is not None else ''
+        Mode = union_fields.find('.//Mode').text if union_fields.find('.//Mode') is not None else ''
+        value = union_fields.find('.//SetOutputOrder').get('value', '') if node.find('.//SetOutputOrder') is not None else ''
+        node_data['UnionFields'] = f"ByName_ErrorMode:{ByName_ErrorMode}, ByName_OutputMode:{ByName_OutputMode},Mode:{Mode},Value:{value}"
+        
+
+    # Extract Sample Fields
+    sample_gui_settings = node.find('.//GuiSettings')
+    if sample_gui_settings is not None:
+        if sample_gui_settings.get('Plugin', '') =='AlteryxBasePluginsGui.Sample.Sample':
+            sample_fields = node.find('.//Configuration')
+            if sample_fields is not None:
+                Mode = sample_fields.find('.//Mode').text if sample_fields.find('.//Mode') is not None else ''
+                N = sample_fields.find('.//N').text if sample_fields.find('.//N') is not None else ''
+                orderChanged = sample_fields.find('.//GroupFields').get('orderChanged') if sample_fields.find('.//GroupFields') is not None else ''
+                node_data['Sample'] = f"Mode:{Mode},N:{N},orderChanged:{orderChanged}"
+
+    # Extract Append Fields
+    append_gui_settings = node.find('.//GuiSettings')
+    if append_gui_settings is not None:
+        if append_gui_settings.get('Plugin', '') == 'AlteryxBasePluginsGui.AppendFields.AppendFields':
+            append_fields = node.find('.//Configuration')
+            if append_fields is not None:
+                CartesianMode = append_fields.find('.//CartesianMode').text if append_fields.find('.//CartesianMode') is not None else ''
+                ConfigurationOutputConnection = append_fields.find('.//Configuration').get('outputConnection') if append_fields.find('.//Configuration') is not None else ''
+                OrderChangedValue = append_fields.find('.//OrderChanged').get('value') if append_fields.find('.//OrderChanged') is not None else ''
+                CommaDecimalValue = append_fields.find('.//CommaDecimal').get('value') if append_fields.find('.//CommaDecimal') is not None else ''
+                select_fields = node.findall('.//SelectFields')
+                if select_fields is not None:
+                    append_data = []
+                    for select in select_fields:
+                        field = select.find('.//SelectField').get('field') if select.find('.//SelectField') is not None else ''
+                        selected = select.find('.//SelectField').get('selected') if select.find('.//SelectField') is not None else ''
+                        input = select.find('.//SelectField').get('input') if select.find('.//SelectField') is not None else ''
+                        append_data.append(f"field: {field}, selected: {selected}, input: {input}")
+                
+            appendFinal = f"CartesianMode: {CartesianMode}, ConfigurationOutputConnection: {ConfigurationOutputConnection}, OrderChangedValue: {OrderChangedValue},CommaDecimalValue:{CommaDecimalValue},Select:{append_data}"
+            node_data['AppendFields'] = appendFinal
+
+
     # Extract connection parameters from <Connections>
     connections = root.find('.//Connections')
     if connections is not None:
@@ -108,19 +161,19 @@ for node in root.findall('.//Node'):
                 "Destination ToolID": destination.get('ToolID', '') if destination is not None else '',
                 "Destination Connection": destination.get('Connection', '') if destination is not None else '',
                 "Wireless": connection.get('Wireless', 'False'),
-                "Name": connection.get('name', '')
+
             }
 
             # Append each connection as a new row
             row_data = node_data.copy()
             row_data.update(connection_info)  # Add connection data to the node data
             data.append(row_data)
-            
+
 # Create a pandas DataFrame from the extracted data
 df = pd.DataFrame(data)
 
 # Save the DataFrame to an Excel file
-output_path = 'detailed_output_xml.xlsx'  # Replace with your desired output path
+output_path = 'detailed_output_xml_filter.xlsx'  # Replace with your desired output path
 df.to_excel(output_path, index=False)
 
 print(f"XML data has been extracted and saved to {output_path}")
