@@ -6,7 +6,7 @@ WITH cte_toolID_1 AS (
         "PolM_Sub_Seg",
         "Treaty",
     CASE
-        WHEN Treaty IN ("CTA03", "CFR01", "CFR02", "CFR03", "CSL16", "CSL19") THEN 0
+        WHEN Treaty IN ("CTA03", "CFR01", "CFR02", "CFR03", "CSL16", "CSL19") THEN 0  -- filter condition using ToolID = "52" as specified in connection parameteres
         ELSE "Expected Claims"
     END AS Expected_Claims
     FROM
@@ -18,8 +18,7 @@ cte_toolID_2 AS (
     SELECT 
       "Net IBNR Reallocation: PL Based on Distribution of Future Net Mortality",
       "F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","F13","F14","F15","F16","F17","F18","F19","F20","F21",
-      "F22","F23","F24", "F25","F26","F27","F28","F29","F30",
-      "F31","F32","F33","F34","F35","F36"
+      "F22","F23","F24", "F25","F26","F27","F28","F29","F30","F31","F32","F33","F34","F35","F36","*Unknown"
     FROM
         SomeTable2
 ),
@@ -27,14 +26,32 @@ cte_toolID_2 AS (
 -- For ToolID = "6"  
 cte_toolID_6 AS (
     SELECT 
-      "Field_37", "Anticipated Net", "Field_37_2", "Field_37_3", "Full Year Plan (Net)", "Field_37_4", "Field_37_5", "Incr (Decr) IBNR",
+      "Field_37" AS "Subseg0",               -- renaming as per ToolID = "7" 
+      SUBSTRING(Field_37,3,3) AS "Subseg"    -- & filtering as per TOOLID = "9" as specified in connection parameteres
+      -- Business Unit = "PL" need to find out -- keeping on hold
+      "Anticipated Net", "Field_37_2", "Field_37_3", "Full Year Plan (Net)", "Field_37_4", "Field_37_5", "Incr (Decr) IBNR",
       "Field_37_6", "Ending GL", "Field_37_7", "Current GL (Direct)",
       "Field_37_8", "Field_37_9", "Desired Direct", "Field_37_10", "Full Year Plan (Direct)", "Field_37_11", "Field_37_12",
       "Incr (Decr) IBNR2","Field_37_13", "Ending GL2", "Field_37_14","Current GL (Ceded)", "Field_37_15", "Field_37_16", "Desired Ceded", "Field_37_17",
-      "Full Year Plan (Ceded)", "Field_37_18", "Field_37_19", "Incr (Decr) IBNR3", "Field_37_20",
+      "Full Year Plan (Ceded)", "Field_37_18", "Field_37_19", 
+      "Incr (Decr) IBNR3" AS "Incr (Decr) IBNR" ,   -- renaming as per ToolID = "7" as specified in connection parameteres
+      "Field_37_20",
       "Ending GL3", "Field_37_21", "Field_37_22"
-    FROM SomeTable6
+    FROM cte_toolID_2 -- as per ToolID = "2" as specified in connection parameteres 
 ),
+
+-- For ToolID = "16"  
+cte_toolID_16 AS (
+    SELECT
+        "Business Unit",
+        "Subseg0",
+        "Subseg",
+        "Incr (Decr) IBNR",
+        "*Unknown"      
+    FROM
+        cte_toolID_6
+)    
+    
 
 -- For ToolID = "27"  
 cte_toolID_27 AS (
