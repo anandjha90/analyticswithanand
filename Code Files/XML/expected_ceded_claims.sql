@@ -14,18 +14,33 @@ WITH cte_toolID_1 AS (
 ),
 
 -- As per Connection paramateres 12
--- Sum By Treaty    
-SELECT 
-    Treaty, SUM(Expected_Claims) AS Expected_Claims_Treaty
-GROUP BY 
-    Treaty;
-
--- Sum By Subseg
-SELECT 
-    PolM_Sub_Seg, SUM(PolM_Sub_Seg) AS Expected_Claims_Sub_Seg
-GROUP BY 
-    PolM_Sub_Seg;  
+WITH cte_sum_expected_claims_treaty AS (
+    SELECT 
+        Treaty, SUM(Expected_Claims) AS Expected_Claims_Treaty -- Sum By Treaty    
+    FROM
+        cte_toolID_1
+    GROUP BY 
+        Treaty),
     
+    cte_sum_expected_claims_Sub_Seg AS (
+    SELECT 
+        PolM_Sub_Seg, SUM(PolM_Sub_Seg) AS Expected_Claims_Sub_Seg -- -- Sum By Sub_Seg
+    FROM
+        cte_toolID_1
+    GROUP BY 
+        PolM_Sub_Seg)  
+    
+-- JOIN Conditions
+SELECT 
+    PolM_Sub_Seg,
+    Treaty,
+    Expected_Claims,
+    
+FROM 
+    cte_sum_expected_claims_treaty as sect
+LEFT JOIN
+    cte_sum_expected_claims_Sub_Seg as secss
+ON sect.
     
 -- For ToolID = "2"  
 cte_toolID_2 AS (
