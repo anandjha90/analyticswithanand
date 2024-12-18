@@ -12,7 +12,21 @@ WITH cte_toolID_1 AS (
     FROM
         EXPECTED_CEDED_CLAIMS_OUTPUT_TBL;
 ),
-  
+
+-- As per Connection paramateres 12
+-- Sum By Treaty    
+SELECT 
+    Treaty, SUM(Expected_Claims) AS Expected_Claims_Treaty
+GROUP BY 
+    Treaty;
+
+-- Sum By Subseg
+SELECT 
+    PolM_Sub_Seg, SUM(PolM_Sub_Seg) AS Expected_Claims_Sub_Seg
+GROUP BY 
+    PolM_Sub_Seg;  
+    
+    
 -- For ToolID = "2"  
 cte_toolID_2 AS (
     SELECT 
