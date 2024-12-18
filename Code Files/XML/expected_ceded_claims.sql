@@ -5,9 +5,12 @@ WITH cte_toolID_1 AS (
         "Ffilekey",
         "PolM_Sub_Seg",
         "Treaty",
-        "Expected Claims"
+    CASE
+        WHEN Treaty IN ("CTA03", "CFR01", "CFR02", "CFR03", "CSL16", "CSL19") THEN 0
+        ELSE "Expected Claims"
+    END AS Expected_Claims
     FROM
-        EXPECTED_CEDED_CLAIMS_OUTPUT_TBL
+        EXPECTED_CEDED_CLAIMS_OUTPUT_TBL;
 ),
   
 -- For ToolID = "2"  
