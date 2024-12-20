@@ -16,7 +16,7 @@ WITH cte_toolID_1 AS (
 -- As per Connection paramateres  ToolID = "12"  & ToolID = "22"
 WITH cte_sum_expected_claims_treaty AS (
     SELECT 
-        PolM_Sub_Seg,Treaty, SUM(Expected_Claims) AS Expected_Claims_Treaty -- Sum By Treaty as per ToolID = "22"   
+        PolM_Sub_Seg,Treaty, SUM(Expected_Claims) AS Expected_Claims -- Sum By Treaty as per ToolID = "22"   
     FROM
         cte_toolID_1
     GROUP BY 
@@ -30,11 +30,13 @@ WITH cte_sum_expected_claims_treaty AS (
     GROUP BY 
         PolM_Sub_Seg)  
     
--- JOIN Conditions       -- as per connection parameters for ToolID = "13"
+-- JOIN Conditions       -- as per connection parameters for ToolID = "13" & ToolID = "14"
+WITH cte_sum_expected_claims_treaty_Sub_Seg AS
+(
 SELECT 
     sect.PolM_Sub_Seg,
     sect.Treaty,
-    sect.Expected_Claims_Treaty,
+    sect.Expected_Claims,
     secss.PolM_Sub_Seg AS Right_PolM_Sub_Seg
     secss.Expected_Claims_Sub_Seg
     "*Unknown" AS "Unknown"
@@ -44,6 +46,7 @@ FROM
 LEFT JOIN
     cte_sum_expected_claims_Sub_Seg as secss
 ON sect.PolM_Sub_Seg = secss.PolM_Sub_Seg
+)
     
 -- For ToolID = "2"  
 cte_toolID_2 AS (
@@ -79,10 +82,30 @@ cte_toolID_16 AS (
         "Subseg0",
         "Subseg",
         "Incr (Decr) IBNR",
-        "*Unknown"      
+        "Field_37_22" AS "*Unknown"      
     FROM
         cte_toolID_6
-)    
+),
+
+-- Origin ToolID = "13" Destination ToolID = "33"
+ cte_sum_expected_claims_treaty_Sub_Seg AS (
+    SELECT
+        ct16."Business Unit"
+        ectss.PolM_Sub_Seg,
+        ectss.Treaty,
+        ectss.Expected_Claims,
+        ectss.Expected_Claims_Sub_Seg
+        ct16.Subseg0
+        ct16.Subseg
+        ct16."Incr (Decr) IBNR"
+        "Business_Type" AS Business_Type
+        "*Unknown" AS "*Unknown"
+    FROM 
+        cte_sum_expected_claims_treaty_Sub_Seg AS ectss
+    LEFT JOIN 
+        cte_toolID_16 AS ct16
+    ON ectss.PolM_Sub_Seg = ct16.Subseg
+),    
     
 
 -- For ToolID = "27"  
