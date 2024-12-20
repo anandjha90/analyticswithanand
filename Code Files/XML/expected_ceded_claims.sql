@@ -119,8 +119,11 @@ cte_toolID_28 AS (
     FROM 
        SomeTable54;
  ), 
-  
--- Origin ToolID = "13" Destination ToolID = "33"
+
+--
+
+    
+-- Origin ToolID = "13","32" & Destination ToolID = "33"
  cte_sum_expected_claims_treaty_Sub_Seg AS (
     SELECT
         ct16."Business Unit"
@@ -138,4 +141,40 @@ cte_toolID_28 AS (
     LEFT JOIN 
         cte_toolID_16 AS ct16
     ON ectss.PolM_Sub_Seg = ct16.Subseg
-),    
+),  
+
+-- As per ToolID = "15"
+cte_toolID_15 AS (    
+SELECT     
+     "Incr (Decr) IBNR" * (Expected_Claims/Expected_Claims_Sub_Seg) AS "Ceded IBNR by Treaty",
+     CASE
+        WHEN LEFT(Treaty,3) = "AML" THEN "Assumed"
+        WHEN LEFT(Treaty,3) = "CML" THEN "Ceded"
+        ELSE NULL
+     END AS Business_Type,
+     CASE
+        WHEN LEFT(Treaty,3) = "C" THEN RIGHT(Treaty,LENGTH(Treaty)-1)
+        ELSE Treaty
+     END AS Treaty,
+     LEFT(Treaty,2) AS CO,
+     PolM_Sub_Seg + "L" AS Product,
+     "PL001" AS BU,
+     Treaty + "S" AS TREATY3,
+     "Incr (Decr) IBNR" * (Expected_Claims/Expected_Claims_Sub_Seg) AS Round,
+     ABS("Incr (Decr) IBNR" * (Expected_Claims/Expected_Claims_Sub_Seg)) AS ABS
+FROM
+    cte_sum_expected_claims_treaty_Sub_Seg
+),
+
+
+     
+
+
+
+
+
+
+
+
+
+
