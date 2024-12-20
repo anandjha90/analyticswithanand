@@ -39,7 +39,7 @@ SELECT
     sect.Expected_Claims,
     secss.PolM_Sub_Seg AS Right_PolM_Sub_Seg
     secss.Expected_Claims_Sub_Seg
-    "*Unknown" AS "Unknown"
+    NULL as "*Unknown"
     
 FROM 
     cte_sum_expected_claims_treaty as sect
@@ -53,7 +53,7 @@ cte_toolID_2 AS (
     SELECT 
       "Net IBNR Reallocation: PL Based on Distribution of Future Net Mortality",
       "F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","F13","F14","F15","F16","F17","F18","F19","F20","F21",
-      "F22","F23","F24", "F25","F26","F27","F28","F29","F30","F31","F32","F33","F34","F35","F36","*Unknown"
+      "F22","F23","F24", "F25","F26","F27","F28","F29","F30","F31","F32","F33","F34","F35","F36",NULL as "*Unknown"
     FROM
         SomeTable2
 ),
@@ -117,11 +117,19 @@ cte_toolID_28 AS (
     SELECT   
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "BT"
     FROM 
-       SomeTable54;
+       BT_TY_IBNR;
  ), 
 
---
-
+-- For ToolIdD = "57" -- have a query on Group by without aggregations -- need to checkyes 
+cte_toolID_57 AS (
+    SELECT 
+        BT,
+        9 AS Treaty
+    FROM 
+       cte_toolID_28
+    GROUP BY 
+       BT,9
+ ),   
     
 -- Origin ToolID = "13","32" & Destination ToolID = "33"
  cte_sum_expected_claims_treaty_Sub_Seg AS (
@@ -134,8 +142,8 @@ cte_toolID_28 AS (
         ct16.Subseg0
         ct16.Subseg
         ct16."Incr (Decr) IBNR"
-        "Business_Type" AS Business_Type
-        "*Unknown" AS "*Unknown"
+        "Business_Type" AS Business_Type,
+        NULL as "*Unknown"
     FROM 
         cte_sum_expected_claims_treaty_Sub_Seg AS ectss
     LEFT JOIN 
@@ -143,37 +151,42 @@ cte_toolID_28 AS (
     ON ectss.PolM_Sub_Seg = ct16.Subseg
 ),  
 
--- As per ToolID = "15"
-cte_toolID_15 AS (    
-SELECT     
-     "Incr (Decr) IBNR" * (Expected_Claims/Expected_Claims_Sub_Seg) AS "Ceded IBNR by Treaty",
-     CASE
-        WHEN LEFT(Treaty,3) = "AML" THEN "Assumed"
-        WHEN LEFT(Treaty,3) = "CML" THEN "Ceded"
-        ELSE NULL
-     END AS Business_Type,
-     CASE
-        WHEN LEFT(Treaty,3) = "C" THEN RIGHT(Treaty,LENGTH(Treaty)-1)
-        ELSE Treaty
-     END AS Treaty,
-     LEFT(Treaty,2) AS CO,
-     PolM_Sub_Seg + "L" AS Product,
-     "PL001" AS BU,
-     Treaty + "S" AS TREATY3,
-     "Incr (Decr) IBNR" * (Expected_Claims/Expected_Claims_Sub_Seg) AS Round,
-     ABS("Incr (Decr) IBNR" * (Expected_Claims/Expected_Claims_Sub_Seg)) AS ABS
-FROM
-    cte_sum_expected_claims_treaty_Sub_Seg
+-- As per ToolID = "15" & ToolID = "55" 
+cte_toolID_15 AS (  
+    SELECT  
+         "Business Unit",
+          PolM_Sub_Seg,
+          CASE
+            WHEN LEFT(ectss.Treaty,3) = "C" THEN RIGHT(ectss.Treaty,LENGTH(Treaty)-1)
+            ELSE ectss.Treaty
+          END AS ectss.Treaty,
+          Expected_Claims,
+          Expected_Claims_Sub_Seg,
+          "Incr (Decr) IBNR",
+          "Incr (Decr) IBNR" * (Expected_Claims/Expected_Claims_Sub_Seg) AS "Ceded IBNR by Treaty",
+          CASE
+            WHEN LEFT(ectss.Treaty,3) = "AML" THEN "Assumed"
+            WHEN LEFT(ectss.Treaty,3) = "CML" THEN "Ceded"
+            ELSE NULL
+         END AS Business_Type,
+         t57.BT,
+         LEFT(ectss.Treaty,2) AS CO,
+         PolM_Sub_Seg + "L" AS Product,
+         "PL001" AS BU,
+         ectss.Treaty + "S" AS TREATY3,
+         "Incr (Decr) IBNR" * (Expected_Claims/Expected_Claims_Sub_Seg) AS Round,
+         ABS("Incr (Decr) IBNR" * (Expected_Claims/Expected_Claims_Sub_Seg)) AS ABS,
+         NULL as "*Unknown"
+    FROM
+        cte_sum_expected_claims_treaty_Sub_Seg AS ectss
+    LEFT JOIN 
+        cte_toolID_57 AS t57
+    ON 
+       ectss.Treaty = t57.Treaty
 ),
 
 
-     
-
-
-
-
-
-
+    
 
 
 
