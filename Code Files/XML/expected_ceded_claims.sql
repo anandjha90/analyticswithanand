@@ -13,14 +13,14 @@ WITH cte_toolID_1 AS (
         EXPECTED_CEDED_CLAIMS_OUTPUT_TBL;
 ),
 
--- As per Connection paramateres 12
+-- As per Connection paramateres  ToolID = "12"  & ToolID = "22"
 WITH cte_sum_expected_claims_treaty AS (
     SELECT 
-        Treaty, SUM(Expected_Claims) AS Expected_Claims_Treaty -- Sum By Treaty    
+        PolM_Sub_Seg,Treaty, SUM(Expected_Claims) AS Expected_Claims_Treaty -- Sum By Treaty as per ToolID = "22"   
     FROM
         cte_toolID_1
     GROUP BY 
-        Treaty),
+        PolM_Sub_Seg,Treaty),
     
     cte_sum_expected_claims_Sub_Seg AS (
     SELECT 
@@ -30,17 +30,20 @@ WITH cte_sum_expected_claims_treaty AS (
     GROUP BY 
         PolM_Sub_Seg)  
     
--- JOIN Conditions
+-- JOIN Conditions       -- as per connection parameters for ToolID = "13"
 SELECT 
-    PolM_Sub_Seg,
-    Treaty,
-    Expected_Claims,
+    sect.PolM_Sub_Seg,
+    sect.Treaty,
+    sect.Expected_Claims_Treaty,
+    secss.PolM_Sub_Seg AS Right_PolM_Sub_Seg
+    secss.Expected_Claims_Sub_Seg
+    "*Unknown" AS "Unknown"
     
 FROM 
     cte_sum_expected_claims_treaty as sect
 LEFT JOIN
     cte_sum_expected_claims_Sub_Seg as secss
-ON sect.
+ON sect.PolM_Sub_Seg = secss.PolM_Sub_Seg
     
 -- For ToolID = "2"  
 cte_toolID_2 AS (
