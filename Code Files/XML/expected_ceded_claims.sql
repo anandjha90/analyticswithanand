@@ -63,7 +63,7 @@ cte_toolID_6 AS (
     SELECT 
       "Field_37" AS "Subseg0",               -- renaming as per ToolID = "7" 
       SUBSTRING(Field_37,3,3) AS "Subseg"    -- & filtering as per TOOLID = "9" as specified in connection parameteres
-      "PL" AS "Business Unit"                -- & filtering as per TOOLID = "9" adding PL as Business UnitJust
+      'PL' AS "Business Unit"                -- & filtering as per TOOLID = "9" adding PL as Business UnitJust
       "Anticipated Net", "Field_37_2", "Field_37_3", "Full Year Plan (Net)", "Field_37_4", "Field_37_5", "Incr (Decr) IBNR",
       "Field_37_6", "Ending GL", "Field_37_7", "Current GL (Direct)",
       "Field_37_8", "Field_37_9", "Desired Direct", "Field_37_10", "Full Year Plan (Direct)", "Field_37_11", "Field_37_12",
@@ -132,7 +132,7 @@ cte_toolID_57 AS (
  ),   
     
 -- Origin ToolID = "13","32" & Destination ToolID = "33"
- cte_sum_expected_claims_treaty_Sub_Seg AS (
+ cte_sum_expected_claims_treaty_Sub_Seg_out AS (
     SELECT
         ct16."Business Unit"
         ectss.PolM_Sub_Seg,
@@ -152,8 +152,8 @@ cte_toolID_57 AS (
 ),  
 
 -- As per ToolID = "15" & ToolID = "55" 
-cte_toolID_15 AS (  
-    SELECT  
+-- final output as cte_toolID_15
+SELECT  
          "Business Unit",
           PolM_Sub_Seg,
           CASE
@@ -172,22 +172,15 @@ cte_toolID_15 AS (
          t57.BT,
          LEFT(ectss.Treaty,2) AS CO,
          PolM_Sub_Seg + "L" AS Product,
-         "PL001" AS BU,
+         'PL001' AS BU,
          ectss.Treaty + "S" AS TREATY3,
          "Incr (Decr) IBNR" * (Expected_Claims/Expected_Claims_Sub_Seg) AS Round,
          ABS("Incr (Decr) IBNR" * (Expected_Claims/Expected_Claims_Sub_Seg)) AS ABS,
          NULL as "*Unknown"
-    FROM
+FROM
         cte_sum_expected_claims_treaty_Sub_Seg AS ectss
-    LEFT JOIN 
+LEFT JOIN 
         cte_toolID_57 AS t57
-    ON 
+ON 
        ectss.Treaty = t57.Treaty
-),
-
-
-    
-
-
-
-
+);
