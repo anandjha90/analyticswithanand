@@ -86,28 +86,7 @@ cte_toolID_16 AS (
     FROM
         cte_toolID_6
 ),
-
--- Origin ToolID = "13" Destination ToolID = "33"
- cte_sum_expected_claims_treaty_Sub_Seg AS (
-    SELECT
-        ct16."Business Unit"
-        ectss.PolM_Sub_Seg,
-        ectss.Treaty,
-        ectss.Expected_Claims,
-        ectss.Expected_Claims_Sub_Seg
-        ct16.Subseg0
-        ct16.Subseg
-        ct16."Incr (Decr) IBNR"
-        "Business_Type" AS Business_Type
-        "*Unknown" AS "*Unknown"
-    FROM 
-        cte_sum_expected_claims_treaty_Sub_Seg AS ectss
-    LEFT JOIN 
-        cte_toolID_16 AS ct16
-    ON ectss.PolM_Sub_Seg = ct16.Subseg
-),    
     
-
 -- For ToolID = "27"  
 cte_toolID_27 AS (
     SELECT 
@@ -141,11 +120,22 @@ cte_toolID_28 AS (
        SomeTable54;
  ), 
   
-SELECT
-    cte_1.Item,
-    cte_1.Expected_Claims,
-    cte_2.F4
-FROM
-    cte_1
-LEFT JOIN cte_2
-    ON cte_1.PolM_Sub_Seg = cte_2.F4;
+-- Origin ToolID = "13" Destination ToolID = "33"
+ cte_sum_expected_claims_treaty_Sub_Seg AS (
+    SELECT
+        ct16."Business Unit"
+        ectss.PolM_Sub_Seg,
+        ectss.Treaty,
+        ectss.Expected_Claims,
+        ectss.Expected_Claims_Sub_Seg
+        ct16.Subseg0
+        ct16.Subseg
+        ct16."Incr (Decr) IBNR"
+        "Business_Type" AS Business_Type
+        "*Unknown" AS "*Unknown"
+    FROM 
+        cte_sum_expected_claims_treaty_Sub_Seg AS ectss
+    LEFT JOIN 
+        cte_toolID_16 AS ct16
+    ON ectss.PolM_Sub_Seg = ct16.Subseg
+),    
