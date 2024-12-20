@@ -57,7 +57,7 @@ cte_toolID_6 AS (
     SELECT 
       "Field_37" AS "Subseg0",               -- renaming as per ToolID = "7" 
       SUBSTRING(Field_37,3,3) AS "Subseg"    -- & filtering as per TOOLID = "9" as specified in connection parameteres
-      -- Business Unit = "PL" need to find out -- keeping on hold
+      "PL" AS "Business Unit"                -- & filtering as per TOOLID = "9" adding PL as Business UnitJust
       "Anticipated Net", "Field_37_2", "Field_37_3", "Full Year Plan (Net)", "Field_37_4", "Field_37_5", "Incr (Decr) IBNR",
       "Field_37_6", "Ending GL", "Field_37_7", "Current GL (Direct)",
       "Field_37_8", "Field_37_9", "Desired Direct", "Field_37_10", "Full Year Plan (Direct)", "Field_37_11", "Field_37_12",
