@@ -314,14 +314,14 @@ ORDER BY 2 DESC;
 
 
 -- B. Runner and Customer Experience
--- How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
+-- 1.How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
 SELECT EXTRACT(WEEK FROM registration_date) AS registration_week,
  COUNT(runner_id) AS runner_signup
 FROM runners
 GROUP BY 1;
 
 
--- What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
+-- 2.What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
 WITH time_taken_cte AS
 (
  SELECT 
@@ -341,7 +341,7 @@ FROM time_taken_cte
 group by 1
 order by 1;
 
--- Is there any relationship between the number of pizzas and how long the order takes to prepare?
+-- 3.Is there any relationship between the number of pizzas and how long the order takes to prepare?
 WITH prep_time_cte AS
 (
  SELECT 
@@ -360,17 +360,48 @@ SELECT pizza_order, ROUND(AVG(prep_time_minutes),0) AS avg_prep_time_minutes
 FROM prep_time_cte
 GROUP BY pizza_order;
 
--- What was the average distance travelled for each customer?
+-- 4.What was the average distance travelled for each customer?
 
+SELECT c.customer_id, ROUND(AVG(r.distance_km),0) AS avg_distance_km
+FROM customer_orders_cleaned AS c
+JOIN runner_orders_cleaned AS r ON c.order_id = r.order_id
+WHERE r.duration_min != 0
+GROUP BY c.customer_id
+ORDER BY 1;
 
--- What was the difference between the longest and shortest delivery times for all orders?
+-- 5.What was the difference between the longest and shortest delivery times for all orders?
 
+SELECT 
+    MAX(duration_min) - MIN(duration_min) AS delivery_time_difference
+FROM 
+    (
+    SELECT order_id, duration_min
+    FROM runner_orders_cleaned
+    WHERE duration_min != 0
+    );
 
--- What was the average speed for each runner for each delivery and do you notice any trend for these values?
+-- 6.What was the average speed for each runner for each delivery and do you notice any trend for these values?
+SELECT 
+    r.runner_id, 
+    c.customer_id, 
+    c.order_id,  
+    r.distance_km, 
+    r.duration_min,
+    (r.duration_min / 60) AS duration_hr , 
+    ROUND((r.distance_km/r.duration_min * 60), 2) AS avg_speed,
+    COUNT(c.order_id) AS pizza_count
+FROM runner_orders_cleaned AS r
+JOIN customer_orders_cleaned AS c ON r.order_id = c.order_id
+WHERE distance_km != 0
+GROUP BY 1,2,3,4,5,6,7
+ORDER BY c.order_id;
 
-
--- What is the successful delivery percentage for each runner?
-
+-- 7.What is the successful delivery percentage for each runner?
+SELECT 
+    runner_id, 
+    ROUND(100 * SUM(CASE WHEN distance_km = 0 THEN 0 ELSE 1 END) / COUNT(*), 0) AS success_perc
+FROM runner_orders_cleaned
+GROUP BY runner_id;
 
 --C. Ingredient Optimisation
 -- What are the standard ingredients for each pizza?
