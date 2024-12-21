@@ -52,6 +52,26 @@ VALUES
   ('A', '2021-01-07'),
   ('B', '2021-01-09');
 
+SELECT * FROM sales;
+SELECT * FROM members;
+SELECT * FROM menu;
+
+-- master table creation
+CREATE OR REPLACE TABLE DANNY_DINERS_MASTER AS
+    SELECT 
+     s.*,
+     mem.join_date,
+     m.product_name,
+     m.price
+    FROM 
+        sales as s
+    LEFT JOIN 
+        members as mem 
+    ON s.customer_id = mem.customer_id
+    LEFT JOIN menu as m 
+    ON s.product_id = m.product_id;
+  
+SELECT * FROM DANNY_DINERS_MASTER;
 
 -- Case Study Questions
 -- Each of the following case study questions can be answered using a single SQL statement:
