@@ -1,10 +1,39 @@
 CREATE OR REPLACE DATABASE DANNY_DB;
 CREATE OR REPLACE SCHEMA DANNY_SCHEMA;
+ 
+
+CREATE OR REPLACE TABLE menu (
+  product_id INTEGER PRIMARY KEY,
+  product_name VARCHAR(5),
+  price INTEGER
+);
+
+INSERT INTO menu
+  (product_id, product_name, price)
+VALUES
+  ('1', 'sushi', '10'),
+  ('2', 'curry', '15'),
+  ('3', 'ramen', '12');
+  
+
+CREATE OR REPLACE TABLE members (
+  customer_id VARCHAR(1) PRIMARY KEY,
+  join_date DATE
+);
+
+INSERT INTO members
+  (customer_id, join_date)
+VALUES
+  ('A', '2021-01-07'),
+  ('B', '2021-01-09'),
+  ('C', '2021-01-08');
 
 CREATE OR REPLACE TABLE sales (
   customer_id VARCHAR(1),
   order_date DATE,
-  product_id INTEGER
+  product_id INTEGER,
+  FOREIGN KEY (customer_id) REFERENCES members(customer_id),
+  FOREIGN KEY (product_id) REFERENCES menu(product_id)
 );
 
 INSERT INTO sales
@@ -24,37 +53,7 @@ VALUES
   ('B', '2021-02-01', '3'),
   ('C', '2021-01-01', '3'),
   ('C', '2021-01-01', '3'),
-  ('C', '2021-01-07', '3');
- 
-
-CREATE OR REPLACE TABLE menu (
-  product_id INTEGER,
-  product_name VARCHAR(5),
-  price INTEGER
-);
-
-INSERT INTO menu
-  (product_id, product_name, price)
-VALUES
-  ('1', 'sushi', '10'),
-  ('2', 'curry', '15'),
-  ('3', 'ramen', '12');
-  
-
-CREATE OR REPLACE TABLE members (
-  customer_id VARCHAR(1),
-  join_date DATE
-);
-
-INSERT INTO members
-  (customer_id, join_date)
-VALUES
-  ('A', '2021-01-07'),
-  ('B', '2021-01-09');
-
-SELECT * FROM sales;
-SELECT * FROM members;
-SELECT * FROM menu;
+  ('C', '2021-01-07', '3');  
 
 -- master table creation
 CREATE OR REPLACE TABLE DANNY_DINERS_MASTER AS
