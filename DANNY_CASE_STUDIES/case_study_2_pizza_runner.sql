@@ -315,13 +315,50 @@ ORDER BY 2 DESC;
 
 -- B. Runner and Customer Experience
 -- How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
+SELECT EXTRACT(WEEK FROM registration_date) AS registration_week,
+ COUNT(runner_id) AS runner_signup
+FROM runners
+GROUP BY 1;
 
 
 -- What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
+WITH time_taken_cte AS
+(
+ SELECT 
+    c.order_id,
+    r.runner_id,
+    c.order_time, 
+    r.pickup_time, 
+    DATEDIFF(MINUTE, c.order_time, r.pickup_time) AS pickup_minutes
+ FROM customer_orders_cleaned AS c
+ JOIN runner_orders_cleaned AS r ON c.order_id = r.order_id
+ WHERE r.distance_km != 0
+ GROUP BY 1,2,3,4
+)
 
+SELECT runner_id,ROUND(AVG(pickup_minutes),0) AS avg_pickup_minutes
+FROM time_taken_cte
+group by 1
+order by 1;
 
 -- Is there any relationship between the number of pizzas and how long the order takes to prepare?
+WITH prep_time_cte AS
+(
+ SELECT 
+    c.order_id, 
+    c.order_time, 
+    r.pickup_time, 
+    DATEDIFF(MINUTE, c.order_time, r.pickup_time) AS prep_time_minutes,
+    COUNT(c.order_id) AS pizza_order,
+ FROM customer_orders_cleaned AS c
+ JOIN runner_orders_cleaned AS r ON c.order_id = r.order_id
+ WHERE r.distance_km != 0
+ GROUP BY c.order_id, c.order_time, r.pickup_time
+)
 
+SELECT pizza_order, ROUND(AVG(prep_time_minutes),0) AS avg_prep_time_minutes
+FROM prep_time_cte
+GROUP BY pizza_order;
 
 -- What was the average distance travelled for each customer?
 
