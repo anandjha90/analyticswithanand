@@ -402,7 +402,7 @@ SPLIT : A table-valued function that splits a string into rows of substrings, ba
 CREATE OR REPLACE TABLE PIZZA_RECIPES_CLEANED AS
 SELECT 
     PIZZA_ID,
-    TRIM(VALUE::STRING) AS TOPPING_ID,
+    TRIM(VALUE::INT) AS TOPPING_ID,
 FROM pizza_recipes,
 LATERAL FLATTEN(INPUT => SPLIT(TOPPINGS, ','));
 
@@ -437,7 +437,7 @@ SELECT * FROM PIZZA_INFO;
 
 -- 2.What was the most commonly added extra?
 SELECT
-   extras_toppings_id,pt.topping_name,count(distinct order_id) as most_likely_extra_toppings_count
+   extras_toppings_id,pt.topping_name,count(distinct order_id) as most_likely_extra_count
 FROM 
     CUSTOMER_ORDERS_CLEANED_WITH_EXT_EXC as cocee
 LEFT JOIN 
@@ -447,8 +447,16 @@ GROUP BY 1,2
 ORDER BY 3 DESC;
 
 
--- What was the most common exclusion?
-
+-- 3.What was the most common exclusion?
+SELECT
+   exclusions_toppings_id,pt.topping_name,count(distinct order_id) as most_likely_exclusions_count
+FROM 
+    CUSTOMER_ORDERS_CLEANED_WITH_EXT_EXC as cocee
+LEFT JOIN 
+    PIZZA_TOPPINGS as pt ON cocee.exclusions_toppings_id = pt.topping_id
+WHERE exclusions_toppings_id <> ''  
+GROUP BY 1,2
+ORDER BY 3 DESC;
 
 
 -- Generate an order item for each record in the customers_orders table in the format of one of the following:
