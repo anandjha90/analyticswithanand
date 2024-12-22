@@ -459,55 +459,19 @@ GROUP BY 1,2
 ORDER BY 3 DESC;
 
 
--- Generate an order item for each record in the customers_orders table in the format of one of the following:
+-- 4.Generate an order item for each record in the customers_orders table in the format of one of the following:
 -- Meat Lovers
 -- Meat Lovers - Exclude Beef
 -- Meat Lovers - Extra Bacon
 -- Meat Lovers - Exclude Cheese, Bacon - Extra Mushroom, Peppers
 
+
 -- 5.Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients
 -- For example: "Meat Lovers: 2xBacon, Beef, ... , Salami"
-with cte as(
-select cu.record_id,p1.pizza_name,
-case when
-    p.topping_id in( SELECT topping_id FROM #extras e WHERE cu.record_id = e.record_id ) then 'X2'+ p.topping_name
-    ELSE p.topping_name
-    END AS topping
-from #customer_orders cu inner join #pizza_recipes p
-on cu.pizza_id = p.pizza_id
-inner join pizza_names p1
-on cu.pizza_id = p1.pizza_id
 
-)
-select cu.record_id, CONCAT(c.pizza_name +':' ,STRING_AGG(topping, ',' )) as list from #customer_orders cu inner join cte c
-on cu.record_id = c.record_id
-group by cu. record_id,c.pizza_name
-order by cu.record_id;
 
 -- 6.What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
-WITH INGREDIENT_CTE AS (
-SELECT 
-    record_id,
-    pizza_name, 
-    topping_name,
-    CASE 
-        WHEN p1.topping_id in (SELECT topping_id FROM #extras e WHERE C.record_id = e.record_id) THEN 2
-        ELSE 1
-    END AS times_used_topping
-FROM customer_orders_cleaned c 
-JOIN pizza_names p2 ON c.pizza_id = p2.pizza_id
-JOIN pizza_recipes p1 ON c.pizza_id = p1.pizza_id
-JOIN runners_orders_cleaned r ON c.order_id = r.order_id
-WHERE p1.topping_id NOT IN (SELECT topping_id FROM #exclusions e WHERE e.record_id = c.record_id) 
- and r.distance != 0
-)
 
-SELECT 
-    topping_name, 
-    SUM(times_used_topping) AS times_used_topping
-from INGREDIENT_CTE
-GROUP BY topping_name
-order by times_used_topping desc;
 
 -- D. Pricing and Ratings
 -- 1.If a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes - how much money has Pizza Runner made so far if there are no delivery fees?
