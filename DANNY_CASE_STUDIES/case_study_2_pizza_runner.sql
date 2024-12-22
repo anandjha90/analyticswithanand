@@ -444,14 +444,48 @@ order by(count(*)) desc;
 
 
 -- D. Pricing and Ratings
--- If a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes - how much money has Pizza Runner made so far if there are no delivery fees?
+-- 1.If a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes - how much money has Pizza Runner made so far if there are no delivery fees?
+with pizza_cost_cte as (
+    select 
+        pizza_id, 
+        pizza_name,
+    case when pizza_name = 'Meatlovers' THEN 12 ELSE 10 END AS pizza_cost
+from pizza_names 
+)
+
+select sum(pc.pizza_cost) as total
+from customer_orders_cleaned cu 
+join runners_orders_cleaned r on cu.order_id = r.order_id
+join pizza_cost_cte pc on cu.pizza_id = pc.pizza_id
+where r.distance != 0;
 
 
--- What if there was an additional $1 charge for any pizza extras?
--- Add cheese is $1 extra
+
+-- 2.What if there was an additional $1 charge for any pizza extras? Add cheese is $1 extra
+with pizza_cost as 
+(
+    select 
+        pizza_id, 
+        pizza_name,
+    case when pizza_name = 'Meatlovers' THEN 12 ELSE 10 END AS cost
+    from pizza_names 
+) ,
+pizza_extras as
+(
+    select 
+            extras,
+            len(replace(cu.extras,', ','' )) as extras_count,
+            case when extras = '' then pc.cost else pc.cost + len(replace(cu.extras,', ','' )) end as pizza_cost
+    from customer_orders_cleaned cu 
+    inner join pizza_cost pc on cu.pizza_id = pc.pizza_id
+    inner join runners_orders_cleaned r on cu.order_id = r.order_id
+where r.distance != 0
+)
+--select * from cte2;
+select sum(pizza_cost) as total from pizza_extras;
 
 
--- The Pizza Runner team now wants to add an additional ratings system that allows customers to rate their runner, how would you design an additional table for this new dataset - generate a schema for this new table and insert your own data for ratings for each successful customer order between 1 to 5.
+-- 3.The Pizza Runner team now wants to add an additional ratings system that allows customers to rate their runner, how would you design an additional table for this new dataset - generate a schema for this new table and insert your own data for ratings for each successful customer order between 1 to 5.
 CREATE OR REPLACE TABLE ratings 
  (order_id INTEGER,
   rating INTEGER);
