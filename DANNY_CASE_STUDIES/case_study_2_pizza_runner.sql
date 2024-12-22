@@ -117,299 +117,317 @@ VALUES
   ('10', '104', '1', 'null', 'null', '2020-01-11 18:34:49'),
   ('10', '104', '1', '2, 6', '1, 4', '2020-01-11 18:34:49');
 
--- Case Study Questions
--- This case study has LOTS of questions - they are broken up by area of focus including:
-
--- Pizza Metrics
--- Runner and Customer Experience
--- Ingredient Optimisation
--- Pricing and Ratings
--- Bonus DML Challenges (DML = Data Manipulation Language)
--- Each of the following case study questions can be answered using a single SQL statement.
-
--- Note :  Before you start writing your SQL queries however - you might want to investigate the data, you may want to do something with some of those null 
--- values and data types in the customer_orders and runner_orders tables!
-
--- Lets Go
--- Before we start with the solutions, we investigate the data and found that there are some cleaning and transformation to do, specifically on the
-        -- null values and data types in the customer_orders table
-        -- null values and data types in the runner_orders table
-        -- Alter data type in pizza_names table
-        
--- Firstly, to clean up exclusions and extras in the customer_orders we create a cleaned table
-CREATE OR REPLACE TABLE customer_orders_cleaned AS
-SELECT order_id, customer_id, pizza_id, 
-  CASE 
-    WHEN exclusions IS null OR exclusions LIKE 'null' THEN ''
-    ELSE exclusions
-    END AS exclusions,
-  CASE 
-    WHEN extras IS NULL or extras LIKE 'null' THEN ''
-    ELSE extras 
-    END AS extras, 
-  order_time
-FROM customer_orders;
-
-SELECT * FROM customer_orders_cleaned;
-
--- Then, we clean the runner_orders table with CASE WHEN and TRIM and create runner_orders_cleaned table.
--- In summary,
---      pickup_time — Remove nulls and replace with ‘ ‘
---      distance — Remove ‘km’ and nulls
---      duration — Remove ‘minutes’ and nulls
---      cancellation — Remove NULL and null and replace with ‘ ‘
-
--- Then, we alter the date according to its correct data type.
--- pickup_time to DATETIME type
-
-CREATE OR REPLACE TABLE RUNNERS_ORDER_COPY AS
+CREATE OR REPLACE TABLE RUNNERS_ORDERS_COPY AS
 SELECT * FROM RUNNER_ORDERS;
 
-ALTER TABLE RUNNERS_ORDER_COPY ADD COLUMN pickup_time_datetime DATETIME;
+-- CLEANING PICKUP_TIME AND CONVERTING INTO DATETIME
+ALTER TABLE RUNNERS_ORDERS_COPY ADD COLUMN PICKUP_TIME_DATE_TIME DATETIME;
 
-UPDATE RUNNERS_ORDER_COPY
-SET pickup_time_datetime = CASE
-    WHEN pickup_time IS NULL OR pickup_time LIKE 'null' OR TRIM(pickup_time) = '' THEN NULL -- Handle NULL and blank values
-    ELSE TO_TIMESTAMP(pickup_time, 'YYYY-MM-DD HH24:MI:SS')                                 -- Convert valid date strings
-END;
+UPDATE RUNNERS_ORDERS_COPY
+SET PICKUP_TIME_DATE_TIME = 
+    CASE
+        WHEN pickup_time is NULL or pickup_time like 'null' or TRIM(pickup_time) = '' then null
+        ELSE TO_TIMESTAMP(pickup_time,'YYYY-MM-DD HH24:MI:SS')
+    END;
 
-ALTER TABLE RUNNERS_ORDER_COPY DROP COLUMN pickup_time;
+ALTER TABLE RUNNERS_ORDERS_COPY DROP COLUMN pickup_time;
+ALTER TABLE RUNNERS_ORDERS_COPY RENAME COLUMN PICKUP_TIME_DATE_TIME TO pickup_time;
 
-ALTER TABLE RUNNERS_ORDER_COPY RENAME COLUMN pickup_time_datetime TO pickup_time;
+--DISTANCE TO FLOAT 
+ALTER TABLE RUNNERS_ORDERS_COPY ADD COLUMN DISTANCE_KM FLOAT;
 
--- distance to FLOAT type
-ALTER TABLE RUNNERS_ORDER_COPY ADD COLUMN distance_km_float FLOAT;
+UPDATE RUNNERS_ORDERS_COPY
+SET DISTANCE_KM = 
+    CASE
+        WHEN distance is NULL or distance like 'null' or TRIM(distance) = '' then null
+        ELSE TRY_CAST(REGEXP_REPLACE(distance,'[^0-9.]','') AS FLOAT)
+    END;
 
-UPDATE RUNNERS_ORDER_COPY
-SET distance_km_float = CASE
-    WHEN TRIM(distance) = '' OR distance IS NULL OR distance LIKE 'null' THEN NULL
-    ELSE TRY_CAST(REGEXP_REPLACE(distance, '[^0-9.]', '') AS FLOAT)
-END;
+ALTER TABLE RUNNERS_ORDERS_COPY DROP COLUMN distance;
+ALTER TABLE RUNNERS_ORDERS_COPY RENAME COLUMN DISTANCE_KM TO distance;
 
-ALTER TABLE RUNNERS_ORDER_COPY DROP COLUMN distance;
-ALTER TABLE RUNNERS_ORDER_COPY RENAME COLUMN distance_km_float TO distance_km;
+-- DURATION TO INT
+ALTER TABLE RUNNERS_ORDERS_COPY ADD COLUMN duration_int INT;
 
--- duration to INT type
-ALTER TABLE RUNNERS_ORDER_COPY ADD COLUMN duration_min_int INT;
+UPDATE RUNNERS_ORDERS_COPY
+SET duration_int = 
+    CASE
+        WHEN duration is NULL or duration like 'null' or TRIM(duration) = '' then null
+        ELSE TRY_CAST(REGEXP_REPLACE(duration,'[^0-9.]','') AS INT)
+    END;
 
-UPDATE RUNNERS_ORDER_COPY
-SET duration_min_int = CASE
-    WHEN TRIM(duration) = '' OR duration IS NULL or duration LIKE 'null' THEN NULL
-    ELSE TRY_CAST(REGEXP_REPLACE(duration, '[^0-9.]', '') AS INT)
-END;
+ALTER TABLE RUNNERS_ORDERS_COPY DROP COLUMN duration;
+ALTER TABLE RUNNERS_ORDERS_COPY RENAME COLUMN duration_int TO duration;
 
-ALTER TABLE RUNNERS_ORDER_COPY DROP COLUMN duration;
-ALTER TABLE RUNNERS_ORDER_COPY RENAME COLUMN duration_min_int TO duration_min;
-
--- cleaned runner_orders_table
-CREATE OR REPLACE TABLE runner_orders_cleaned AS
-SELECT order_id, runner_id, 
-  CASE 
-    WHEN cancellation IS NULL or cancellation LIKE 'null' THEN ''
-    ELSE cancellation 
-  END AS cancellation,
-  CASE 
-    WHEN pickup_time IS NULL or pickup_time LIKE 'null' THEN '9999-12-31 00:00:00' 
-    ELSE pickup_time 
+CREATE OR REPLACE TABLE RUNNERS_ORDERS_CLEANED AS
+SELECT order_id,runner_id,
+    CASE 
+       WHEN CANCELLATION is NULL or CANCELLATION like 'null' THEN ''
+       ELSE CANCELLATION
+    END AS CANCELLATION,
+    CASE 
+       WHEN pickup_time is NULL or pickup_time like 'null' THEN '9999-12-31 00:00:00'
+       ELSE pickup_time
     END AS pickup_time,
-  CASE 
-    WHEN distance_km IS NULL or distance_km LIKE 'null' THEN 0
-    ELSE distance_km 
-    END AS distance_km, 
-  CASE 
-    WHEN duration_min IS NULL or duration_min LIKE 'null' THEN 0
-    ELSE duration_min 
-  END AS duration_min   
-FROM RUNNERS_ORDER_COPY;
+    CASE 
+       WHEN distance is NULL or distance like 'null' THEN 0
+       ELSE distance
+    END AS distance,
+    CASE 
+       WHEN duration is NULL or duration like 'null' THEN 0
+       ELSE duration
+    END AS duration
+FROM RUNNERS_ORDERS_COPY;
 
-SELECT * FROM runner_orders_cleaned;
+DROP TABLE RUNNERS_ORDERS_COPY;
 
--- delete the backup table once cleaning done no need to keep it
-DROP TABLE RUNNERS_ORDER_COPY;
+-- CLEANING CUSTOMERS ORDER 
+CREATE OR REPLACE TABLE CUSTOMER_ORDERS_COPY AS
+SELECT * FROM CUSTOMER_ORDERS;
+
+CREATE OR REPLACE TABLE CUSTOMER_ORDERS_CLEANED AS
+SELECT
+      order_id,
+      customer_id,
+      pizza_id,
+      CASE 
+            WHEN exclusions is NULL or exclusions like 'null' THEN ''
+            ELSE exclusions
+      END AS exclusions,
+      CASE 
+             WHEN extras is NULL or extras like 'null' THEN ''
+             ELSE extras
+      END AS extras,
+      order_time
+FROM CUSTOMER_ORDERS_COPY;
+
+DROP TABLE CUSTOMER_ORDERS_COPY;
 
 -- A. Pizza Metrics
 -- 1.How many pizzas were ordered?
-SELECT COUNT(order_id) AS pizza_order_count
-FROM customer_orders_cleaned;
-
+SELECT COUNT(order_id) as total_pizza_ordered
+FROM CUSTOMER_ORDERS_CLEANED;
 
 -- 2.How many unique customer orders were made?
-SELECT COUNT(DISTINCT order_id) AS unique_order_count
-FROM customer_orders_cleaned;
-
+SELECT COUNT(distinct customer_id) as total_cust_ordered
+FROM CUSTOMER_ORDERS_CLEANED;
 
 -- 3.How many successful orders were delivered by each runner?
-SELECT runner_id, COUNT(order_id) AS successful_orders
-FROM runner_orders_cleaned
-WHERE distance_km != 0
-GROUP BY runner_id;
+SELECT runner_id,count(order_id) as tot_successful_orders
+FROM RUNNERS_ORDERS_CLEANED
+WHERE distance != 0
+group by 1
+order by 1;
 
 
 -- 4.How many of each type of pizza was delivered?
-SELECT p.pizza_name, COUNT(c.pizza_id) AS delivered_pizza_count
-FROM customer_orders_cleaned AS c
-JOIN runner_orders_cleaned AS r ON c.order_id = r.order_id
-JOIN pizza_names AS p ON c.pizza_id = p.pizza_id
-WHERE r.distance_km != 0
-GROUP BY p.pizza_name;
+SELECT
+     p.pizza_id,
+     p.pizza_name,
+     count(c.order_id) as total_pizza_delivered
+FROM RUNNERS_ORDERS_CLEANED as r
+JOIN customer_orders_cleaned as c ON r.order_id = c.order_id
+JOIN pizza_names as p on c.pizza_id = p.pizza_id
+WHERE r.distance != 0 
+GROUP BY 1,2
+ORDER BY 1,2;
 
 
 -- 5.How many Vegetarian and Meatlovers were ordered by each customer?
-SELECT c.customer_id, p.pizza_name, COUNT(p.pizza_name) AS order_count
-FROM customer_orders_cleaned AS c
-JOIN pizza_names AS p ON c.pizza_id= p.pizza_id
-GROUP BY c.customer_id, p.pizza_name
-ORDER BY c.customer_id;
+SELECT
+     c.customer_id,
+     p.pizza_name,
+     count(c.order_id) as total_pizza_delivered
+FROM customer_orders_cleaned as c
+JOIN pizza_names as p on c.pizza_id = p.pizza_id
+GROUP BY 1,2
+ORDER BY 1,2;
 
 
 -- 6.What was the maximum number of pizzas delivered in a single order?
-WITH pizza_count_cte AS
+with pizza_count_cte as
 (
- SELECT c.order_id, COUNT(c.pizza_id) AS pizza_per_order
- FROM customer_orders_cleaned AS c
- JOIN runner_orders_cleaned AS r ON c.order_id = r.order_id
- WHERE r.distance_km != 0
- GROUP BY c.order_id
+    select
+          c.order_id,
+          count(c.pizza_id) as pizza_per_order  
+    from customer_orders_cleaned as c
+    join runners_orders_cleaned as r on c.order_id = r.order_id
+    where distance != 0
+    group by c.order_id
+
 )
-
-SELECT MAX(pizza_per_order) AS pizza_count
-FROM pizza_count_cte;
-
-
+select max(pizza_per_order)as pizz_count
+from pizza_count_cte;
 
 -- 7.For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
-SELECT c.customer_id,
- SUM(CASE WHEN c.exclusions <> '' OR c.extras <> '' THEN 1 ELSE 0 END) AS at_least_1_change,
- SUM(CASE WHEN c.exclusions = '' AND c.extras = '' THEN 1 ELSE 0 END) AS no_change
-FROM customer_orders_cleaned AS c
-JOIN runner_orders_cleaned AS r ON c.order_id = r.order_id
-WHERE r.distance_km != 0
-GROUP BY c.customer_id
-ORDER BY c.customer_id;
+SELECT
+    c.customer_id,
+    SUM(CASE WHEN c.exclusions <> '' or c.extras <> '' then 1 else 0 end) as atleast_1_change,
+    SUM(CASE WHEN c.exclusions = '' AND c.extras = '' then 1 else 0 end) as no_change,
+from customer_orders_cleaned as c
+join runners_orders_cleaned as r on c.order_id = r.order_id
+where distance != 0
+group by 1
+order by 1;
 
 
 -- 8.How many pizzas were delivered that had both exclusions and extras?
-SELECT  
- SUM(CASE WHEN exclusions IS NOT NULL AND extras IS NOT NULL THEN 1 ELSE 0 END) AS pizza_count_w_exclusions_extras
-FROM customer_orders_cleaned AS c
-JOIN runner_orders_cleaned AS r ON c.order_id = r.order_id
-WHERE r.distance_km >= 1 AND exclusions <> '' AND extras <> '';
-
+SELECT
+    SUM(CASE 
+           WHEN c.exclusions IS NOT NULL AND c.extras IS NOT NULL THEN 1 
+           ELSE 0 END) as pizza_count_w_exclusions_extras
+from customer_orders_cleaned as c
+join runners_orders_cleaned as r on c.order_id = r.order_id
+where distance != 0 and exclusions <> '' and extras <> '';
 
 -- 9.What was the total volume of pizzas ordered for each hour of the day?
-SELECT DATE_PART(HOUR, order_time) AS hour_of_day, 
- COUNT(order_id) AS pizza_count
+SELECT
+      DATE_PART(HOUR,ORDER_TIME) AS hour_of_day,
+      count(pizza_id) as pizza_count
 FROM customer_orders_cleaned
-GROUP BY 1
-ORDER BY 1;
+group by 1
+order by 2 desc;
 
-
--- 10.What was the volume of orders for each day of the week?
-SELECT 
-     TO_CHAR(order_time, 'DY') AS day_of_week,
-     COUNT(order_id) AS total_pizzas_ordered
+-- What was the volume of orders for each day of the week?
+SELECT
+     TO_CHAR(ORDER_TIME,'DY') AS DAY_OF_WEEK,
+     COUNT(pizza_id) as tot_pizza_ordered
 FROM customer_orders_cleaned
-GROUP BY 1
-ORDER BY 2 DESC;
-
+group by 1,2
+order by 2 desc; 
 
 -- B. Runner and Customer Experience
 -- 1.How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
-SELECT EXTRACT(WEEK FROM registration_date) AS registration_week,
- COUNT(runner_id) AS runner_signup
-FROM runners
-GROUP BY 1;
 
+SELECT 
+    WEEK(DATE_TRUNC('WEEK', DATEADD(DAY, 3, registration_date))) AS week_start_date,
+    COUNT(runner_id) AS runners_signed_up
+FROM runners
+GROUP BY 1
+ORDER BY 1;
 
 -- 2.What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
-WITH time_taken_cte AS
+WITH TIME_TAKEN_CTE as
 (
- SELECT 
-    c.order_id,
-    r.runner_id,
-    c.order_time, 
-    r.pickup_time, 
-    DATEDIFF(MINUTE, c.order_time, r.pickup_time) AS pickup_minutes
- FROM customer_orders_cleaned AS c
- JOIN runner_orders_cleaned AS r ON c.order_id = r.order_id
- WHERE r.distance_km != 0
- GROUP BY 1,2,3,4
+    SELECT
+       c.order_id,
+       r.runner_id,
+       c.order_time,
+       r.pickup_time,
+       DATEDIFF(MINUTE,c.order_time,r.pickup_time) as pickup_min
+    from customer_orders_cleaned as c
+    join runners_orders_cleaned as r on c.order_id = r.order_id
+    where r.distance != 0
+    group by 1,2,3,4
 )
 
-SELECT runner_id,ROUND(AVG(pickup_minutes),0) AS avg_pickup_minutes
-FROM time_taken_cte
-group by 1
+select runner_id,ROUND(AVG(pickup_min),0) as avg_pickup_min
+from TIME_TAKEN_CTE
+group by 1 
 order by 1;
 
 -- 3.Is there any relationship between the number of pizzas and how long the order takes to prepare?
 WITH prep_time_cte AS
 (
- SELECT 
-    c.order_id, 
-    c.order_time, 
-    r.pickup_time, 
-    DATEDIFF(MINUTE, c.order_time, r.pickup_time) AS prep_time_minutes,
-    COUNT(c.order_id) AS pizza_order,
- FROM customer_orders_cleaned AS c
- JOIN runner_orders_cleaned AS r ON c.order_id = r.order_id
- WHERE r.distance_km != 0
- GROUP BY c.order_id, c.order_time, r.pickup_time
-)
+    SELECT
+       c.order_id,
+       c.order_time,
+       r.pickup_time,
+       DATEDIFF(MINUTE,c.order_time,r.pickup_time) as prep_time_min,
+       COUNT(c.pizza_id) as pizza_order
+    from customer_orders_cleaned as c
+    join runners_orders_cleaned as r on c.order_id = r.order_id
+    where r.distance != 0
+    group by 1,2,3
 
-SELECT pizza_order, ROUND(AVG(prep_time_minutes),0) AS avg_prep_time_minutes
-FROM prep_time_cte
-GROUP BY pizza_order;
+)
+select pizza_order,ROUND(AVG(prep_time_min),0) as avg_prep_time_min
+from prep_time_cte
+group by 1;
+
 
 -- 4.What was the average distance travelled for each customer?
+    SELECT
+       c.customer_id,
+       ROUND(AVG(r.distance),0) as avg_distnace_km
+    from customer_orders_cleaned as c
+    join runners_orders_cleaned as r on c.order_id = r.order_id
+    where r.distance != 0
+    group by 1
+    order by 2 desc;
 
-SELECT c.customer_id, ROUND(AVG(r.distance_km),0) AS avg_distance_km
-FROM customer_orders_cleaned AS c
-JOIN runner_orders_cleaned AS r ON c.order_id = r.order_id
-WHERE r.duration_min != 0
-GROUP BY c.customer_id
-ORDER BY 1;
 
 -- 5.What was the difference between the longest and shortest delivery times for all orders?
-
 SELECT 
-    MAX(duration_min) - MIN(duration_min) AS delivery_time_difference
-FROM 
+    MAX(duration) -  MIN(duration) as delivery_time_diff
+    FROM
     (
-    SELECT order_id, duration_min
-    FROM runner_orders_cleaned
-    WHERE duration_min != 0
+       SELECT order_id,duration
+       from runners_orders_cleaned
+       where duration !=0
     );
 
 -- 6.What was the average speed for each runner for each delivery and do you notice any trend for these values?
-SELECT 
-    r.runner_id, 
-    c.customer_id, 
-    c.order_id,  
-    r.distance_km, 
-    r.duration_min,
-    (r.duration_min / 60) AS duration_hr , 
-    ROUND((r.distance_km/r.duration_min * 60), 2) AS avg_speed,
-    COUNT(c.order_id) AS pizza_count
-FROM runner_orders_cleaned AS r
-JOIN customer_orders_cleaned AS c ON r.order_id = c.order_id
-WHERE distance_km != 0
-GROUP BY 1,2,3,4,5,6,7
-ORDER BY c.order_id;
+SELECT
+    r.runner_id,
+    c.customer_id,
+    c.order_id,
+    r.distance as distance_km,
+    r.duration as duration_min,
+    (r.duration / 60) as duration_hr,
+    ROUND(r.distance/r.duration * 60,2) as avg_speed,
+    COUNT(c.order_id) as pizza_count
+    from customer_orders_cleaned as c
+    join runners_orders_cleaned as r on c.order_id = r.order_id
+    where r.distance != 0
+    group by 1,2,3,4,5,6,7;
+
 
 -- 7.What is the successful delivery percentage for each runner?
-SELECT 
-    runner_id, 
-    ROUND(100 * SUM(CASE WHEN distance_km = 0 THEN 0 ELSE 1 END) / COUNT(*), 0) AS success_perc
-FROM runner_orders_cleaned
-GROUP BY runner_id;
+SELECT
+     runner_id,
+     ROUND(100 * SUM(CASE WHEN distance !=0 then 1 else 0 end)/ count(*),0) as success_perc
+FROM runners_orders_cleaned
+group by 1;
 
 --C. Ingredient Optimisation
--- What are the standard ingredients for each pizza?
+-- clening required
+/*Data cleaning for this part
+Cleaning pizza_recipes table by creating a clean temp table
+Splitting comma delimited lists into rows
+RTRIM :         Used to remove all whitespace characters from the trailing position (right positions) of the string.
+String_split : A table-valued function that splits a string into rows of substrings, based on a specified separator character.
+*/
+
+SELECT 
+       pizza_id, 
+       RTRIM(topping_id.value) as topping_id,
+       topping_name 
+FROM pizza_recipes pp
+--CROSS APPLY string_split(p.toppings, ',') as topping_id
+INNER JOIN pizza_toppings pt ON TRIM(topping_id.value) = p2.topping_id;
+
+
+
+-- 1.What are the standard ingredients for each pizza?
+SELECT pizza_id, String_agg(topping_name,',') as Standard_toppings
+FROM #pizza_recipes
+GROUP BY pizza_id;
 
 
 -- What was the most commonly added extra?
+select 
+    e.topping_id, 
+    p.topping_name, 
+    count(*) as extra_toppings_time 
+from extras e 
+inner join pizza_toppings p on e.topping_id = p.topping_id
+group by e.topping_id, p.topping_name
+order by(count(*)) desc;
+
 
 -- What was the most common exclusion?
+
 
 
 -- Generate an order item for each record in the customers_orders table in the format of one of the following:
@@ -434,7 +452,25 @@ GROUP BY runner_id;
 
 
 -- The Pizza Runner team now wants to add an additional ratings system that allows customers to rate their runner, how would you design an additional table for this new dataset - generate a schema for this new table and insert your own data for ratings for each successful customer order between 1 to 5.
--- Using your newly generated table - can you join all of the information together to form a table which has the following information for successful deliveries?
+CREATE OR REPLACE TABLE ratings 
+ (order_id INTEGER,
+  rating INTEGER);
+INSERT INTO ratings
+ (order_id ,rating)
+VALUES 
+(1,3),
+(2,4),
+(3,5),
+(4,2),
+(5,1),
+(6,3),
+(7,4),
+(8,1),
+(9,3),
+(10,5); 
+SELECT * from ratings;
+
+-- 4.Using your newly generated table - can you join all of the information together to form a table which has the following information for successful deliveries?
 -- customer_id
 -- order_id
 -- runner_id
@@ -446,9 +482,41 @@ GROUP BY runner_id;
 -- Average speed
 -- Total number of pizzas
 
--- If a Meat Lovers pizza was $12 and Vegetarian $10 fixed prices with no cost for extras and each runner is paid $0.30 per kilometre traveled - how much 
--- money does Pizza Runner have left over after these deliveries?
+SELECT 
+        c.customer_id,
+        c.order_id, 
+        ro.runner_id, 
+        r.rating, 
+        c.order_time, 
+        ro.pickup_time, 
+        DATEDIFF(MINUTE, c.order_time, ro.pickup_time) AS time_order_pickup,
+        ro.duration, 
+        round(avg(ro.distance/ro.duration*60),2) as avg_Speed, 
+        COUNT(c.pizza_id) AS Pizza_Count
+FROM customer_orders_cleaned AS c
+LEFT JOIN runners_orders_cleaned ro ON c.order_id = ro.order_id 
+LEFT JOIN ratings r ON c.order_id = r.order_id
+WHERE ro.distance != 0
+GROUP BY 1,2, 3,4,5, 6,7,8
+ORDER BY c.customer_id;
 
+
+-- 5.If a Meat Lovers pizza was $12 and Vegetarian $10 fixed prices with no cost for extras and each runner is paid $0.30 per kilometre traveled - -- how much money does Pizza Runner have left over after these deliveries?
+WITH pizza_price_cte as(
+    select 
+        cu.order_id,
+        sum(case when pizza_name = 'Meatlovers' THEN 12 else 10 end )as pizza_price
+    from pizza_names AS pn
+    join customer_orders_cleaned cu on cu.pizza_id = pn.pizza_id
+group by cu.order_id
+)
+select  
+    sum(pp.pizza_price) as revenue,
+    sum(r.distance*0.3) as total_cost,
+    sum(pp.pizza_price) - sum( r.distance*0.3) as profit
+from  runners_orders_cleaned as r 
+join pizza_price_cte as pp on r.order_id = pp.order_id
+where r.distance != 0;
 
 
 -- E. Bonus Questions
