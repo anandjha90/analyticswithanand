@@ -395,8 +395,8 @@ group by 1;
 /*Data cleaning for this part
 Cleaning pizza_recipes table by creating a clean temp table
 Splitting comma delimited lists into rows
-RTRIM :         Used to remove all whitespace characters from the trailing position (right positions) of the string.
-String_split : A table-valued function that splits a string into rows of substrings, based on a specified separator character.
+LATERAL FALTTEN for transforming columns into individual rows
+SPLIT : A table-valued function that splits a string into rows of substrings, based on a specified separator character.
 */
 
 CREATE OR REPLACE TABLE PIZZA_RECIPES_CLEANED AS
@@ -416,23 +416,35 @@ FROM PIZZA_RECIPES_CLEANED as pr
 INNER JOIN PIZZA_TOPPINGS as pt ON pr.topping_ID = pt.topping_id
 INNER JOIN PIZZA_NAMES AS pn ON pr.pizza_id = pn.pizza_id;
 
+-- with extras and exclusions 
+CREATE OR REPLACE TABLE CUSTOMER_ORDERS_CLEANED_WITH_EXT_EXC AS
+SELECT 
+    customer_id,
+    order_id,
+    PIZZA_ID,
+    TRIM(exc.VALUE::STRING) AS EXCLUSIONS_TOPPINGS_ID,
+    TRIM(ext.VALUE::STRING) AS EXTRAS_TOPPINGS_ID,
+    ORDER_TIME
+FROM customer_orders_cleaned,
+LATERAL FLATTEN(INPUT => SPLIT(exclusions, ',')) AS exc,
+LATERAL FLATTEN(INPUT => SPLIT(extras, ',')) AS ext
+ORDER BY customer_id,order_id;
 
 
 -- 1.What are the standard ingredients for each pizza?
-SELECT pizza_id, String_agg(topping_name,',') as Standard_toppings
-FROM #pizza_recipes
-GROUP BY pizza_id;
+SELECT * FROM PIZZA_INFO;
 
 
--- What was the most commonly added extra?
-select 
-    e.topping_id, 
-    p.topping_name, 
-    count(*) as extra_toppings_time 
-from extras e 
-inner join pizza_toppings p on e.topping_id = p.topping_id
-group by e.topping_id, p.topping_name
-order by(count(*)) desc;
+-- 2.What was the most commonly added extra?
+SELECT
+   extras_toppings_id,pt.topping_name,count(distinct order_id) as most_likely_extra_toppings_count
+FROM 
+    CUSTOMER_ORDERS_CLEANED_WITH_EXT_EXC as cocee
+LEFT JOIN 
+    PIZZA_TOPPINGS as pt ON cocee.extras_toppings_id = pt.topping_id
+WHERE extras_toppings_id <> ''  
+GROUP BY 1,2
+ORDER BY 3 DESC;
 
 
 -- What was the most common exclusion?
@@ -462,7 +474,7 @@ on cu.pizza_id = p1.pizza_id
 select cu.record_id, CONCAT(c.pizza_name +':' ,STRING_AGG(topping, ',' )) as list from #customer_orders cu inner join cte c
 on cu.record_id = c.record_id
 group by cu. record_id,c.pizza_name
-order by cu.record_id
+order by cu.record_id;
 
 -- 6.What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
 WITH INGREDIENT_CTE AS (
