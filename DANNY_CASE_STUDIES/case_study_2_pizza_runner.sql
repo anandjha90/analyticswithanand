@@ -430,6 +430,33 @@ LATERAL FLATTEN(INPUT => SPLIT(exclusions, ',')) AS exc,
 LATERAL FLATTEN(INPUT => SPLIT(extras, ',')) AS ext
 ORDER BY customer_id,order_id;
 
+-- Complete customer details
+CREATE OR REPLACE TABLE CUSTOMER_ORDERS_FINAL AS
+SELECT distinct
+      co.customer_id,
+      co.order_id,
+      co.order_time,
+      co.pizza_id,
+      pn.pizza_name,
+      co.exclusions_toppings_id,
+      pi1.topping_name AS EXCLUSIONS_NAME,
+      co.extras_toppings_id,
+      pi2.topping_name AS EXTRAS_NAME
+FROM CUSTOMER_ORDERS_CLEANED_WITH_EXT_EXC AS co
+LEFT JOIN PIZZA_INFO as pi1 ON co.exclusions_toppings_id = pi1.topping_id 
+LEFT JOIN PIZZA_INFO as pi2 ON co.extras_toppings_id = pi2.topping_id
+LEFT JOIN PIZZA_NAMES as pn ON co.pizza_id = pn.pizza_id
+ORDER BY co.customer_id, co.order_id;
+
+-- Updating Null with blank values
+UPDATE CUSTOMER_ORDERS_FINAL
+SET EXCLUSIONS_NAME = '' WHERE EXCLUSIONS_NAME IS NULL;
+
+UPDATE CUSTOMER_ORDERS_FINAL
+SET EXTRAS_NAME = '' WHERE EXTRAS_NAME IS NULL;
+
+select * from customer_orders_final
+order by customer_id,order_id;
 
 -- 1.What are the standard ingredients for each pizza?
 SELECT * FROM PIZZA_INFO;
@@ -437,24 +464,16 @@ SELECT * FROM PIZZA_INFO;
 
 -- 2.What was the most commonly added extra?
 SELECT
-   extras_toppings_id,pt.topping_name,count(distinct order_id) as most_likely_extra_count
-FROM 
-    CUSTOMER_ORDERS_CLEANED_WITH_EXT_EXC as cocee
-LEFT JOIN 
-    PIZZA_TOPPINGS as pt ON cocee.extras_toppings_id = pt.topping_id
-WHERE extras_toppings_id <> ''  
+   extras_toppings_id,extras_name,count(distinct order_id) as most_likely_extra_count
+FROM customer_orders_final
 GROUP BY 1,2
 ORDER BY 3 DESC;
 
 
 -- 3.What was the most common exclusion?
 SELECT
-   exclusions_toppings_id,pt.topping_name,count(distinct order_id) as most_likely_exclusions_count
-FROM 
-    CUSTOMER_ORDERS_CLEANED_WITH_EXT_EXC as cocee
-LEFT JOIN 
-    PIZZA_TOPPINGS as pt ON cocee.exclusions_toppings_id = pt.topping_id
-WHERE exclusions_toppings_id <> ''  
+   exclusions_toppings_id,exclusions_name,count(distinct order_id) as most_likely_exclusions_count
+FROM customer_orders_final
 GROUP BY 1,2
 ORDER BY 3 DESC;
 
@@ -471,6 +490,8 @@ ORDER BY 3 DESC;
 
 
 -- 6.What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
+
+
 
 
 -- D. Pricing and Ratings
