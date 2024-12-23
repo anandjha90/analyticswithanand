@@ -402,7 +402,7 @@ SPLIT : A table-valued function that splits a string into rows of substrings, ba
 CREATE OR REPLACE TABLE PIZZA_RECIPES_CLEANED AS
 SELECT 
     PIZZA_ID,
-    TRIM(VALUE::INT) AS TOPPING_ID,
+    TRIM(VALUE::INT) AS TOPPING,
 FROM pizza_recipes,
 LATERAL FLATTEN(INPUT => SPLIT(TOPPINGS, ','));
 
@@ -459,10 +459,10 @@ UPDATE CUSTOMER_ORDERS_FINAL
 SET EXTRAS_NAME = 'NA' WHERE EXTRAS_NAME IS NULL;
 
 UPDATE CUSTOMER_ORDERS_FINAL
-SET EXCLUSIONS_TOPPINGS_ID = 'NA' WHERE EXCLUSIONS_TOPPINGS_ID = '';
+SET EXCLUSIONS_TOPPINGS_ID = 0 WHERE EXCLUSIONS_TOPPINGS_ID = '';
 
 UPDATE CUSTOMER_ORDERS_FINAL
-SET EXTRAS_TOPPINGS_ID = 'NA' WHERE EXTRAS_TOPPINGS_ID = '';
+SET EXTRAS_TOPPINGS_ID = 0 WHERE EXTRAS_TOPPINGS_ID = '';
 
 select * from customer_orders_final
 order by customer_id,order_id;
@@ -509,7 +509,7 @@ SELECT * FROM PIZZA_INFO;
 
 -- 2.What was the most commonly added extra?
 SELECT
-   extras_toppings_id,extras_name,count(distinct order_id) as most_likely_extra_count
+   extras_toppings_id,extras_name,count(order_id) as most_likely_extra_count
 FROM customer_orders_final
 GROUP BY 1,2
 ORDER BY 3 DESC;
@@ -517,7 +517,7 @@ ORDER BY 3 DESC;
 
 -- 3.What was the most common exclusion?
 SELECT
-   exclusions_toppings_id,exclusions_name,count(distinct order_id) as most_likely_exclusions_count
+   exclusions_toppings_id,exclusions_name,count(order_id) as most_likely_exclusions_count
 FROM customer_orders_final
 GROUP BY 1,2
 ORDER BY 3 DESC;
@@ -534,15 +534,138 @@ ORDER BY 3 DESC;
 -- For example: "Meat Lovers: 2xBacon, Beef, ... , Salami"
 
 
+
 -- 6.What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
-SELECT 
-     co.order_id,
-     
+select *,
+        CASE
+            WHEN EXTRAS_TOPPINGS_ID > 0 AND EXCLUSIONS_TOPPINGS_ID > 0 
+                THEN (ingredients_count - len(exclusions_toppings_id) + len(extras_toppings_id)) 
+            WHEN EXTRAS_TOPPINGS_ID = 0 AND EXCLUSIONS_TOPPINGS_ID > 0
+                THEN (ingredients_count - len(exclusions_toppings_id)) 
+            WHEN EXTRAS_TOPPINGS_ID > 0 AND EXCLUSIONS_TOPPINGS_ID = 0
+                THEN (ingredients_count + len(extras_toppings_id)) 
+            ELSE 
+                ingredients_count
+         END AS net_ingredients ,
+        '12' as tot_distinct_ingredients       
+from customer_orders_final
+order by customer_id,order_id;
+
+select * from customer_orders_final;
+
+select * from pizza_info
+cross join customer_orders_final;
+
+--CREATE OR REPLACE TABLE PIZZA_INGREDIENTS_TOTAL_COUNTS AS
+with pizza_ingredients_info AS
+(
+select 
+    co.customer_id,
+    co.order_id,
+    co.pizza_id,
+    co.pizza_name,
+    co.ingredients_list,
+    co.exclusions_toppings_id,
+    co.exclusions_name,
+    co.extras_toppings_id,
+    co.extras_name,
+    pii.topping_id,
+    pii.topping_name,
+    CASE
+            WHEN EXTRAS_TOPPINGS_ID > 0 AND EXCLUSIONS_TOPPINGS_ID > 0 
+                THEN (ingredients_count - len(exclusions_toppings_id) + len(extras_toppings_id)) 
+            WHEN EXTRAS_TOPPINGS_ID = 0 AND EXCLUSIONS_TOPPINGS_ID > 0
+                THEN (ingredients_count - len(exclusions_toppings_id)) 
+            WHEN EXTRAS_TOPPINGS_ID > 0 AND EXCLUSIONS_TOPPINGS_ID = 0
+                THEN (ingredients_count + len(extras_toppings_id)) 
+            ELSE 
+                ingredients_count
+         END AS net_ingredients 
 FROM customer_orders_final as co
-INNER JOIN runners_orders_cleaned r on co.order_id = r.order_id
-where r.distance != 0;
+LEFT JOIN pizza_info as pii ON co.pizza_id = pii.pizza_id
+order by 1,2,6
+)
+
+SELECT topping_id,topping_name,count(order_id) as total_quantity 
+from pizza_ingredients_info
+group by 1,2
+order by 3 desc;
+
+CREATE OR REPLACE TABLE incl_exc_pizza_toppings as
+WITH extras_cte as
+(
+SELECT
+   extras_toppings_id,extras_name,count(order_id) as most_likely_extra_count
+FROM customer_orders_final
+GROUP BY 1,2
+ORDER BY 3 DESC
+),
+
+exclusions_cte as
+(
+SELECT
+   exclusions_toppings_id,exclusions_name,count(order_id) as most_likely_exclusions_count
+FROM customer_orders_final
+GROUP BY 1,2
+ORDER BY 3 DESC
+)
+
+SELECT 
+      extras_toppings_id,
+      extras_name,
+      exclusions_toppings_id,
+      exclusions_name,
+      most_likely_extra_count,
+      (most_likely_exclusions_count * -1) AS most_likely_exclusions_count,
+      (most_likely_extra_count + (most_likely_exclusions_count * -1)) as net_toppings
+FROM
+    extras_cte as ext
+FULL OUTER JOIN 
+    exclusions_cte as exc ON ext.extras_toppings_id = exc.exclusions_toppings_id;
+
+UPDATE INCL_EXC_PIZZA_TOPPINGS
+SET most_likely_extra_count = 0 WHERE most_likely_extra_count IS NULL;
+
+UPDATE INCL_EXC_PIZZA_TOPPINGS
+SET most_likely_exclusions_count = 0 WHERE most_likely_exclusions_count IS NULL;
+
+CREATE OR REPLACE TABLE  incl_exc_pizza_toppings_CLEANED
+AS
+   SELECT 
+     EXTRAS_TOPPINGS_ID,
+     EXTRAS_NAME,
+     EXCLUSIONS_TOPPINGS_ID,
+     EXCLUSIONS_NAME,
+     MOST_LIKELY_EXTRA_COUNT,
+     MOST_LIKELY_EXCLUSIONS_COUNT,
+     MOST_LIKELY_EXTRA_COUNT + MOST_LIKELY_EXCLUSIONS_COUNT AS NET_TOPPINGS
+   FROM INCL_EXC_PIZZA_TOPPINGS;
 
 
+-- union of exclusions & inclusions
+-- SELECT
+CREATE OR REPLACE TABLE INC_EXC_TOPPINGS AS
+SELECT extras_toppings_id AS TOPPINGS_ID,extras_name AS TOPPINGS_NAME,count(order_id) as toppings_used_count
+FROM customer_orders_final
+GROUP BY 1,2
+
+MINUS
+
+SELECT
+   exclusions_toppings_id,exclusions_name,count(order_id) as most_likely_exclusions_count
+FROM customer_orders_final
+GROUP BY 1,2
+ORDER BY 3 DESC;
+
+
+SELECT
+    pitc.topping_id,
+    pitc.topping_name,
+    pitc.total_quantity,
+    pitc.total_quantity - iet.toppings_used_count as total_ingredients_consumed
+FROM PIZZA_INGREDIENTS_TOTAL_COUNTS as pitc
+LEFT JOIN INC_EXC_TOPPINGS as iet ON pitc.topping_id = iet.toppings_id
+order by pitc.total_quantity DESC;
 
 -- D. Pricing and Ratings
 -- 1.If a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes - how much money has Pizza Runner made so far if there are no delivery fees?
@@ -561,7 +684,7 @@ join pizza_cost_cte pc on cu.pizza_id = pc.pizza_id
 where r.distance != 0;
 
 
--- 2.What if there was an additional $1 charge for any pizza extras? Add cheese is $1 extra
+-- 2.What if there was an additional $5 charge for any pizza extras? Add cheese is $1 extra
 with pizza_cost as 
 (
     select 
@@ -575,7 +698,7 @@ pizza_extras as
     select 
             extras,
             len(replace(cu.extras,', ','' )) as extras_count,
-            case when extras = '' then pc.cost else pc.cost + len(replace(cu.extras,', ','' )) end as pizza_cost
+            case when extras = '' then pc.cost else pc.cost + len(replace(cu.extras,', ','' )) * 5 end as pizza_cost
     from customer_orders_cleaned cu 
     inner join pizza_cost pc on cu.pizza_id = pc.pizza_id
     inner join runners_orders_cleaned r on cu.order_id = r.order_id
