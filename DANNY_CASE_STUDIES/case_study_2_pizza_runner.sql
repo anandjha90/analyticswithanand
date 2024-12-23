@@ -438,6 +438,8 @@ SELECT distinct
       co.order_time,
       co.pizza_id,
       pn.pizza_name,
+      pi3.toppings as ingredients_list,
+      pi3.ingredients_count,
       co.exclusions_toppings_id,
       pi1.topping_name AS EXCLUSIONS_NAME,
       co.extras_toppings_id,
@@ -446,6 +448,7 @@ FROM CUSTOMER_ORDERS_CLEANED_WITH_EXT_EXC AS co
 LEFT JOIN PIZZA_INFO as pi1 ON co.exclusions_toppings_id = pi1.topping_id 
 LEFT JOIN PIZZA_INFO as pi2 ON co.extras_toppings_id = pi2.topping_id
 LEFT JOIN PIZZA_NAMES as pn ON co.pizza_id = pn.pizza_id
+LEFT JOIN PIZZA_INGREDIENTS as pi3 ON co.pizza_id = pi3.pizza_id
 ORDER BY co.customer_id, co.order_id;
 
 -- Updating Null with blank values
@@ -463,6 +466,42 @@ SET EXTRAS_TOPPINGS_ID = 'NA' WHERE EXTRAS_TOPPINGS_ID = '';
 
 select * from customer_orders_final
 order by customer_id,order_id;
+
+CREATE OR REPLACE TABLE PIZZA_INGREDIENTS AS
+SELECT * ,LENGTH(toppings) - LENGTH(REPLACE(toppings, ',', '')) + 1 AS ingredients_count
+FROM pizza_names
+NATURAL JOIN pizza_recipes;
+
+-- ingredients name with id 
+WITH expanded_toppings AS (
+    SELECT 
+        pr.pizza_id,
+        pt.topping_id,
+        pt.topping_name
+    FROM pizza_recipes pr
+    CROSS JOIN LATERAL FLATTEN(input => SPLIT(pr.toppings, ',')) AS f
+    JOIN pizza_toppings pt ON pt.topping_id = f.VALUE::INTEGER
+)
+SELECT 
+    pizza_id,
+    LISTAGG(CONCAT('(', topping_id, ', \'', topping_name, '\')'), ', ') AS ingredients_list
+FROM expanded_toppings
+GROUP BY pizza_id;
+
+-- -- ingredients name without id 
+WITH expanded_toppings AS (
+    SELECT 
+        pr.pizza_id,
+        pt.topping_name
+    FROM pizza_recipes pr
+    CROSS JOIN LATERAL FLATTEN(input => SPLIT(pr.toppings, ',')) AS f
+    JOIN pizza_toppings pt ON pt.topping_id = f.VALUE::INTEGER
+)
+SELECT 
+    pizza_id,
+    LISTAGG(CONCAT('\'', topping_name, '\''), ', ') AS ingredients_list
+FROM expanded_toppings
+GROUP BY pizza_id;
 
 -- 1.What are the standard ingredients for each pizza?
 SELECT * FROM PIZZA_INFO;
@@ -496,7 +535,12 @@ ORDER BY 3 DESC;
 
 
 -- 6.What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first?
-
+SELECT 
+     co.order_id,
+     
+FROM customer_orders_final as co
+INNER JOIN runners_orders_cleaned r on co.order_id = r.order_id
+where r.distance != 0;
 
 
 
@@ -537,7 +581,7 @@ pizza_extras as
     inner join runners_orders_cleaned r on cu.order_id = r.order_id
 where r.distance != 0
 )
---select * from cte2;
+--select * from pizza_extras;
 select sum(pizza_cost) as total from pizza_extras;
 
 
@@ -611,4 +655,16 @@ where r.distance != 0;
 
 -- E. Bonus Questions
 -- If Danny wants to expand his range of pizzas - how would this impact the existing data design? Write an INSERT statement to demonstrate what would happen --  if a new Supreme pizza with all the toppings was added to the Pizza Runner menu?
+INSERT INTO pizza_names
+  (pizza_id, pizza_name)
+VALUES
+  (3, 'Supreme pizza');
+  
+INSERT INTO pizza_recipes
+  (pizza_id, toppings)
+VALUES
+  (3, '1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12');
+
+
+
 
