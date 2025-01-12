@@ -1,0 +1,6 @@
+create or replace file format csv_file_format
+    type = 'csv' 
+    compression = 'none' 
+    field_delimiter = ','
+    field_optionally_enclosed_by = 'none'
+    skip_header = 1 ;  
