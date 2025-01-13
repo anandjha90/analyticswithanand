@@ -68,9 +68,41 @@ add row access policy analytics.hr.country_role_policy on (country);
 -- Create Custom Roles and their Role Hierarchy
 use role SECURITYADMIN;
 
+drop role DATA_ANALYST_ROLE_US;
+drop role DATA_ANALYST_ROLE_UK;
+drop role DATA_ANALYST_ROLE_CA;
+
+
 create or replace role DATA_ANALYST_ROLE_US;
 create or replace role DATA_ANALYST_ROLE_UK;
 create or replace role DATA_ANALYST_ROLE_CA;
+
+-- For TONY User
+CREATE USER user_tony
+PASSWORD = 'Tony123!'
+DEFAULT_ROLE = admin_role
+DEFAULT_WAREHOUSE = compute_wh
+MUST_CHANGE_PASSWORD = TRUE;  -- User will be prompted to change the password on first login
+
+-- For STEVE User
+CREATE USER user_steve
+PASSWORD = 'Steve123!'
+DEFAULT_ROLE = region_manager_role
+DEFAULT_WAREHOUSE = compute_wh
+MUST_CHANGE_PASSWORD = TRUE;
+
+-- -- For BRUCE User
+CREATE USER user_bruce
+PASSWORD = 'Bruce123!'
+DEFAULT_ROLE = department_user_role
+DEFAULT_WAREHOUSE = compute_wh
+MUST_CHANGE_PASSWORD = TRUE;
+-- Assign Custom Roles to Users
+use role SECURITYADMIN;
+
+grant role DATA_ANALYST_ROLE_US to user user_tony;
+grant role DATA_ANALYST_ROLE_UK to user user_steve;
+grant role DATA_ANALYST_ROLE_CA to user user_bruce;
 
 -- The below SQL statements assigns the custom roles to the role SYSADMIN so that the SYSADMIN can inherit all the privileges assigned to custom role.
 
@@ -102,13 +134,6 @@ grant usage on warehouse DEMO_WAREHOUSE to role DATA_ANALYST_ROLE_US;
 grant usage on warehouse DEMO_WAREHOUSE to role DATA_ANALYST_ROLE_UK;
 grant usage on warehouse DEMO_WAREHOUSE to role DATA_ANALYST_ROLE_CA;
 
-
--- Assign Custom Roles to Users
-use role SECURITYADMIN;
-
-grant role DATA_ANALYST_ROLE_US to user TONY;
-grant role DATA_ANALYST_ROLE_UK to user STEVE;
-grant role DATA_ANALYST_ROLE_CA to user BRUCE;
 
 -- Query and verify Row-Level Security on table using custom roles
 USE ROLE DATA_ANALYST_ROLE_US;
