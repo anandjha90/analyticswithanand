@@ -72,7 +72,6 @@ drop role DATA_ANALYST_ROLE_US;
 drop role DATA_ANALYST_ROLE_UK;
 drop role DATA_ANALYST_ROLE_CA;
 
-
 create or replace role DATA_ANALYST_ROLE_US;
 create or replace role DATA_ANALYST_ROLE_UK;
 create or replace role DATA_ANALYST_ROLE_CA;
@@ -81,22 +80,23 @@ create or replace role DATA_ANALYST_ROLE_CA;
 CREATE USER user_tony
 PASSWORD = 'Tony123!'
 DEFAULT_ROLE = admin_role
-DEFAULT_WAREHOUSE = compute_wh
+DEFAULT_WAREHOUSE = DEMO_WAREHOUSE
 MUST_CHANGE_PASSWORD = TRUE;  -- User will be prompted to change the password on first login
 
 -- For STEVE User
 CREATE USER user_steve
 PASSWORD = 'Steve123!'
 DEFAULT_ROLE = region_manager_role
-DEFAULT_WAREHOUSE = compute_wh
+DEFAULT_WAREHOUSE = DEMO_WAREHOUSE
 MUST_CHANGE_PASSWORD = TRUE;
 
 -- -- For BRUCE User
 CREATE USER user_bruce
 PASSWORD = 'Bruce123!'
 DEFAULT_ROLE = department_user_role
-DEFAULT_WAREHOUSE = compute_wh
+DEFAULT_WAREHOUSE = DEMO_WAREHOUSE
 MUST_CHANGE_PASSWORD = TRUE;
+
 -- Assign Custom Roles to Users
 use role SECURITYADMIN;
 
