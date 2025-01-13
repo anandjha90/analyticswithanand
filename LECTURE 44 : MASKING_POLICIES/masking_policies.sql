@@ -54,6 +54,7 @@ GRANT SELECT ON TABLE customer_data TO ROLE admin_role;
 -- Grant limited access to limited user role : Masked Access
 GRANT SELECT ON TABLE customer_data TO ROLE limited_user_role;
 
+
 grant usage on warehouse DEMO_WAREHOUSE to role admin_role;
 grant usage on warehouse DEMO_WAREHOUSE to role limited_user_role;
 
@@ -65,9 +66,17 @@ grant usage on database DEMO_DATABASE to role limited_user_role;
 grant usage on schema DEMO_SCHEMA to role limited_user_role;
 grant select on all tables in schema DEMO_DATABASE.DEMO_SCHEMA to role limited_user_role;
     
--- USE ROLE admin_role by logging into respective user with username and password;
+USE ROLE admin_role;
 SELECT id, customer_name, credit_card_number, email, region FROM customer_data;
 
--- USE ROLE limited_user_role by logging into respective user with username and password;
+USE ROLE limited_user_role;
 SELECT id, customer_name, credit_card_number, email, region FROM customer_data;
 
+-- check current role
+SELECT CURRENT_ROLE();
+
+-- check masking policies
+SHOW MASKING POLICIES;
+
+-- check grants on tables
+SHOW GRANTS ON TABLE customer_data;
