@@ -75,17 +75,23 @@ cte_toolID_6 AS (
     FROM cte_toolID_2 -- as per ToolID = "2" as specified in connection parameteres 
 ),
 
--- For ToolID = "16"  
-cte_toolID_16 AS (
-    SELECT
-        "Business Unit",
-        "Subseg0",
-        "Subseg",
-        "Incr (Decr) IBNR",
-        "Field_37_22" AS "*Unknown"      
-    FROM
-        cte_toolID_6
+-- For ToolID = "6"  
+cte_toolID_6 AS (
+    SELECT 
+      "Field_33" AS "Subseg0",               -- renaming as per ToolID = "7" 
+      SUBSTRING(Field_37,3,3) AS "Subseg"    -- & filtering as per TOOLID = "9" as specified in connection parameteres
+      'PL' AS "Business Unit"                -- & filtering as per TOOLID = "9" adding PL as Business UnitJust
+      "Anticipated Net", "Field_37_2", "Field_37_3", "Full Year Plan (Net)", "Field_37_4", "Field_37_5", "Incr (Decr) IBNR",
+      "Field_37_6", "Ending GL", "Field_37_7", "Current GL (Direct)",
+      "Field_37_8", "Field_37_9", "Desired Direct", "Field_37_10", "Full Year Plan (Direct)", "Field_37_11", "Field_37_12",
+      "Incr (Decr) IBNR2","Field_37_13", "Ending GL2", "Field_37_14","Current GL (Ceded)", "Field_37_15", "Field_37_16", "Desired Ceded", "Field_37_17",
+      "Full Year Plan (Ceded)", "Field_37_18", "Field_37_19", 
+      "Incr (Decr) IBNR3" AS "Incr (Decr) IBNR" ,   -- renaming as per ToolID = "7" as specified in connection parameteres
+      "Field_37_20",
+      "Ending GL3", "Field_37_21", "Field_37_22"
+    FROM cte_toolID_2 -- as per ToolID = "2" as specified in connection parameteres 
 ),
+
     
 -- For ToolID = "27"  
 cte_toolID_27 AS (
@@ -96,6 +102,7 @@ cte_toolID_27 AS (
     FROM
         SomeTable27
 ),
+
   
 -- For ToolID = "28" 
 cte_toolID_28 AS (
@@ -153,6 +160,7 @@ cte_toolID_57 AS (
 
 -- As per ToolID = "15" & ToolID = "55" 
 -- final output as cte_toolID_15
+cte_output_toolID_15 AS (
 SELECT  
          "Business Unit",
           PolM_Sub_Seg,
@@ -183,4 +191,31 @@ LEFT JOIN
         cte_toolID_57 AS t57
 ON 
        ectss.Treaty = t57.Treaty
-);
+),
+
+-- as per ToolID ID 55
+cte_toolID_54 AS (
+   
+     SELECT 
+	      "Business Unit",
+		   PolM_Sub_Seg,
+		   Treaty,
+		   Expected_Claims,
+           Expected_Claims_Sub_Seg,
+          "Incr (Decr) IBNR",
+          "Ceded IBNR by Treaty",
+		   Business_Type,
+           ct57.BT,
+           CO,
+           Product,
+           BU,
+           TREATY3,
+           Round,
+           ABS,
+           NULL as "*Unknown"
+	 FROM 
+		 cte_output_toolID_15 as ct15
+	 LEFT JOIN 
+		cte_toolID_57 AS ct57 on ct15.Treaty = ct57.Treaty
+
+),
