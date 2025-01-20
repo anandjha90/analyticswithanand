@@ -21,4 +21,5 @@ FROM (SELECT * FROM sales_region_data);
 SHOW STAGES;
 LIST @my_internal_stage;
 
-GET @my_internal_stage file://D:\Snowflake_Output; -- run this in SNOWSQL using CLI not in SNOWFLAKE UI
+GET @my_internal_stage file://D:\Snowflake_Output;
+-- run this in SNOWSQL using CLI not in SNOWFLAKE UI as from snowflake ui it will throw unsupported feature 
