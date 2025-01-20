@@ -2,6 +2,7 @@
 
 --  execute the following SQL command while you are working in the client environemnt in order to ahve full fledge information of your snowflake account withourt admin rights:
 SELECT CURRENT_USER() AS USERNAME;                 -- ANALYTICSWITHANAND
+SELECT CURRENT_AVAILABLE_ROLES() AS AVAILABLE_ROLES;-- shows list of all the roles available
 SELECT CURRENT_ROLE() AS ROLE;                     -- ACCOUNT_ADMIN
 SELECT CURRENT_WAREHOUSE() AS WAREHOUSE;           -- DEMO_WAREHOUSE
 SELECT CURRENT_DATABASE() AS DATABASE;             -- DEMO_DATABASE
@@ -10,7 +11,7 @@ SELECT CURRENT_SCHEMA() AS SCHEMA;                 -- DEMO_SCHEMA
 SELECT CURRENT_REGION();                           -- AWS_AP_SOUTHEAST_1
 SELECT LEFT(CURRENT_REGION(),3) AS CLOUD_PROVIDER; -- AWS
 SELECT RIGHT(CURRENT_REGION(),14) AS REGION;       -- AP_SOUTHEAST_1
-SELECT CURRENT_ACCOUNT();                          -- OR26275
+SELECT CURRENT_ACCOUNT() as LOCATOR;               -- OR26275
 SELECT CURRENT_ORGANIZATION_NAME();                -- FYBXJXJ
 SELECT CURRENT_ACCOUNT_NAME() AS ACCOUNT;          -- OT90647
 
