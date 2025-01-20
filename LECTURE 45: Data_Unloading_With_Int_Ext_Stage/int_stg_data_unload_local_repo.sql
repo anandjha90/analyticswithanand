@@ -13,11 +13,15 @@ file_format = csv_file_format;
 
 -- Example for Table 1
 COPY INTO @my_internal_stage/customer_data.csv
-FROM (SELECT * FROM customer_data);
+FROM (SELECT * FROM customer_data)
+OVERWRITE=TRUE;
+
+-- We can use OVERWRITE = TRUE in the COPY Statement in order to overwrite a file which is already existing in the table stage.
 
 -- Example for Table 2
 COPY INTO @my_internal_stage/sales_region_data.csv
-FROM (SELECT * FROM sales_region_data);
+FROM (SELECT * FROM sales_region_data)
+OVERWRITE=TRUE;
 
 SHOW STAGES;
 LIST @my_internal_stage;
