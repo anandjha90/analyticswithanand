@@ -1,8 +1,25 @@
 -- What's my current user, role, warehouse, database, etc?
-SELECT CURRENT_USER();
-SELECT CURRENT_ROLE();
-SELECT CURRENT_WAREHOUSE();
-SELECT CURRENT_DATABASE();
+
+--  execute the following SQL command while you are working in the client environemnt in order to ahve full fledge information of your snowflake account withourt admin rights:
+SELECT CURRENT_USER() AS USERNAME;                 -- ANALYTICSWITHANAND
+SELECT CURRENT_ROLE() AS ROLE;                     -- ACCOUNT_ADMIN
+SELECT CURRENT_WAREHOUSE() AS WAREHOUSE;           -- DEMO_WAREHOUSE
+SELECT CURRENT_DATABASE() AS DATABASE;             -- DEMO_DATABASE
+SELECT CURRENT_SCHEMA() AS SCHEMA;                 -- DEMO_SCHEMA
+
+SELECT CURRENT_REGION();                           -- AWS_AP_SOUTHEAST_1
+SELECT LEFT(CURRENT_REGION(),3) AS CLOUD_PROVIDER; -- AWS
+SELECT RIGHT(CURRENT_REGION(),14) AS REGION;       -- AP_SOUTHEAST_1
+SELECT CURRENT_ACCOUNT();                          -- OR26275
+SELECT CURRENT_ORGANIZATION_NAME();                -- FYBXJXJ
+SELECT CURRENT_ACCOUNT_NAME() AS ACCOUNT;          -- OT90647
+
+
+-- To get the organization_name-account_name so as to enter credentials while feeding URL into POWERBI or while connecting python, without having admin rights(inspite of any snowflake role) one can pull all these info while executing below commands
+
+SELECT CURRENT_ORGANIZATION_NAME() || '-' || CURRENT_ACCOUNT_NAME() AS ACCOUNT_NAME;     -- FYBXJXJ-OT90647
+SELECT CONCAT(CURRENT_ORGANIZATION_NAME(),'-',CURRENT_ACCOUNT_NAME()) AS ACCOUNT_NAME;   -- FYBXJXJ-OT90647
+SELECT CONCAT_WS('-',CURRENT_ORGANIZATION_NAME(),CURRENT_ACCOUNT_NAME()) AS ACCOUNT_NAME;-- FYBXJXJ-OT90647
 
 --How do I use a specific role, warehouse, database, etc?
 SHOW ROLES;
