@@ -1501,7 +1501,18 @@ cte_toolID_48_control_container AS (   -- as per Control Container 48
          cte_ExternaSupplier_union_toolID_11
 ),
 
-cte_toolID_39 AS (
+cte_toolID_39 AS (      
+    SELECT
+	   categoryfamily,
+	   MAX(spend) AS Maximum_Spend             -- as per ToolID= '39'
+	    
+	FROM 
+         cte_toolID_48_control_container
+	GROUP BY 
+		categoryfamily
+),
+
+cte_toolID_43 AS (
     SELECT
 	    id,
 		suppliername,
@@ -1510,7 +1521,7 @@ cte_toolID_39 AS (
 		cdpid,
 		smdrericaid,
 		smdmodifieddate,
-		country AS Reported_Country,
+		Reported_Country,
 		buyerregion,
 		supplierregion,
 		sector,
@@ -1626,10 +1637,191 @@ cte_toolID_39 AS (
 		External_Supplier,
 		Include,
 		Type,
-		Company,
-	    
-	FROM 
+		Company
+		
+	FROM
          cte_toolID_48_control_container
+	ORDER BY Reported_Country DESC	      -- -- as per ToolID= '43'
+)
 
-),
+-- to save files to a local file system
+
+-- create a file format
+create or replace file format csv_file_format
+    type = 'csv' 
+    compression = 'none' 
+    field_delimiter = ','
+    field_optionally_enclosed_by = 'none'
+    skip_header = 1 ; 
+    
+-- creating an internal stage
+CREATE OR REPLACE STAGE my_internal_stage
+file_format = csv_file_format;
+
+-- Example for Table 1
+COPY INTO @my_internal_stage/customer_data.csv
+FROM (SELECT * FROM customer_data);
+
+-- Example for Table 2
+COPY INTO @my_internal_stage/sales_region_data.csv
+FROM (SELECT * FROM sales_region_data);
+
+-- for showing all the stages in snowflake
+SHOW STAGES;
+
+-- for seeing all the files in internal stage
+LIST @my_internal_stage;s
+
+-- download the data into taget local file system
+GET @my_internal_stage file://D:\Snowflake_Output; -- run this in SNOWSQL using CLI not in SNOWFLAKE UI and set the desired path
+
+
+-- For file output w.r.t Snowflake/AWS or local system depenidng upon the business requirement
+-- 1. Creating a Snowflake Stage
+-- A stage is a Snowflake object that points to a location where data files are stored. 
+-- You can create a stage for either internal Snowflake storage or external cloud storage (like AWS S3, Azure Blob, or Google Cloud Storage).
+
+----------------------------------------------------AWS (S3) INTEGRATION------------------------------------------------------------------------
+CREATE OR REPLACE STORAGE integration s3_int
+TYPE = EXTERNAL_STAGE
+STORAGE_PROVIDER = S3
+ENABLED = TRUE
+STORAGE_AWS_ROLE_ARN ='arn:aws:iam::661806635168:role/banking_role' 
+STORAGE_ALLOWED_LOCATIONS =('s3://czec-banking/DOWNLOAD_CSV/'); 
+
+DESC integration s3_int;
+
+----------------------- stage---------------------------------------------------------
+-- Define an external stage to access the AWS S3 bucket. 
+-- Ensure the necessary IAM role and S3 bucket policies are set for Snowflake to read from the bucket.
+
+-- create a file format
+create or replace file format csv_file_format
+    type = 'csv' 
+    compression = 'none' 
+    field_delimiter = ','
+    field_optionally_enclosed_by = 'none'
+    skip_header = 1 ; 
+ 
+-- create an external stage 
+CREATE OR REPLACE STAGE s3_stage
+URL ='s3://czec-banking/DOWNLOAD_CSV/'
+file_format = csv_file_format
+storage_integration = s3_int;
+
+-- to show all stages
+SHOW STAGES;
+
+-- To show files processsed in stage 
+LIST @s3_stage;
+
+-- Example for Table 1
+COPY INTO @s3_stage/customer_data.csv
+FROM (SELECT * FROM customer_data);
+
+-- Example for Table 2
+COPY INTO @s3_stage/sales_region_data.csv
+FROM (SELECT * FROM sales_region_data);
+
+-- Alternative Approach
+
+-- if staging details are not availble such as no roles and policies have been created abnd client have given aws access key then execute below steps
+CREATE OR REPLACE STAGE my_external_stage
+URL = 's3://czec-banking/DOWNLOAD_CSV/' -- path to S3 bucket folder
+--STORAGE_INTEGRATION = my_s3_integration
+CREDENTIALS = (
+    AWS_KEY_ID = '*********************'                         -- aws access key 
+    AWS_SECRET_KEY = '************************'					 -- aws secret access key
+)
+FILE_FORMAT = csv_file_format;
+
+COPY INTO @my_external_stage/customer_data.csv -- copying data into external stage give proper file name with extension else it will create with data.csv(filename)
+FROM (SELECT * FROM customer_data)
+OVERWRITE=TRUE ; 
+
+-- if file already exists with teh same name it will overwrite it else if you have not use this property and trying to write to the same file you get an error
+
+COPY INTO @my_external_stage/sales_region_data.csv -- copying data into external stage give proper file name with extension else it will create with data.csv(filename)
+FROM (SELECT * FROM sales_region_data)
+OVERWRITE=TRUE ; 
+
+
+
+--Automate the Process
+-- Use Python or Shell scripting to automate the entire process if needed.
+# import thenecessary library
+import boto3
+import botocore
+from botocore.config import Config
+import getpass
+import snowflake.connector
+import pandas as pd
+import os
+from io import StringIO
+import csv
+
+
+# Establish the connection
+conn = snowflake.connector.connect(
+    account= 'your_account_name',
+    user='your_user_name',
+    password = getpass.getpass('Your Snowflake Password: '),
+    warehouse='your_warehouse',
+    database='your_database',
+    schema='your_schema',
+    role='your_role'
+)
+
+# Test the connection
+cursor = conn.cursor()
+cursor.execute("SELECT CURRENT_VERSION()")
+print(cursor.fetchone())
+
+# Set up AWS credentials manually (only for testing)
+aws_access_key_id = 'your_secret_key'
+aws_secret_access_key = 'your_aws_secret_access_key' 
+region_name = 'your_region_name' 
+
+# Create a session using the manual credentials
+session = boto3.Session(
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key,
+    region_name=region_name
+)
+
+# Create an S3 client
+s3 = session.client('s3')
+
+# Now you can use the S3 client to perform operations to list all buckets
+response = s3.list_buckets()
+print(response)
+
+# ACCESSING SPECIFIC BUCKET INFO
+
+# Specify the name of your S3 bucket
+bucket_name = 'czec-banking'
+# List all objects in the specific S3 bucket
+response = s3.list_objects_v2(Bucket=bucket_name)
+# Print object keys (file names)
+if 'Contents' in response:
+    for obj in response['Contents']:
+        print(f"Object Key: {obj['Key']}")
+else:
+    print("No objects found in the bucket.")
+
+tables = ['sales_region_data', 'customer_data']  # Add all your table names here
+
+# iterate through all the tables available in snowflake for which you want to extract data and put it in aws s3 specific folder inside a bucket
+# Export data to S3
+for table in tables:
+    file_name = f"{table}.csv"
+    export_query = f"""
+    COPY INTO @my_external_stage/{file_name} -- create a stage my_external_stage in snowflake by referring code files
+    FROM (SELECT * FROM {table})
+    OVERWRITE=TRUE;
+    """
+    conn.cursor().execute(export_query)   -- export the data into respective s3 bucket folder
+    print(f"Exported {table} data to S3 as {file_name}")
+
+print("All tables exported successfully!")
 		 
