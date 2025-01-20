@@ -45,6 +45,19 @@ s3 = session.client('s3')
 response = s3.list_buckets()
 print(response)
 
+# ACCESSING SPECIFIC BUCKET INFO
+
+# Specify the name of your S3 bucket
+bucket_name = 'czec-banking'
+# List all objects in the specific S3 bucket
+response = s3.list_objects_v2(Bucket=bucket_name)
+# Print object keys (file names)
+if 'Contents' in response:
+    for obj in response['Contents']:
+        print(f"Object Key: {obj['Key']}")
+else:
+    print("No objects found in the bucket.")
+
 tables = ['sales_region_data', 'customer_data']  # Add all your table names here
 
 # iterate through all the tables available in snowflake for which you want to extract data and put it in aws s3 specific folder inside a bucket
