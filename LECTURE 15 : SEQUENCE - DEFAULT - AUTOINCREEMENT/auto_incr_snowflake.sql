@@ -9,7 +9,8 @@ You can specify the default value for a column using create table or alter table
 However, if you try to alter a table to add an autoincrement column that already has data in it, we will get an error in Snowflake. 
 This is not supported in Snowflake, due to the underlying architecture.
 
-It’s not as easy as altering the existing table, but there are two ways we can add an identity or autoincrement column to an existing table. */
+It’s not as easy as altering the existing table, but there are two ways we can add an identity or autoincrement column to an existing table. 
+*/
 
 --Method 1: Using autoincrement or identity as a default value.
 --First we are going to create a simple table that we want to add an identity/autoincrement field to:
@@ -34,12 +35,11 @@ insert into aj_identity_column_example(name)
           
 In the example above we set the column to start at 1 and increment by 1.
 
-autoincrement and identity are synonymous with each other and the default value for start and increment, if not specified, is 1 for both*/
+autoincrement and identity are synonymous with each other and the default value for start and increment, if not specified, is 1 for both
+*/
 
 --To replace our existing colors table with the new table:
 alter table AJ_IDENTITY_COLUMN_EXAMPLE rename to colors;
-
-
 
 -- Method 2: Using sequences
 /*
@@ -102,13 +102,11 @@ alter table identity_column_example MODIFY COLUMN id  DEFAULT seq2.NEXTVAL;
 -- Remove the default value
 alter table <table-name> modify column <column-name> drop default;
 
-
 --Then, we can backfill the new table using nextval:
 insert into identity_column_example 
 select *,
        seq2.nextval
 from "SNOWFLAKE_SAMPLE_DATA"."TPCH_SF1"."CUSTOMER";
-
 
 -- Now, when we add a new record, the id column autoincrements properly and will remain unique:
 insert into identity_column_example(c_custkey, c_name, c_address, c_nationkey, c_phone, c_acctbal, c_mktsegment, c_comment)
@@ -118,66 +116,8 @@ select * from identity_column_example
 --where c_custkey = 219874;
 order by id;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 --SYNTAX : alter table <table-name> modify column <column-name> default <new-sequence-name>.nextval;
 alter table identity_column_example MODIFY COLUMN id  DEFAULT seq1.NEXTVAL;
 
-
-
-
-
 UPDATE table identity_column_example 
-SET id  default seq1.nextvalue;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+SET id  default seq1.nextvalue;  
