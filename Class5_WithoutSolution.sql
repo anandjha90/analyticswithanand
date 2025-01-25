@@ -1,7 +1,6 @@
 -- Assigning the role for the account 
 USE ROLE ACCOUNTADMIN;
 
-
 -- Assigning the warehouse to the account 
 USE WAREHOUSE CLASS_5_WAREHOUSE;
 
@@ -82,14 +81,10 @@ VALUES
 ('ORD-1032', 'Frank Ocean', 'HP Omen 15', 'Electronics', 'San Diego', 'CA', 'USA', 'Retail', 'Credit Card', 'Neutral', 1699.99, 35.00, '2025-02-12', '2025-02-15'),
 ('ORD-1033', 'Gina Rodriguez', 'Logitech MX Master 3', 'Electronics', 'Denver', 'CO', 'USA', 'Online', 'Credit Card', 'Satisfied', 99.99, 2.00, '2025-02-13', '2025-02-16');
 
-
 -- Checking all the rows in the table 
 SELECT * FROM sales;
 
-
-
 -- Starting with the String Functions
-
 -- QUERY 1
 /*
     Write a sql query to retrieve the sales_id, customer_name, order_state from the sales table. 
@@ -97,9 +92,14 @@ SELECT * FROM sales;
     The client wants to see the names of the customer only.
     Also the client wants to have the data of only state 'CA', and the data needs to be displayed based on sales id from highest to lowest 
 */
-
-
-
+SELECT
+    SALE_ID,
+    CUSTOMER_NAME AS ORIGINAL_CUSTOMER_NAME,
+    LTRIM(CUSTOMER_NAME) AS SOLVED_CUSTOMER_NAME,
+    ORDER_CITY
+FROM SALES
+WHERE order_state = 'CA'
+ORDER BY SALE_ID DESC;
 
 -- QUERY 2
 /*
@@ -109,9 +109,14 @@ SELECT * FROM sales;
     Also the client wants to have the data of only state ('CA', 'TX', 'WA') and the payment must be done by credit card. 
     The data needs to be displayed based on sales id from highest to lowest 
 */
-
-
-
+SELECT
+    SALE_ID,
+    PRODUCT_CATEGORY AS ORIGINAL_PRODUCT_CAT,
+    LENGTH(PRODUCT_CATEGORY) AS LENGTH_OF_PRODUCT,
+    RTRIM(PRODUCT_CATEGORY) AS SOLVED_PRODUCT_CATEGORY,
+    LENGTH(RTRIM(PRODUCT_CATEGORY)) AS LENGTH_OF_SOLVED,
+    ORDER_CITY
+FROM SALES;
 
 -- QUERY 3
 /*
@@ -119,9 +124,12 @@ SELECT * FROM sales;
     The client has notified us that the column feedback has an issue, it contains unwanted characters like *, -, # both in the start and end.
     The client wants to see the names of the Feedback category only. 
 */
-
-
-
+SELECT 
+    SALE_ID,
+    CUSTOMER_NAME,
+    FEEDBACK AS ORIGINAL_FEEDBACK,
+    TRIM(FEEDBACK, ('*#-'))
+FROM SALES;
 
 -- UPDATING THE COLUMNS 
 UPDATE SALES
@@ -133,8 +141,6 @@ SET PRODUCT_CATEGORY = RTRIM(PRODUCT_CATEGORY);
 UPDATE SALES
 SET CUSTOMER_NAME = LTRIM(CUSTOMER_NAME);
 
-
-
 -- QUERY 4 -- (SPLIT())
 /*
     Retrieve the following columns from the sales table. Columns: - Sale_ID, Order_id, Customer_name, Order_State, Sales_Channel, Payment_Method.
@@ -144,9 +150,15 @@ SET CUSTOMER_NAME = LTRIM(CUSTOMER_NAME);
     Alice Brown -> ["Alice", "Brown"]
     Solution: - 
 */
-
-
-
+SELECT 
+    SALE_ID,
+    ORDER_ID,
+    CUSTOMER_NAME,
+    ORDER_STATE,
+    SALES_CHANNEL,
+    PAYMENT_METHOD,
+    SPLIT(CUSTOMER_NAME, ' ') AS FIRST_NAME
+FROM sales;
 
 -- QUERY 5 (SPLIT_PART())
 /*
@@ -156,9 +168,15 @@ SET CUSTOMER_NAME = LTRIM(CUSTOMER_NAME);
     Note that we want to see the data only from the Online channel.
     
 */
-
-
-
+SELECT
+    SALE_ID,
+    CUSTOMER_NAME,
+    ORDER_STATE,
+    SALES_CHANNEL,
+    SPLIT_PART(CUSTOMER_NAME, ' ', 1) AS FIRST_NAME,
+    SPLIT_PART(CUSTOMER_NAME, ' ', 2) AS LAST_NAME
+FROM SALES
+WHERE SALES_CHANNEL = 'Online';
 
 -- QUERY 6 (CONCAT())
 /*
@@ -177,8 +195,19 @@ SET CUSTOMER_NAME = LTRIM(CUSTOMER_NAME);
     
 */
 
-
-
+SELECT
+    SALE_ID,
+    ORDER_ID,
+    CUSTOMER_NAME,
+    PRODUCT_NAME,
+    PAYMENT_METHOD,
+    SALES_CHANNEL,
+    ORDER_STATE,
+    ORDER_COUNTRY,
+    CONCAT(ORDER_STATE, '-', ORDER_COUNTRY) AS STATE_AND_COUNTRY
+FROM SALES
+WHERE PAYMENT_METHOD = 'Credit Card' AND SALES_CHANNEL = 'Online'
+ORDER BY SALE_ID DESC;
 
 -- QUERY 7
 /*
@@ -197,9 +226,18 @@ SET CUSTOMER_NAME = LTRIM(CUSTOMER_NAME);
     Intead he gave a solution to display only one column where the values will be "city, state, country".
     Also the client wants to see only the data of customers which were 'Very Satisfied' and also 'Neutral'
 */
-
-
-
+SELECT
+    SALE_ID,
+    ORDER_ID,
+    PRODUCT_NAME,
+    ORDER_CITY,
+    ORDER_STATE,
+    ORDER_COUNTRY,
+    SALE_AMOUNT,
+    FEEDBACK,
+    CONCAT_WS(',', ORDER_CITY, ORDER_STATE, ORDER_COUNTRY) AS LOCATION_COL
+FROM SALES
+WHERE FEEDBACK IN ('Very Satisfied', 'Neutral');
 
 -- QUERY 8
 /*
@@ -208,17 +246,21 @@ SET CUSTOMER_NAME = LTRIM(CUSTOMER_NAME);
     Return the result ordered by the length of the customer_name
 */
 
-
-
+SELECT
+    CUSTOMER_NAME,
+    LENGTH(CUSTOMER_NAME) AS CUSTOMER_NAME_SIZE
+FROM SALES
+ORDER BY LENGTH(CUSTOMER_NAME) DESC;
 
 -- QUERY 9
 /*
     Write a SQL query to check if the customer name starts with letter 'B' or not.
     Retrieve only the columns Customer_name, and the checker column.
 */
-
-
-
+select
+    customer_name,
+    startswith(customer_name, 'B') AS ALLB
+from sales;
 
 -- QUERY 10
 /*
@@ -226,11 +268,16 @@ SET CUSTOMER_NAME = LTRIM(CUSTOMER_NAME);
     For example, NEW YORK. 
     Note that we only need to see the city column and the uppercase column.
 */
-
-
-
+SELECT
+    ORDER_CITY,
+    UPPER(ORDER_CITY) AS CITY_IN_CAPS
+FROM SALES;
 
 -- QUERY 11
 /*
     Write a SQL query to display the columns as lower case column, We need to display the country column as lower case column.
 */
+SELECT
+    ORDER_COUNTRY,
+    LOWER(ORDER_COUNTRY) AS COUNTRY_AS_LOWER
+FROM SALES;
