@@ -1,0 +1,21 @@
+EMPLOYEE_ID,EMPLOYEE_CITY,EMPLOYEE_STATE,PINCODE
+1,New York,NY,10001
+2,Los Angeles,CA,90001
+3,Chicago,IL,60601
+4,Houston,TX,77001
+5,Phoenix,AZ,85001
+6,Philadelphia,PA,19101
+7,San Antonio,TX,78201
+8,San Diego,CA,92101
+9,Dallas,TX,75201
+10,San Jose,CA,95101
+11,Austin,TX,73301
+12,Jacksonville,FL,32201
+13,Fort Worth,TX,76101
+14,Columbus,OH,43085
+15,Charlotte,NC,28201
+16,San Francisco,CA,94101
+17,Indianapolis,IN,46201
+18,Seattle,WA,98101
+19,Denver,CO,80201
+20,Washington,DC,20001
