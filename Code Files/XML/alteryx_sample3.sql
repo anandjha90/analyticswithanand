@@ -1660,7 +1660,7 @@ file_format = csv_file_format;
 
 -- Example for Table 1
 COPY INTO @my_internal_stage/customer_data.csv
-FROM (SELECT * FROM customer_data);
+FROM (SELECT * FROM final_cte);
 
 -- Example for Table 2
 COPY INTO @my_internal_stage/sales_region_data.csv
@@ -1721,7 +1721,7 @@ FROM (SELECT * FROM customer_data);
 
 -- Example for Table 2
 COPY INTO @s3_stage/sales_region_data.csv
-FROM (SELECT * FROM sales_region_data);
+FROM (SELECT * FROM cte_toolID_43);
 
 -- Alternative Approach
 
