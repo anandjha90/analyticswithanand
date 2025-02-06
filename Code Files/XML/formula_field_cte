@@ -1,0 +1,28 @@
+def generate_formula_cte(node, tool_id):
+    # Locate the FormulaFields section
+    formula_fields_node = node.find('.//Configuration/FormulaFields')
+    
+    if formula_fields_node is None:
+        return f"-- No formula configuration found for ToolID {tool_id}"
+
+    formula_expressions = []
+
+    # Extract each formula field and generate SQL expressions
+    for field in formula_fields_node.findall('FormulaField'):
+        field_name = field.get('field')
+        expression = field.get('expression')
+
+        # Clean up the expression to match SQL syntax (replace common Alteryx functions if needed)
+        sql_expression = expression.replace('&quot;', '"').replace("elseif", "ELSEIF").replace("endif", "END")
+
+        formula_expressions.append(f"{sql_expression} AS \"{field_name}\"")
+
+    # Create the CTE query
+    cte_query = f"""
+    CTE_Formula_{tool_id} AS (
+        SELECT 
+            {', '.join(formula_expressions)}
+        FROM Previous_CTE_{tool_id}
+    )
+    """
+    return cte_query
