@@ -81,7 +81,55 @@ def executionOrder(filePath):
 
     return executionOrder
 
+def sanitize_expression(expression):
+    """
+    Converts Alteryx-style conditional expressions into SQL-compliant CASE statements.
+    Handles NULL() to NULL and other transformations.
+    """
+    # Replace Alteryx "If-ElseIf-Endif" with SQL "CASE-WHEN"
+    expression = re.sub(r"If (.*?) Then", r"CASE WHEN \1 THEN", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"ElseIf (.*?) Then", r"WHEN \1 THEN", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"Else", r"ELSE", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"Endif", r"END", expression, flags=re.IGNORECASE)
+    
+    # Handle NULL() conversion
+    expression = re.sub(r"(?i)NULL\(\)", "NULL", expression)
+    
+    # Handle quotes (Alteryx &quot;)
+    expression = expression.replace("&quot;", "'")
 
+    return expression
+
+# Function to parse the XML and generate SQL CTE for Formula
+def generate_formula_cte(xml_data,previousToolId,toolId):
+    root = ET.fromstring(xml_data)
+
+    # Extract SummarizeFields
+    formula_fields = root.find('.//Configuration/FormulaFields')
+    
+    if formula_fields is None:
+        return f"-- No formula configuration found for ToolID {toolId}"
+    
+    formula_expr = []
+
+    # Extract each formula field and generate SQL expressions
+    for field in formula_fields.findall('FormulaField'):
+        expr_name = field.get('expression')
+        field_name = field.get('field')
+  
+        sql_expression = sanitize_expression(expr_name)
+
+        formula_expr.append(f"{sql_expression} AS \"{field_name}\"")
+
+    # Generate the SQL CTE query string
+    cte_query = f"""
+        {toolId} AS  (
+        SELECT 
+            {', '.join(formula_expr)}
+        FROM {previousToolId} 
+    )
+    """
+    return cte_query
 
 # Function to iterate over each row and generate the correct CTE based on Plugin Name
 def generate_ctes_for_plugin(df,executionOrder,parentMap):
@@ -293,10 +341,9 @@ if __name__ == "__main__":
             plugin_functions = {
                 'AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect': generate_cte_for_AlteryxSelect,
                 'LockInGui.LockInSelect.LockInSelect': generate_cte_for_AlteryxSelect,
-                'AlteryxSpatialPluginsGui.Summarize.Summarize': generate_cte_for_Summarize
+                'AlteryxSpatialPluginsGui.Summarize.Summarize': generate_cte_for_Summarize,
+                'AlteryxBasePluginsGui.Formula.Formula': generate_formula_cte
             }
-
-
 
             file.seek(0)
             df= getToolData(file)
@@ -304,10 +351,9 @@ if __name__ == "__main__":
 
             file.seek(0)
             parentMap = connectionDetails(file,df)
-
-
+            
             df = generate_ctes_for_plugin(df,executionOrder,parentMap)
-
+            
             st.write(df)
 
             st.write(parentMap)
