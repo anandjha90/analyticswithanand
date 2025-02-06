@@ -1,0 +1,1 @@
+"If Left([Treaty],3) = &quot;AML&quot; Then &quot;Assumed&quot;&#xA;ElseIf Left([Treaty],3) = &quot;CML&quot; Then &quot;Ceded&quot;&#xA;Else Null()&#xA;Endif"
