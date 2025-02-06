@@ -1,1 +1,15 @@
 "If Left([Treaty],3) = &quot;AML&quot; Then &quot;Assumed&quot;&#xA;ElseIf Left([Treaty],3) = &quot;CML&quot; Then &quot;Ceded&quot;&#xA;Else Null()&#xA;Endif"
+
+
+Enhancements for SQL Compatibility
+If you need SQL-compliant expressions, replace Alteryx-style expressions (if...else...endif) with standard SQL equivalents (CASE WHEN... THEN... ELSE... END). Here's a quick modification:
+
+python
+Copy
+Edit
+def sanitize_expression(expression):
+    # Basic conversion for if-else Alteryx syntax to SQL CASE
+    expression = re.sub(r"if (.*?) then", r"CASE WHEN \1 THEN", expression)
+    expression = re.sub(r"else", "ELSE", expression)
+    expression = re.sub(r"endif", "END", expression)
+    return expression
