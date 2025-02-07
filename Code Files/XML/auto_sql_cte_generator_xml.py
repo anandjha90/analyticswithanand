@@ -185,14 +185,19 @@ def generate_ctes_for_plugin(df,executionOrder,parentMap):
                 cteGenerated = generate_cte_for_Join(properties,rightToolID,leftToolID,toolId)
                 cteResults[toolId] = cteGenerated
 
+            elif pluginName =='AlteryxBasePluginsGui.AppendFields.AppendFields':
+                # Handle AppendFields
+                sourceToolID = parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Source')]['Origin_ToolID'].squeeze() if not parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Source')]['Origin_ToolID'].empty else None
+                destinationToolID = parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Targets')]['Origin_ToolID'].squeeze() if not parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Targets')]['Origin_ToolID'].empty else None
+                cteGenerated = generate_append_fields_cte(properties,sourceToolID,destinationToolID,toolId)
+                cteResults[toolId] = cteGenerated
+                
             else:
                 'No function available for plugin ', pluginName, toolId
 
     df['CTE'] = df['ToolID'].map(cteResults)
 
     return df
-
-
 
 
 def generate_cte_for_AlteryxSelect(xml_data,previousToolId,toolId):
@@ -229,6 +234,40 @@ def generate_cte_for_AlteryxSelect(xml_data,previousToolId,toolId):
 
     return cte_query
 
+
+def generate_append_fields_cte(properties,sourceToolID,destinationToolID,toolId):
+    """
+    Generates SQL CTE for appending fields based on SelectField attributes.
+    Only includes fields with selected="True".
+    """
+
+    # Parse the XML data
+    root = ET.fromstring(properties)
+
+    select_fields_node = root.find('.//Configuration/SelectFields')
+
+    if select_fields_node is None:
+        return f"-- No append fields configuration found for ToolID {toolId}"
+
+    # Extract selected fields
+    selected_fields = []
+    for field in select_fields_node.findall('SelectField'):
+        field_name = field.get('field')
+        selected = field.get('selected')
+
+        # Only include fields marked as selected
+        if selected == "True":
+            selected_fields.append(f'"{field_name}"')
+
+    # Generate CTE query
+    cte_query = f"""
+    {toolId} AS (
+        SELECT 
+            {sourceToolID}.*, {', '.join(selected_fields)}
+        FROM {sourceToolID}
+    )
+    """
+    return cte_query
 
 # Function to parse the XML and generate SQL CTE for GroupBy and Aggregation
 def generate_cte_for_Summarize(xml_data,previousToolId,toolId):
