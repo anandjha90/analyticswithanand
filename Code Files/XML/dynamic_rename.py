@@ -16,6 +16,10 @@ def generate_cte_for_DynamicRename(xml_data, previousToolId, toolId):
     # Extract final output field names from <MetaInfo> (renamed fields)
     output_fields = [field.get("name") for field in root.findall(".//MetaInfo/RecordInfo/Field")]
 
+    # Ensure the number of input fields matches the number of output fields
+    if len(input_fields) != len(output_fields):
+        return f"-- Warning: Mismatch between input and output fields for ToolID {toolId}"
+
     # Extract additional attributes based on Rename Mode
     expression = root.find(".//Expression").text if root.find(".//Expression") is not None else ""
     prefix_suffix_type = root.find(".//AddPrefixSuffix/Type")
