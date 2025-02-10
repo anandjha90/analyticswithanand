@@ -177,7 +177,92 @@ def generate_ctes_for_plugin(df,parentMap):
     return df
 
 
+def generate_cte_for_DynamicRename(xml_data, previousToolId, toolId):
+    """
+    Parses the XML for Dynamic Rename transformation and generates a SQL CTE dynamically.
+    Handles different rename modes: FirstRow, Formula, Add, Remove, RightInputMetadata, RightInputRows.
+    """
+    root = ET.fromstring(xml_data)
 
+    # Extract rename mode
+    rename_mode = root.find(".//RenameMode").text if root.find(".//RenameMode") is not None else "Unknown"
+
+    # Extract input field names (before renaming)
+    input_fields = [field.get("name") for field in root.findall(".//Fields/Field")]
+
+    # Extract final output field names from <MetaInfo> (renamed fields)
+    output_fields = [field.get("name") for field in root.findall(".//MetaInfo/RecordInfo/Field")]
+
+    # Ensure the number of input fields matches the number of output fields
+    #if len(input_fields)-1 != len(output_fields):
+    #    return f"-- Warning: Mismatch between input and output fields for ToolID {toolId}"
+
+    # Adjust for any mismatches in input and output field lengths
+    min_length = min(len(input_fields), len(output_fields))
+
+    # Trim lists to the same size to prevent index errors
+    input_fields = input_fields[:min_length]
+    output_fields = output_fields[:min_length]
+
+    # Extract additional attributes based on Rename Mode
+    expression = root.find(".//Expression").text if root.find(".//Expression") is not None else ""
+    prefix_suffix_type = root.find(".//AddPrefixSuffix/Type")
+    prefix_suffix_text = root.find(".//AddPrefixSuffix/Text")
+    remove_suffix_text = root.find(".//RemovePrefixSuffix/Text")
+    right_input_name = root.find(".//NamesFromMetadata")
+
+    # Handle FirstRow rename mode
+    if rename_mode == "FirstRow":
+        rename_mappings = ",\n            ".join(
+            f"\"{input_fields[i]}\" AS \"{output_fields[i]}\"" for i in range(min_length)
+        )
+    
+    # Handle Formula rename mode
+    elif rename_mode == "Formula":
+        rename_mappings = ",\n            ".join(
+            f"CASE WHEN {expression.replace('[_CurrentField_]', f'\"{field}\"')} THEN \"{field}\" END AS \"{field}\""
+            for field in input_fields
+        )
+
+    # Handle Add Prefix/Suffix rename mode
+    elif rename_mode == "Add":
+        prefix_suffix_clause = f"\"{prefix_suffix_text.text}\" || \"{field}\"" if prefix_suffix_type.text == "Prefix" else f"\"{field}\" || \"{prefix_suffix_text.text}\""
+        rename_mappings = ",\n            ".join(
+            f"{prefix_suffix_clause} AS \"{field}\"" for field in input_fields
+        )
+
+    # Handle Remove Prefix/Suffix rename mode
+    elif rename_mode == "Remove":
+        rename_mappings = ",\n            ".join(
+            f"REPLACE(\"{field}\", \"{remove_suffix_text.text}\", '') AS \"{field}\"" for field in input_fields
+        )
+
+    # Handle RightInputMetadata rename mode
+    elif rename_mode == "RightInputMetadata":
+        rename_mappings = ",\n            ".join(
+            f"\"{right_input_name.find('NewName').text}\" AS \"{field}\"" for field in input_fields
+        )
+
+    # Handle RightInputRows rename mode
+    elif rename_mode == "RightInputRows":
+        rename_mappings = ",\n            ".join(
+            f"\"{field}\" AS \"{field}\"" for field in input_fields  # This mode maps fields from right input
+        )
+
+    # Default case (if rename mode is unknown or not supported)
+    else:
+        rename_mappings = ",\n            ".join(f"\"{field}\" AS \"{field}\"" for field in input_fields)
+
+    # Generate SQL CTE dynamically
+    cte_query = f"""
+    {toolId} AS (
+        SELECT 
+            {rename_mappings}
+        FROM {previousToolId}
+    )
+    """
+
+    return cte_query
 
 def generate_cte_for_AlteryxSelect(xml_data,previousToolId,toolId):
     # Parse the XML data
@@ -424,6 +509,55 @@ def generate_cte_for_AppendFields(properties,sourceToolID,destinationToolID,tool
     return cte_query
 
 
+def generate_cte_for_CrossTab(xml_data, previousToolId, toolId):
+    """
+    Parses the XML for CrossTab transformation and generates a SQL CTE dynamically.
+    Implements manual pivoting using CASE WHEN instead of PIVOT.
+    """
+    root = ET.fromstring(xml_data)
+
+    # Extract group-by fields
+    group_by_fields = [field.get("field") for field in root.findall(".//GroupFields/Field")]
+
+    # Extract header field (column pivot)
+    header_field = root.find(".//HeaderField").get("field")
+
+    # Extract data field (values to be aggregated)
+    data_field = root.find(".//DataField").get("field")
+
+    # Extract aggregation method (e.g., Sum, Count, Max)
+    aggregation_method = root.find(".//Methods/Method").get("method").upper()
+
+    # Extract unique values for the header field (dynamic column names)
+    unique_values = [field.get("name") for field in root.findall(".//RecordInfo/Field") 
+                     if field.get("source").startswith("CrossTab:Header")]
+
+    # Generate CASE WHEN conditions for each unique value
+    case_statements = [
+        f"{aggregation_method}(CASE WHEN \"{header_field}\" = '{val}' THEN \"{data_field}\" ELSE NULL END) AS \"{val}\""
+        for val in unique_values
+    ]
+
+    # Extract sorting fields and order direction
+    sort_fields = [(field.get("field"), field.get("order")) for field in root.findall(".//SortInfo/Field")]
+
+    # Generate ORDER BY clause dynamically
+    order_by_clause = ", ".join(f"\"{field}\" {order}" for field, order in sort_fields) if sort_fields else ""
+
+    # Generate SQL CTE dynamically
+    cte_query = f"""
+    {toolId} AS (
+        SELECT 
+            {', '.join(f'"{field}"' for field in group_by_fields)}, 
+            {', '.join(case_statements)}
+        FROM {previousToolId}
+        GROUP BY {', '.join(f'"{field}"' for field in group_by_fields)}
+        {f'ORDER BY {order_by_clause}' if order_by_clause else ''}
+    )
+    """
+
+    return cte_query
+
 def connectionDetails(file,dfWithTool):
     # Parse the XML data
     file.seek(0)
@@ -557,7 +691,9 @@ if __name__ == "__main__":
                 'LockInGui.LockInSelect.LockInSelect': generate_cte_for_AlteryxSelect,
                 'AlteryxSpatialPluginsGui.Summarize.Summarize': generate_cte_for_Summarize,
                 'AlteryxBasePluginsGui.Formula.Formula': generate_cte_for_Formula,
-                'AlteryxBasePluginsGui.Filter.Filter': generate_cte_for_Filter
+                'AlteryxBasePluginsGui.Filter.Filter': generate_cte_for_Filter,
+                'AlteryxBasePluginsGui.CrossTab.CrossTab' : generate_cte_for_CrossTab,
+                'AlteryxBasePluginsGui.DynamicRename.DynamicRename' : generate_cte_for_DynamicRename
             }
 
             df= getToolData(file)
