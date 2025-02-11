@@ -390,7 +390,7 @@ def generate_cte_for_Join(xml_data,rightToolID,leftToolID,toolId,joinType):
 
 
 ## functionfor cleaning expression paramteres
-def sanitize_expression_for_filter_formula(expression, field_name=None):
+def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name=None):
     """
     Converts Alteryx-style conditional expressions into SQL-compliant CASE statements.
     - Handles IF-THEN-ELSE-ENDIF transformations.
@@ -467,7 +467,7 @@ def generate_cte_for_DynamicRename(xml_data, previousToolId, toolId):
     # Handle Formula rename mode with sanitized expressions
     elif rename_mode == "Formula":
         rename_mappings = [
-            f"{sanitize_expression_for_filter_formula(expression, field)} AS \"{field}\""
+            f"{sanitize_expression_for_filter_formula_dynamic_rename(expression, field)} AS \"{field}\""
             for field in input_fields
         ]
 
@@ -529,7 +529,7 @@ def generate_cte_for_Filter(xml_data, previousToolId, toolId):
         return f"-- No filter configuration found for ToolID {toolId}"
 
     # Sanitize and clean the filter expression
-    filter_expression = sanitize_expression_for_filter_formula(expression_node.text.strip()) if expression_node.text else "1=1"
+    filter_expression = sanitize_expression_for_filter_formula_dynamic_rename(expression_node.text.strip()) if expression_node.text else "1=1"
 
     cte_query = f"""
         {toolId} AS (
@@ -558,7 +558,7 @@ def generate_cte_for_Formula(xml_data, previousToolId, toolId):
         expr_name = field.get('expression')
         field_name = field.get('field')
 
-        sql_expression = sanitize_expression_for_filter_formula(expr_name)
+        sql_expression = sanitize_expression_for_filter_formula_dynamic_rename(expr_name)
 
         formula_expr.append(f"{sql_expression} AS \"{field_name}\"")
 
