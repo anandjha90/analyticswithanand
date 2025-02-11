@@ -36,10 +36,10 @@ def generate_cte_for_DynamicRename(xml_data, previousToolId, toolId):
             f"\"{input_fields[i]}\" AS \"{output_fields[i]}\"" for i in range(min_length)
         ]
     
-    # Handle Formula rename mode
+    # Handle Formula rename mode with sanitized expressions
     elif rename_mode == "Formula":
         rename_mappings = [
-            f"CASE WHEN {expression.replace('[_CurrentField_]', f'\"{field}\"')} THEN \"{field}\" END AS \"{field}\""
+            f"{sanitize_expression_for_filter_formula(expression, field)} AS \"{field}\""
             for field in input_fields
         ]
 
