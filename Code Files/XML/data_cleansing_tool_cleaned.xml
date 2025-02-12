@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="123">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="6" />
+          <Fields>
+            <Field name="CustomerID" />
+            <Field name="FirstName" />
+            <Field name="LastName" />
+            <Field name="Term" />
+            <Field name="JoinDate" />
+            <Field name="Region" />
+            <Field name="Score" />
+            <Field name="FirstPurchaseDate" />
+          </Fields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="126">
+      <GuiSettings>
+        <Position x="282" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+		-- Replace Nulls, Numeric Columns
+          <Value name="List Box (11)">"Score"</Value>
+          <Value name="Check Box (84)">False</Value>
+          <Value name="Check Box (117)">True</Value>
+          <Value name="Check Box (15)">False</Value>
+          <Value name="Check Box (109)">False</Value>
+          <Value name="Check Box (122)">False</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="127">
+      <GuiSettings>
+        <Position x="282" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+		  -- Fix Common Problems in Text Columns
+          <Value name="List Box (11)">"CustomerID","FirstName","LastName","JoinDate","Region","Score","FirstPurchaseDate"</Value> -- select Fields to Cleanse (List Box (11)
+          <Value name="Check Box (84)">True</Value> -- Replace with Blanks (String Fields)
+          <Value name="Check Box (117)">False</Value> -- Replace with 0 (Numeric Fields)
+          <Value name="Check Box (15)">True</Value> -- Leading and Trailing Whitespace
+          <Value name="Check Box (109)">False</Value> -- Tabls,Line Breaks, and Duplicate Whitespace
+          <Value name="Check Box (122)">False</Value> -- All Whitespace
+          <Value name="Check Box (53)">False</Value> -- Letters
+          <Value name="Check Box (58)">False</Value> -- Numbers
+          <Value name="Check Box (70)">False</Value> -- Punctuation
+          <Value name="Check Box (77)">False</Value> -- Modify Case
+          <Value name="Drop Down (81)">upper</Value> -- Upper Case, Lower Case, Title Case
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings>
+        <Position x="282" y="390" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+		 -- Remove Unwanted Chracters, Text Columns
+          <Value name="List Box (11)">"Term"</Value> -- select Fields to Cleanse (List Box (11))
+          <Value name="Check Box (84)">True</Value>  -- Replace with Blanks (String Fields)
+          <Value name="Check Box (117)">True</Value> -- Replace with 0 (Numeric Fields)
+          <Value name="Check Box (15)">True</Value>  -- Leading and Trailing Whitespace
+          <Value name="Check Box (109)">False</Value> -- Tabls,Line Breaks, and Duplicate Whitespace
+          <Value name="Check Box (122)">False</Value> -- All Whitespace
+          <Value name="Check Box (53)">True</Value>   -- Letters
+          <Value name="Check Box (58)">False</Value> -- Numbers
+          <Value name="Check Box (70)">False</Value> -- Punctuation
+          <Value name="Check Box (77)">False</Value> -- Modify Case
+          <Value name="Drop Down (81)">upper</Value> -- Upper Case, Lower Case, Title Case
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="129">
+      <GuiSettings>
+        <Position x="282" y="486" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+		-- Standardize Capitalization
+          <Value name="List Box (11)">"Region"</Value>  -- select Fields to Cleanse (List Box (11))
+          <Value name="Check Box (84)">False</Value>    -- Replace with Blanks (String Fields)
+          <Value name="Check Box (117)">False</Value>   -- Replace with 0 (Numeric Fields)
+          <Value name="Check Box (15)">True</Value>     -- Leading and Trailing Whitespace
+          <Value name="Check Box (109)">False</Value>   -- Tabls,Line Breaks, and Duplicate Whitespace
+          <Value name="Check Box (122)">False</Value>   -- All Whitespace
+          <Value name="Check Box (53)">False</Value>    -- Letters
+          <Value name="Check Box (58)">False</Value>    -- Numbers
+          <Value name="Check Box (70)">False</Value>    -- Punctuation
+          <Value name="Check Box (77)">True</Value>     -- Modify Case
+          <Value name="Drop Down (81)">upper</Value>    -- Upper Case, Lower Case, Title Case
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+ 
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="126" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="127" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="128" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="129" Connection="Input2" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <SortedGrouping value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Data_Cleansing</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="8be87be8-6207-4554-ae18-934eb634a04f" />
+      <Telemetry>
+        <PreviousWorkflowId value="1258dd0f-05e4-4f1e-b144-c87e4bf51386" />
+        <OriginWorkflowId value="1258dd0f-05e4-4f1e-b144-c87e4bf51386" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
