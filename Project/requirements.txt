@@ -1,0 +1,11 @@
+streamlit
+pandas
+openai
+pandasai
+matplotlib
+seaborn
+speechrecognition
+python-dotenv
+openpyxl
+plotly
+sklearn
