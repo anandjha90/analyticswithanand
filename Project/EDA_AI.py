@@ -41,23 +41,57 @@ def get_chart_download_link(fig):
     buf.seek(0)
     return buf
 
+
 def recognize_speech():
-    """Function to recognize speech using the microphone."""
+    """Function to recognize speech using the microphone in multiple languages."""
     recognizer = sr.Recognizer()
+
+    # Language selection (moved outside so it's pre-selected before clicking the button)
+    language_map = {
+        "English": "en-US",
+        "Spanish": "es-ES",
+        "French": "fr-FR",
+        "German": "de-DE",
+        "Hindi": "hi-IN",
+        "Chinese (Mandarin)": "zh-CN",
+        "Japanese": "ja-JP",
+        "Arabic": "ar-SA"
+    }
+
+    # 🟢 Ensure language selection happens BEFORE clicking the "Speak" button
+    selected_language = st.sidebar.selectbox("🌍 Choose Language for Speech Recognition", list(language_map.keys()), index=0)
+    selected_language_code = language_map[selected_language]
+
+    # 🟢 Display confirmation of selected language before speaking
+    st.sidebar.write(f"✅ Selected Language: *{selected_language}*")
+
     with sr.Microphone() as source:
-        st.info("🎤 Say your question to AI (hold your microphone close).")
-        recognizer.adjust_for_ambient_noise(source)  # Adjust for ambient noise
-        audio = recognizer.listen(source, timeout=5)
+        st.info(f"🎤 Speak now in {selected_language}...")
+        recognizer.adjust_for_ambient_noise(source, duration=1)  # Adjust for ambient noise
         try:
-            # Recognize the speech using Google Web Speech API
-            question = recognizer.recognize_google(audio)
-            st.success(f"🎤 You said: {question}")
-            return question
+            audio = recognizer.listen(source, timeout=5)
+
+            # 🟢 Recognize speech with the correct language setting
+            recognized_text = recognizer.recognize_google(audio, language=selected_language_code)
+
+            # ✅ Display recognized text
+            st.success(f"🎤 You said ({selected_language}): {recognized_text}")
+
+            # 🛠 Debugging output
+            st.write(f"🛠 Recognized (Language: {selected_language_code}): {recognized_text}")
+
+            # 🟡 Check if English words are mixed in non-English speech
+            if selected_language != "English" and any(word.lower() in recognized_text.lower() for word in ["chart", "generate", "data", "analyze"]):
+                st.warning("⚠ Your speech contains English words. This may affect recognition accuracy.")
+
+            return recognized_text
+
         except sr.UnknownValueError:
-            st.error("⚠️ Sorry, I couldn't understand what you said.")
-        except sr.RequestError:
-            st.error("⚠️ Could not request results from the speech recognition service.")
-        return None
+            st.error("⚠ Sorry, I couldn't understand what you said. Try again.")
+        except sr.RequestError as e:
+            st.error(f"⚠ Could not connect to the speech recognition service. Check your internet connection. Error: {e}")
+
+    return None
 
 if uploaded_file is not None:
     try:
@@ -152,7 +186,7 @@ if uploaded_file is not None:
                             df[column].fillna(ai_column_suggestion, inplace=True)
                             st.success(f"✅ Filled missing values in '{column}' with AI Suggested Method.")
 
-                # **Updated Summary and Cleaned Dataset** - only displayed after missing value handling
+                # *Updated Summary and Cleaned Dataset* - only displayed after missing value handling
                 if st.button("Show Cleaned Dataset and Updated Summary"):
                     st.write("### 📊 Updated Summary After Filling Missing Values")
                     st.write(df.describe())
@@ -173,7 +207,7 @@ if uploaded_file is not None:
                         kpi_suggestions = sdf.chat(f"Based on the cleaned dataset, what are realistic KPIs we should track?")
                         st.write(f"🔑 Suggested KPIs: {kpi_suggestions}")
                     except Exception as e:
-                        st.error(f"⚠️ Error generating KPI suggestions: {e}")
+                        st.error(f"⚠ Error generating KPI suggestions: {e}")
 
             # AI-Powered Data Query - Text Input
             st.write("### 💬 Ask a Question")
@@ -184,7 +218,7 @@ if uploaded_file is not None:
                     st.write("#### 🤖 AI Response:")
                     st.write(response)
                 except Exception as e:
-                    st.error(f"⚠️ Error: {e}")
+                    st.error(f"⚠ Error: {e}")
 
             # AI-Powered Data Query - Voice Input
             if st.button("🎤 Ask AI with Your Voice"):
@@ -195,7 +229,7 @@ if uploaded_file is not None:
                         st.write("#### 🤖 AI Response:")
                         st.write(response)
                     except Exception as e:
-                        st.error(f"⚠️ Error processing voice question: {e}")
+                        st.error(f"⚠ Error processing voice question: {e}")
 
             # AI-Suggested Visualization
             st.write("### 📊 AI-Suggested Visualization")
@@ -203,7 +237,7 @@ if uploaded_file is not None:
                 chart_suggestion = sdf.chat("What is the best visualization for this dataset?")
                 st.write(f"📊 AI Suggests: {chart_suggestion}")
             except Exception as e:
-                st.write("⚠️ AI Suggestion Unavailable")
+                st.write("⚠ AI Suggestion Unavailable")
 
             # Visualization
             st.write("### 📊 Generate Visualization")
@@ -239,15 +273,15 @@ if uploaded_file is not None:
                     st.sidebar.download_button(
                         label="📥 Download Chart",
                         data=buf,
-                        file_name=f"{chart_type}_{x_col}_vs_{y_col}.png",
+                        file_name=f"{chart_type}{x_col}_vs{y_col}.png",
                         mime="image/png"
                     )
 
                 except Exception as e:
-                    st.error(f"⚠️ Error generating chart: {e}")
+                    st.error(f"⚠ Error generating chart: {e}")
 
     except Exception as e:
-        st.error(f"⚠️ Error reading file: {e}")
+        st.error(f"⚠ Error reading file: {e}")
 
 else:
-    st.info("📥 Upload a dataset to start.")
+    st.info("📥 Upload a dataset to start.")
