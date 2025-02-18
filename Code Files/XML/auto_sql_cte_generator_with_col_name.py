@@ -178,13 +178,19 @@ def generate_ctes_for_plugin(df,parentMap,functionCallOrderList):
                         df = pd.concat([df, newRow], ignore_index=True)
 
                         cteResults[toolId] = cteGenerated
-                        
+
             elif pluginName == 'AlteryxBasePluginsGui.AppendFields.AppendFields':
                 # Handle AppendFields
                 sourceToolID = parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Source')]['Origin_ToolID'].squeeze() if not parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Source')]['Origin_ToolID'].empty else None
                 destinationToolID = parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Targets')]['Origin_ToolID'].squeeze() if not parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Targets')]['Origin_ToolID'].empty else None
-                cteGenerated = generate_cte_for_AppendFields(properties, sourceToolID, destinationToolID, toolId)
+                previousToolColList = df[df['ToolID'] == sourceToolID]['ColumnsList'].tolist()[0]
+                colListGenerated,cteGenerated = generate_cte_for_AppendFields(properties, sourceToolID,destinationToolID, toolId,previousToolColList)
                 cteResults[toolId] = cteGenerated
+                # Iterate through each row and update Columns based on ToolID
+                for index, row in df.iterrows():
+                    if row['ToolID'] == toolId:  # Check for a single ToolID match
+                        df.at[index, 'ColumnsList'] = colListGenerated
+
 
             elif pluginName == 'AlteryxBasePluginsGui.Union.Union':
                 unionList = parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].unique().tolist() if not parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_Connection'].empty else []
@@ -793,21 +799,34 @@ def generate_cte_for_DBFileInput(xml_data,toolId):
 
 
 ## functionfor cleaning expression paramteres
-def sanitize_expression_for_filter_formula(expression):
+def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name=None):
     """
     Converts Alteryx-style conditional expressions into SQL-compliant CASE statements.
-    Handles NULL() to NULL and other transformations.
+    - Handles IF-THEN-ELSE-ENDIF transformations.
+    - Converts NULL() to NULL.
+    - Ensures CONTAINS function has the correct field reference.
     """
-    # Replace Alteryx "If-ElseIf-Endif" with SQL "CASE-WHEN"
-    expression = re.sub(r"If (.*?) Then", r"CASE WHEN \1 THEN", expression, flags=re.IGNORECASE)
-    expression = re.sub(r"ElseIf (.*?) Then", r"WHEN \1 THEN", expression, flags=re.IGNORECASE)
-    expression = re.sub(r"Else", r"ELSE", expression, flags=re.IGNORECASE)
-    expression = re.sub(r"Endif", r"END", expression, flags=re.IGNORECASE)
+
+    if not expression:
+        return ""
+
+    # Replace [_CurrentField_] with actual field name if provided
+    if field_name:
+        expression = expression.replace("[_CurrentField_]", f"\"{field_name}\"")
+
+    # Ensure CONTAINS function has the field name as the first argument
+    expression = re.sub(r"CONTAINS\(\s*['\"]([^'\"]+)['\"]\s*\)", rf"CONTAINS(\"{field_name}\", '\1')", expression, flags=re.IGNORECASE)
+
+    # Convert Alteryx-style IF-THEN-ELSE-ENDIF into SQL CASE WHEN
+    expression = re.sub(r"(?i)if(.*?)then", r"CASE WHEN \1 THEN", expression,flags=re.IGNORECASE)
+    expression = re.sub(r"(?i)elseif(.*?)then", r"WHEN \1 THEN", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"(?i)else", r"ELSE", expression,flags=re.IGNORECASE)
+    expression = re.sub(r"(?i)endif", r"END", expression,flags=re.IGNORECASE)
 
     # Handle NULL() conversion
     expression = re.sub(r"(?i)NULL\(\)", "NULL", expression)
 
-    # Handle common logical operation
+    # Standardize logical operators
     expression = expression.replace("=", " = ").replace("<>", " != ").replace(" And ", " AND ").replace(" Or ", " OR ")
 
     # Handle quotes (Alteryx &quot;)
@@ -818,7 +837,7 @@ def sanitize_expression_for_filter_formula(expression):
 
 
 # Function to parse the XML and generate SQL CTE for Filter
-def generate_cte_for_Filter(xml_data, previousToolId, toolId):
+def generate_cte_for_Filter(xml_data, previousToolId, toolId,prev_tool_fields):
     """
     Generates SQL CTE for filter expressions found in the configuration.
     Sanitizes filter expressions for SQL compliance.
@@ -829,54 +848,64 @@ def generate_cte_for_Filter(xml_data, previousToolId, toolId):
     expression_node = root.find('.//Configuration/Expression')
 
     if expression_node is None:
-        return f"-- No filter configuration found for ToolID CTE_{toolId}"
+        return [], f"-- No filter configuration found for ToolID CTE_{toolId}"
+    
+    current_tool_fields = prev_tool_fields.copy()
 
     # Sanitize and clean the filter expression
-    filter_expression = sanitize_expression_for_filter_formula(expression_node.text.strip()) if expression_node.text else "1=1"
+    filter_expression = sanitize_expression_for_filter_formula_dynamic_rename(expression_node.text.strip()) if expression_node.text else "1=1"
+
 
     cte_query = f"""
         CTE_{toolId} AS (
-        SELECT *
+        SELECT  {', '.join([f'\"{col}\"' for col in current_tool_fields])},
         FROM CTE_{previousToolId}
         WHERE {filter_expression}
     )
     """
-    return cte_query
+    return current_tool_fields, cte_query
+
+
+
 
 
 # Function to parse the XML and generate SQL CTE for Formula
-def generate_cte_for_Formula(xml_data, previousToolId, toolId):
+def generate_cte_for_Formula(xml_data, previousToolId, toolId,prev_tool_fields):
     root = ET.fromstring(xml_data)
 
     # Extract SummarizeFields
     formula_fields = root.find('.//Configuration/FormulaFields')
 
     if formula_fields is None:
-        return f"-- No formula configuration found for ToolID CTE_{toolId}"
+        return [], f"-- No formula configuration found for ToolID CTE_{toolId}"
 
     formula_expr = []
+    current_tool_fields = prev_tool_fields.copy()
 
     # Extract each formula field and generate SQL expressions
     for field in formula_fields.findall('FormulaField'):
         expr_name = field.get('expression')
         field_name = field.get('field')
 
-        sql_expression = sanitize_expression_for_filter_formula(expr_name)
+        sql_expression = sanitize_expression_for_filter_formula_dynamic_rename(expr_name)
 
         formula_expr.append(f"{sql_expression} AS \"{field_name}\"")
+        if field_name not in current_tool_fields:
+            current_tool_fields.append(field_name)
 
     # Generate the SQL CTE query string
     cte_query = f"""
         CTE_{toolId} AS  (
         SELECT 
-            {', '.join(formula_expr)}
+           {', '.join([f'\"{col}\"' for col in current_tool_fields])},
+           {', '.join(formula_expr)}
         FROM CTE_{previousToolId} 
     )
     """
-    return cte_query
+    return current_tool_fields , cte_query
 
 
-def generate_cte_for_AppendFields(properties,sourceToolID,destinationToolID,toolId):
+def generate_cte_for_AppendFields(properties,sourceToolID,destinationToolID,toolId,prev_tool_fields):
     """
     Generates SQL CTE for appending fields based on SelectField attributes.
     Only includes fields with selected="True".
@@ -888,7 +917,7 @@ def generate_cte_for_AppendFields(properties,sourceToolID,destinationToolID,tool
     select_fields_node = root.find('.//Configuration/SelectFields')
 
     if select_fields_node is None:
-        return f"-- No append fields configuration found for ToolID CTE_{toolId}"
+        return [], f"-- No append fields configuration found for ToolID CTE_{toolId}"
 
     # Extract selected fields
     selected_fields = []
@@ -898,17 +927,348 @@ def generate_cte_for_AppendFields(properties,sourceToolID,destinationToolID,tool
 
         # Only include fields marked as selected
         if selected == "True":
-            selected_fields.append(f'"{field_name}"')
+            selected_fields.append(field_name)
+
+    current_tool_fields = prev_tool_fields.copy() 
+    for field in selected_fields:
+        if field not in current_tool_fields:
+            current_tool_fields.append(field)
 
     # Generate CTE query
     cte_query = f"""
     CTE_{toolId} AS (
         SELECT 
-            {sourceToolID}.*, {', '.join(selected_fields)}
-        FROM {sourceToolID}
+            {', '.join([f'\"{col}\"' for col in current_tool_fields])}
+        FROM CTE_{sourceToolID}
     )
     """
-    return cte_query
+    return current_tool_fields,cte_query
+
+
+def generate_cte_for_CrossTab(xml_data, previousToolId, toolId, prev_tool_fields):
+    """
+    Parses the XML for CrossTab transformation and generates a SQL CTE dynamically.
+    Implements manual pivoting using CASE WHEN instead of PIVOT.
+    """
+    root = ET.fromstring(xml_data)
+
+    # Extract group-by fields
+    group_by_fields = [field.get("field") for field in root.findall(".//GroupFields/Field")]
+
+    # Extract header field (column pivot)
+    header_field = root.find(".//HeaderField").get("field")
+
+    # Extract data field (values to be aggregated)
+    data_field = root.find(".//DataField").get("field")
+
+    # Extract aggregation method (e.g., Sum, Count, Max)
+    aggregation_method = root.find(".//Methods/Method").get("method").upper()
+
+    # Extract unique values for the header field (dynamic column names)
+    unique_values = [field.get("name") for field in root.findall(".//RecordInfo/Field") 
+                     if field.get("source").startswith("CrossTab:Header")]
+
+    # Generate CASE WHEN conditions for each unique value
+    case_statements = [
+        f"{aggregation_method}(CASE WHEN \"{header_field}\" = '{val}' THEN \"{data_field}\" ELSE NULL END) AS \"{val}\""
+        for val in unique_values
+    ]
+
+    # Extract sorting fields and order direction
+    sort_fields = [(field.get("field"), field.get("order")) for field in root.findall(".//SortInfo/Field")]
+
+    # Generate ORDER BY clause dynamically
+    order_by_clause = ", ".join(f"\"{field}\" {order}" for field, order in sort_fields) if sort_fields else ""
+
+    current_tool_fields = prev_tool_fields.copy()
+    current_tool_fields.extend(group_by_fields)
+    current_tool_fields.extend(unique_values)
+
+    # Generate SQL CTE dynamically
+    cte_query = f"""
+    {toolId} AS (
+        SELECT 
+            {', '.join([f'\"{col}\"' for col in current_tool_fields])}, 
+            {', '.join(case_statements)}
+        FROM CTE_{previousToolId}
+        GROUP BY {', '.join([f'\"{field}\"' for field in group_by_fields])}
+        {f'ORDER BY {order_by_clause}' if order_by_clause else ''}
+    )
+    """
+
+    return current_tool_fields, cte_query
+
+
+def generate_cte_for_LockInInput(xml_data, previousToolId, toolId, prev_tool_fields):
+    """
+    Parses the Alteryx LockInInput node from XML, extracts the SQL source query and connection info,
+    and generates an equivalent CTE using ToolID.
+    
+    - If `previousToolId` exists, it will be included in the generated query.
+
+    # Find the node with the given ToolID
+    node = root.find(f".//Node[@ToolID='{toolId}']")
+
+    - If no `previousToolId`, it will be set to `None`.
+    """
+    root = ET.fromstring(xml_data)
+
+    # Extract SQL Query
+    query_element = root.find(".//Query")
+    sql_query = query_element.text.strip() if query_element is not None else ""
+
+    if not sql_query:
+        raise ValueError("No SQL query found in the LockInInput configuration.")
+
+    # Extract Connection Info
+    connection_element = root.find(".//Connection")
+    connection_name = connection_element.text.strip() if connection_element is not None else "Unknown_Connection"
+
+    # If there is no previous tool, indicate it as None
+    previous_tool_comment = f"-- Previous Tool ID: {previousToolId}" if previousToolId else "-- No Previous Tool ID"
+
+    current_tool_fields = prev_tool_fields.copy()
+
+    # Generate the CTE dynamically with connection info and previous tool ID
+    cte_query = f"""
+    -- Connection: {connection_name}
+    {previous_tool_comment}
+    CTE_{toolId} AS (
+        SELECT {', '.join([f'\"{col}\"' for col in current_tool_fields])},
+               {sql_query}
+        FROM CTE_{previousToolId}       
+    )
+    """
+
+    return current_tool_fields, cte_query
+
+
+def generate_cte_for_LockInFilter(xml_data, previousToolId, toolId, prev_tool_fields):
+    """
+    Parses the Alteryx LockInFilter node from XML, extracts the filter condition,
+    and generates an equivalent SQL CTE using ToolID.
+    
+    - Only processes when Mode is "Custom".
+    - If `previousToolId` exists, it will be included in the generated query.
+    - If no `previousToolId`, it raises an error as a filter must have an input.
+    """
+    root = ET.fromstring(xml_data)
+
+    # Extract Mode (Only process if Mode = "Custom")
+    mode_element = root.find(".//Mode")
+    mode = mode_element.text.strip() if mode_element is not None else "Unknown"
+
+    if mode != "Custom":
+        return prev_tool_fields, f"-- ToolID {toolId} is using Mode '{mode}', skipping filter extraction."
+
+    # Extract Filter Expression
+    expression_element = root.find(".//Expression")
+    filter_expression = expression_element.text.strip() if expression_element is not None else ""
+
+    if not filter_expression:
+        raise ValueError(f"No filter expression found for ToolID {toolId}.")
+    
+    current_tool_fields = prev_tool_fields.copy()
+
+    # Ensure Previous Tool ID Exists (Filters need input data)
+    if not previousToolId:
+        raise ValueError(f"ToolID {toolId} requires a Previous Tool ID to filter data.")
+
+    # Generate CTE dynamically
+    cte_query = f"""
+    -- Filter applied using LockInFilter Tool (Mode: {mode})
+    CTE_{toolId} AS (
+        SELECT {', '.join([f'\"{col}\"' for col in current_tool_fields])}
+        FROM CTE_{previousToolId}
+        WHERE {filter_expression}
+    )
+    """
+
+    return current_tool_fields, cte_query
+
+
+def generate_cte_for_DynamicRename(xml_data, previousToolId, toolId,prev_tool_fields):
+    """
+    Parses the XML for Dynamic Rename transformation and generates a SQL CTE dynamically.
+    Handles different rename modes: FirstRow, Formula, Add, Remove, RightInputMetadata, RightInputRows.
+    """
+    root = ET.fromstring(xml_data)
+
+    # Extract rename mode
+    rename_mode = root.find(".//RenameMode").text if root.find(".//RenameMode") is not None else "Unknown"
+
+    # Extract input field names (before renaming) and remove "*Unknown" field
+    input_fields = [field.get("name") for field in root.findall(".//Fields/Field") if field.get("name") != "*Unknown"]
+
+    # Extract final output field names from <MetaInfo> (renamed fields)
+    output_fields = [field.get("name") for field in root.findall(".//MetaInfo/RecordInfo/Field")]
+
+    # Handle missing or extra fields to avoid index errors
+    min_length = min(len(input_fields), len(output_fields))
+    input_fields = input_fields[:min_length]
+    output_fields = output_fields[:min_length]
+
+    current_tool_fields = prev_tool_fields.copy()
+
+    rename_mappings = []
+
+    # Extract additional attributes based on Rename Mode
+    expression = root.find(".//Expression").text if root.find(".//Expression") is not None else ""
+    prefix_suffix_type = root.find(".//AddPrefixSuffix/Type")
+    prefix_suffix_text = root.find(".//AddPrefixSuffix/Text")
+    remove_suffix_text = root.find(".//RemovePrefixSuffix/Text")
+    right_input_name = root.find(".//NamesFromMetadata/NewName")
+
+    # Handle FirstRow rename mode
+    if rename_mode == "FirstRow":
+        rename_mappings = [f"\"{input_fields[i]}\" AS \"{output_fields[i]}\"" for i in range(min_length)]
+        current_tool_fields.extend(output_fields)
+    
+    # Handle Formula rename mode with sanitized expressions
+    elif rename_mode == "Formula":
+        rename_mappings = [f"{sanitize_expression_for_filter_formula_dynamic_rename(expression, field)} AS \"{field}\"" for field in input_fields]
+        current_tool_fields.extend(input_fields)
+
+    # Handle Add Prefix/Suffix rename mode
+    elif rename_mode == "Add":
+        if prefix_suffix_type is not None and prefix_suffix_text is not None:
+            if prefix_suffix_type.text == "Prefix":
+                rename_mappings = [f"'{prefix_suffix_text.text}' || \"{field}\" AS \"{field}\"" for field in input_fields]
+            else:
+                rename_mappings = [f"\"{field}\" || '{prefix_suffix_text.text}' AS \"{field}\"" for field in input_fields]
+            current_tool_fields.extend(input_fields)
+
+    # Handle Remove Prefix/Suffix rename mode
+    elif rename_mode == "Remove":
+        if remove_suffix_text is not None:
+            rename_mappings = [
+                f"REPLACE(\"{field}\", '{remove_suffix_text.text}', '') AS \"{field}\"" for field in input_fields
+            ]
+            current_tool_fields.extend(input_fields)
+
+    # Handle RightInputMetadata rename mode
+    elif rename_mode == "RightInputMetadata":
+        if right_input_name is not None:
+            rename_mappings = [
+                f"\"{right_input_name.text}\" AS \"{field}\"" for field in input_fields
+            ]
+            current_tool_fields.extend(input_fields)
+
+    # Handle RightInputRows rename mode
+    elif rename_mode == "RightInputRows":
+        rename_mappings = [
+            f"\"{field}\" AS \"{field}\"" for field in input_fields
+        ]
+        current_tool_fields.extend(input_fields)
+
+    # Default case (if rename mode is unknown or not supported)
+    if not rename_mappings:
+        rename_mappings = [f"\"{field}\" AS \"{field}\"" for field in input_fields]
+        current_tool_fields.extend(input_fields)
+
+    # Generate SQL CTE dynamically
+    cte_query = f"""
+    {toolId} AS (
+        SELECT 
+            {', '.join([f'\"{col}\"' for col in current_tool_fields])},
+            {', '.join(rename_mappings)}
+        FROM CTE_{previousToolId}
+    )
+    """
+
+    return current_tool_fields, cte_query
+
+
+def generate_cte_for_DataCleansing(xml_data, previousToolId, toolId, prev_tool_fields):
+    """
+    Parses the Alteryx Data Cleansing node from XML, extracts cleansing operations only if they are active (True),
+    and generates an equivalent SQL CTE using ToolID.
+    
+    - Extracts selected fields only if transformations are enabled.
+    - Handles cleansing operations like replacing nulls, trimming spaces, case conversion, etc.
+    """
+
+    root = ET.fromstring(xml_data)
+
+    # Extract selected fields for cleansing (only if enabled)
+    fields_element = root.find(".//Value[@name='List Box (11)']")
+    selected_fields = [f.strip('"') for f in fields_element.text.split(",")] if fields_element is not None and fields_element.text else []
+
+    # Extract checkboxes only if their value is "True"
+    replace_with_blank = root.find(".//Value[@name='Check Box (84)']")
+    replace_with_zero = root.find(".//Value[@name='Check Box (117)']")
+    trim_whitespace = root.find(".//Value[@name='Check Box (15)']")
+    remove_letters = root.find(".//Value[@name='Check Box (53)']")
+    remove_numbers = root.find(".//Value[@name='Check Box (58)']")
+    remove_punctuation = root.find(".//Value[@name='Check Box (70)']")
+    modify_case = root.find(".//Value[@name='Check Box (77)']")
+    case_type = root.find(".//Value[@name='Drop Down (81)']")
+
+    # Extracting current_tool_fields
+    current_tool_fields = prev_tool_fields.copy()
+
+    # SQL transformation rules
+    sql_transformations = []
+    transformations = []
+
+    for field in selected_fields:
+        if field not in current_tool_fields:
+            current_tool_fields.append(field)
+        
+        if replace_with_blank is not None and replace_with_blank.text == "True":
+            transformations.append(f"NULLIF({field}, '') AS {field}")
+
+        if replace_with_zero is not None and replace_with_zero.text == "True":
+            transformations.append(f"COALESCE({field}, 0) AS {field}")
+
+        if trim_whitespace is not None and trim_whitespace.text == "True":
+            transformations.append(f"TRIM({field}) AS {field}")
+
+        if remove_letters is not None and remove_letters.text == "True":
+            transformations.append(f"REGEXP_REPLACE({field}, '[A-Za-z]', '') AS {field}")
+
+        if remove_numbers is not None and remove_numbers.text == "True":
+            transformations.append(f"REGEXP_REPLACE({field}, '[0-9]', '') AS {field}")
+
+        if remove_punctuation is not None and remove_punctuation.text == "True":
+            transformations.append(f"REGEXP_REPLACE({field}, '[[:punct:]]', '') AS {field}")
+
+        if modify_case is not None and modify_case.text == "True":
+            if case_type is not None and case_type.text == "upper":
+                transformations.append(f"UPPER({field}) AS {field}")
+            elif case_type is not None and case_type.text == "lower":
+                transformations.append(f"LOWER({field}) AS {field}")
+            elif case_type is not None and case_type.text == "title":
+                transformations.append(f"INITCAP({field}) AS {field}")
+
+        # Only add transformations if at least one transformation is applied
+        if transformations:
+            sql_transformations.extend(transformations)
+
+    # Ensure Previous Tool ID Exists (Data cleansing needs input data)
+    if not previousToolId:
+        raise ValueError(f"ToolID {toolId} requires a Previous Tool ID for input data.")
+
+    # Generate CTE dynamically
+    if sql_transformations:
+        cte_query = f"""
+        -- Data Cleansing transformations applied using Cleanse Tool
+        CTE_{toolId} AS (
+            SELECT {', '.join([f'\"{col}\"' for col in current_tool_fields])},
+                   {', '.join(sql_transformations)}
+            FROM CTE_{previousToolId}
+        )
+        """
+    else:
+        cte_query = f"""
+        -- No active data cleansing transformations for ToolID {toolId}
+        CTE_{toolId} AS (
+             SELECT {', '.join([f'\"{col}\"' for col in current_tool_fields])}
+            FROM CTE_{previousToolId}
+        )
+        """
+
+    return current_tool_fields, cte_query
 
 
 def connectionDetails(file,dfWithTool):
@@ -1058,8 +1418,13 @@ if __name__ == "__main__":
                 'AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect': generate_cte_for_AlteryxSelect,
                 'LockInGui.LockInSelect.LockInSelect': generate_cte_for_AlteryxSelect,
                 'AlteryxSpatialPluginsGui.Summarize.Summarize': generate_cte_for_Summarize,
-                # 'AlteryxBasePluginsGui.Formula.Formula': generate_cte_for_Formula,
-                # 'AlteryxBasePluginsGui.Filter.Filter': generate_cte_for_Filter,
+                'AlteryxBasePluginsGui.Formula.Formula': generate_cte_for_Formula,
+                'AlteryxBasePluginsGui.Filter.Filter': generate_cte_for_Filter,
+                'AlteryxBasePluginsGui.CrossTab.CrossTab' : generate_cte_for_CrossTab,
+                'AlteryxBasePluginsGui.DynamicRename.DynamicRename' : generate_cte_for_DynamicRename,
+                'LockInGui.LockInInput.LockInInput' : generate_cte_for_LockInInput,
+                'LockInGui.LockInFilter.LockInFilter' : generate_cte_for_LockInFilter,
+                'AlteryxBasePluginsGui.Macro.Macro' : generate_cte_for_DataCleansing,
                 'AlteryxBasePluginsGui.Sort.Sort': generate_cte_for_Sort,
                 'AlteryxBasePluginsGui.Sample.Sample':generate_cte_for_Sample,
                 'AlteryxBasePluginsGui.RunningTotal.RunningTotal':generate_cte_for_RunningTotal,
