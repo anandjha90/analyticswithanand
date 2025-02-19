@@ -1645,7 +1645,7 @@ if __name__ == "__main__":
                 'AlteryxBasePluginsGui.RecordID.RecordID':generate_cte_for_RecordID,
                 'AlteryxBasePluginsGui.TextToColumns.TextToColumns' : generate_cte_for_Text_To_Columns,
                 'AlteryxBasePluginsGui.Message.Message' : generate_cte_for_Message,
-                'AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula' : generate_cte_for_MultiFieldFormula,
+                'AlteryxBasePluginsGui.MultiFieldFormula.MultiFieldFormula' : generate_cte_for_MultiFieldFormula,
                 'AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula' : generate_cte_for_MultiRowFormula
 
             }
