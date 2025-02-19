@@ -1,0 +1,1106 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="116">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="True" />
+          <UpdateField_Name>Year</UpdateField_Name>
+          <CreateField_Name>NewField</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>IF IsNull([Year])
+THEN [Row-1:Year]
+ELSE [Year]
+ENDIF</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IF IsNull([Year])
+THEN [Row-1:Year]
+ELSE [Year]
+ENDIF</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Year</UpdateField_Name>
+          <CreateField_Name>RecordID</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>[Row-1:RecordID]+1</Expression>
+          <GroupByFields>
+            <Field field="Product" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Row-1:RecordID]+1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="120">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Installation Date</UpdateField_Name>
+          <CreateField_Name>Flag</CreateField_Name>
+          <CreateField_Type>Bool</CreateField_Type>
+          <CreateField_Size>1</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>IF DateTimeDiff([Clicks],[Row-1:Clicks],'seconds')&lt;30
+THEN 1
+ELSE 0
+ENDIF</Expression>
+          <GroupByFields>
+            <Field field="DeviceID" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IF DateTimeDiff([Clicks],[Row-1:Clicks],'seconds')&lt;30
+THEN 1
+...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="16" />
+          <Fields>
+            <Field name="DeviceID" />
+            <Field name="Clicks" />
+          </Fields>
+          <Data>
+            <r>
+              <c>2</c>
+              <c>2015-11-30 03:17:04</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2015-12-06 17:22:00</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2015-12-06 17:22:02</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2016-01-30 06:34:19</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2016-01-30 06:34:25</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2016-01-30 06:34:32</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2016-02-10 23:59:50</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2016-02-11 00:00:16</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>2015-10-18 03:17:04</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>2015-11-06 17:22:00</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>2015-11-06 17:22:02</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>2016-12-30 06:34:19</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>2016-12-30 06:34:25</c>
+            </r>
+            <r>
+              <c>4</c>
+              <c>2016-12-30 06:34:32</c>
+            </r>
+            <r>
+              <c>4</c>
+              <c>2016-12-31 23:59:50</c>
+            </r>
+            <r>
+              <c>4</c>
+              <c>2017-01-01 00:00:16</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="765" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>DownloadData</UpdateField_Name>
+          <CreateField_Name>Headers</CreateField_Name>
+          <CreateField_Type>String</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>IF !StartsWith([DownloadData], '&lt;')
+THEN trim([Row-1:DownloadData],'&lt;&gt;')
+ELSE null()
+ENDIF</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IF !StartsWith([DownloadData], '&lt;')
+THEN trim([Row-1:Download...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="123">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="765" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="48" />
+          <Fields>
+            <Field name="DownloadData" />
+          </Fields>
+          <Data>
+            <r>
+              <c>&lt;post&gt;</c>
+            </r>
+            <r>
+              <c>&lt;article&gt;</c>
+            </r>
+            <r>
+              <c>Behind the Scenes of the Tool Mastery Series: Community APIs and Automation</c>
+            </r>
+            <r>
+              <c>&lt;/article&gt;</c>
+            </r>
+            <r>
+              <c>&lt;attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;views&gt;</c>
+            </r>
+            <r>
+              <c>170</c>
+            </r>
+            <r>
+              <c>&lt;/views&gt;</c>
+            </r>
+            <r>
+              <c>&lt;stars&gt;</c>
+            </r>
+            <r>
+              <c>6</c>
+            </r>
+            <r>
+              <c>&lt;/stars&gt;</c>
+            </r>
+            <r>
+              <c>&lt;comments&gt;</c>
+            </r>
+            <r>
+              <c>1</c>
+            </r>
+            <r>
+              <c>&lt;/comments&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/post&gt;</c>
+            </r>
+            <r>
+              <c>&lt;post&gt;</c>
+            </r>
+            <r>
+              <c>&lt;article&gt;</c>
+            </r>
+            <r>
+              <c>How the Join Tool Works and Why You Might Be Getting More Records than Expected</c>
+            </r>
+            <r>
+              <c>&lt;/article&gt;</c>
+            </r>
+            <r>
+              <c>&lt;attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;views&gt;</c>
+            </r>
+            <r>
+              <c>387</c>
+            </r>
+            <r>
+              <c>&lt;/views&gt;</c>
+            </r>
+            <r>
+              <c>&lt;stars&gt;</c>
+            </r>
+            <r>
+              <c>6</c>
+            </r>
+            <r>
+              <c>&lt;/stars&gt;</c>
+            </r>
+            <r>
+              <c>&lt;comments&gt;</c>
+            </r>
+            <r>
+              <c>1</c>
+            </r>
+            <r>
+              <c>&lt;/comments&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/post&gt;</c>
+            </r>
+            <r>
+              <c>&lt;post&gt;</c>
+            </r>
+            <r>
+              <c>&lt;article&gt;</c>
+            </r>
+            <r>
+              <c>Convert a Workflow into an App</c>
+            </r>
+            <r>
+              <c>&lt;/article&gt;</c>
+            </r>
+            <r>
+              <c>&lt;attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;views&gt;</c>
+            </r>
+            <r>
+              <c>109</c>
+            </r>
+            <r>
+              <c>&lt;/views&gt;</c>
+            </r>
+            <r>
+              <c>&lt;stars&gt;</c>
+            </r>
+            <r>
+              <c>6</c>
+            </r>
+            <r>
+              <c>&lt;/stars&gt;</c>
+            </r>
+            <r>
+              <c>&lt;comments&gt;</c>
+            </r>
+            <r>
+              <c>2</c>
+            </r>
+            <r>
+              <c>&lt;/comments&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/post&gt;</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="124">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="885" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>DownloadData</UpdateField_Name>
+          <CreateField_Name>post</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>IF [DownloadData]="&lt;post&gt;"
+THEN [Row-1:post]+1
+ELSE [Row-1:post]
+ENDIF</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IF [DownloadData]="&lt;post&gt;"
+THEN [Row-1:post]+1
+ELSE [Row-1:po...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="125">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+        <Position x="282" y="1017" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupFields>
+            <Field field="post" />
+          </GroupFields>
+          <HeaderField field="Headers" />
+          <DataField field="DownloadData" />
+          <Methods>
+            <Method method="First" />
+            <Separator>,</Separator>
+            <FieldSize value="2048" />
+          </Methods>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: IF [DownloadData]=&quot;&lt;post&gt;&quot;&#xA;THEN [Row-1:post]+1&#xA;ELSE [Row-1:post]&#xA;ENDIF" name="post" source="CrossTab:Group:First:" type="Int32" />
+            <Field name="article" size="79" source="TextInput:" type="V_String" />
+            <Field name="comments" size="79" source="TextInput:" type="V_String" />
+            <Field name="stars" size="79" source="TextInput:" type="V_String" />
+            <Field name="views" size="79" source="TextInput:" type="V_String" />
+            <Field name="_Null_" size="79" source="TextInput:" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="post" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+    </Node>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="90" />
+          <Fields>
+            <Field name="Year" />
+            <Field name="Month" />
+            <Field name="Product" />
+            <Field name="Sales" />
+          </Fields>
+          <Data>
+            <r>
+              <c>2012</c>
+              <c>1</c>
+              <c>Prod_A</c>
+              <c>290</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_A</c>
+              <c>398</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_A</c>
+              <c>444</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_A</c>
+              <c>368</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_A</c>
+              <c>482</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_A</c>
+              <c>428</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_A</c>
+              <c>416</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_A</c>
+              <c>420</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_A</c>
+              <c>402</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_A</c>
+              <c>400</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_A</c>
+              <c>388</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_A</c>
+              <c>394</c>
+            </r>
+            <r>
+              <c>2013</c>
+              <c>1</c>
+              <c>Prod_A</c>
+              <c>358</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_A</c>
+              <c>406</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_A</c>
+              <c>392</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_A</c>
+              <c>474</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_A</c>
+              <c>490</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_A</c>
+              <c>464</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_A</c>
+              <c>368</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_A</c>
+              <c>482</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_A</c>
+              <c>460</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_A</c>
+              <c>396</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_A</c>
+              <c>470</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_A</c>
+              <c>484</c>
+            </r>
+            <r>
+              <c>2014</c>
+              <c>1</c>
+              <c>Prod_A</c>
+              <c>406</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_A</c>
+              <c>376</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_A</c>
+              <c>404</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_A</c>
+              <c>568</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_A</c>
+              <c>205</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_A</c>
+              <c>634</c>
+            </r>
+            <r>
+              <c>2012</c>
+              <c>1</c>
+              <c>Prod_B</c>
+              <c>1675606</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_B</c>
+              <c>2207660</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_B</c>
+              <c>2444242</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_B</c>
+              <c>1986294</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_B</c>
+              <c>2287008</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_B</c>
+              <c>2288512</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_B</c>
+              <c>2307460</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_B</c>
+              <c>2054136</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_B</c>
+              <c>2103286</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_B</c>
+              <c>2161064</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_B</c>
+              <c>2206844</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_B</c>
+              <c>2260564</c>
+            </r>
+            <r>
+              <c>2013</c>
+              <c>1</c>
+              <c>Prod_B</c>
+              <c>2064074</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_B</c>
+              <c>2293626</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_B</c>
+              <c>2169230</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_B</c>
+              <c>2468444</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_B</c>
+              <c>2566232</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_B</c>
+              <c>2350834</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_B</c>
+              <c>2025940</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_B</c>
+              <c>2592014</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_B</c>
+              <c>2389344</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_B</c>
+              <c>2205798</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_B</c>
+              <c>2722910</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_B</c>
+              <c>2723290</c>
+            </r>
+            <r>
+              <c>2014</c>
+              <c>1</c>
+              <c>Prod_B</c>
+              <c>2507608</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_B</c>
+              <c>2154678</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_B</c>
+              <c>2413078</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_B</c>
+              <c>2973512</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_B</c>
+              <c>1118660</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_B</c>
+              <c>3069538</c>
+            </r>
+            <r>
+              <c>2012</c>
+              <c>1</c>
+              <c>Prod_C</c>
+              <c>42</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_C</c>
+              <c>110</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_C</c>
+              <c>106</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_C</c>
+              <c>62</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_C</c>
+              <c>74</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_C</c>
+              <c>72</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_C</c>
+              <c>98</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_C</c>
+              <c>76</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_C</c>
+              <c>52</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_C</c>
+              <c>62</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_C</c>
+              <c>92</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_C</c>
+              <c>104</c>
+            </r>
+            <r>
+              <c>2013</c>
+              <c>1</c>
+              <c>Prod_C</c>
+              <c>76</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_C</c>
+              <c>112</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_C</c>
+              <c>82</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_C</c>
+              <c>100</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_C</c>
+              <c>104</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_C</c>
+              <c>86</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_C</c>
+              <c>92</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_C</c>
+              <c>94</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_C</c>
+              <c>96</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_C</c>
+              <c>76</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_C</c>
+              <c>92</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_C</c>
+              <c>100</c>
+            </r>
+            <r>
+              <c>2014</c>
+              <c>1</c>
+              <c>Prod_C</c>
+              <c>110</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_C</c>
+              <c>94</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_C</c>
+              <c>86</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_C</c>
+              <c>104</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_C</c>
+              <c>92</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_C</c>
+              <c>118</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="118">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="414" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Year</UpdateField_Name>
+          <CreateField_Name>3 Month Average</CreateField_Name>
+          <CreateField_Type>FixedDecimal</CreateField_Type>
+          <CreateField_Size>12.2</CreateField_Size>
+          <OtherRows>Nearest</OtherRows>
+          <NumRows value="2" />
+          <Expression>Average([Sales],[Row-1:Sales],[Row-2:Sales])</Expression>
+          <GroupByFields>
+            <Field field="Product" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Average([Sales],[Row-1:Sales],[Row-2:Sales])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="121" Connection="Output" />
+      <Destination ToolID="120" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="124" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="124" Connection="Output" />
+      <Destination ToolID="125" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="116" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="118" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <SortedGrouping value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Multi-Row_Formula</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author>Alex Koszycki</Author>
+      <Company>Alteryx, Inc.</Company>
+      <Copyright>Alteryx, Inc. 2016</Copyright>
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="157e11a7-2d62-497f-9c8d-fe12dd811a1a" />
+      <Telemetry>
+        <PreviousWorkflowId value="6bf81347-e021-4743-880b-04d0cc74d06d" />
+        <OriginWorkflowId value="6bf81347-e021-4743-880b-04d0cc74d06d" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
