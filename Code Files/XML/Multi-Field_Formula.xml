@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">..\..\..\data\SampleData\PetStoreMonthlySales.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>PetStoreMonthlySales.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NAME" size="255" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="V_WString" />
+            <Field name="ADDRESS" size="255" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="V_WString" />
+            <Field name="CITY" size="255" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="V_WString" />
+            <Field name="STATE" size="255" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="V_WString" />
+            <Field name="ZIP" size="255" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="V_WString" />
+            <Field name="January" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="February" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="March" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="April" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="May" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="June" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="July" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="August " source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="September" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="October" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="November" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="December" source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+            <Field name="Total " source="File: C:\Documents and Settings\lsellers\My Documents\petstoressales.xls|`Sheet1$`" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiFieldFormula.MultiFieldFormula">
+        <Position x="282" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldType>Text</FieldType>
+          <Fields orderChanged="False">
+            <Field name="NAME" />
+            <Field name="ADDRESS" />
+            <Field name="CITY" />
+            <Field name="STATE" />
+            <Field name="ZIP" />
+            <Field name="*Unknown" />
+          </Fields>
+          <CopyOutput value="False" />
+          <Expression>Uppercase([_CurrentField_])</Expression>
+          <ChangeFieldType value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Uppercase([_CurrentField_])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiFieldFormula" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiFieldFormula.MultiFieldFormula">
+        <Position x="282" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldType>Text</FieldType>
+          <Fields orderChanged="False">
+            <Field name="NAME" />
+            <Field name="ADDRESS" />
+            <Field name="CITY" />
+            <Field name="STATE" />
+            <Field name="ZIP" />
+            <Field name="*Unknown" />
+          </Fields>
+          <NewFieldAddOn>New_</NewFieldAddOn>
+          <NewFieldAddOnPos>Prefix</NewFieldAddOnPos>
+          <CopyOutput value="True" />
+          <Expression>Uppercase([_CurrentField_])</Expression>
+          <ChangeFieldType value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Uppercase([_CurrentField_])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiFieldFormula" />
+    </Node>
+    <Node ToolID="38">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiFieldFormula.MultiFieldFormula">
+        <Position x="282" y="414" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldType>Numeric</FieldType>
+          <Fields orderChanged="False">
+            <Field name="January" />
+            <Field name="February" />
+            <Field name="March" />
+            <Field name="April" />
+            <Field name="May" />
+            <Field name="June" />
+            <Field name="July" />
+            <Field name="August " />
+            <Field name="September" />
+            <Field name="October" />
+            <Field name="November" />
+            <Field name="December" />
+            <Field name="*Unknown" />
+            <Field name="Total " selected="False" />
+          </Fields>
+          <NewFieldAddOn><![CDATA[ % Total]]></NewFieldAddOn>
+          <NewFieldAddOnPos>Suffix</NewFieldAddOnPos>
+          <CopyOutput value="True" />
+          <Expression>[_CurrentField_]/[Total ]*100</Expression>
+          <ChangeFieldType value="True" />
+          <OutputFieldType type="FixedDecimal" size="4" scale="1" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[_CurrentField_]/[Total ]*100</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiFieldFormula" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="37" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <SortedGrouping value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Multi-Field_Formula</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="766b7404-b23a-4b0d-88c4-8d5f897b667e" />
+      <Telemetry>
+        <PreviousWorkflowId value="a18a7827-032f-4374-b705-47f789f0abb6" />
+        <OriginWorkflowId value="a18a7827-032f-4374-b705-47f789f0abb6" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
