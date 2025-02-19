@@ -799,12 +799,14 @@ def generate_cte_for_DBFileInput(xml_data,toolId):
 
 
 ## functionfor cleaning expression paramteres
-def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name=None):
+def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name = None):
     """
     Converts Alteryx-style conditional expressions into SQL-compliant CASE statements.
-    - Handles IF-THEN-ELSE-ENDIF transformations.
-    - Converts NULL() to NULL.
-    - Ensures CONTAINS function has the correct field reference.
+    Handles:
+    - IF-THEN-ELSE-ENDIF to CASE-WHEN-THEN-ELSE-END.
+    - NULL() to NULL.
+    - [_CurrentField_] replacement for Multi-Field Formula.
+    - Row-based references ([Row-1:Field]) to LAG/LEAD for Multi-Row Formula.
     """
 
     if not expression:
@@ -823,17 +825,28 @@ def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name
     expression = re.sub(r"(?i)else", r"ELSE", expression,flags=re.IGNORECASE)
     expression = re.sub(r"(?i)endif", r"END", expression,flags=re.IGNORECASE)
 
+    expression = re.sub(r"\bif\s+(.*?)\s+then", r"CASE WHEN \1 THEN", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\belseif\s+(.*?)\s+then", r"WHEN \1 THEN", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\belse", r"ELSE", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\bendif", r"END", expression, flags=re.IGNORECASE)
+
     # Handle NULL() conversion
     expression = re.sub(r"(?i)NULL\(\)", "NULL", expression)
 
     # Standardize logical operators
     expression = expression.replace("=", " = ").replace("<>", " != ").replace(" And ", " AND ").replace(" Or ", " OR ")
 
-    # Handle quotes (Alteryx &quot;)
-    expression = expression.replace("&quot;", "'")
+    # Handle [_CurrentField_] replacement dynamically
+    expression = expression.replace("[_CurrentField_]", '"_CurrentField_"')
 
-    # Fix potential SQL syntax issues (strip extra whitespace)
-    return expression.strip()
+    # Convert Row-based references (Multi-Row Formula)
+    expression = re.sub(r"\[Row-([0-9]+):(.+?)\]", r"LAG(\2, \1) OVER ()", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\[Row\+([0-9]+):(.+?)\]", r"LEAD(\2, \1) OVER ()", expression, flags=re.IGNORECASE)
+
+    # Handle line breaks and extra spaces
+    expression = expression.replace("\n", " ").replace("\r", " ").strip()
+
+    return expression
 
 
 # Function to parse the XML and generate SQL CTE for Filter
@@ -1366,6 +1379,111 @@ def generate_cte_for_Message(xml_data, previousToolId, toolId, prev_tool_fields)
     return new_fields, cte_query
 
 
+import xml.etree.ElementTree as ET
+
+def generate_cte_for_MultiFieldFormula(xml_data, previousToolId, toolId, prev_tool_fields):
+    """
+    Parses Alteryx Multi-Field Formula node from XML, extracts formula transformations dynamically,
+    and generates an equivalent SQL CTE.
+
+    - Extracts selected fields from XML.
+    - Replaces [_CurrentField_] with actual field names.
+    - Applies prefix/suffix if enabled.
+    - Includes previousToolId for chaining transformations.
+    """
+
+    root = ET.fromstring(xml_data)
+
+    # Extract selected fields
+    fields = [field.get("name") for field in root.findall(".//Fields/Field") if field.get("name") != "*Unknown"]
+
+    # Extract expression and transform it
+    expression_node = root.find(".//Expression")
+    expression = expression_node.text if expression_node is not None else ""
+    sanitized_expression = sanitize_expression_for_filter_formula_dynamic_rename(expression)
+
+    # Extract prefix/suffix settings
+    new_field_prefix = root.find(".//NewFieldAddOn")
+    new_field_prefix = new_field_prefix.text if new_field_prefix is not None else ""
+
+    new_field_position = root.find(".//NewFieldAddOnPos")
+    new_field_position = new_field_position.text if new_field_position is not None else "Suffix"
+
+    # Determine if original fields should be kept
+    copy_output = root.find(".//CopyOutput")
+    copy_output = copy_output is not None and copy_output.get("value") == "True"
+
+    # Generate transformed field names
+    if new_field_position == "Prefix":
+        transformed_fields = [f'{new_field_prefix}{field}' for field in fields]
+    else:
+        transformed_fields = [f'{field}{new_field_prefix}' for field in fields]
+
+    # Apply formula to each selected field
+    transformations = [
+        f"{sanitized_expression.replace('[_CurrentField_]', f'\"{field}\"')} AS \"{new_field}\""
+        for field, new_field in zip(fields, transformed_fields)
+    ]
+
+    # Determine final field selection
+    if copy_output:
+        all_fields = prev_tool_fields + transformed_fields
+    else:
+        all_fields = transformed_fields
+
+    fields_selection = ', '.join([f'"{field}"' for field in all_fields])
+
+    # Generate SQL CTE
+    cte_query = f"""
+    -- Multi-Field Formula transformations applied
+    CTE_{toolId} AS (
+        SELECT {fields_selection}
+        FROM CTE_{previousToolId}
+    )
+    """
+
+    return all_fields, cte_query
+
+def generate_cte_for_MultiRowFormula(xml_data, previousToolId, toolId, prev_tool_fields):
+    
+    root = ET.fromstring(xml_data)
+    
+    # Extracting values from XML
+    update_existing = root.find(".//UpdateField").get("value") == "True"
+    existing_field = root.find(".//UpdateField_Name").text if update_existing else None
+    new_field = root.find(".//CreateField_Name").text if not update_existing else None
+    expression = root.find(".//Expression").text.strip()
+    num_rows = root.find(".//NumRows").get("value")
+    group_by_fields = [field.get("field") for field in root.findall(".//GroupByFields/Field")]
+
+    # Cleaning up the expression
+    sanitized_expression = sanitize_expression_for_filter_formula_dynamic_rename(expression)
+
+    # Generating SQL logic
+    partition_clause = f"PARTITION BY {', '.join([f'\"{field}\"' for field in group_by_fields])}" if group_by_fields else ""
+    lag_lead_function = sanitized_expression.replace("[Row-1:", "LAG(").replace("[Row+1:", "LEAD(").replace("]", f", {num_rows}) OVER ({partition_clause} ORDER BY ROW_NUMBER() OVER())")
+
+    # Determining selected fields
+    if update_existing:
+        transformations = f"{lag_lead_function} AS \"{existing_field}\""
+        all_fields = prev_tool_fields  # Keeps original field structure
+    else:
+        transformations = f"{lag_lead_function} AS \"{new_field}\""
+        all_fields = prev_tool_fields + [new_field]
+
+    fields_selection = ', '.join([f'"{field}"' for field in all_fields])
+
+    # Generating CTE query
+    cte_query = f"""
+    CTE_{toolId} AS (
+        SELECT {fields_selection}
+        FROM CTE_{previousToolId}
+    )
+    """
+
+    return all_fields, cte_query
+
+
 
 def connectionDetails(file,dfWithTool):
     # Parse the XML data
@@ -1526,7 +1644,10 @@ if __name__ == "__main__":
                 'AlteryxBasePluginsGui.RunningTotal.RunningTotal':generate_cte_for_RunningTotal,
                 'AlteryxBasePluginsGui.RecordID.RecordID':generate_cte_for_RecordID,
                 'AlteryxBasePluginsGui.TextToColumns.TextToColumns' : generate_cte_for_Text_To_Columns,
-                'AlteryxBasePluginsGui.Message.Message' : generate_cte_for_Message
+                'AlteryxBasePluginsGui.Message.Message' : generate_cte_for_Message,
+                'AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula' : generate_cte_for_MultiFieldFormula,
+                'AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula' : generate_cte_for_MultiRowFormula
+
             }
 
             df= getToolData(file)
