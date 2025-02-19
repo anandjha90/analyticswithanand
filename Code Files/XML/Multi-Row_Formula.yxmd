@@ -1,0 +1,1608 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="366" y="551" width="492" height="92" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>This example checks to see if any of the DateTime values are within 30 seconds of each other, which might indicate that a user clicked multiple times on a hyperlink. 
+
+Group By is set to DeviceID so that comparisons are only made for clicks from the same device. Clicks that occurred within 30 seconds of the previous click are flagged so they can be filtered out or reviewed.</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="3" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="366" y="191" width="492" height="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>The Year column in this data only has values for the first month and needs to be updated.
+
+In this expression, if the current row is [Null], the value from the preceding row is used. Values from preceding, current, and subsequent rows can be referenced on the Variables tab.</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="3" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="366" y="299" width="492" height="84" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>A RecordID column is created for each Product. The expression starts with the row prior to the first row, which does not exist and is set to 0 or empty. Each row is then increased by 1.
+
+Setting Group By to Product, makes the RecordID column reset each time a new value appears in the Product column.</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="3" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="50">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="270" y="162" width="588" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Fill in Nulls in an Existing Column</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="130" g="141" b="169" />
+          <FillColor r="225" g="231" b="242" />
+          <Shape shape="1" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="53">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="270" y="270" width="588" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Create a Grouped RecordID Column</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="130" g="141" b="169" />
+          <FillColor r="225" g="231" b="242" />
+          <Shape shape="1" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="55">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="270" y="522" width="588" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Flag Rows that Meet Contextual Criteria</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="130" g="141" b="169" />
+          <FillColor r="225" g="231" b="242" />
+          <Shape shape="1" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="58">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="270" y="390" width="588" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Access Additional Rows and Change Values for Rows that don't Exist</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="130" g="141" b="169" />
+          <FillColor r="225" g="231" b="242" />
+          <Shape shape="1" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="63">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="54" width="804" height="60" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text />
+          <Font name="Segoe UI" size="20.25" style="0" />
+          <TextColor name="White" />
+          <FillColor r="13" g="35" b="69" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="64">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="402" y="54" width="456" height="60" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>The Multi-Row Formula tool allows you to utilize row data as part of the formula creation. It is helpful for parsing complex data, creating running totals, and other such calculations.</Text>
+          <Font name="Segoe UI" size="9" style="0" />
+          <TextColor name="White" />
+          <FillColor r="111" g="111" b="111" />
+          <Shape shape="3" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="78">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="366" y="419" width="492" height="103" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[This example calculates a 3-month rolling average for Sales values grouped by Product.
+
+The number of rows displayed in the Variables tab is increased to 2 and Values for Rows that don’t Exist is Set to Values of Closest Valid Row.
+
+The average function simply averages three values: The current row and two preceding rows.
+]]></Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="3" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="80">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="366" y="770" width="492" height="81" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>In this example, values for a new Header column are created for any row that does not start with a “&lt;."
+
+The new header values come from the previous row, with the “&lt;” and “&gt;” trimmed off.</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="3" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="81">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="270" y="741" width="588" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Create the Headers Column</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="130" g="141" b="169" />
+          <FillColor r="225" g="231" b="242" />
+          <Shape shape="1" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="84">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="366" y="890" width="492" height="96" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>When data contain multiple groups of values, the Multi-Row Formula can be used to group values that belong together.
+
+Here, multiple posts refer to article titles, views, stars, and comment counts.
+
+A new Post column is created and incremented each time the value &lt;post&gt; is found.</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="3" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="89">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="270" y="993" width="588" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Transform Flat Data into a Table Format</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="130" g="141" b="169" />
+          <FillColor r="225" g="231" b="242" />
+          <Shape shape="1" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="96">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="366" y="1022" width="492" height="96" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[The values created in the Headers column are used to create new columns, populated with the values from the Download Data column. These are grouped by the Post values so that all 3 posts are included.
+
+(The "_Null_" column is due to [Null] values in the Headers column. This can be removed with a Filter tool before the Cross Tab or a Select tool after the Cross Tab.)
+]]></Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="3" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="97">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="270" y="861" width="588" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Specify Rows to Group Data by</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="130" g="141" b="169" />
+          <FillColor r="225" g="231" b="242" />
+          <Shape shape="1" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="111">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="1125" width="804" height="69" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text />
+          <Font name="Segoe UI" size="14.25" style="0" />
+          <TextColor name="White" />
+          <FillColor r="13" g="35" b="69" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="112">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="318" y="1125" width="540" height="69" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Existing data columns listed on the Variables tab can be added to the Expression by double-clicking them.
+
+Functions on the Functions tab can also be added by double-clicking.</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="White" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="113">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="126" width="408" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>1) Run the workflow (Ctrl+R).</Text>
+          <Font name="Segoe UI" size="8.25" style="1" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="1" />
+          <Justification Justification="1" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="114">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="462" y="126" width="396" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>2) Select a tool to view its output in the Results window.</Text>
+          <Font name="Segoe UI" size="8.25" style="1" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="1" />
+          <Justification Justification="1" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="116">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="True" />
+          <UpdateField_Name>Year</UpdateField_Name>
+          <CreateField_Name>NewField</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>IF IsNull([Year])
+THEN [Row-1:Year]
+ELSE [Year]
+ENDIF</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IF IsNull([Year])
+THEN [Row-1:Year]
+ELSE [Year]
+ENDIF</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Year</UpdateField_Name>
+          <CreateField_Name>RecordID</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>[Row-1:RecordID]+1</Expression>
+          <GroupByFields>
+            <Field field="Product" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Row-1:RecordID]+1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="120">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Installation Date</UpdateField_Name>
+          <CreateField_Name>Flag</CreateField_Name>
+          <CreateField_Type>Bool</CreateField_Type>
+          <CreateField_Size>1</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>IF DateTimeDiff([Clicks],[Row-1:Clicks],'seconds')&lt;30
+THEN 1
+ELSE 0
+ENDIF</Expression>
+          <GroupByFields>
+            <Field field="DeviceID" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IF DateTimeDiff([Clicks],[Row-1:Clicks],'seconds')&lt;30
+THEN 1
+...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="16" />
+          <Fields>
+            <Field name="DeviceID" />
+            <Field name="Clicks" />
+          </Fields>
+          <Data>
+            <r>
+              <c>2</c>
+              <c>2015-11-30 03:17:04</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2015-12-06 17:22:00</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2015-12-06 17:22:02</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2016-01-30 06:34:19</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2016-01-30 06:34:25</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2016-01-30 06:34:32</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2016-02-10 23:59:50</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>2016-02-11 00:00:16</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>2015-10-18 03:17:04</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>2015-11-06 17:22:00</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>2015-11-06 17:22:02</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>2016-12-30 06:34:19</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>2016-12-30 06:34:25</c>
+            </r>
+            <r>
+              <c>4</c>
+              <c>2016-12-30 06:34:32</c>
+            </r>
+            <r>
+              <c>4</c>
+              <c>2016-12-31 23:59:50</c>
+            </r>
+            <r>
+              <c>4</c>
+              <c>2017-01-01 00:00:16</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="765" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>DownloadData</UpdateField_Name>
+          <CreateField_Name>Headers</CreateField_Name>
+          <CreateField_Type>String</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>IF !StartsWith([DownloadData], '&lt;')
+THEN trim([Row-1:DownloadData],'&lt;&gt;')
+ELSE null()
+ENDIF</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IF !StartsWith([DownloadData], '&lt;')
+THEN trim([Row-1:Download...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="123">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="765" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="48" />
+          <Fields>
+            <Field name="DownloadData" />
+          </Fields>
+          <Data>
+            <r>
+              <c>&lt;post&gt;</c>
+            </r>
+            <r>
+              <c>&lt;article&gt;</c>
+            </r>
+            <r>
+              <c>Behind the Scenes of the Tool Mastery Series: Community APIs and Automation</c>
+            </r>
+            <r>
+              <c>&lt;/article&gt;</c>
+            </r>
+            <r>
+              <c>&lt;attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;views&gt;</c>
+            </r>
+            <r>
+              <c>170</c>
+            </r>
+            <r>
+              <c>&lt;/views&gt;</c>
+            </r>
+            <r>
+              <c>&lt;stars&gt;</c>
+            </r>
+            <r>
+              <c>6</c>
+            </r>
+            <r>
+              <c>&lt;/stars&gt;</c>
+            </r>
+            <r>
+              <c>&lt;comments&gt;</c>
+            </r>
+            <r>
+              <c>1</c>
+            </r>
+            <r>
+              <c>&lt;/comments&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/post&gt;</c>
+            </r>
+            <r>
+              <c>&lt;post&gt;</c>
+            </r>
+            <r>
+              <c>&lt;article&gt;</c>
+            </r>
+            <r>
+              <c>How the Join Tool Works and Why You Might Be Getting More Records than Expected</c>
+            </r>
+            <r>
+              <c>&lt;/article&gt;</c>
+            </r>
+            <r>
+              <c>&lt;attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;views&gt;</c>
+            </r>
+            <r>
+              <c>387</c>
+            </r>
+            <r>
+              <c>&lt;/views&gt;</c>
+            </r>
+            <r>
+              <c>&lt;stars&gt;</c>
+            </r>
+            <r>
+              <c>6</c>
+            </r>
+            <r>
+              <c>&lt;/stars&gt;</c>
+            </r>
+            <r>
+              <c>&lt;comments&gt;</c>
+            </r>
+            <r>
+              <c>1</c>
+            </r>
+            <r>
+              <c>&lt;/comments&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/post&gt;</c>
+            </r>
+            <r>
+              <c>&lt;post&gt;</c>
+            </r>
+            <r>
+              <c>&lt;article&gt;</c>
+            </r>
+            <r>
+              <c>Convert a Workflow into an App</c>
+            </r>
+            <r>
+              <c>&lt;/article&gt;</c>
+            </r>
+            <r>
+              <c>&lt;attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;views&gt;</c>
+            </r>
+            <r>
+              <c>109</c>
+            </r>
+            <r>
+              <c>&lt;/views&gt;</c>
+            </r>
+            <r>
+              <c>&lt;stars&gt;</c>
+            </r>
+            <r>
+              <c>6</c>
+            </r>
+            <r>
+              <c>&lt;/stars&gt;</c>
+            </r>
+            <r>
+              <c>&lt;comments&gt;</c>
+            </r>
+            <r>
+              <c>2</c>
+            </r>
+            <r>
+              <c>&lt;/comments&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/attributes&gt;</c>
+            </r>
+            <r>
+              <c>&lt;/post&gt;</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="124">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="885" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>DownloadData</UpdateField_Name>
+          <CreateField_Name>post</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>IF [DownloadData]="&lt;post&gt;"
+THEN [Row-1:post]+1
+ELSE [Row-1:post]
+ENDIF</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IF [DownloadData]="&lt;post&gt;"
+THEN [Row-1:post]+1
+ELSE [Row-1:po...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="125">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+        <Position x="282" y="1017" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupFields>
+            <Field field="post" />
+          </GroupFields>
+          <HeaderField field="Headers" />
+          <DataField field="DownloadData" />
+          <Methods>
+            <Method method="First" />
+            <Separator>,</Separator>
+            <FieldSize value="2048" />
+          </Methods>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: IF [DownloadData]=&quot;&lt;post&gt;&quot;&#xA;THEN [Row-1:post]+1&#xA;ELSE [Row-1:post]&#xA;ENDIF" name="post" source="CrossTab:Group:First:" type="Int32" />
+            <Field name="article" size="79" source="TextInput:" type="V_String" />
+            <Field name="comments" size="79" source="TextInput:" type="V_String" />
+            <Field name="stars" size="79" source="TextInput:" type="V_String" />
+            <Field name="views" size="79" source="TextInput:" type="V_String" />
+            <Field name="_Null_" size="79" source="TextInput:" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="post" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+    </Node>
+    <Node ToolID="126">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="657" width="804" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[  Multi-Row Formula and Cross Tab]]></Text>
+          <Font name="Segoe UI" size="9.75" style="1" />
+          <TextColor r="130" g="141" b="169" />
+          <FillColor r="225" g="231" b="242" />
+          <Shape shape="1" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="686" width="804" height="36" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>The Multi-Row Formula tool is commonly used in conjunction with the Cross Tab tool. In the example below, Multi-Row Formula tools are used to prepare XML data for a Cross Tab tool.</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="3" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="90" />
+          <Fields>
+            <Field name="Year" />
+            <Field name="Month" />
+            <Field name="Product" />
+            <Field name="Sales" />
+          </Fields>
+          <Data>
+            <r>
+              <c>2012</c>
+              <c>1</c>
+              <c>Prod_A</c>
+              <c>290</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_A</c>
+              <c>398</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_A</c>
+              <c>444</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_A</c>
+              <c>368</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_A</c>
+              <c>482</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_A</c>
+              <c>428</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_A</c>
+              <c>416</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_A</c>
+              <c>420</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_A</c>
+              <c>402</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_A</c>
+              <c>400</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_A</c>
+              <c>388</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_A</c>
+              <c>394</c>
+            </r>
+            <r>
+              <c>2013</c>
+              <c>1</c>
+              <c>Prod_A</c>
+              <c>358</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_A</c>
+              <c>406</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_A</c>
+              <c>392</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_A</c>
+              <c>474</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_A</c>
+              <c>490</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_A</c>
+              <c>464</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_A</c>
+              <c>368</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_A</c>
+              <c>482</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_A</c>
+              <c>460</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_A</c>
+              <c>396</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_A</c>
+              <c>470</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_A</c>
+              <c>484</c>
+            </r>
+            <r>
+              <c>2014</c>
+              <c>1</c>
+              <c>Prod_A</c>
+              <c>406</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_A</c>
+              <c>376</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_A</c>
+              <c>404</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_A</c>
+              <c>568</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_A</c>
+              <c>205</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_A</c>
+              <c>634</c>
+            </r>
+            <r>
+              <c>2012</c>
+              <c>1</c>
+              <c>Prod_B</c>
+              <c>1675606</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_B</c>
+              <c>2207660</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_B</c>
+              <c>2444242</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_B</c>
+              <c>1986294</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_B</c>
+              <c>2287008</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_B</c>
+              <c>2288512</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_B</c>
+              <c>2307460</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_B</c>
+              <c>2054136</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_B</c>
+              <c>2103286</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_B</c>
+              <c>2161064</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_B</c>
+              <c>2206844</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_B</c>
+              <c>2260564</c>
+            </r>
+            <r>
+              <c>2013</c>
+              <c>1</c>
+              <c>Prod_B</c>
+              <c>2064074</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_B</c>
+              <c>2293626</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_B</c>
+              <c>2169230</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_B</c>
+              <c>2468444</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_B</c>
+              <c>2566232</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_B</c>
+              <c>2350834</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_B</c>
+              <c>2025940</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_B</c>
+              <c>2592014</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_B</c>
+              <c>2389344</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_B</c>
+              <c>2205798</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_B</c>
+              <c>2722910</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_B</c>
+              <c>2723290</c>
+            </r>
+            <r>
+              <c>2014</c>
+              <c>1</c>
+              <c>Prod_B</c>
+              <c>2507608</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_B</c>
+              <c>2154678</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_B</c>
+              <c>2413078</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_B</c>
+              <c>2973512</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_B</c>
+              <c>1118660</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_B</c>
+              <c>3069538</c>
+            </r>
+            <r>
+              <c>2012</c>
+              <c>1</c>
+              <c>Prod_C</c>
+              <c>42</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_C</c>
+              <c>110</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_C</c>
+              <c>106</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_C</c>
+              <c>62</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_C</c>
+              <c>74</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_C</c>
+              <c>72</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_C</c>
+              <c>98</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_C</c>
+              <c>76</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_C</c>
+              <c>52</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_C</c>
+              <c>62</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_C</c>
+              <c>92</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_C</c>
+              <c>104</c>
+            </r>
+            <r>
+              <c>2013</c>
+              <c>1</c>
+              <c>Prod_C</c>
+              <c>76</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_C</c>
+              <c>112</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_C</c>
+              <c>82</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_C</c>
+              <c>100</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_C</c>
+              <c>104</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_C</c>
+              <c>86</c>
+            </r>
+            <r>
+              <c />
+              <c>7</c>
+              <c>Prod_C</c>
+              <c>92</c>
+            </r>
+            <r>
+              <c />
+              <c>8</c>
+              <c>Prod_C</c>
+              <c>94</c>
+            </r>
+            <r>
+              <c />
+              <c>9</c>
+              <c>Prod_C</c>
+              <c>96</c>
+            </r>
+            <r>
+              <c />
+              <c>10</c>
+              <c>Prod_C</c>
+              <c>76</c>
+            </r>
+            <r>
+              <c />
+              <c>11</c>
+              <c>Prod_C</c>
+              <c>92</c>
+            </r>
+            <r>
+              <c />
+              <c>12</c>
+              <c>Prod_C</c>
+              <c>100</c>
+            </r>
+            <r>
+              <c>2014</c>
+              <c>1</c>
+              <c>Prod_C</c>
+              <c>110</c>
+            </r>
+            <r>
+              <c />
+              <c>2</c>
+              <c>Prod_C</c>
+              <c>94</c>
+            </r>
+            <r>
+              <c />
+              <c>3</c>
+              <c>Prod_C</c>
+              <c>86</c>
+            </r>
+            <r>
+              <c />
+              <c>4</c>
+              <c>Prod_C</c>
+              <c>104</c>
+            </r>
+            <r>
+              <c />
+              <c>5</c>
+              <c>Prod_C</c>
+              <c>92</c>
+            </r>
+            <r>
+              <c />
+              <c>6</c>
+              <c>Prod_C</c>
+              <c>118</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="118">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="282" y="414" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Year</UpdateField_Name>
+          <CreateField_Name>3 Month Average</CreateField_Name>
+          <CreateField_Type>FixedDecimal</CreateField_Type>
+          <CreateField_Size>12.2</CreateField_Size>
+          <OtherRows>Nearest</OtherRows>
+          <NumRows value="2" />
+          <Expression>Average([Sales],[Row-1:Sales],[Row-2:Sales])</Expression>
+          <GroupByFields>
+            <Field field="Product" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Average([Sales],[Row-1:Sales],[Row-2:Sales])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="129">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="54" width="336" height="60" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[ Multi-Row Formula Tool]]></Text>
+          <Font name="Segoe UI" size="20.25" style="0" />
+          <TextColor name="White" />
+          <FillColor r="13" g="35" b="69" />
+          <Shape shape="3" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="130">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="1125" width="252" height="69" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[ More Info]]></Text>
+          <Font name="Segoe UI" size="14.25" style="0" />
+          <TextColor name="White" />
+          <FillColor r="13" g="35" b="69" />
+          <Shape shape="3" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="121" Connection="Output" />
+      <Destination ToolID="120" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="124" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="124" Connection="Output" />
+      <Destination ToolID="125" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="116" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="118" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <SortedGrouping value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Multi-Row_Formula</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author>Alex Koszycki</Author>
+      <Company>Alteryx, Inc.</Company>
+      <Copyright>Alteryx, Inc. 2016</Copyright>
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="157e11a7-2d62-497f-9c8d-fe12dd811a1a" />
+      <Telemetry>
+        <PreviousWorkflowId value="6bf81347-e021-4743-880b-04d0cc74d06d" />
+        <OriginWorkflowId value="6bf81347-e021-4743-880b-04d0cc74d06d" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
