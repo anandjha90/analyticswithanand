@@ -6,7 +6,7 @@ def generate_cte_for_MultiFieldFormula(xml_data, previousToolId, toolId, prev_to
     
     fields = [field.get("name") for field in root.findall(".//Fields/Field") if field.get("name") != "*Unknown"]
     expression = root.find(".//Expression").text
-    expression = sanitize_expression_for_filter_formula(expression)
+    expression = sanitize_expression_for_filter_formula_dynamic_rename(expression)
     copy_output = root.find(".//CopyOutput").get("value") == "True"
     new_field_prefix = root.find(".//NewFieldAddOn")
     new_field_prefix = new_field_prefix.text if new_field_prefix is not None else ""
@@ -20,14 +20,14 @@ def generate_cte_for_MultiFieldFormula(xml_data, previousToolId, toolId, prev_to
     
     transformations = [f"{expression.replace('[_CurrentField_]', f'"{field}"')} AS \"{new_field}\"" for field, new_field in zip(fields, transformed_fields)]
 
-    fields_selection = ', '.join([f'"{field}"' for field in prev_tool_fields]) if copy_output else ', '.join([f'"{field}"' for field in fields])
+    all_fields = prev_tool_fields + transformed_fields if copy_output else transformed_fields
+    fields_selection = ', '.join([f'"{field}"' for field in all_fields])
     
     cte_query = f"""
     CTE_{toolId} AS (
-        SELECT {fields_selection}, {', '.join(transformations)}
+        SELECT {fields_selection}
         FROM CTE_{previousToolId}
     )
     """
     
-    new_fields = prev_tool_fields + transformed_fields if copy_output else transformed_fields
-    return new_fields, cte_query
+    return all_fields, cte_query
