@@ -1,5 +1,5 @@
 ## functionfor cleaning expression paramteres
-def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name=None):
+def sanitize_expression_for_filter_formula_dynamic_rename_backup(expression, field_name=None):
     """
     Converts Alteryx-style conditional expressions into SQL-compliant CASE statements.
     Handles:
@@ -69,3 +69,29 @@ def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name
     expression = re.sub(r"\[Row\+([0-9]+):(.+?)\]", r"LEAD(\2, \1) OVER ()", expression, flags=re.IGNORECASE)
 
     return expression
+
+    # ✅ Convert Alteryx-style string concatenation (`+`) to Snowflake `CONCAT()`
+    def replace_concat(match):
+        first_param = match.group(1).strip()
+        second_param = match.group(2).strip()
+
+        def process_param(param):
+            """Ensure the parameter is enclosed in single quotes if it's a string literal, otherwise double quotes if it's a column name."""
+            # ✅ If the parameter is already in single quotes, keep it unchanged
+            if param.startswith("'") and param.endswith("'"):
+                return param  
+            # ✅ If the parameter is in double quotes, convert it to single quotes
+            elif param.startswith('"') and param.endswith('"'):
+                return f"'{param[1:-1]}'"  
+            # ✅ Otherwise, assume it's a column and wrap in double quotes
+            else:
+                return f'"{param}"'  
+
+        first_param = process_param(first_param)
+        second_param = process_param(second_param)
+
+        return f"CONCAT({first_param}, {second_param})"
+
+    expression = re.sub(r"(\S+)\s*\+\s*(\S+)", replace_concat, expression)
+
+
