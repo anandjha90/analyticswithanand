@@ -5,6 +5,7 @@ from collections import deque
 import os
 import zipfile
 import re
+import networkx as nx
 
 def getToolData(XMlfile):
     # Parse the XML
@@ -33,8 +34,15 @@ def getToolData(XMlfile):
         if tool_config is not None:
             node_data['Properties'] = ET.tostring(tool_config, encoding="unicode")
 
-        data.append(node_data)
+        # Extract Macro related data
+        plugin_value = node.find(".//GuiSettings").get("Plugin")
+        if plugin_value is None:
+            node_str = ET.tostring(node, encoding='unicode')
+            # match = re.findall(r'EngineSettings\s+Macro="[^"]+"', node_str)
+            match = re.findall(r'EngineSettings\s+Macro\s*=\s*"([^\.]+)', node_str)
+            node_data['Plugin'] = match[0]
 
+        data.append(node_data)
 
     df = pd.DataFrame(data)
 
@@ -44,8 +52,6 @@ def getToolData(XMlfile):
 
 
 def executionOrders(df):
-
-
     df = df[['Origin_ToolID', 'Destination_ToolID']]
     # Create an empty list to store the new rows
     df_new = []
@@ -114,20 +120,18 @@ def executionOrders(df):
         raise ValueError("Cycle detected in dependencies. Execution order not possible")
 
     # List where origin element is not in destination
-    origin_not_in_destination = df_filtered['Origin_ToolID'][~df_filtered['Origin_ToolID'].isin(df_filtered['Destination_ToolID'])].tolist()
+    origin_not_in_destination = df_filtered['Origin_ToolID'][
+        ~df_filtered['Origin_ToolID'].isin(df_filtered['Destination_ToolID'])].tolist()
 
     # List where destination element is not in origin
-    destination_not_in_origin = df_filtered['Destination_ToolID'][~df_filtered['Destination_ToolID'].isin(df_filtered['Origin_ToolID'])].tolist()
+    destination_not_in_origin = df_filtered['Destination_ToolID'][
+        ~df_filtered['Destination_ToolID'].isin(df_filtered['Origin_ToolID'])].tolist()
 
-
-
-    return executionOrder,origin_not_in_destination,destination_not_in_origin
-
+    return executionOrder, origin_not_in_destination, destination_not_in_origin, df_filtered
 
 
 # Function to iterate over each row and generate the correct CTE based on Plugin Name
-def generate_ctes_for_plugin(df,parentMap,functionCallOrderList):
-
+def generate_ctes_for_plugin(df, parentMap, functionCallOrderList):
     cteResults = {}
 
     for toolId in functionCallOrderList:
@@ -135,12 +139,14 @@ def generate_ctes_for_plugin(df,parentMap,functionCallOrderList):
 
         if toolRow is not None:
             pluginName = toolRow.iloc[0]['Plugin']
-            properties= toolRow.iloc[0]['Properties']
+            properties = toolRow.iloc[0]['Properties']
 
             if pluginName in plugin_functions:
-                previousToolId = parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].squeeze() if not parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].empty else None
+                previousToolId = parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].squeeze() if not \
+                parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].empty else None
                 previousToolColList = df[df['ToolID'] == previousToolId]['ColumnsList'].tolist()[0]
-                colListGenerated,cteGenerated = plugin_functions[pluginName](properties,previousToolId,toolId,previousToolColList)
+                colListGenerated, cteGenerated = plugin_functions[pluginName](properties, previousToolId, toolId,
+                                                                              previousToolColList)
                 cteResults[toolId] = cteGenerated
 
                 # Iterate through each row and update Columns based on ToolID
@@ -149,42 +155,23 @@ def generate_ctes_for_plugin(df,parentMap,functionCallOrderList):
                         df.at[index, 'ColumnsList'] = colListGenerated
 
             elif pluginName == 'AlteryxBasePluginsGui.DbFileInput.DbFileInput':
-                colListGenerated = generate_cte_for_DBFileInput(properties,toolId)
+                colListGenerated = generate_cte_for_DBFileInput(properties, toolId)
                 # Iterate through each row and update Columns based on ToolID
                 for index, row in df.iterrows():
                     if row['ToolID'] == toolId:  # Check for a single ToolID match
                         df.at[index, 'ColumnsList'] = colListGenerated
 
 
+            elif pluginName == 'LockInGui.LockInInput.LockInInput':
+                colListGenerated, cteGenerated = generate_cte_for_LockInInput(properties, toolId)
+                cteResults[toolId] = cteGenerated
+                # Iterate through each row and update Columns based on ToolID
+                for index, row in df.iterrows():
+                    if row['ToolID'] == toolId:  # Check for a single ToolID match
+                        df.at[index, 'ColumnsList'] = colListGenerated
 
-            elif pluginName =='AlteryxBasePluginsGui.Join.Join':
-                rightToolID = parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Right')]['Origin_ToolID'].squeeze() if not parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Right')]['Origin_ToolID'].empty else None
-                leftToolID = parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Left')]['Origin_ToolID'].squeeze() if not parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Left')]['Origin_ToolID'].empty else None
-                joinTypeList = parentMap[(parentMap['Origin_ToolID'].str.split('_').str[0] == toolId)]['Origin_Connection'].unique().tolist() if not parentMap[(parentMap['Origin_ToolID'].str.split('_').str[0] == toolId)]['Origin_Connection'].empty else []
-
-                if len(joinTypeList)==1:
-                    joinType = 'INNER JOIN' if joinTypeList[0] == 'Join' else 'RIGHT JOIN' if joinTypeList[0] == 'Right' else 'LEFT JOIN' if joinTypeList[0] == 'Left' else None
-                    cteGenerated = generate_cte_for_Join(properties, rightToolID, leftToolID, toolId, joinType)
-                    cteResults[toolId] = cteGenerated
-                else:
-                    joinDict = parentMap[parentMap['Origin_ToolID'].str.split('_').str[0] == toolId][['Origin_ToolID', 'Origin_Connection']]
-                    for _, row in joinDict.iterrows():
-                        join = row['Origin_Connection']
-                        toolId = row['Origin_ToolID']
-                        joinType = 'INNER JOIN' if join == 'Join' else 'RIGHT JOIN' if join == 'Right' else 'LEFT JOIN' if join == 'Left' else None
-                        cteGenerated = generate_cte_for_Join(properties,rightToolID,leftToolID,toolId,joinType)
-
-                        newRow =pd.DataFrame({'ToolID':[toolId],'Plugin':[pluginName],'Properties':[properties],'ColumnsList':[[]],'CTE':None})
-                        df = pd.concat([df, newRow], ignore_index=True)
-
-                        cteResults[toolId] = cteGenerated
-
-            elif pluginName == 'AlteryxBasePluginsGui.AppendFields.AppendFields':
-                # Handle AppendFields
-                sourceToolID = parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Source')]['Origin_ToolID'].squeeze() if not parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Source')]['Origin_ToolID'].empty else None
-                destinationToolID = parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Targets')]['Origin_ToolID'].squeeze() if not parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Targets')]['Origin_ToolID'].empty else None
-                previousToolColList = df[df['ToolID'] == sourceToolID]['ColumnsList'].tolist()[0]
-                colListGenerated,cteGenerated = generate_cte_for_AppendFields(properties, sourceToolID,destinationToolID, toolId,previousToolColList)
+            elif pluginName == 'AlteryxBasePluginsGui.TextInput.TextInput':
+                colListGenerated, cteGenerated = generate_cte_for_TextInput(properties, toolId)
                 cteResults[toolId] = cteGenerated
                 # Iterate through each row and update Columns based on ToolID
                 for index, row in df.iterrows():
@@ -192,37 +179,140 @@ def generate_ctes_for_plugin(df,parentMap,functionCallOrderList):
                         df.at[index, 'ColumnsList'] = colListGenerated
 
 
+            elif pluginName == 'AlteryxBasePluginsGui.Join.Join':
+                rightToolID = parentMap[
+                    (parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Right')][
+                    'Origin_ToolID'].squeeze() if not parentMap[
+                    (parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Right')][
+                    'Origin_ToolID'].empty else None
+                leftToolID = parentMap[
+                    (parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Left')][
+                    'Origin_ToolID'].squeeze() if not parentMap[
+                    (parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Left')][
+                    'Origin_ToolID'].empty else None
+                joinTypeList = parentMap[(parentMap['Origin_ToolID'].str.split('_').str[0] == toolId)][
+                    'Origin_Connection'].unique().tolist() if not \
+                parentMap[(parentMap['Origin_ToolID'].str.split('_').str[0] == toolId)][
+                    'Origin_Connection'].empty else []
+                left_previousToolColList = df[df['ToolID'] == leftToolID]['ColumnsList'].tolist()[0]
+                right_previousToolColList = df[df['ToolID'] == rightToolID]['ColumnsList'].tolist()[0]
+
+                if len(joinTypeList) == 1:
+                    joinType = 'INNER JOIN' if joinTypeList[0] == 'Join' else 'RIGHT JOIN' if joinTypeList[
+                                                                                                  0] == 'Right' else 'LEFT JOIN' if \
+                    joinTypeList[0] == 'Left' else None
+                    colListGenerated, cteGenerated = generate_cte_for_Join(properties, rightToolID, leftToolID, toolId,
+                                                                           joinType, left_previousToolColList,
+                                                                           right_previousToolColList)
+                    cteResults[toolId] = cteGenerated
+
+                    for index, row in df.iterrows():
+                        if row['ToolID'] == toolId:  # Check for a single ToolID match
+                            df.at[index, 'ColumnsList'] = colListGenerated
+                else:
+                    joinDict = parentMap[parentMap['Origin_ToolID'].str.split('_').str[0] == toolId][
+                        ['Origin_ToolID', 'Origin_Connection']]
+                    for _, row in joinDict.iterrows():
+                        join = row['Origin_Connection']
+                        toolId = row['Origin_ToolID']
+                        joinType = 'INNER JOIN' if join == 'Join' else 'RIGHT JOIN' if join == 'Right' else 'LEFT JOIN' if join == 'Left' else None
+                        colListGenerated, cteGenerated = generate_cte_for_Join(properties, rightToolID, leftToolID,
+                                                                               toolId, joinType,
+                                                                               left_previousToolColList,
+                                                                               right_previousToolColList)
+
+                        newRow = pd.DataFrame({'ToolID': [toolId], 'Plugin': [pluginName], 'Properties': [properties],
+                                               'ColumnsList': [[]], 'CTE': None})
+                        df = pd.concat([df, newRow], ignore_index=True)
+
+                        cteResults[toolId] = cteGenerated
+
+                        for index, row in df.iterrows():
+                            if row['ToolID'] == toolId:  # Check for a single ToolID match
+                                df.at[index, 'ColumnsList'] = colListGenerated
+
+
+
+            elif pluginName == 'AlteryxBasePluginsGui.AppendFields.AppendFields':
+                # Handle AppendFields
+                sourceToolID = parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Source')]['Origin_ToolID'].squeeze() if not parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Source')]['Origin_ToolID'].empty else None
+                targetToolID = parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Targets')]['Origin_ToolID'].squeeze() if not parentMap[(parentMap['Destination_ToolID'] == toolId) & (parentMap['Destination_Connection'] == 'Targets')]['Origin_ToolID'].empty else None
+                sourceToolColList = df[df['ToolID'] == sourceToolID]['ColumnsList'].tolist()[0]
+                TargetToolColList = df[df['ToolID'] == targetToolID]['ColumnsList'].tolist()[0]
+                colListGenerated, cteGenerated = generate_cte_for_AppendFields(properties, sourceToolID,targetToolID, toolId,sourceToolColList,TargetToolColList)
+                cteResults[toolId] = cteGenerated
+                # Iterate through each row and update Columns based on ToolID
+                for index, row in df.iterrows():
+                    if row['ToolID'] == toolId:  # Check for a single ToolID match
+                        df.at[index, 'ColumnsList'] = colListGenerated
+
             elif pluginName == 'AlteryxBasePluginsGui.Union.Union':
-                unionList = parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].unique().tolist() if not parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_Connection'].empty else []
+                unionList = parentMap[parentMap['Destination_ToolID'] == toolId][
+                    'Origin_ToolID'].unique().tolist() if not parentMap[parentMap['Destination_ToolID'] == toolId][
+                    'Origin_Connection'].empty else []
                 unionItems = {}
                 for item in unionList:
                     matched_row = df[df['ToolID'] == item]
                     if not matched_row.empty:
                         unionItems[item] = matched_row['ColumnsList'].values[0]
 
-                cteGenerated = generate_cte_for_Union(properties, unionItems, toolId)
+                colListGenerated, cteGenerated = generate_cte_for_Union(properties, unionItems, toolId, parentMap)
                 cteResults[toolId] = cteGenerated
 
+                # Iterate through each row and update Columns based on ToolID
+                for index, row in df.iterrows():
+                    if row['ToolID'] == toolId:  # Check for a single ToolID match
+                        df.at[index, 'ColumnsList'] = colListGenerated
+
             elif pluginName == 'AlteryxBasePluginsGui.Unique.Unique':
-                previousToolId = parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].squeeze() if not parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].empty else None
-                uniqueTypeList = parentMap[(parentMap['Origin_ToolID'].str.split('_').str[0] == toolId)]['Origin_Connection'].unique().tolist() if not parentMap[(parentMap['Origin_ToolID'].str.split('_').str[0] == toolId)]['Origin_Connection'].empty else []
+                previousToolId = parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].squeeze() if not \
+                parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].empty else None
+                uniqueTypeList = parentMap[(parentMap['Origin_ToolID'].str.split('_').str[0] == toolId)]['Origin_Connection'].unique().tolist() if not  parentMap[(parentMap['Origin_ToolID'].str.split('_').str[0] == toolId)]['Origin_Connection'].empty else []
                 previousToolColList = df[df['ToolID'] == previousToolId]['ColumnsList'].tolist()[0]
                 if len(uniqueTypeList) == 1:
                     uniqueType = uniqueTypeList[0]
-                    colListGenerated,cteGenerated = generate_cte_for_Unique(properties, previousToolId, toolId, uniqueType,previousToolColList)
+                    colListGenerated, cteGenerated = generate_cte_for_Unique(properties, previousToolId, toolId,
+                                                                             uniqueType, previousToolColList)
                     for index, row in df.iterrows():
                         if row['ToolID'] == toolId:  # Check for a single ToolID match
                             df.at[index, 'ColumnsList'] = colListGenerated
 
                     cteResults[toolId] = cteGenerated
                 else:
-                    joinDict = parentMap[parentMap['Origin_ToolID'].str.split('_').str[0] == toolId][['Origin_ToolID', 'Origin_Connection']]
-                    for _, row in joinDict.iterrows():
+                    uniqueDict = parentMap[parentMap['Origin_ToolID'].str.split('_').str[0] == toolId][['Origin_ToolID', 'Origin_Connection']]
+                    for _, row in uniqueDict.iterrows():
                         uniqueType = row['Origin_Connection']
                         toolId = row['Origin_ToolID']
-                        colListGenerated,cteGenerated = generate_cte_for_Unique(properties, previousToolId, toolId, uniqueType,previousToolColList)
+                        colListGenerated, cteGenerated = generate_cte_for_Unique(properties, previousToolId, toolId,
+                                                                                 uniqueType, previousToolColList)
 
-                        newRow = pd.DataFrame({'ToolID': [toolId], 'Plugin': [pluginName], 'Properties': [properties],'ColumnsList':[colListGenerated], 'CTE': None})
+                        newRow = pd.DataFrame({'ToolID': [toolId], 'Plugin': [pluginName], 'Properties': [properties],
+                                               'ColumnsList': [colListGenerated], 'CTE': None})
+                        df = pd.concat([df, newRow], ignore_index=True)
+                        cteResults[toolId] = cteGenerated
+
+            elif pluginName == 'AlteryxBasePluginsGui.Filter.Filter':
+                previousToolId = parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].squeeze() if not \
+                parentMap[parentMap['Destination_ToolID'] == toolId]['Origin_ToolID'].empty else None
+                filterTypeList = parentMap[(parentMap['Origin_ToolID'].str.split('_').str[0] == toolId)]['Origin_Connection'].unique().tolist() if not parentMap[(parentMap['Origin_ToolID'].str.split('_').str[0] == toolId)]['Origin_Connection'].empty else []
+                previousToolColList = df[df['ToolID'] == previousToolId]['ColumnsList'].tolist()[0]
+                if len(filterTypeList) == 1:
+                    filterType = filterTypeList[0]
+                    colListGenerated, cteGenerated = generate_cte_for_Filter(properties, previousToolId, toolId,filterType, previousToolColList)
+                    for index, row in df.iterrows():
+                        if row['ToolID'] == toolId:  # Check for a single ToolID match
+                            df.at[index, 'ColumnsList'] = colListGenerated
+
+                    cteResults[toolId] = cteGenerated
+                else:
+                    filterDict = parentMap[parentMap['Origin_ToolID'].str.split('_').str[0] == toolId][
+                        ['Origin_ToolID', 'Origin_Connection']]
+                    for _, row in filterDict.iterrows():
+                        filterType = row['Origin_Connection']
+                        toolId = row['Origin_ToolID']
+                        colListGenerated, cteGenerated = generate_cte_for_Filter(properties, previousToolId, toolId,  filterType, previousToolColList)
+
+                        newRow = pd.DataFrame({'ToolID': [toolId], 'Plugin': [pluginName], 'Properties': [properties],'ColumnsList': [colListGenerated], 'CTE': None})
                         df = pd.concat([df, newRow], ignore_index=True)
                         cteResults[toolId] = cteGenerated
 
@@ -234,8 +324,7 @@ def generate_ctes_for_plugin(df,parentMap,functionCallOrderList):
     return df
 
 
-
-def generate_cte_for_AlteryxSelect(xml_data,previousToolId,toolId,prev_tool_fields):
+def generate_cte_for_AlteryxSelect(xml_data, previousToolId, toolId, prev_tool_fields):
     # Parse the XML data
     root = ET.fromstring(xml_data)
 
@@ -253,34 +342,33 @@ def generate_cte_for_AlteryxSelect(xml_data,previousToolId,toolId,prev_tool_fiel
         rename = field.get('rename')
 
         # If selected is True, add to selected columns list
-        if selected == "True" and field_name.upper()!='*UNKNOWN':
+        if selected == "True" and field_name.upper() != '*UNKNOWN':
             if rename is not None:
-                Selected_true_fields[field_name]=rename
+                Selected_true_fields[field_name] = rename
                 # selected_columns.append(f'"{field_name}" AS "{rename}"')
             else:
-                Selected_true_fields[field_name]=field_name
+                Selected_true_fields[field_name] = field_name
                 # selected_columns.append(f'"{field_name}"')
-        elif selected == 'False' and field_name.upper()!='*UNKNOWN':
+        elif selected == 'False' and field_name.upper() != '*UNKNOWN':
             Selected_false_fields.append(field_name)
-        elif(selected == "True" and field_name.upper()=='*UNKNOWN'):
+        elif (selected == "True" and field_name.upper() == '*UNKNOWN'):
             for field in prev_tool_fields:
-                if(field not in Selected_false_fields and field not in Selected_true_fields.keys()):
+                if (field not in Selected_false_fields and field not in Selected_true_fields.keys()):
                     selected_columns.append(f'"{field}"')
                     current_tool_fields.append(field)
-                elif(field not in Selected_false_fields and field in Selected_true_fields.keys()):
-                    if(Selected_true_fields[field]==field):
+                elif (field not in Selected_false_fields and field in Selected_true_fields.keys()):
+                    if (Selected_true_fields[field] == field):
                         selected_columns.append(f'"{field}"')
                     else:
                         selected_columns.append(f'"{field}" AS "{Selected_true_fields[field]}"')
                     current_tool_fields.append(Selected_true_fields[field])
-        elif(selected == "False" and field_name.upper()=='*UNKNOWN'):
-            for k,v in Selected_true_fields.items():
+        elif (selected == "False" and field_name.upper() == '*UNKNOWN'):
+            for k, v in Selected_true_fields.items():
                 current_tool_fields.append(v)
-                if(k==v):
+                if (k == v):
                     selected_columns.append(f'"{k}"')
                 else:
                     selected_columns.append(f'"{k}" AS "{v}"')
-
 
     # Generate the SQL CTE query string
     # Replace `YourTableName` with the actual table name in your context
@@ -292,10 +380,11 @@ def generate_cte_for_AlteryxSelect(xml_data,previousToolId,toolId,prev_tool_fiel
         )
         """
 
-    return current_tool_fields,cte_query
+    return current_tool_fields, cte_query
+
 
 # Function to parse the XML and generate SQL CTE for GroupBy and Aggregation
-def generate_cte_for_Summarize(xml_data,previousToolId,toolId,prev_tool_fields):
+def generate_cte_for_Summarize(xml_data, previousToolId, toolId, prev_tool_fields):
     root = ET.fromstring(xml_data)
 
     # Extract SummarizeFields
@@ -305,7 +394,6 @@ def generate_cte_for_Summarize(xml_data,previousToolId,toolId,prev_tool_fields):
     group_by_fields_before_rename = []
     aggregate_fields = []
     current_tool_fields = []
-
 
     # Iterate through each SummarizeField
     for field in summarize_fields.findall('SummarizeField'):
@@ -327,9 +415,7 @@ def generate_cte_for_Summarize(xml_data,previousToolId,toolId,prev_tool_fields):
         elif action == "Avg":
             aggregate_fields.append(f'AVG("{field_name}") AS "{rename}"')
 
-        current_tool_fields.append(f'"{rename}"')
-
-
+        current_tool_fields.append(f'{rename}')
 
     # Generate the SQL CTE query string
     cte_query = f"""
@@ -343,10 +429,26 @@ def generate_cte_for_Summarize(xml_data,previousToolId,toolId,prev_tool_fields):
     )
     """
 
-    return current_tool_fields,cte_query
+    return current_tool_fields, cte_query
 
 
-def generate_cte_for_Join(xml_data,rightToolID,leftToolID,toolId,joinType):
+def generate_cte_for_CountRecords(xml_data, previousToolId, toolId, prev_tool_fields):
+    current_tool_fields = ['Count']
+
+    # Generate the SQL CTE query string
+    cte_query = f"""
+    CTE_{toolId} AS (
+        SELECT
+            COUNT(*) AS Count
+        FROM CTE_{previousToolId}
+        )
+    """
+
+    return current_tool_fields, cte_query
+
+
+def generate_cte_for_Join(xml_data, rightToolID, leftToolID, toolId, joinType, left_prev_tool_fields,
+                          right_prev_tool_fields):
     root = ET.fromstring(xml_data)
 
     # Extract JoinInfo for left and right
@@ -360,28 +462,88 @@ def generate_cte_for_Join(xml_data,rightToolID,leftToolID,toolId,joinType):
     left_fields = []
     right_fields = []
 
+    Selected_right_true_fields = {}
+    Selected_left_true_fields = {}
+
+    Selected_right_false_fields = []
+    Selected_left_false_fields = []
+
+    current_tool_fields = []
+
+    left_prev_tool_fields_with_ref = ['LeftTable."' + i + '"' for i in left_prev_tool_fields]
+    right_prev_tool_fields_with_ref = ['RightTable."' + i + '"' for i in right_prev_tool_fields]
+
     for field in select_fields:
         field_name = field.get('field')
-        selected = field.get('selected') == 'True'  # True/False as string
+        selected = field.get('selected')
+        selected_rename = field.get('rename')
+        selected_input = field.get('input')
+        if (selected == 'True' and field_name.upper() != '*UNKNOWN'):
+            if (selected_rename is not None and selected_input == 'Left_'):
+                Selected_left_true_fields[field_name[5:]] = selected_rename
+            elif (selected_rename is None and selected_input == 'Left_'):
+                Selected_left_true_fields[field_name[5:]] = field_name[5:]
+            elif (selected_rename is not None and selected_input == 'Right_'):
+                Selected_right_true_fields[field_name[6:]] = selected_rename
+            elif (selected_rename is None and selected_input == 'Right_'):
+                Selected_right_true_fields[field_name[6:]] = field_name[6:]
+        elif selected == 'False' and field_name.upper() != '*UNKNOWN':
+            if (selected_input == 'Left_'):
+                Selected_left_false_fields.append(field_name[5:])
+            elif (selected_input == 'Right_'):
+                Selected_right_false_fields.append(field_name[6:])
+        elif (selected == "True" and field_name.upper() == '*UNKNOWN'):
+            for field in left_prev_tool_fields:
+                if (field not in Selected_left_false_fields and field not in Selected_left_true_fields.keys()):
+                    left_fields.append(f'LeftTable."{field}"')
+                    current_tool_fields.append(field)
+                elif (field not in Selected_left_false_fields and field in Selected_left_true_fields.keys()):
+                    if (Selected_left_true_fields[field] == field):
+                        left_fields.append(f'LeftTable."{field}"')
+                    else:
+                        left_fields.append(f'LeftTable."{field}" AS "{Selected_left_true_fields[field]}"')
+                    current_tool_fields.append(Selected_left_true_fields[field])
+            for field in right_prev_tool_fields:
+                if (field not in Selected_right_false_fields and field not in Selected_right_true_fields.keys()):
+                    right_fields.append(f'RightTable."{field}"')
+                    current_tool_fields.append(field)
+                elif (field not in Selected_right_false_fields and field in Selected_right_true_fields.keys()):
+                    if (Selected_right_true_fields[field] == field):
+                        right_fields.append(f'RightTable."{field}"')
+                    else:
+                        right_fields.append(f'RightTable."{field}" AS "{Selected_right_true_fields[field]}"')
+                    current_tool_fields.append(Selected_right_true_fields[field])
+        elif (selected == "False" and field_name.upper() == '*UNKNOWN'):
+            for k, v in Selected_left_true_fields.items():
+                current_tool_fields.append(v)
+                if (k == v):
+                    left_fields.append(f'LeftTable."{k}"')
+                else:
+                    left_fields.append(f'LeftTable."{k}" AS "{v}"')
+            for k, v in Selected_right_true_fields.items():
+                current_tool_fields.append(v)
+                if (k == v):
+                    right_fields.append(f'RightTable."{k}"')
+                else:
+                    right_fields.append(f'RightTable."{k}" AS "{v}"')
 
-        if field_name.startswith("Left_") and selected:
-            left_fields.append(f'LeftTable."{field_name}"')
-        elif field_name.startswith("Right_") and selected:
-            right_fields.append(f'RightTable."{field_name}"')
+        # if field_name.startswith("Left_") and selected:
+        #     left_fields.append(f'LeftTable."{field_name}"')
+        # elif field_name.startswith("Right_") and selected:
+        #     right_fields.append(f'RightTable."{field_name}"')
 
     # Join condition between left and right tables
     join_field_left = left_join_info.find('Field').get('field')
     join_field_right = right_join_info.find('Field').get('field')
 
-
     if joinType == 'LEFT JOIN':
         cte_query = f"""
             CTE_{toolId} AS (
                 SELECT
-                    {', '.join(left_fields)},  -- Left Selected Fields
-                    {', '.join(right_fields)}  -- Right Selected Fields
-                FROM {leftToolID} AS LeftTable
-                {joinType} {rightToolID} AS RightTable
+                    {', '.join(left_prev_tool_fields_with_ref)}  -- Left Selected Fields
+
+                FROM CTE_{leftToolID} AS LeftTable
+                {joinType} CTE_{rightToolID} AS RightTable
                 ON LeftTable."{join_field_left}" = RightTable."{join_field_right}"
                 WHERE RightTable."{join_field_right}" IS NULL
             )
@@ -390,10 +552,10 @@ def generate_cte_for_Join(xml_data,rightToolID,leftToolID,toolId,joinType):
         cte_query = f"""
             CTE_{toolId} AS (
                 SELECT
-                    {', '.join(left_fields)},  -- Left Selected Fields
-                    {', '.join(right_fields)}  -- Right Selected Fields
-                FROM {leftToolID} AS LeftTable
-                {joinType} {rightToolID} AS RightTable
+
+                    {', '.join(right_prev_tool_fields_with_ref)}  -- Right Selected Fields
+                FROM CTE_{leftToolID} AS LeftTable
+                {joinType} CTE_{rightToolID} AS RightTable
                 ON LeftTable."{join_field_left}" = RightTable."{join_field_right}"
                 WHERE LeftTable."{join_field_right}" IS NULL
             )
@@ -404,44 +566,201 @@ def generate_cte_for_Join(xml_data,rightToolID,leftToolID,toolId,joinType):
             SELECT
                 {', '.join(left_fields)},  -- Left Selected Fields
                 {', '.join(right_fields)}  -- Right Selected Fields
-            FROM {leftToolID} AS LeftTable
-            {joinType} {rightToolID} AS RightTable
+            FROM CTE_{leftToolID} AS LeftTable
+            {joinType} CTE_{rightToolID} AS RightTable
             ON LeftTable."{join_field_left}" = RightTable."{join_field_right}"
         )
         """
+    if joinType == 'LEFT JOIN':
+        return left_prev_tool_fields, cte_query
+    elif joinType == 'RIGHT JOIN':
+        return right_prev_tool_fields, cte_query
+    return current_tool_fields, cte_query
 
-    return cte_query
 
-
-
-def generate_cte_for_Union(xml_data, unionList, toolId):
+def generate_cte_for_Union(xml_data, unionItems, toolId, parentMap):
     root = ET.fromstring(xml_data)
 
-
-    # Fetch the value of <Mode>
     mode = root.find(".//Mode").text
-    st.write("Mode:", mode)
+    OutputMode = root.find(".//ByName_OutputMode").text
+
+    if mode == 'ByName' and OutputMode == 'All':
+        # Step 1: Initialize an empty list to hold all columns, ensuring unique columns only
+        all_columns = []
+
+        # Iterate through each table's columns and add them to the list
+        for columns in unionItems.values():
+            for col in columns:
+                if col not in all_columns:
+                    all_columns.append(col)  # Add column only if it's not already in the list
+
+        # Initialize an empty list to hold the SQL parts
+        sql_parts = []
+
+        # Iterate over the dictionary and generate SELECT queries for each table
+        for table, columns in unionItems.items():
+            select_columns = []
+
+            # Align the columns with the full column set and fill missing columns with NULL
+            for col in all_columns:
+                if col in columns:
+                    select_columns.append(col)  # If column exists in table, use it
+                else:
+                    select_columns.append(f"NULL AS {col}")  # Fill missing column with NULL
+
+            # Step 6: Generate the SQL for this table
+            sql_parts.append(f"SELECT {', '.join(select_columns)} FROM CTE_{table}")
+
+        # Join the individual SELECT queries with UNION ALL to combine the results
+        final_sql = "\n UNION ALL\n".join(sql_parts)
+
+    elif mode == 'ByName' and OutputMode == 'Subset':
+        # Step 1: Identify the common columns between all tables
+        all_columns = set(unionItems[list(unionItems.keys())[0]])  # Start with the first table's columns
+        for columns in unionItems.values():
+            all_columns.intersection_update(columns)  # Keep only the common columns
+
+        common_columns = list(all_columns)  # Convert to a list for ordered column selection
+
+        # Step 2: Initialize an empty list to hold the SQL parts
+        sql_parts = []
+
+        # Step 3: Iterate over the dictionary and generate SELECT queries for each table
+        for table, columns in unionItems.items():
+            select_columns = []
+
+            # Step 4: For each common column, check if it exists in the table
+            for col in common_columns:
+                if col in columns:
+                    select_columns.append(col)  # If the column exists in this table, use it
+                else:
+                    select_columns.append(f"NULL AS {col}")  # Otherwise, add NULL with the column name
+
+            # Step 5: Generate the SQL for this table
+            sql_parts.append(f"SELECT {', '.join(select_columns)} FROM CTE_{table}")
+
+        # Step 6: Join the individual SELECT queries with UNION ALL
+        final_sql = "\n UNION ALL \n".join(sql_parts)
+
+    elif mode == 'ByPos' and OutputMode == 'All':
+        # Step 1: Find the maximum number of columns among all tables
+        max_columns = max(len(columns) for columns in unionItems.values())
+
+        # Initialize the list to hold the SQL SELECT parts for each table
+        sql_parts = []
+
+        # Step 2: Loop through each table in the dictionary
+        for table_name, columns in unionItems.items():
+            table_select = []
+
+            # Step 3: For each column position, check if the table has it
+            for i in range(max_columns):
+                if i < len(columns):
+                    # If the table has the column at this position, include it
+                    table_select.append(columns[i])
+                else:
+                    # Otherwise, fill with NULL for missing columns
+                    table_select.append("NULL")
+
+            # Step 4: Generate SQL for this table
+            sql_parts.append(f"SELECT {', '.join(table_select)} FROM CTE_{table_name}")
+
+        # Step 5: Combine all the SELECT queries using UNION
+        final_sql_ = "\nUNION ALL\n".join(sql_parts)
+
+        # Create an empty list to store the final columns
+        all_columns = []
+
+        for i in range(max_columns):
+            for table_name, columns in unionItems.items():
+                if i < len(columns):  # If the table has a column for this position
+                    all_columns.append(columns[i])
+                    break
+
+        sql_statement = ", ".join([f"${i + 1} AS {col}" for i, col in enumerate(all_columns)])
+        final_sql = f"SELECT {sql_statement} FROM ({final_sql_})"
 
 
-    cte_query = "\nUNION\n".join([f"SELECT * FROM {num}" for num in unionList])
+    elif mode == 'ByPos' and OutputMode == 'Subset':
+        # Step 1: Find the maximum number of columns among all tables
+        min_columns = min(len(columns) for columns in unionItems.values())
+
+        # Initialize the list to hold the SQL SELECT parts for each table
+        sql_parts = []
+
+        # Step 2: Loop through each table in the dictionary
+        for table_name, columns in unionItems.items():
+            table_select = []
+
+            # Step 3: For each column position, check if the table has it
+            for i in range(min_columns):
+                table_select.append(columns[i])
+
+            # Step 4: Generate SQL for this table
+            sql_parts.append(f"SELECT {', '.join(table_select)} FROM CTE_{table_name}")
+
+        # Step 5: Combine all the SELECT queries using UNION
+        final_sql_ = "\nUNION ALL\n".join(sql_parts)
+
+        # Create an empty list to store the final columns
+        all_columns = []
+
+        for i in range(min_columns):
+            for table_name, columns in unionItems.items():
+                all_columns.append(columns[i])
+                break
+
+        sql_statement = ", ".join([f"${i + 1} AS {col}" for i, col in enumerate(all_columns)])
+        final_sql = f"SELECT {sql_statement} FROM ({final_sql_})"
 
 
+    elif mode == 'Manual' and OutputMode == 'All':
+        # Initialize an empty list to hold all SQL queries
+        sql_queries = []
+
+        # Iterate over all MetaInfo blocks
+        for meta_info in root.findall(".//MetaInfo"):
+            # Extract the MetaInfo name (e.g., #1, #4)
+            meta_name = meta_info.get('name')
+
+            # Extract the field names
+            fields = [field.get('name') for field in meta_info.findall(".//Field")]
+
+            # Fetch the corresponding row from the DataFrame based on the meta_name (connection_name)
+            connection_row = \
+            parentMap[(parentMap['Connection_Name'] == meta_name) & (parentMap['Destination_ToolID'] == toolId)].iloc[0]
+
+            # Get origin and destination from the DataFrame
+            origin = connection_row['Origin_ToolID']
+
+            # Construct the SELECT statement for the current MetaInfo
+            sql_query = f"SELECT {', '.join(fields)} FROM CTE_{origin}"
+
+            # Add the SQL query to the list
+            sql_queries.append(sql_query)
+
+        final_sql = "\nUNION ALL\n".join(sql_queries)
+
+        # Dynamically find the first MetaInfo element
+        first_meta_info = root.find(".//MetaInfo")
+
+        # Extract field names from the first MetaInfo dynamically
+        all_columns = [field.get("name") for field in first_meta_info.findall(".//Field")]
 
     cte_query = f"""
     CTE_{toolId} AS (
-        {cte_query}
+        {final_sql}
     )
     """
 
-    return cte_query
+    return all_columns, cte_query
 
 
-def generate_cte_for_Sort(xml_data,previousToolId,toolId,prev_tool_fields):
+def generate_cte_for_Sort(xml_data, previousToolId, toolId, prev_tool_fields):
     root = ET.fromstring(xml_data)
 
     # Extract SummarizeFields
     sort_fields = root.find('.//Configuration/SortInfo')
-
 
     orderDict = {}
 
@@ -450,7 +769,7 @@ def generate_cte_for_Sort(xml_data,previousToolId,toolId,prev_tool_fields):
         order = field.get('order')
         order = 'ASC' if order == 'Ascending' else 'DESC' if order == 'Descending' else None
 
-        orderDict[field_name]=order
+        orderDict[field_name] = order
 
     orderByQuery = ", ".join([f'"{key}" {value}' for key, value in orderDict.items()])
 
@@ -464,10 +783,10 @@ def generate_cte_for_Sort(xml_data,previousToolId,toolId,prev_tool_fields):
     )
     """
 
-    return prev_tool_fields , cte_query
+    return prev_tool_fields, cte_query
 
 
-def generate_cte_for_Unique(xml_data, previousToolId, toolId, uniqueType,prev_tool_fields):
+def generate_cte_for_Unique(xml_data, previousToolId, toolId, uniqueType, prev_tool_fields):
     root = ET.fromstring(xml_data)
 
     # Extract SummarizeFields
@@ -479,7 +798,7 @@ def generate_cte_for_Unique(xml_data, previousToolId, toolId, uniqueType,prev_to
         field_name = field.get('field')
         unique_check_fields.append(f'"{field_name}"')
 
-    if uniqueType=='Unique':
+    if uniqueType == 'Unique':
         cte_query = f"""
         CTE_{toolId} AS (
             SELECT DISTINCT
@@ -488,7 +807,7 @@ def generate_cte_for_Unique(xml_data, previousToolId, toolId, uniqueType,prev_to
         )
         """
 
-    elif uniqueType=='Duplicates':
+    elif uniqueType == 'Duplicates':
         cte_query = f"""
         CTE_{toolId} AS (
             SELECT DISTINCT
@@ -498,10 +817,47 @@ def generate_cte_for_Unique(xml_data, previousToolId, toolId, uniqueType,prev_to
         )
         """
 
-    return prev_tool_fields,cte_query
+    return prev_tool_fields, cte_query
 
 
-def generate_cte_for_RunningTotal(xml_data,previousToolId,toolId,prev_tool_fields):
+def generate_cte_for_WeightedAvg(xml_data, previousToolId, toolId, prev_tool_fields):
+    root = ET.fromstring(xml_data)
+
+    # Extracting the values for each field
+    Value = root.find(".//Value[@name='Value']").text
+    Weight = root.find(".//Value[@name='Weight']").text
+    OutputFieldName = root.find(".//Value[@name='OutputFieldName']").text
+    GroupFields = root.find(".//Value[@name='GroupFields']").text
+
+    current_tool_fields = []
+
+    # Generate the SQL CTE query string
+    if not GroupFields:
+        cte_query = f"""
+        CTE_{toolId} AS (
+            SELECT
+            SUM({Value} * {Weight}) / SUM({Weight}) AS {OutputFieldName}
+            FROM CTE_{previousToolId}
+            )
+        """
+        current_tool_fields.append(OutputFieldName)
+
+    else:
+        cte_query = f"""
+                CTE_{toolId} AS (
+                    SELECT {', '.join(prev_tool_fields)},
+                    SUM({Value} * {Weight}) / SUM({Weight}) AS {OutputFieldName}
+                    FROM CTE_{previousToolId}
+                    GROUP BY {', '.join(prev_tool_fields)} 
+                    )
+                """
+        current_tool_fields.append(prev_tool_fields)
+        current_tool_fields.append(OutputFieldName)
+
+    return current_tool_fields, cte_query
+
+
+def generate_cte_for_RunningTotal(xml_data, previousToolId, toolId, prev_tool_fields):
     root = ET.fromstring(xml_data)
 
     groupByFields = root.find('.//Configuration/GroupByFields')
@@ -510,8 +866,6 @@ def generate_cte_for_RunningTotal(xml_data,previousToolId,toolId,prev_tool_field
     group_by_fields = []
     running_total_fields = []
 
-
-
     for field in groupByFields.findall('Field'):
         field_name = field.get('field')
         group_by_fields.append(f'"{field_name}"')
@@ -519,8 +873,6 @@ def generate_cte_for_RunningTotal(xml_data,previousToolId,toolId,prev_tool_field
     for field in runningTotalFields.findall('Field'):
         field_name = field.get('field')
         running_total_fields.append(f'{field_name}')
-
-
 
     # Generate the SQL CTE query string
     if not group_by_fields:
@@ -548,10 +900,10 @@ def generate_cte_for_RunningTotal(xml_data,previousToolId,toolId,prev_tool_field
     for field in running_total_fields:
         current_tool_fields.append(f'RunTot_{field}')
 
-    return current_tool_fields,cte_query
+    return current_tool_fields, cte_query
 
 
-def generate_cte_for_RecordID(xml_data,previousToolId,toolId,prev_tool_fields):
+def generate_cte_for_RecordID(xml_data, previousToolId, toolId, prev_tool_fields):
     root = ET.fromstring(xml_data)
 
     groupByFields = root.find('.//Configuration/GroupFields')
@@ -566,8 +918,7 @@ def generate_cte_for_RecordID(xml_data,previousToolId,toolId,prev_tool_fields):
         field_name = field.get('name')
         group_by_fields.append(f'"{field_name}"')
 
-
-    if Position == 0 :
+    if Position == 0:
         if StartValue <= 0:
             if not group_by_fields:
                 cte_query = f"""
@@ -592,7 +943,7 @@ def generate_cte_for_RecordID(xml_data,previousToolId,toolId,prev_tool_fields):
                 current_tool_fields.append(FieldName)
                 current_tool_fields.extend(prev_tool_fields)
 
-        elif StartValue>=1:
+        elif StartValue >= 1:
             if not group_by_fields:
                 cte_query = f"""
                 CTE_{toolId} AS (
@@ -613,8 +964,8 @@ def generate_cte_for_RecordID(xml_data,previousToolId,toolId,prev_tool_fields):
                         """
                 current_tool_fields.append(FieldName)
                 current_tool_fields.extend(prev_tool_fields)
-                
-    elif Position == 1 :
+
+    elif Position == 1:
         if StartValue <= 0:
             if not group_by_fields:
                 cte_query = f"""
@@ -663,12 +1014,61 @@ def generate_cte_for_RecordID(xml_data,previousToolId,toolId,prev_tool_fields):
                 current_tool_fields.extend(prev_tool_fields)
                 current_tool_fields.append(FieldName)
 
+    return current_tool_fields, cte_query
 
+
+def generate_cte_for_Imputation(xml_data, previousToolId, toolId, prev_tool_fields):
+    root = ET.fromstring(xml_data)
+
+    fieldsToImpute = root.find(".//Value[@name='listbox Select Incoming Fields']").text.strip()
+    incomingReplaceNullFlag = root.find(".//Value[@name='radio Null Value']").text.strip()
+    incomingReplaceFlag = root.find(".//Value[@name='radio User Specified Replace From Value']").text.strip()
+    incomingReplaceValue = root.find(".//Value[@name='updown User Replace Value']").text.strip()
+    meanFlag = root.find(".//Value[@name='radio Mean']").text.strip()
+    medianFlag = root.find(".//Value[@name='radio Median']").text.strip()
+    modeFlag = root.find(".//Value[@name='radio Mode']").text.strip()
+    userSpecifiedReplaceFlag = root.find(".//Value[@name='radio User Specified Replace With Value']").text.strip()
+    userSpecifiedReplaceValue = root.find(".//Value[@name='updown User Replace With Value']").text.strip()
+    imputeIndicatorFlag = root.find(".//Value[@name='checkbox Impute Indicator']").text.strip()
+    imputedValuesSeparateFieldFlag = root.find(".//Value[@name='checkbox Imputed Values Separate Field']").text.strip()
+
+    input_field_list = [item.strip('"') for item in fieldsToImpute.split(",")]
+    current_tool_fields = []
+
+    if incomingReplaceNullFlag == 'True' and userSpecifiedReplaceFlag == 'True':
+        coalesce_exprs = [f"COALESCE({col}, {userSpecifiedReplaceValue}) AS {col}" for col in input_field_list]
+        cte_query = f"""CTE_{toolId} AS (
+                             SELECT {', \n'.join(coalesce_exprs)} "
+                             FROM CTE_{previousToolId})"""
+
+    elif incomingReplaceNullFlag == 'True' and (meanFlag == "True" or medianFlag == "True" or modeFlag == "True"):
+        operation = "AVG" if meanFlag == "True" else "MEDIAN" if medianFlag == "True" else "MODE" if modeFlag == "True" else ""
+        coalesce_exprs = [f"COALESCE({col}, (SELECT {operation}({col}) FROM CTE_{previousToolId})) AS {col}" for col in
+                          input_field_list]
+        cte_query = f"""CTE_{toolId} AS (
+                            SELECT {', \n'.join(coalesce_exprs)} 
+                            FROM CTE_{previousToolId})"""
+
+    elif incomingReplaceFlag == 'True' and userSpecifiedReplaceFlag == 'True':
+        coalesce_exprs = [f"COALESCE(NULLIF({col}, {incomingReplaceValue}), {userSpecifiedReplaceValue}) AS {col}" for
+                          col in input_field_list]
+        cte_query = f"""CTE_{toolId} AS (
+                            SELECT {', \n'.join(coalesce_exprs)}
+                            FROM CTE_{previousToolId})"""
+
+    elif incomingReplaceFlag == 'True' and (meanFlag == "True" or medianFlag == "True" or modeFlag == "True"):
+        operation = "AVG" if meanFlag == "True" else "MEDIAN" if medianFlag == "True" else "MODE" if modeFlag == "True" else ""
+        coalesce_exprs = [
+            f"COALESCE(NULLIF({col}, {incomingReplaceValue}), (SELECT {operation}({col}) FROM CTE_{previousToolId})) AS {col}"
+            for col in input_field_list]
+        cte_query = f"""CTE_{toolId} AS (
+                            SELECT {', \n'.join(coalesce_exprs)} 
+                            FROM CTE_{previousToolId})"""
 
     return current_tool_fields, cte_query
 
 
-def generate_cte_for_Sample(xml_data,previousToolId,toolId,prev_tool_fields):
+def generate_cte_for_Sample(xml_data, previousToolId, toolId, prev_tool_fields):
     root = ET.fromstring(xml_data)
 
     mode = root.find(".//Mode").text
@@ -678,12 +1078,11 @@ def generate_cte_for_Sample(xml_data,previousToolId,toolId,prev_tool_fields):
 
     group_by_fields = []
 
-
     for field in groupByFields.findall('Field'):
         field_name = field.get('name')
         group_by_fields.append(f'"{field_name}"')
 
-    if mode=='First':
+    if mode == 'First':
         if not group_by_fields:
             cte_query = f"""
             CTE_{toolId} AS (
@@ -776,11 +1175,10 @@ def generate_cte_for_Sample(xml_data,previousToolId,toolId,prev_tool_fields):
     else:
         cte_query = ''
 
-    return prev_tool_fields,cte_query
+    return prev_tool_fields, cte_query
 
 
-def generate_cte_for_DBFileInput(xml_data,toolId):
-
+def generate_cte_for_DBFileInput(xml_data, toolId):
     root = ET.fromstring(xml_data)
     AllFields = root.find('.//MetaInfo/RecordInfo')
 
@@ -790,16 +1188,299 @@ def generate_cte_for_DBFileInput(xml_data,toolId):
     for field in AllFields.findall('Field'):
         field_name = field.get('name')
         field_type = field.get('type')
-        fieldInfo[field_name]=field_type
+        fieldInfo[field_name] = field_type
         fieldList.append(field_name)
 
     return fieldList
 
 
+def generate_cte_for_LockInInput(xml_data, toolId):
+    root = ET.fromstring(xml_data)
+    query = root.find(".//Query").text
+    fieldList = []
+
+    cte_query = f"""
+                    CTE_{toolId} AS (
+                            {query} )
+                            """
+
+    return fieldList, cte_query
+
+
+def generate_cte_for_TextInput(xml_data, toolId):
+    root = ET.fromstring(xml_data)
+
+    fields = root.find('.//Fields')
+    fieldList = []
+
+    for field in fields.findall('Field'):
+        field_name = field.get('name')
+        fieldList.append(field_name)
+
+    # Extract row data dynamically from the <Data> section
+    rows = []
+    data = root.find('.//Data')  # Find the Data element
+    for r in data.findall('r'):  # For each <r> (row)
+        row = [c.text for c in r.findall('c')]  # Extract each <c> (column) value for the row
+        rows.append(row)
+
+    # Add UNION SELECT for each row dynamically
+    union_queries = []
+    for row in rows:
+        # Create SELECT statement with field names as aliases
+        union_queries.append(
+            f"SELECT {', '.join([f'{repr(value)} AS {field}' for value, field in zip(row, fieldList)])}")
+
+    # Combine all parts into one final query
+    query = "\n UNION \n".join(union_queries)
+
+    cte_query = f"""
+                    CTE_{toolId} AS (
+                            {query} )
+                            """
+
+    return fieldList, cte_query
+
+
+def generate_cte_for_Regex(xml_data, previousToolId, toolId, prev_tool_fields):
+    root = ET.fromstring(xml_data)
+    method = root.find(".//Method").text
+    regexColumn = root.find(".//Configuration/Field").text
+    caseInsensitveFlag = root.find('.//CaseInsensitve').attrib['value']
+    regex_value = root.find('.//RegExExpression').attrib['value']
+    matchField = root.find(".//Match/Field").text
+    replaceExpression = root.find('.//Replace').attrib['expression']
+    SplitToRows = root.find(".//ParseSimple/SplitToRows").get("value")
+
+    current_tool_fields = []
+    prev_tool_fields = prev_tool_fields.copy()
+
+    fields = root.find('.//ParseComplex')
+    fieldList = []
+
+    for fieldss in fields.findall('Field'):
+        field_name = fieldss.get('field')
+        fieldList.append(field_name)
+
+    # Replace every single backslash with double backslashes
+    regex_value = re.sub(r'\\', r'\\\\', regex_value)
+
+    # Replace every dollar sign ($) with double backslashes (\\)
+    replaceExpression = re.sub(r'\$', r'\\\\', replaceExpression)
+
+    if method == 'Match' and caseInsensitveFlag == 'True':
+        cte_query = f"""
+                        CTE_{toolId} AS (
+                            SELECT {', '.join(prev_tool_fields)},
+                            REGEXP_LIKE({regexColumn}, '{regex_value}', 'i') AS {matchField}
+                            FROM CTE_{previousToolId}
+                            )
+                            """
+        current_tool_fields.extend(prev_tool_fields)
+        current_tool_fields.append(matchField)
+    elif method == 'Match' and caseInsensitveFlag == 'False':
+        cte_query = f"""
+                        CTE_{toolId} AS (
+                            SELECT {', '.join(prev_tool_fields)},
+                            REGEXP_LIKE({regexColumn}, '{regex_value}', 'c') AS {matchField}
+                            FROM CTE_{previousToolId}
+                            )
+                            """
+        current_tool_fields.extend(prev_tool_fields)
+        current_tool_fields.append(matchField)
+    elif method == 'Replace' and caseInsensitveFlag == 'True':
+        prev_tool_fields.remove(regexColumn)
+        cte_query = f"""
+                        CTE_{toolId} AS (
+                            SELECT {', '.join(prev_tool_fields)},
+                            REGEXP_REPLACE({regexColumn}, '{regex_value}', '{replaceExpression}', 1, 0, 'i') AS {regexColumn}
+                            FROM CTE_{previousToolId}
+                            )
+                            """
+        current_tool_fields.extend(prev_tool_fields)
+        current_tool_fields.append(regexColumn)
+    elif method == 'Replace' and caseInsensitveFlag == 'False':
+        prev_tool_fields.remove(regexColumn)
+        cte_query = f"""
+                        CTE_{toolId} AS (
+                            SELECT {', '.join(prev_tool_fields)},
+                           REGEXP_REPLACE({regexColumn}, '{regex_value}', '{replaceExpression}', 1, 0, 'c') AS {regexColumn}
+                            FROM CTE_{previousToolId}
+                            )
+                            """
+        current_tool_fields.extend(prev_tool_fields)
+        current_tool_fields.append(regexColumn)
+
+    elif method == 'ParseComplex' and caseInsensitveFlag == 'True':
+
+        groups = re.findall(r'([^\(\)]*\([^\)]*\))', regex_value)
+
+        # Start building the SQL query
+        select_clause = ''
+
+        # Loop through the groups and column names to build the REGEXP_SUBSTR parts
+        for i, (group, col_name) in enumerate(zip(groups, fieldList)):
+            # Add the REGEXP_SUBSTR statement for each group with the corresponding column name
+            select_clause += f"\n    REGEXP_SUBSTR({regexColumn}, '{group}', 1, 1,'i') AS {col_name},"
+
+        # Remove the last comma
+        select_clause = select_clause.rstrip(',')
+
+        cte_query = f"""
+                        CTE_{toolId} AS (
+                            SELECT {', '.join(prev_tool_fields)},
+                            {select_clause}
+                            FROM CTE_{previousToolId}
+                            )
+                            """
+        current_tool_fields.extend(prev_tool_fields)
+        current_tool_fields.extend(fieldList)
+
+    elif method == 'ParseComplex' and caseInsensitveFlag == 'False':
+
+        groups = re.findall(r'([^\(\)]*\([^\)]*\))', regex_value)
+
+        # Start building the SQL query
+        select_clause = ''
+
+        # Loop through the groups and column names to build the REGEXP_SUBSTR parts
+        for i, (group, col_name) in enumerate(zip(groups, fieldList)):
+            # Add the REGEXP_SUBSTR statement for each group with the corresponding column name
+            select_clause += f"\n    REGEXP_SUBSTR({regexColumn}, '{group}', 1, 1,'c') AS {col_name},"
+
+        # Remove the last comma
+        select_clause = select_clause.rstrip(',')
+
+        cte_query = f"""
+                        CTE_{toolId} AS (
+                            SELECT {', '.join(prev_tool_fields)},
+                            {select_clause}
+                            FROM CTE_{previousToolId}
+                            )
+                            """
+        current_tool_fields.extend(prev_tool_fields)
+        current_tool_fields.extend(fieldList)
+
+
+    elif method == 'ParseSimple' and caseInsensitveFlag == 'True' and SplitToRows == 'False':
+        NumFields = root.find(".//ParseSimple/NumFields").get("value")
+        RootName = root.find(".//ParseSimple/RootName").text
+        splitColumnList = []
+        # Start building the SQL query
+        sql_query = ''
+
+        # Create dynamic REGEXP_SUBSTR expressions for each part of the address
+        for i in range(1, int(NumFields) + 1):
+            sql_query += f"REGEXP_SUBSTR({regexColumn}, '{regex_value}',1 ,{i} ,'i') AS {RootName}{i},\n"
+            splitColumnList.append(f'{RootName}{i}')
+
+        # Remove the trailing comma on the last line
+        sql_query = sql_query.rstrip(',')
+
+        cte_query = f"""
+                        CTE_{toolId} AS (
+                            SELECT {', '.join(prev_tool_fields)},
+                            {sql_query}
+                            FROM CTE_{previousToolId}
+                            )
+                            """
+        current_tool_fields.extend(prev_tool_fields)
+        current_tool_fields.extend(splitColumnList)
+
+
+    elif method == 'ParseSimple' and caseInsensitveFlag == 'False' and SplitToRows == 'False':
+        NumFields = root.find(".//ParseSimple/NumFields").get("value")
+        RootName = root.find(".//ParseSimple/RootName").text
+        splitColumnList = []
+        # Start building the SQL query
+
+        sql_query = ''
+        # Create dynamic REGEXP_SUBSTR expressions for each part of the address
+        for i in range(1, int(NumFields) + 1):
+            sql_query += f"REGEXP_SUBSTR({regexColumn}, '{regex_value}',1 ,{i} ,'c') AS {RootName}{i},\n"
+            splitColumnList.append(f'{RootName}{i}')
+
+        # Remove the trailing comma on the last line
+        sql_query = sql_query.rstrip(',')
+
+        cte_query = f"""
+                        CTE_{toolId} AS (
+                            SELECT {', '.join(prev_tool_fields)},
+                            {sql_query}
+                            FROM CTE_{previousToolId}
+                            )
+                            """
+
+        current_tool_fields.extend(prev_tool_fields)
+        current_tool_fields.extend(splitColumnList)
+
+
+    elif method == 'ParseSimple' and caseInsensitveFlag == 'True' and SplitToRows == 'True':
+        prev_tool_fields.remove(regexColumn)
+
+        cte_query = f"""
+                        CTE_{toolId} AS (
+                                -- Base case: get the first title
+                            SELECT 
+                                {', '.join(prev_tool_fields)}, 
+                                TRIM(REGEXP_SUBSTR({regexColumn}, '{regex_value}', 1, 1,'i')) AS {regexColumn},
+                                1 AS idx,
+                                {regexColumn} AS original_col  -- Keep the original column for recursion
+                            FROM CTE_{previousToolId}
+                            WHERE {regexColumn} IS NOT NULL
+
+                            UNION ALL
+
+                            -- Recursive case: get the next title by incrementing idx
+                            SELECT 
+                                {', '.join(prev_tool_fields)},
+                                TRIM(REGEXP_SUBSTR(original_col, '{regex_value}', 1, idx + 1)),
+                                idx + 1,
+                                original_col
+                            FROM CTE_{toolId}
+                            WHERE REGEXP_SUBSTR(original_col, '{regex_value}', 1, idx + 1) IS NOT NULL
+                            )
+                            """
+
+        current_tool_fields.extend(prev_tool_fields)
+        current_tool_fields.append(regexColumn)
+
+
+    elif method == 'ParseSimple' and caseInsensitveFlag == 'False' and SplitToRows == 'True':
+        prev_tool_fields.remove(regexColumn)
+
+        cte_query = f"""
+                        CTE_{toolId} AS (
+                                -- Base case: get the first title
+                            SELECT 
+                                {', '.join(prev_tool_fields)}, 
+                                TRIM(REGEXP_SUBSTR({regexColumn}, '{regex_value}', 1, 1,'c')) AS {regexColumn},
+                                1 AS idx,
+                                {regexColumn} AS original_col  -- Keep the original column for recursion
+                            FROM CTE_{previousToolId}
+                            WHERE {regexColumn} IS NOT NULL
+
+                            UNION ALL
+
+                            -- Recursive case: get the next title by incrementing idx
+                            SELECT 
+                                {', '.join(prev_tool_fields)},
+                                TRIM(REGEXP_SUBSTR(original_col, '{regex_value}', 1, idx + 1)),
+                                idx + 1,
+                                original_col
+                            FROM CTE_{toolId}
+                            WHERE REGEXP_SUBSTR(original_col, '{regex_value}', 1, idx + 1) IS NOT NULL
+                            )
+                            """
+
+        current_tool_fields.extend(prev_tool_fields)
+        current_tool_fields.append(regexColumn)
+
+    return current_tool_fields, cte_query
 
 
 ## functionfor cleaning expression paramteres
-def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name = None):
+def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name=None):
     """
     Converts Alteryx-style conditional expressions into SQL-compliant CASE statements.
     Handles:
@@ -817,13 +1498,14 @@ def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name
         expression = expression.replace("[_CurrentField_]", f"\"{field_name}\"")
 
     # Ensure CONTAINS function has the field name as the first argument
-    expression = re.sub(r"CONTAINS\(\s*['\"]([^'\"]+)['\"]\s*\)", rf"CONTAINS(\"{field_name}\", '\1')", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"CONTAINS\(\s*['\"]([^'\"]+)['\"]\s*\)", rf"CONTAINS(\"{field_name}\", '\1')", expression,
+                        flags=re.IGNORECASE)
 
     # Convert Alteryx-style IF-THEN-ELSE-ENDIF into SQL CASE WHEN
-    expression = re.sub(r"(?i)if(.*?)then", r"CASE WHEN \1 THEN", expression,flags=re.IGNORECASE)
+    expression = re.sub(r"(?i)if(.*?)then", r"CASE WHEN \1 THEN", expression, flags=re.IGNORECASE)
     expression = re.sub(r"(?i)elseif(.*?)then", r"WHEN \1 THEN", expression, flags=re.IGNORECASE)
-    expression = re.sub(r"(?i)else", r"ELSE", expression,flags=re.IGNORECASE)
-    expression = re.sub(r"(?i)endif", r"END", expression,flags=re.IGNORECASE)
+    expression = re.sub(r"(?i)else", r"ELSE", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"(?i)endif", r"END", expression, flags=re.IGNORECASE)
 
     expression = re.sub(r"\bif\s+(.*?)\s+then", r"CASE WHEN \1 THEN", expression, flags=re.IGNORECASE)
     expression = re.sub(r"\belseif\s+(.*?)\s+then", r"WHEN \1 THEN", expression, flags=re.IGNORECASE)
@@ -850,7 +1532,7 @@ def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name
 
 
 # Function to parse the XML and generate SQL CTE for Filter
-def generate_cte_for_Filter(xml_data, previousToolId, toolId,prev_tool_fields):
+def generate_cte_for_Filter(xml_data, previousToolId, toolId, filterType, prev_tool_fields):
     """
     Generates SQL CTE for filter expressions found in the configuration.
     Sanitizes filter expressions for SQL compliance.
@@ -862,28 +1544,34 @@ def generate_cte_for_Filter(xml_data, previousToolId, toolId,prev_tool_fields):
 
     if expression_node is None:
         return [], f"-- No filter configuration found for ToolID CTE_{toolId}"
-    
+
     current_tool_fields = prev_tool_fields.copy()
 
     # Sanitize and clean the filter expression
-    filter_expression = sanitize_expression_for_filter_formula_dynamic_rename(expression_node.text.strip()) if expression_node.text else "1=1"
+    filter_expression = sanitize_expression_for_filter_formula_dynamic_rename(
+        expression_node.text.strip()) if expression_node.text else "1=1"
 
-
-    cte_query = f"""
-        CTE_{toolId} AS (
-        SELECT  {', '.join([f'\"{col}\"' for col in current_tool_fields])},
-        FROM CTE_{previousToolId}
-        WHERE {filter_expression}
-    )
-    """
+    if filterType == 'True':
+        cte_query = f"""
+                CTE_{toolId} AS (
+                SELECT  {', '.join([f'\"{col}\"' for col in current_tool_fields])},
+                FROM CTE_{previousToolId}
+                WHERE {filter_expression}
+            )
+            """
+    elif filterType == 'False':
+         cte_query = f"""
+            CTE_{toolId} AS (
+            SELECT  {', '.join([f'\"{col}\"' for col in current_tool_fields])},
+            FROM CTE_{previousToolId}
+            WHERE NOT ({filter_expression})
+        )
+        """
     return current_tool_fields, cte_query
 
 
-
-
-
 # Function to parse the XML and generate SQL CTE for Formula
-def generate_cte_for_Formula(xml_data, previousToolId, toolId,prev_tool_fields):
+def generate_cte_for_Formula(xml_data, previousToolId, toolId, prev_tool_fields):
     root = ET.fromstring(xml_data)
 
     # Extract SummarizeFields
@@ -915,17 +1603,17 @@ def generate_cte_for_Formula(xml_data, previousToolId, toolId,prev_tool_fields):
         FROM CTE_{previousToolId} 
     )
     """
-    return current_tool_fields , cte_query
+    return current_tool_fields, cte_query
 
 
-def generate_cte_for_AppendFields(properties,sourceToolID,destinationToolID,toolId,prev_tool_fields):
+def generate_cte_for_AppendFields(xml_data, sourceToolID,targetToolID, toolId,sourceToolColList,TargetToolColList):
     """
     Generates SQL CTE for appending fields based on SelectField attributes.
     Only includes fields with selected="True".
     """
 
     # Parse the XML data
-    root = ET.fromstring(properties)
+    root = ET.fromstring(xml_data)
 
     select_fields_node = root.find('.//Configuration/SelectFields')
 
@@ -942,20 +1630,20 @@ def generate_cte_for_AppendFields(properties,sourceToolID,destinationToolID,tool
         if selected == "True":
             selected_fields.append(field_name)
 
-    current_tool_fields = prev_tool_fields.copy() 
-    for field in selected_fields:
-        if field not in current_tool_fields:
-            current_tool_fields.append(field)
+    current_tool_fields =[]
+
+
 
     # Generate CTE query
     cte_query = f"""
     CTE_{toolId} AS (
         SELECT 
-            {', '.join([f'\"{col}\"' for col in current_tool_fields])}
-        FROM CTE_{sourceToolID}
+            {', '.join(TargetToolColList)} , {', '.join(sourceToolColList)}
+        FROM CTE_{targetToolID}
+        CROSS JOIN CTE_{sourceToolID}
     )
     """
-    return current_tool_fields,cte_query
+    return current_tool_fields, cte_query
 
 
 def generate_cte_for_CrossTab(xml_data, previousToolId, toolId, prev_tool_fields):
@@ -978,7 +1666,7 @@ def generate_cte_for_CrossTab(xml_data, previousToolId, toolId, prev_tool_fields
     aggregation_method = root.find(".//Methods/Method").get("method").upper()
 
     # Extract unique values for the header field (dynamic column names)
-    unique_values = [field.get("name") for field in root.findall(".//RecordInfo/Field") 
+    unique_values = [field.get("name") for field in root.findall(".//RecordInfo/Field")
                      if field.get("source").startswith("CrossTab:Header")]
 
     # Generate CASE WHEN conditions for each unique value
@@ -1012,95 +1700,7 @@ def generate_cte_for_CrossTab(xml_data, previousToolId, toolId, prev_tool_fields
     return current_tool_fields, cte_query
 
 
-def generate_cte_for_LockInInput(xml_data, previousToolId, toolId, prev_tool_fields):
-    """
-    Parses the Alteryx LockInInput node from XML, extracts the SQL source query and connection info,
-    and generates an equivalent CTE using ToolID.
-    
-    - If `previousToolId` exists, it will be included in the generated query.
-
-    # Find the node with the given ToolID
-    node = root.find(f".//Node[@ToolID='{toolId}']")
-
-    - If no `previousToolId`, it will be set to `None`.
-    """
-    root = ET.fromstring(xml_data)
-
-    # Extract SQL Query
-    query_element = root.find(".//Query")
-    sql_query = query_element.text.strip() if query_element is not None else ""
-
-    if not sql_query:
-        raise ValueError("No SQL query found in the LockInInput configuration.")
-
-    # Extract Connection Info
-    connection_element = root.find(".//Connection")
-    connection_name = connection_element.text.strip() if connection_element is not None else "Unknown_Connection"
-
-    # If there is no previous tool, indicate it as None
-    previous_tool_comment = f"-- Previous Tool ID: {previousToolId}" if previousToolId else "-- No Previous Tool ID"
-
-    current_tool_fields = prev_tool_fields.copy()
-
-    # Generate the CTE dynamically with connection info and previous tool ID
-    cte_query = f"""
-    -- Connection: {connection_name}
-    {previous_tool_comment}
-    CTE_{toolId} AS (
-        SELECT {', '.join([f'\"{col}\"' for col in current_tool_fields])},
-               {sql_query}
-        FROM CTE_{previousToolId}       
-    )
-    """
-
-    return current_tool_fields, cte_query
-
-
-def generate_cte_for_LockInFilter(xml_data, previousToolId, toolId, prev_tool_fields):
-    """
-    Parses the Alteryx LockInFilter node from XML, extracts the filter condition,
-    and generates an equivalent SQL CTE using ToolID.
-    
-    - Only processes when Mode is "Custom".
-    - If `previousToolId` exists, it will be included in the generated query.
-    - If no `previousToolId`, it raises an error as a filter must have an input.
-    """
-    root = ET.fromstring(xml_data)
-
-    # Extract Mode (Only process if Mode = "Custom")
-    mode_element = root.find(".//Mode")
-    mode = mode_element.text.strip() if mode_element is not None else "Unknown"
-
-    if mode != "Custom":
-        return prev_tool_fields, f"-- ToolID {toolId} is using Mode '{mode}', skipping filter extraction."
-
-    # Extract Filter Expression
-    expression_element = root.find(".//Expression")
-    filter_expression = expression_element.text.strip() if expression_element is not None else ""
-
-    if not filter_expression:
-        raise ValueError(f"No filter expression found for ToolID {toolId}.")
-    
-    current_tool_fields = prev_tool_fields.copy()
-
-    # Ensure Previous Tool ID Exists (Filters need input data)
-    if not previousToolId:
-        raise ValueError(f"ToolID {toolId} requires a Previous Tool ID to filter data.")
-
-    # Generate CTE dynamically
-    cte_query = f"""
-    -- Filter applied using LockInFilter Tool (Mode: {mode})
-    CTE_{toolId} AS (
-        SELECT {', '.join([f'\"{col}\"' for col in current_tool_fields])}
-        FROM CTE_{previousToolId}
-        WHERE {filter_expression}
-    )
-    """
-
-    return current_tool_fields, cte_query
-
-
-def generate_cte_for_DynamicRename(xml_data, previousToolId, toolId,prev_tool_fields):
+def generate_cte_for_DynamicRename(xml_data, previousToolId, toolId, prev_tool_fields):
     """
     Parses the XML for Dynamic Rename transformation and generates a SQL CTE dynamically.
     Handles different rename modes: FirstRow, Formula, Add, Remove, RightInputMetadata, RightInputRows.
@@ -1136,19 +1736,22 @@ def generate_cte_for_DynamicRename(xml_data, previousToolId, toolId,prev_tool_fi
     if rename_mode == "FirstRow":
         rename_mappings = [f"\"{input_fields[i]}\" AS \"{output_fields[i]}\"" for i in range(min_length)]
         current_tool_fields.extend(output_fields)
-    
+
     # Handle Formula rename mode with sanitized expressions
     elif rename_mode == "Formula":
-        rename_mappings = [f"{sanitize_expression_for_filter_formula_dynamic_rename(expression, field)} AS \"{field}\"" for field in input_fields]
+        rename_mappings = [f"{sanitize_expression_for_filter_formula_dynamic_rename(expression, field)} AS \"{field}\""
+                           for field in input_fields]
         current_tool_fields.extend(input_fields)
 
     # Handle Add Prefix/Suffix rename mode
     elif rename_mode == "Add":
         if prefix_suffix_type is not None and prefix_suffix_text is not None:
             if prefix_suffix_type.text == "Prefix":
-                rename_mappings = [f"'{prefix_suffix_text.text}' || \"{field}\" AS \"{field}\"" for field in input_fields]
+                rename_mappings = [f"'{prefix_suffix_text.text}' || \"{field}\" AS \"{field}\"" for field in
+                                   input_fields]
             else:
-                rename_mappings = [f"\"{field}\" || '{prefix_suffix_text.text}' AS \"{field}\"" for field in input_fields]
+                rename_mappings = [f"\"{field}\" || '{prefix_suffix_text.text}' AS \"{field}\"" for field in
+                                   input_fields]
             current_tool_fields.extend(input_fields)
 
     # Handle Remove Prefix/Suffix rename mode
@@ -1181,14 +1784,13 @@ def generate_cte_for_DynamicRename(xml_data, previousToolId, toolId,prev_tool_fi
 
     # Generate SQL CTE dynamically
     cte_query = f"""
-    {toolId} AS (
+    CTE_{toolId} AS (
         SELECT 
-            {', '.join([f'\"{col}\"' for col in current_tool_fields])},
             {', '.join(rename_mappings)}
         FROM CTE_{previousToolId}
     )
     """
-
+    
     return current_tool_fields, cte_query
 
 
@@ -1196,7 +1798,7 @@ def generate_cte_for_DataCleansing(xml_data, previousToolId, toolId, prev_tool_f
     """
     Parses the Alteryx Data Cleansing node from XML, extracts cleansing operations only if they are active (True),
     and generates an equivalent SQL CTE using ToolID.
-    
+
     - Extracts selected fields only if transformations are enabled.
     - Handles cleansing operations like replacing nulls, trimming spaces, case conversion, etc.
     """
@@ -1205,7 +1807,8 @@ def generate_cte_for_DataCleansing(xml_data, previousToolId, toolId, prev_tool_f
 
     # Extract selected fields for cleansing (only if enabled)
     fields_element = root.find(".//Value[@name='List Box (11)']")
-    selected_fields = [f.strip('"') for f in fields_element.text.split(",")] if fields_element is not None and fields_element.text else []
+    selected_fields = [f.strip('"') for f in
+                       fields_element.text.split(",")] if fields_element is not None and fields_element.text else []
 
     # Extract checkboxes only if their value is "True"
     replace_with_blank = root.find(".//Value[@name='Check Box (84)']")
@@ -1227,7 +1830,7 @@ def generate_cte_for_DataCleansing(xml_data, previousToolId, toolId, prev_tool_f
     for field in selected_fields:
         if field not in current_tool_fields:
             current_tool_fields.append(field)
-        
+
         if replace_with_blank is not None and replace_with_blank.text == "True":
             transformations.append(f"NULLIF({field}, '') AS {field}")
 
@@ -1310,11 +1913,11 @@ def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool
     fields = ', '.join([f'"{field}"' for field in prev_tool_fields])
 
     if split_method == "Split to columns":
-        new_columns = [f'{output_root_name}_{i+1}' for i in range(num_columns)]
+        new_columns = [f'{output_root_name}_{i + 1}' for i in range(num_columns)]
         cte_query = f"""
         CTE_{toolId} AS (
             SELECT {fields},
-                   {', '.join([f'SPLIT_PART("{column_to_split}", \'{delimiters}\', {i+1}) AS \"{col}\"' for i, col in enumerate(new_columns)])}
+                   {', '.join([f'SPLIT_PART("{column_to_split}", \'{delimiters}\', {i + 1}) AS \"{col}\"' for i, col in enumerate(new_columns)])}
             FROM CTE_{previousToolId}
         )
         """
@@ -1327,7 +1930,8 @@ def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool
         )
         """
 
-    new_fields = prev_tool_fields + new_columns if split_method == "Split to columns" else prev_tool_fields + [output_root_name]
+    new_fields = prev_tool_fields + new_columns if split_method == "Split to columns" else prev_tool_fields + [
+        output_root_name]
     return new_fields, cte_query
 
 
@@ -1380,6 +1984,7 @@ def generate_cte_for_Message(xml_data, previousToolId, toolId, prev_tool_fields)
 
 
 import xml.etree.ElementTree as ET
+
 
 def generate_cte_for_MultiFieldFormula(xml_data, previousToolId, toolId, prev_tool_fields):
     """
@@ -1444,10 +2049,10 @@ def generate_cte_for_MultiFieldFormula(xml_data, previousToolId, toolId, prev_to
 
     return all_fields, cte_query
 
+
 def generate_cte_for_MultiRowFormula(xml_data, previousToolId, toolId, prev_tool_fields):
-    
     root = ET.fromstring(xml_data)
-    
+
     # Extracting values from XML
     update_existing = root.find(".//UpdateField").get("value") == "True"
     existing_field = root.find(".//UpdateField_Name").text if update_existing else None
@@ -1461,7 +2066,8 @@ def generate_cte_for_MultiRowFormula(xml_data, previousToolId, toolId, prev_tool
 
     # Generating SQL logic
     partition_clause = f"PARTITION BY {', '.join([f'\"{field}\"' for field in group_by_fields])}" if group_by_fields else ""
-    lag_lead_function = sanitized_expression.replace("[Row-1:", "LAG(").replace("[Row+1:", "LEAD(").replace("]", f", {num_rows}) OVER ({partition_clause} ORDER BY ROW_NUMBER() OVER())")
+    lag_lead_function = sanitized_expression.replace("[Row-1:", "LAG(").replace("[Row+1:", "LEAD(").replace("]",
+                                                                                                            f", {num_rows}) OVER ({partition_clause} ORDER BY ROW_NUMBER() OVER())")
 
     # Determining selected fields
     if update_existing:
@@ -1484,8 +2090,7 @@ def generate_cte_for_MultiRowFormula(xml_data, previousToolId, toolId, prev_tool
     return all_fields, cte_query
 
 
-
-def connectionDetails(file,dfWithTool):
+def connectionDetails(file, dfWithTool):
     # Parse the XML data
     file.seek(0)
     tree = ET.parse(file)
@@ -1495,7 +2100,6 @@ def connectionDetails(file,dfWithTool):
     data = []
     connectionRoot = root.find('Connections')
     for connection in connectionRoot.findall('.//Connection'):
-
         # Get the connection name if it exists
         connection_name = connection.get('name', None)
 
@@ -1518,12 +2122,9 @@ def connectionDetails(file,dfWithTool):
     # Convert the data list into a pandas DataFrame
     df = pd.DataFrame(data)
 
-    dfWithTool=dfWithTool[['ToolID', 'Plugin']]
+    dfWithTool = dfWithTool[['ToolID', 'Plugin']]
     df_with_tool_name = df.merge(dfWithTool, left_on='Destination_ToolID', right_on='ToolID', how='left')
     df_with_tool_name.drop(columns='ToolID', inplace=True)
-
-
-
 
     for index, row in df_with_tool_name[df_with_tool_name['Plugin'] == 'AlteryxBasePluginsGui.Join.Join'].iterrows():
         destination = row['Destination_ToolID']
@@ -1537,9 +2138,11 @@ def connectionDetails(file,dfWithTool):
             for _, match_row in matching_rows.iterrows():
                 # Only modify the origin if originConnection is different
                 if match_row['Origin_Connection'] != row['Origin_Connection']:
-                    df_with_tool_name.at[match_row.name, 'Origin_ToolID'] = f"{match_row['Origin_ToolID']}_{match_row['Origin_Connection']}"
+                    df_with_tool_name.at[
+                        match_row.name, 'Origin_ToolID'] = f"{match_row['Origin_ToolID']}_{match_row['Origin_Connection']}"
 
-    for index, row in df_with_tool_name[df_with_tool_name['Plugin'] == 'AlteryxBasePluginsGui.Unique.Unique'].iterrows():
+    for index, row in df_with_tool_name[
+        df_with_tool_name['Plugin'] == 'AlteryxBasePluginsGui.Unique.Unique'].iterrows():
         destination = row['Destination_ToolID']
 
         # Find the rows where the destination matches origin
@@ -1551,13 +2154,46 @@ def connectionDetails(file,dfWithTool):
             for _, match_row in matching_rows.iterrows():
                 # Only modify the origin if originConnection is different
                 if match_row['Origin_Connection'] != row['Origin_Connection']:
-                    df_with_tool_name.at[match_row.name, 'Origin_ToolID'] = f"{match_row['Origin_ToolID']}_{match_row['Origin_Connection']}"
+                    df_with_tool_name.at[
+                        match_row.name, 'Origin_ToolID'] = f"{match_row['Origin_ToolID']}_{match_row['Origin_Connection']}"
 
-    return df,df_with_tool_name
+    for index, row in df_with_tool_name[
+        df_with_tool_name['Plugin'] == 'AlteryxBasePluginsGui.Filter.Filter'].iterrows():
+        destination = row['Destination_ToolID']
+
+        # Find the rows where the destination matches origin
+        matching_rows = df_with_tool_name[df_with_tool_name['Origin_ToolID'] == destination]
+
+        # Check if there are multiple matching rows with different originConnections
+        if len(matching_rows) > 1 and len(matching_rows['Origin_Connection'].unique()) > 1:
+            # Modify the origin column by appending originConnection if needed
+            for _, match_row in matching_rows.iterrows():
+                # Only modify the origin if originConnection is different
+                if match_row['Origin_Connection'] != row['Origin_Connection']:
+                    df_with_tool_name.at[
+                        match_row.name, 'Origin_ToolID'] = f"{match_row['Origin_ToolID']}_{match_row['Origin_Connection']}"
 
 
 
-def finalCTEGeneration(df,executionOrder, inputNodes, outputNodes):
+    return df, df_with_tool_name
+
+
+def CTEGneration(df, path, inputNodes):
+    cte_list = []
+    plugin_name = ""
+    for i in path:
+        if (i not in inputNodes):
+            cte = df.loc[df['ToolID'] == i, 'CTE'].values[0]
+            plugin_name = df.loc[df['ToolID'] == i, 'Plugin'].values[0]
+            cte = str(cte)
+            cte_list.append(cte)
+    result = ',\n'.join(cte_list)
+    if (len(plugin_name) > 0):
+        plugin_name = plugin_name.split('.')[-1]
+    return result, plugin_name
+
+
+def finalCTEGeneration(df, executionOrder, inputNodes, outputNodes):
     # Initialize the result string
     result = ""
     results_dict = {}
@@ -1578,8 +2214,7 @@ def finalCTEGeneration(df,executionOrder, inputNodes, outputNodes):
         if item in outputNodes:
             results_dict[item] = result
 
-
-    return result,results_dict
+    return result, results_dict
 
 
 # Function to create SQL files for each dictionary (cteDictionary) and place them in a folder
@@ -1617,9 +2252,49 @@ def create_zip_of_folders(fileNameList, cteDictionaries):
 
     return zip_filename
 
+
+def find_dependent_nodes(graph, start_node):
+    visited = set()
+    stack = [start_node]
+
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            visited.add(node)
+            stack.extend(graph.predecessors(node))  # Traverse predecessors to collect dependent nodes
+
+    return visited
+
+
+def top_sort(df_connetion, outputNodes):
+    g1 = nx.DiGraph()
+    edges = []
+
+    for _, row in df_connetion.iterrows():
+        edges.append((row["Origin_ToolID"], row["Destination_ToolID"]))
+
+    g1.add_edges_from(edges)
+    all_dependent_nodes = {}
+
+    for target in outputNodes:
+        dependent_nodes = find_dependent_nodes(g1, target)
+        all_dependent_nodes[target] = dependent_nodes
+
+    topo_sort = {}
+    for target, nodes in all_dependent_nodes.items():
+        subgraph = g1.subgraph(nodes)
+        try:
+            topo_sort[target] = list(nx.topological_sort(subgraph))
+        except nx.NetworkXUnfeasible:
+            print(f"The graph contains a cycle and therefore a topological sort is not possible for {target}.")
+
+    path_lists = list(topo_sort.values())
+    return path_lists
+
+
 if __name__ == "__main__":
     st.title('Alteryx Converter')
-    fileNameList = st.file_uploader('Upload XML files', type=['yxmd','xml'], accept_multiple_files=True)
+    fileNameList = st.file_uploader('Upload XML files', type=['yxmd', 'xml'], accept_multiple_files=True)
 
     cteDictionaries = []  # This will store the cteDictionary for each file
 
@@ -1633,38 +2308,41 @@ if __name__ == "__main__":
                 'LockInGui.LockInSelect.LockInSelect': generate_cte_for_AlteryxSelect,
                 'AlteryxSpatialPluginsGui.Summarize.Summarize': generate_cte_for_Summarize,
                 'AlteryxBasePluginsGui.Formula.Formula': generate_cte_for_Formula,
-                'AlteryxBasePluginsGui.Filter.Filter': generate_cte_for_Filter,
-                'AlteryxBasePluginsGui.CrossTab.CrossTab' : generate_cte_for_CrossTab,
-                'AlteryxBasePluginsGui.DynamicRename.DynamicRename' : generate_cte_for_DynamicRename,
-                'LockInGui.LockInInput.LockInInput' : generate_cte_for_LockInInput,
-                'LockInGui.LockInFilter.LockInFilter' : generate_cte_for_LockInFilter,
-                'AlteryxBasePluginsGui.Macro.Macro' : generate_cte_for_DataCleansing,
                 'AlteryxBasePluginsGui.Sort.Sort': generate_cte_for_Sort,
-                'AlteryxBasePluginsGui.Sample.Sample':generate_cte_for_Sample,
-                'AlteryxBasePluginsGui.RunningTotal.RunningTotal':generate_cte_for_RunningTotal,
-                'AlteryxBasePluginsGui.RecordID.RecordID':generate_cte_for_RecordID,
-                'AlteryxBasePluginsGui.TextToColumns.TextToColumns' : generate_cte_for_Text_To_Columns,
-                'AlteryxBasePluginsGui.Message.Message' : generate_cte_for_Message,
-                'AlteryxBasePluginsGui.MultiFieldFormula.MultiFieldFormula' : generate_cte_for_MultiFieldFormula,
-                'AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula' : generate_cte_for_MultiRowFormula
-
+                'AlteryxBasePluginsGui.Sample.Sample': generate_cte_for_Sample,
+                'AlteryxBasePluginsGui.RunningTotal.RunningTotal': generate_cte_for_RunningTotal,
+                'AlteryxBasePluginsGui.RecordID.RecordID': generate_cte_for_RecordID,
+                'AlteryxBasePluginsGui.RegEx.RegEx': generate_cte_for_Regex,
+                'Imputation_v3': generate_cte_for_Imputation,
+                'AlteryxBasePluginsGui.CrossTab.CrossTab': generate_cte_for_CrossTab,
+                'Cleanse': generate_cte_for_DataCleansing,
+                'AlteryxBasePluginsGui.DynamicRename.DynamicRename': generate_cte_for_DynamicRename,
+                'AlteryxBasePluginsGui.TextToColumns.TextToColumns': generate_cte_for_Text_To_Columns,
+                'AlteryxBasePluginsGui.Message.Message': generate_cte_for_Message,
+                'AlteryxBasePluginsGui.MultiFieldFormula.MultiFieldFormula': generate_cte_for_MultiFieldFormula,
+                'AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula': generate_cte_for_MultiRowFormula,
+                'CountRecords': generate_cte_for_CountRecords
             }
 
-            df= getToolData(file)
+            df = getToolData(file)
 
-            functionCallList,parentMap = connectionDetails(file,df)
+            functionCallList, parentMap = connectionDetails(file, df)
 
-            executionOrder, inputNodes, outputNodes = executionOrders(parentMap)
+            executionOrder, inputNodes, outputNodes, df_connetion = executionOrders(parentMap)
 
-            functionCallList, _, _ = executionOrders(functionCallList)
+            path_lists = top_sort(df_connetion, outputNodes)
 
-            df = generate_ctes_for_plugin(df,parentMap,functionCallList)
+            functionCallList, _, _, _ = executionOrders(functionCallList)
 
-            cte, cteDictionary = finalCTEGeneration(df, executionOrder, inputNodes, outputNodes)
+            df = generate_ctes_for_plugin(df, parentMap, functionCallList)
 
-            cteDictionaries.append(cteDictionary)
+            # cte, cteDictionary = finalCTEGeneration(df, executionOrder, inputNodes, outputNodes)
+            cte_dict = {}
+            for path in path_lists:
+                final_cte, plugin_name = CTEGneration(df, path, inputNodes)
+                cte_dict[plugin_name + '_' + path[-1]] = final_cte
 
-
+            cteDictionaries.append(cte_dict)
             st.write(df)
             st.write(parentMap)
             st.write(executionOrder)
@@ -1672,7 +2350,6 @@ if __name__ == "__main__":
             st.write(outputNodes)
             # st.write(cte)
             # st.write(cteDictionary)
-
 
         zip_file_path = create_zip_of_folders(fileNameList, cteDictionaries)
 
