@@ -1,3 +1,22 @@
+# Sample CTE Output after extraction
+
+CTE_15 AS  (
+        SELECT 
+           "PolM_Sub_Seg", "Expected Claims", "Expected Claims_Sub_Seg", "Incr (Decr) IBNR", "Business Unit"
+           ,
+           Incr (Decr) IBNR * (Expected Claims/Expected Claims_Sub_Seg) AS "Ceded IBNR by Treaty", 
+           CASE WHEN  LEFT('Treaty', 3)  =  'AML'  THEN 'Assumed' ELSE CASE WHEN  LEFT('Treaty', 3)  =  'CML'  THEN 'Ceded' ELSE NULL END AS "Business_Type", 
+           CASE WHEN  LEFT('Treaty', 1)  =  'C'  THEN RIGHT('Treaty', LENGTH('Treaty')-1) ELSE Treaty END AS "Treaty", 
+           LEFT('Treaty', 2) AS "CO", 
+           CONCAT('PolM_Sub_Seg', 'L') AS "Product", 
+           "PL001" AS "BU", 
+           CONCAT('Treaty', 'S') AS "TREATY3", 
+           Ceded IBNR by Treaty AS "Round", 
+           ABS('Round') AS "ABS"
+        FROM CTE_14 
+    )
+
+
 ## functionfor cleaning expression paramteres
 def sanitize_expression_for_filter_formula_dynamic_rename_backup(expression, field_name=None):
     """
