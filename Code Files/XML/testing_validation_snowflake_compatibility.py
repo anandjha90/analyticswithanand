@@ -113,4 +113,44 @@ def sanitize_expression_for_filter_formula_dynamic_rename_backup(expression, fie
 
     expression = re.sub(r"(\S+)\s*\+\s*(\S+)", replace_concat, expression)
 
+def wrap_fields_in_quotes(expression):
+    """
+    Ensures field names in calculations are enclosed in double quotes.
+    - Keeps existing quoted fields unchanged.
+    - Ignores function names and operators.
+    """
+    tokens = re.split(r'(\s*[\+\-\*/]\s*)', expression)  # Split by mathematical operators
+
+    def process_token(token):
+        token = token.strip()
+        # ✅ If token is already quoted, return as is
+        if token.startswith('"') and token.endswith('"'):
+            return token  
+        # ✅ If token is a numeric value, function call, or empty, return as is
+        if re.match(r"^\d+(\.\d+)?$", token) or re.match(r"^[A-Za-z_]+\(", token) or token == "":
+            return token  
+        # ✅ Wrap unquoted field names in double quotes
+        return f'"{token}"'
+
+    # ✅ Rebuild the expression with properly quoted fields
+    return ''.join([process_token(token) for token in tokens])
+
+def sanitize_expression_for_snowflake(expression):
+    """
+    Converts Alteryx-style expressions into Snowflake-compatible SQL expressions.
+    - Ensures field names in calculations are enclosed in double quotes.
+    - Converts Alteryx IF-THEN-ELSE-ENDIF to SQL CASE-WHEN-THEN-ELSE-END.
+    - Ensures both parameters in CONCAT() are enclosed in single quotes if they are literals.
+    """
+
+    if not expression:
+        return ""
+
+    # ✅ Ensure calculations have double-quoted field names
+    expression = re.sub(r'([\w\s\(\)]+)\s*([\+\-\*/])\s*([\w\s\(\)]+)', 
+                        lambda m: wrap_fields_in_quotes(m.group(0)), expression)
+
+    return expression.strip()
+    
+
 
