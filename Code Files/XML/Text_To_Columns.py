@@ -21,6 +21,9 @@ def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool
     output_root_name_node = root.find(".//RootName")
     output_root_name = output_root_name_node.text if output_root_name_node is not None else "Column"
 
+    # Ensure previous fields are explicitly listed in SELECT
+    prev_fields_str = ", ".join(f'"{field}"' for field in prev_tool_fields)
+
     if split_method == "Split to columns":
         new_columns = [f'{output_root_name}_{i+1}' for i in range(num_columns)]
         
@@ -32,7 +35,7 @@ def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool
 
         cte_query = f"""
         CTE_{toolId} AS (
-            SELECT *,
+            SELECT {prev_fields_str},
                    {', '.join(split_part_expressions)}
             FROM CTE_{previousToolId}
         )
@@ -45,7 +48,7 @@ def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool
 
         cte_query = f"""
         CTE_{toolId} AS (
-            SELECT *,
+            SELECT {prev_fields_str},
                    {unnest_expression}
             FROM CTE_{previousToolId}
         )
