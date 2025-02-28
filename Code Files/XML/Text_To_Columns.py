@@ -1,3 +1,21 @@
+# ✅ Ensure SPLIT_PART follows Snowflake syntax with correct first parameter quoting
+    def fix_split_part(match):
+        first_param = match.group(1).strip()
+        delimiter = match.group(2).strip()
+        part_number = match.group(3).strip()
+
+        # ✅ Fix first parameter quoting
+        if first_param.startswith('"') and first_param.endswith('"'):
+            first_param = f"'{first_param[1:-1]}'"  # Convert "Column" → 'Column'
+        elif not (first_param.startswith("'") and first_param.endswith("'")):
+            first_param = f"'{first_param}'"  # Convert Column → 'Column'
+
+        return f"SPLIT_PART({first_param}, {delimiter}, {part_number})"
+
+    expression = re.sub(r"\bSPLIT_PART\s*\(([^,]+),\s*([^,]+),\s*([^,]+)\)", fix_split_part, expression, flags=re.IGNORECASE)
+
+
+
 def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool_fields):
     """
     Parses the Alteryx Text To Columns tool XML configuration and generates an equivalent SQL CTE.
