@@ -77,6 +77,7 @@ def sanitize_expression_for_filter_formula_dynamic_rename_backup(expression, fie
     expression = re.sub(r"\bRight\s*\(([^,]+),\s*([^,]+)\)", r"RIGHT('\1', \2)", expression, flags=re.IGNORECASE)
     expression = re.sub(r"\bLength\s*\((.*?)\)", r"LENGTH('\1')", expression, flags=re.IGNORECASE)
     expression = re.sub(r"\bAbs\s*\((.*?)\)", r"ABS('\1')", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\bSplit_Part\s*\(([^,]+),\s*([^,]+),\s*([^,]+)\)", r"SPLIT_PART(\1, \2, \3)", expression, flags=re.IGNORECASE)
 
     # Handle line breaks and extra spaces
     expression = expression.replace("\n", " ").replace("\r", " ").strip()
