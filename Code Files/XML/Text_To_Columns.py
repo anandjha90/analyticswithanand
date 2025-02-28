@@ -2,7 +2,7 @@ def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool
     """
     Parses the Alteryx Text To Columns tool XML configuration and generates an equivalent SQL CTE.
     Handles splitting columns based on delimiters, methods (split to columns or rows), and advanced options.
-    Uses UNNEST(STRING_TO_ARRAY) for splitting.
+    Uses Snowflake SPLIT_PART() for column splits and STRING_TO_ARRAY() + UNNEST() for row splits.
     """
     root = ET.fromstring(xml_data)
 
@@ -23,18 +23,30 @@ def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool
 
     if split_method == "Split to columns":
         new_columns = [f'{output_root_name}_{i+1}' for i in range(num_columns)]
+        
+        # ✅ Ensure SPLIT_PART is sanitized correctly
+        split_part_expressions = [
+            sanitize_expression_for_snowflake(f'SPLIT_PART("{column_to_split}", \'{delimiters}\', {i+1}) AS "{col}"')
+            for i, col in enumerate(new_columns)
+        ]
+
         cte_query = f"""
         CTE_{toolId} AS (
             SELECT *,
-                   {', '.join([f'SPLIT_PART("{column_to_split}", \'{delimiters}\', {i+1}) AS \"{col}\"' for i, col in enumerate(new_columns)])}
+                   {', '.join(split_part_expressions)}
             FROM CTE_{previousToolId}
         )
         """
     else:
+        # ✅ Ensure STRING_TO_ARRAY() + UNNEST() is formatted correctly
+        unnest_expression = sanitize_expression_for_snowflake(
+            f'UNNEST(STRING_TO_ARRAY("{column_to_split}", \'{delimiters}\')) AS "{output_root_name}"'
+        )
+
         cte_query = f"""
         CTE_{toolId} AS (
             SELECT *,
-                   UNNEST(STRING_TO_ARRAY("{column_to_split}", '{delimiters}')) AS "{output_root_name}"
+                   {unnest_expression}
             FROM CTE_{previousToolId}
         )
         """
