@@ -1,21 +1,3 @@
-# ✅ Ensure SPLIT_PART follows Snowflake syntax with correct first parameter quoting
-    def fix_split_part(match):
-        first_param = match.group(1).strip()
-        delimiter = match.group(2).strip()
-        part_number = match.group(3).strip()
-
-        # ✅ Fix first parameter quoting
-        if first_param.startswith('"') and first_param.endswith('"'):
-            first_param = f"'{first_param[1:-1]}'"  # Convert "Column" → 'Column'
-        elif not (first_param.startswith("'") and first_param.endswith("'")):
-            first_param = f"'{first_param}'"  # Convert Column → 'Column'
-
-        return f"SPLIT_PART({first_param}, {delimiter}, {part_number})"
-
-    expression = re.sub(r"\bSPLIT_PART\s*\(([^,]+),\s*([^,]+),\s*([^,]+)\)", fix_split_part, expression, flags=re.IGNORECASE)
-
-
-
 def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool_fields):
     """
     Parses the Alteryx Text To Columns tool XML configuration and generates an equivalent SQL CTE.
@@ -44,7 +26,7 @@ def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool
         
         # ✅ Ensure SPLIT_PART is sanitized correctly
         split_part_expressions = [
-            sanitize_expression_for_snowflake(f'SPLIT_PART("{column_to_split}", \'{delimiters}\', {i+1}) AS "{col}"')
+            sanitize_expression_for_filter_formula_dynamic_rename(f'SPLIT_PART("{column_to_split}", \'{delimiters}\', {i+1}) AS "{col}"')
             for i, col in enumerate(new_columns)
         ]
 
@@ -57,7 +39,7 @@ def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool
         """
     else:
         # ✅ Ensure STRING_TO_ARRAY() + UNNEST() is formatted correctly
-        unnest_expression = sanitize_expression_for_snowflake(
+        unnest_expression = sanitize_expression_for_filter_formula_dynamic_rename(
             f'UNNEST(STRING_TO_ARRAY("{column_to_split}", \'{delimiters}\')) AS "{output_root_name}"'
         )
 
