@@ -1626,6 +1626,50 @@ def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name
     # Ensure CONTAINS function has the field name as the first argument
     expression = re.sub(r"CONTAINS\(\s*['\"]([^'\"]+)['\"]\s*\)", rf"CONTAINS(\"{field_name}\", '\1')", expression,
                         flags=re.IGNORECASE)
+    
+    # Remove square brackets [] from field names
+    expression = re.sub(r"\[(.*?)\]", r"\1", expression)
+     
+    # Ensure SPLIT_PART follows Snowflake syntax with correct first parameter quoting
+    def fix_split_part(match):
+        first_param = match.group(1).strip()
+        delimiter = match.group(2).strip()
+        part_number = match.group(3).strip()
+
+        #  Fix first parameter quoting
+        if first_param.startswith('"') and first_param.endswith('"'):
+            first_param = f"'{first_param[1:-1]}'"  # Convert "Column" → 'Column'
+        elif not (first_param.startswith("'") and first_param.endswith("'")):
+            first_param = f"'{first_param}'"  # Convert Column → 'Column'
+
+        return f"SPLIT_PART({first_param}, {delimiter}, {part_number})"
+
+    expression = re.sub(r"\bSPLIT_PART\s*\(([^,]+),\s*([^,]+),\s*([^,]+)\)", fix_split_part, expression, flags=re.IGNORECASE)
+
+    
+    # Convert Alteryx-style string concatenation (`+`) to Snowflake `CONCAT()`
+    def replace_concat(match):
+        first_param = match.group(1).strip()
+        second_param = match.group(2).strip()
+
+        def process_param(param):
+            """Ensure the parameter is enclosed in single quotes if it's a string literal, otherwise double quotes if it's a column name."""
+            # If the parameter is already in single quotes, keep it unchanged
+            if param.startswith("'") and param.endswith("'"):
+                return param  
+            # If the parameter is in double quotes, convert it to single quotes
+            elif param.startswith('"') and param.endswith('"'):
+                return f"'{param[1:-1]}'"  
+            # Otherwise, assume it's a column and wrap it in single quotes
+            else:
+                return f"'{param}'"  
+
+        first_param = process_param(first_param)
+        second_param = process_param(second_param)
+
+        return f"CONCAT({first_param}, {second_param})"
+
+    expression = re.sub(r"(\S+)\s*\+\s*(\S+)", replace_concat, expression)
 
     # Convert Alteryx-style IF-THEN-ELSE-ENDIF into SQL CASE WHEN
     expression = re.sub(r"(?i)if(.*?)then", r" CASE WHEN \1 THEN", expression, flags=re.IGNORECASE)
@@ -1641,8 +1685,30 @@ def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name
     # Handle NULL() conversion
     expression = re.sub(r"(?i)NULL\(\)", "NULL", expression)
 
+    # Ensure string literals in comparisons (`=`, `<>`, `IN`, `LIKE`) use single quotes
+    expression = re.sub(r'=\s*"([^"]+)"', r"= '\1'", expression)
+    expression = re.sub(r'<>\s*"([^"]+)"', r"<> '\1'", expression)
+    expression = re.sub(r'IN\s*\(\s*"([^"]+)"\s*\)', r"IN ('\1')", expression, flags=re.IGNORECASE)
+    expression = re.sub(r'LIKE\s*"([^"]+)"', r"LIKE '\1'", expression, flags=re.IGNORECASE)
+
+    # Ensure string literals in `THEN` clause are enclosed in single quotes
+    expression = re.sub(r"THEN\s+\"([^\"']+)\"", r"THEN '\1'", expression, flags=re.IGNORECASE) 
+    expression = re.sub(r"ELSE\s+\"([^\"']+)\"", r"ELSE '\1'", expression, flags=re.IGNORECASE)
+    
     # Standardize logical operators
     expression = expression.replace("=", " = ").replace("<>", " != ").replace(" And ", " AND ").replace(" Or ", " OR ")
+
+    # Ensure function names are formatted correctly (e.g., SUBSTRING, UPPER, LOWER, LEFT, RIGHT, LENGTH)
+    expression = re.sub(r"\bSubstring\s*\(([^,]+),\s*([^,]+),\s*([^)]+)\)", r"SUBSTRING('\1', \2, \3)", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\bUpper\s*\((.*?)\)", r"UPPER('\1')", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\bLower\s*\((.*?)\)", r"LOWER('\1')", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\bLeft\s*\(([^,]+),\s*([^,]+)\)", r"LEFT('\1', \2)", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\bRight\s*\(([^,]+),\s*([^,]+)\)", r"RIGHT('\1', \2)", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\bLength\s*\((.*?)\)", r"LENGTH('\1')", expression, flags=re.IGNORECASE)
+    expression = re.sub(r"\bAbs\s*\((.*?)\)", r"ABS('\1')", expression, flags=re.IGNORECASE)
+
+    # Handle line breaks and extra spaces
+    expression = expression.replace("\n", " ").replace("\r", " ").strip()
 
     # Handle [_CurrentField_] replacement dynamically
     expression = expression.replace("[_CurrentField_]", '"_CurrentField_"')
@@ -1651,10 +1717,7 @@ def sanitize_expression_for_filter_formula_dynamic_rename(expression, field_name
     expression = re.sub(r"\[Row-([0-9]+):(.+?)\]", r"LAG(\2, \1) OVER ()", expression, flags=re.IGNORECASE)
     expression = re.sub(r"\[Row\+([0-9]+):(.+?)\]", r"LEAD(\2, \1) OVER ()", expression, flags=re.IGNORECASE)
 
-    # Handle line breaks and extra spaces
-    expression = expression.replace("\n", " ").replace("\r", " ").strip()
-
-    return expression
+    return expression.strip()
 
 
 # Function to parse the XML and generate SQL CTE for Filter
@@ -2092,7 +2155,7 @@ def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool
     """
     Parses the Alteryx Text To Columns tool XML configuration and generates an equivalent SQL CTE.
     Handles splitting columns based on delimiters, methods (split to columns or rows), and advanced options.
-    Uses UNNEST(STRING_TO_ARRAY) for splitting.
+    Uses Snowflake SPLIT_PART() for column splits and STRING_TO_ARRAY() + UNNEST() for row splits.
     """
     root = ET.fromstring(xml_data)
 
@@ -2111,28 +2174,70 @@ def generate_cte_for_Text_To_Columns(xml_data, previousToolId, toolId, prev_tool
     output_root_name_node = root.find(".//RootName")
     output_root_name = output_root_name_node.text if output_root_name_node is not None else "Column"
 
-    fields = ', '.join([f'"{field}"' for field in prev_tool_fields])
+    extra_chars_option_node = root.find(".//ExtraCharacterOption")
+    extra_chars_option = extra_chars_option_node.get("value") if extra_chars_option_node is not None else "Leave extra in last column"
+
+    advanced_options = {
+        "ignore_quotes": root.find(".//IgnoreQuotes") is not None,
+        "ignore_single_quotes": root.find(".//IgnoreSingleQuotes") is not None,
+        "ignore_parentheses": root.find(".//IgnoreParentheses") is not None,
+        "ignore_brackets": root.find(".//IgnoreBrackets") is not None,
+        "skip_empty_columns": root.find(".//SkipEmptyColumns") is not None,
+    }
+
+    # Ensure previous fields are explicitly listed in SELECT
+    prev_fields_str = ", ".join(f'"{field}"' for field in prev_tool_fields)
 
     if split_method == "Split to columns":
-        new_columns = [f'{output_root_name}_{i + 1}' for i in range(num_columns)]
+        new_columns = [f'{output_root_name}_{i+1}' for i in range(num_columns)]
+
+        split_part_expressions = [
+            sanitize_expression_for_filter_formula_dynamic_rename(
+                f'SPLIT_PART("{column_to_split}", \'{delimiters}\', {i+1}) AS "{col}"'
+            )
+            for i, col in enumerate(new_columns)
+        ]
+
+        # Handling extra characters options
+        if extra_chars_option == "Drop extra with warning":
+            split_part_expressions.append(sanitize_expression_for_filter_formula_dynamic_rename(
+                f'CASE WHEN ARRAY_SIZE(STRING_TO_ARRAY("{column_to_split}", \'{delimiters}\')) > {num_columns} '
+                f'THEN RAISE_WARNING("Extra columns dropped") END'
+            ))
+        elif extra_chars_option == "Error":
+            split_part_expressions.append(sanitize_expression_for_filter_formula_dynamic_rename(
+                f'CASE WHEN ARRAY_SIZE(STRING_TO_ARRAY("{column_to_split}", \'{delimiters}\')) > {num_columns} '
+                f'THEN RAISE_ERROR("Too many columns") END'
+            ))
+
         cte_query = f"""
         CTE_{toolId} AS (
-            SELECT {fields},
-                   {', '.join([f'SPLIT_PART("{column_to_split}", \'{delimiters}\', {i + 1}) AS \"{col}\"' for i, col in enumerate(new_columns)])}
-            FROM CTE_{previousToolId}
-        )
-        """
-    else:
-        cte_query = f"""
-        CTE_{toolId} AS (
-            SELECT {fields},
-                   UNNEST(STRING_TO_ARRAY("{column_to_split}", '{delimiters}')) AS "{output_root_name}"
+            SELECT {prev_fields_str},
+                   {', '.join(split_part_expressions)}
             FROM CTE_{previousToolId}
         )
         """
 
-    new_fields = prev_tool_fields + new_columns if split_method == "Split to columns" else prev_tool_fields + [
-        output_root_name]
+    else:  # Split to rows
+        unnest_expression = sanitize_expression_for_filter_formula_dynamic_rename(
+            f'UNNEST(STRING_TO_ARRAY("{column_to_split}", \'{delimiters}\')) AS "{output_root_name}"'
+        )
+
+        # Skip empty columns if enabled
+        if advanced_options["skip_empty_columns"]:
+            unnest_expression = sanitize_expression_for_filter_formula_dynamic_rename(
+                f"(SELECT value FROM TABLE({unnest_expression}) WHERE value IS NOT NULL)"
+            )
+
+        cte_query = f"""
+        CTE_{toolId} AS (
+            SELECT {prev_fields_str},
+                   {unnest_expression}
+            FROM CTE_{previousToolId}
+        )
+        """
+
+    new_fields = prev_tool_fields + new_columns if split_method == "Split to columns" else prev_tool_fields + [output_root_name]
     return new_fields, cte_query
 
 
