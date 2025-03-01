@@ -151,7 +151,7 @@ For following campaigns : 85754842,85756522,85756402 and 85756642 please provide
 - People Who Opened Opened Campaign
 - People Who Opted Out
 
-Please include information for the next 30-days after launch (April 29th)
+Please include information for the next 30-days after launch (Jan 15th 2025)
 */
 
 SELECT *  FROM "WUDNA"."SUMMARY_GEN"."SOLICITATION_HISTORY_VW" WHERE PIR_NBR IN ('85754842','85756522','85756402','85756642')
