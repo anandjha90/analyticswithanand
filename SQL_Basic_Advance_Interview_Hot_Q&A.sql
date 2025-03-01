@@ -410,6 +410,86 @@ FROM products
 GROUP BY product_id 
 ORDER BY max_discount_ratio DESC LIMIT 1;
 
+55. Find employees who worked in the same department the longest.
+
+SELECT employee_id, department_id, MIN(start_date) AS start_date 
+FROM employee_department_history 
+GROUP BY employee_id, department_id 
+ORDER BY DATEDIFF(CURRENT_DATE, start_date) DESC LIMIT 1; 
+
+56. Identify customers who purchased all available products.
+
+SELECT customer_id 
+FROM orders 
+GROUP BY customer_id 
+HAVING COUNT(DISTINCT product_id) = (SELECT COUNT(*) FROM products); 
+
+57. Calculate total working days for employees from attendance logs.
+
+SELECT employee_id, COUNT(DISTINCT date) AS total_working_days 
+FROM attendance_logs 
+WHERE status = 'Present' GROUP BY employee_id; 
+
+58. Retrieve the top-selling product in each category.
+
+SELECT category_id, product_id, SUM(sales) AS total_sales 
+FROM products p 
+JOIN sales s ON p.product_id = s.product_id 
+GROUP BY category_id, product_id 
+HAVING total_sales = (SELECT MAX(SUM(sales)) FROM sales s2 
+WHERE p2.category_id = p.category_id); 
+
+59. Show the sales difference between the current and previous month for each product.
+
+SELECT product_id, month, 
+ SUM(sales) AS current_sales, 
+ LAG(SUM(sales)) OVER (PARTITION BY product_id ORDER BY month) AS prev_sales, 
+ SUM(sales) - LAG(SUM(sales)) OVER (PARTITION BY product_id ORDER BY month) AS sales_diff 
+FROM sales GROUP BY product_id, month; 
+
+60. Generate a list of missing dates from a daily sales table.
+
+SELECT date + INTERVAL 1 DAY AS missing_date 
+FROM daily_sales d1 
+WHERE NOT EXISTS (SELECT date FROM daily_sales d2 WHERE d2.date = d1.date + INTERVAL 1 DAY); 
+
+61. Identify employees with the same salary for more than two consecutive years.
+
+SELECT employee_id 
+FROM salary_history 
+GROUP BY employee_id, salary 
+HAVING COUNT(*) > 2 AND MAX(year) - MIN(year) = COUNT(*) - 1; 
+
+62. Find the product with the highest price-to-sales ratio.
+
+SELECT product_id, (price / SUM(sales)) AS price_to_sales_ratio 
+FROM products p 
+JOIN sales s ON p.product_id = s.product_id 
+GROUP BY product_id 
+ORDER BY price_to_sales_ratio DESC LIMIT 1; 
+
+63. Show departments with the highest and lowest average salaries.
+
+SELECT department_id, AVG(salary) AS avg_salary 
+FROM employees 
+GROUP BY department_id 
+ORDER BY avg_salary DESC LIMIT 1 
+
+UNION ALL 
+
+SELECT department_id, AVG(salary) AS avg_salary 
+FROM employees 
+GROUP BY department_id 
+ORDER BY avg_salary ASC LIMIT 1; 
+
+64. Create a leaderboard of employees by sales, ranking within each department.
+
+SELECT department_id, employee_id, 
+RANK() OVER (PARTITION BY department_id ORDER BY SUM(sales) DESC) AS rank 
+FROM employees e 
+JOIN sales s ON e.employee_id = s.employee_id 
+GROUP BY department_id, employee_id; 
+
 
 
 
