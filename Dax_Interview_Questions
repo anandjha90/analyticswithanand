@@ -86,3 +86,72 @@ Sales[Date], MAXX(FILTER(ALL(Sales), NOT(ISBLANK(Sales[SalesAmount])) && Sales[P
 CALCULATE(SUM(Sales[SalesAmount]), ENDOFYEAR(Sales[Date])),
 CALCULATE(SUM(Sales[SalesAmount]), STARTOFYEAR(Sales[Date]))
 ) - 1) * 100
+
+11.Write a DAX formula to calculate the running total of sales but reset every 6 months dynamically.
+
+CALCULATE(SUM(Sales[SalesAmount]),
+FILTER(ALL(Sales),
+DATEDIFF(STARTOFMONTH(Sales[Date]), MAX(Sales[Date]), MONTH) % 6 = 0 &&
+Sales[Date] <= MAX(Sales[Date])))
+
+12.How do you calculate the number of unique customers who made a purchase in at least 3 different months?
+
+CALCULATE(DISTINCTCOUNT(Sales[CustomerID]),
+FILTER(VALUES(Sales[CustomerID]),
+CALCULATE(DISTINCTCOUNT(Sales[Month]), Sales[Month] <> BLANK()) >= 3))
+
+13.Write a DAX measure to find the second-highest sales amount for each product.
+
+TOPN(1,
+FILTER(
+SUMMARIZE(ALL(Sales), Sales[ProductID], “Sales”, SUM(Sales[SalesAmount])),
+[Sales] < MAXX(ALL(Sales), SUM(Sales[SalesAmount]))
+),
+[Sales], DESC
+)
+
+14.How do you calculate the contribution percentage of the top 10% of customers by revenue?
+
+CALCULATE(SUM(Sales[SalesAmount]),
+FILTER(ALL(Sales[CustomerID]),
+RANKX(ALL(Sales[CustomerID]), SUM(Sales[SalesAmount]), , DESC) <= COUNTROWS(Sales) * 0.1))
+/ SUM(Sales[SalesAmount])
+
+15.Write a DAX formula to calculate the difference between the highest and lowest sales in a given category.
+
+MAX(Sales[SalesAmount]) - MIN(Sales[SalesAmount])
+
+16.How do you count customers who made purchases in the last 90 days but not in the previous 90 days?
+
+CALCULATE(DISTINCTCOUNT(Sales[CustomerID]),
+FILTER(ALL(Sales),
+Sales[Date] >= TODAY() - 90 &&
+NOT Sales[Date] >= TODAY() - 180 && Sales[Date] < TODAY() - 90))
+
+17.Write a DAX measure to get the first and last purchase date of each customer in a single measure.
+
+VAR FirstPurchase = CALCULATE(MIN(Sales[Date]), ALLEXCEPT(Sales, Sales[CustomerID]))
+VAR LastPurchase = CALCULATE(MAX(Sales[Date]), ALLEXCEPT(Sales, Sales[CustomerID]))
+RETURN FirstPurchase & “ - “ & LastPurchase
+
+18.How do you calculate the revenue difference between the current month and the same month last year?
+
+SUM(Sales[SalesAmount]) -
+CALCULATE(SUM(Sales[SalesAmount]), SAMEPERIODLASTYEAR(Sales[Date]))
+
+19.Write a DAX formula to find the top-selling product in each region dynamically.
+
+TOPN(1,
+SUMMARIZE(ALL(Sales), Sales[Region], Sales[ProductID], “TotalSales”, SUM(Sales[SalesAmount])),
+[TotalSales], DESC
+)
+
+20.How do you calculate the average revenue per customer but exclude outliers (top and bottom 5%)?
+
+AVERAGEX(
+FILTER(ALL(Sales),
+RANKX(ALL(Sales), Sales[SalesAmount], , ASC) > COUNTROWS(Sales) * 0.05 &&
+RANKX(ALL(Sales), Sales[SalesAmount], , DESC) > COUNTROWS(Sales) * 0.05
+),
+Sales[SalesAmount]
+)
