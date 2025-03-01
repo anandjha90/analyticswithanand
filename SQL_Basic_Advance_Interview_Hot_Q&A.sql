@@ -59,3 +59,82 @@ FROM sales_table;
 SELECT e.employee_id FROM employees e 
 JOIN salary_history s ON e.employee_id = s.employee_id 
 WHERE e.salary > 1.2 * s.previous_salary;
+
+11. Find employees who have worked in the most departments.
+
+SELECT employee_id, COUNT(DISTINCT department_id) AS dept_count 
+FROM employee_department_history 
+GROUP BY employee_id 
+ORDER BY dept_count DESC LIMIT 1;
+  
+12. Identify customers who made purchases in consecutive months.
+
+SELECT customer_id 
+FROM orders 
+GROUP BY customer_id 
+HAVING COUNT(DISTINCT DATE_FORMAT(order_date, '%Y-%m')) = 
+(SELECT COUNT(DISTINCT DATE_FORMAT(order_date, '%Y-%m')) FROM orders);
+  
+13. Calculate the average session duration from login/logout timestamps.
+
+SELECT user_id, AVG(TIMESTAMPDIFF(MINUTE, login_time, logout_time)) AS avg_session_duration 
+FROM session_logs 
+GROUP BY user_id;
+  
+14. Retrieve the least sold product in each category.
+
+SELECT category_id, product_id, SUM(sales) AS total_sales 
+FROM products p 
+JOIN sales s ON p.product_id = s.product_id 
+GROUP BY category_id, product_id 
+HAVING total_sales = (SELECT MIN(SUM(sales)) FROM sales s2 WHERE p2.category_id = p.category_id);
+  
+15. Show the cumulative sales for each product by month.
+
+SELECT product_id, month, 
+SUM(sales) OVER (PARTITION BY product_id ORDER BY month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_sales 
+FROM sales;
+  
+16. Find missing order IDs in a sequential orders table.
+
+SELECT order_id + 1 AS missing_order_id 
+FROM orders o1 
+WHERE NOT EXISTS (SELECT order_id FROM orders o2 WHERE o2.order_id = o1.order_id + 1);  
+  
+17. Identify employees who received the same bonus for three years.
+
+SELECT employee_id 
+FROM bonus_history 
+GROUP BY employee_id, bonus_amount 
+HAVING COUNT(*) = 3 AND MAX(year) - MIN(year) = 2;
+  
+18. Find the product with the lowest sales-to-stock ratio.
+
+SELECT product_id, (SUM(sales) / stock) AS sales_to_stock_ratio 
+FROM products p 
+JOIN sales s ON p.product_id = s.product_id 
+GROUP BY product_id 
+ORDER BY sales_to_stock_ratio ASC LIMIT 1;
+  
+19. Show the top and bottom-performing sales regions.
+
+SELECT region, SUM(sales) AS total_sales 
+FROM sales 
+GROUP BY region 
+ORDER BY total_sales DESC LIMIT 1 
+
+UNION ALL 
+
+SELECT region, SUM(sales) AS total_sales 
+FROM sales 
+GROUP BY region 
+ORDER BY total_sales ASC LIMIT 1;
+  
+20. Rank employees by revenue contribution within each team.
+
+SELECT team_id, employee_id, 
+RANK() OVER (PARTITION BY team_id ORDER BY SUM(sales) DESC) AS rank 
+FROM employees e 
+JOIN sales s ON e.employee_id = s.employee_id 
+GROUP BY team_id, employee_id;
+  
