@@ -25,7 +25,7 @@ WHERE salary >= (SELECT salary FROM employees ORDER BY salary DESC LIMIT (SELECT
   
 5. Calculate a running total of sales in a table.
 
-  SELECT id, sales, SUM(sales) OVER (ORDER BY id) AS running_total 
+SELECT id, sales, SUM(sales) OVER (ORDER BY id) AS running_total 
 FROM sales_table;
 
 6. Find employees who have worked in more than one department.
@@ -635,7 +635,7 @@ WHERE NOT EXISTS (SELECT id FROM table_name t2 WHERE t2.id = t1.id + 1);
 SELECT t1.* FROM table1 t1 
 JOIN table2 t2 ON t1.column1 = t2.column1 AND t1.column2 = t2.column2; 
 
-10. Write a query to identify customers who placed more orders this year compared to last year.
+84. Write a query to identify customers who placed more orders this year compared to last year.
 
 SELECT customer_id FROM ( 
  SELECT customer_id, 
@@ -645,6 +645,13 @@ SELECT customer_id FROM (
  GROUP BY customer_id 
 ) order_summary 
 WHERE this_year_orders > last_year_orders;
+
+
+  
+
+  
+  
+
 
 
 
