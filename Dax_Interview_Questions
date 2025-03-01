@@ -208,3 +208,96 @@ FILTER(ALL(Sales),
 RANKX(ALL(Sales), Sales[SalesAmount], , ASC) > COUNTROWS(Sales) * 0.05 &&
 RANKX(ALL(Sales), Sales[SalesAmount], , DESC) > COUNTROWS(Sales) * 0.05))
 
+31.Write a DAX formula to calculate the difference between current and previous row values. 
+
+DifferenceFromPrevious = 
+Sales[SalesAmount] - 
+CALCULATE(
+ SUM(Sales[SalesAmount]), 
+ OFFSET(-1, Sales[SalesAmount], ORDERBY(Sales[Date], ASC))
+)
+
+32. How do you calculate the moving average of sales over the last 3 months? 
+
+MovingAvg3Months = 
+AVERAGEX(
+ DATESINPERIOD(Sales[Date], MAX(Sales[Date]), -3, MONTH), 
+ CALCULATE(SUM(Sales[SalesAmount]))
+)
+
+33. Write a DAX measure to count customers who made purchases in two consecutive months. 
+
+CustomersConsecutiveMonths = 
+CALCULATE(
+ DISTINCTCOUNT(Sales[CustomerID]), 
+ INTERSECT(
+ VALUES(Sales[CustomerID]), 
+ CALCULATETABLE(VALUES(Sales[CustomerID]), PREVIOUSMONTH(Sales[Date]))
+ )
+)
+
+
+34. How do you calculate the total sales contribution of the top 5 products dynamically? 
+
+CALCULATE(
+ SUM(Sales[SalesAmount]), 
+ TOPN(5, VALUES(Sales[ProductID]), SUM(Sales[SalesAmount]), DESC)
+)
+
+35. Write a DAX formula to calculate the highest sales recorded in each month. 
+
+MaxSalesPerMonth = 
+CALCULATE(
+ MAX(Sales[SalesAmount]), 
+ ALLEXCEPT(Sales, Sales[Month])
+)
+
+36. How do you create a dynamic ranking of products based on total sales? 
+
+ProductRanking = 
+RANKX(
+ ALL(Sales[ProductID]), 
+ SUM(Sales[SalesAmount]), 
+ , DESC, DENSE
+)
+
+
+37. Write a DAX measure to calculate the cumulative total of sales but reset at the start of each quarter. 
+
+CumulativeSalesQuarterly = 
+CALCULATE(
+ SUM(Sales[SalesAmount]), 
+ FILTER(
+ ALL(Sales), 
+ Sales[Quarter] = MAX(Sales[Quarter]) && Sales[Date] <= MAX(Sales[Date])
+ )
+)
+
+38. How do you find the first purchase date of each customer? 
+
+FirstPurchaseDate = 
+CALCULATE(
+ MIN(Sales[Date]), 
+ ALLEXCEPT(Sales, Sales[CustomerID])
+)
+
+
+39. Write a DAX formula to calculate the ratio of a product’s sales to the highest-selling product’s sales. 
+
+SalesToTopProductRatio = 
+DIVIDE(
+ SUM(Sales[SalesAmount]), 
+ CALCULATE(MAXX(ALL(Sales), SUM(Sales[SalesAmount])))
+)
+
+
+40. How do you calculate total revenue excluding the bottom 10% of sales transactions?
+
+RevenueExcludingBottom10 = 
+CALCULATE(
+ SUM(Sales[SalesAmount]), 
+ FILTER(
+ ALL(Sales), 
+ RANKX(ALL(Sales), Sales[SalesAmount], , ASC) > COUNTROWS(Sales) * 0.1
+ )
+)
