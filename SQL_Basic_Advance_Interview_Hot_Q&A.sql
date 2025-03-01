@@ -137,4 +137,76 @@ RANK() OVER (PARTITION BY team_id ORDER BY SUM(sales) DESC) AS rank
 FROM employees e 
 JOIN sales s ON e.employee_id = s.employee_id 
 GROUP BY team_id, employee_id;
-  
+
+21. Find the first purchase of each customer (excluding their first-ever order).
+
+SELECT customer_id, order_id, order_date 
+FROM ( 
+ SELECT customer_id, order_id, order_date, 
+ RANK() OVER (PARTITION BY customer_id ORDER BY order_date) AS rnk 
+ FROM orders 
+) ranked_orders 
+WHERE rnk = 2; 
+
+22. Identify employees who never reported to a manager but are still in the system.
+
+SELECT employee_id, name 
+FROM employees 
+WHERE manager_id IS NULL AND employee_id NOT IN (SELECT manager_id FROM employees WHERE manager_id IS NOT NULL); 
+
+23. Retrieve products that have been sold in every quarter of the last year.
+
+SELECT product_id 
+FROM sales 
+WHERE YEAR(sale_date) = YEAR(CURRENT_DATE) - 1 
+GROUP BY product_id 
+HAVING COUNT(DISTINCT QUARTER(sale_date)) = 4; 
+
+24. Find departments where every employee earns above the department’s average salary.
+
+SELECT department_id 
+FROM employees e1 
+WHERE NOT EXISTS ( 
+ SELECT 1 FROM employees e2 
+ WHERE e1.department_id = e2.department_id 
+ AND e2.salary < (SELECT AVG(salary) FROM employees e3 WHERE e3.department_id = e1.department_id) 
+); 
+
+25. Show the three most consistent customers (who made purchases every month for the past year).
+
+SELECT customer_id 
+FROM orders 
+WHERE order_date >= DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR) 
+GROUP BY customer_id 
+HAVING COUNT(DISTINCT DATE_FORMAT(order_date, '%Y-%m')) = 12 
+ORDER BY customer_id 
+LIMIT 3; 
+
+26. Find pairs of customers who have ordered the exact same products in the last three months.
+
+SELECT o1.customer_id AS customer_1, o2.customer_id AS customer_2 
+FROM orders o1 
+JOIN orders o2 ON o1.product_id = o2.product_id AND o1.customer_id < o2.customer_id 
+WHERE o1.order_date >= DATE_SUB(CURRENT_DATE, INTERVAL 3 MONTH) 
+GROUP BY o1.customer_id, o2.customer_id 
+HAVING COUNT(DISTINCT o1.product_id) = (SELECT COUNT(DISTINCT product_id) 
+FROM orders 
+WHERE customer_id = o1.customer_id 
+AND order_date >= DATE_SUB(CURRENT_DATE, INTERVAL 3 MONTH)); 
+
+27. Calculate the moving average of sales for the last three months for each product.
+
+SELECT product_id, sale_date, 
+AVG(total_sales) OVER (PARTITION BY product_id ORDER BY sale_date ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS moving_avg 
+FROM ( 
+ SELECT product_id, DATE_FORMAT(sale_date, '%Y-%m') AS sale_date, SUM(sales) AS total_sales 
+ FROM sales 
+ GROUP BY product_id, sale_date 
+) sales_data; 
+
+28. Rank employees based on the total revenue they generated, but reset the ranking each year.
+
+SELECT employee_id, YEAR(sale_date) AS year, 
+RANK() OVER (PARTITION BY YEAR(sale_date) ORDER BY SUM(revenue) DESC) AS rank 
+FROM sales 
+GROUP BY employee_id, year;
