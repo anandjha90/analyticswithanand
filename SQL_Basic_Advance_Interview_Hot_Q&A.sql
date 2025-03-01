@@ -210,3 +210,64 @@ SELECT employee_id, YEAR(sale_date) AS year,
 RANK() OVER (PARTITION BY YEAR(sale_date) ORDER BY SUM(revenue) DESC) AS rank 
 FROM sales 
 GROUP BY employee_id, year;
+
+29. Find the most active user by the longest total session duration.
+
+SELECT user_id, SUM(session_duration) AS total_duration 
+FROM user_sessions GROUP BY user_id 
+ORDER BY total_duration DESC LIMIT 1;
+
+30. Identify products that were only purchased on weekends.
+
+SELECT DISTINCT product_id FROM orders 
+WHERE WEEKDAY(order_date) IN (5,6);
+
+31. Retrieve employees who have the same salary progression pattern.
+  
+SELECT employee_id FROM ( 
+ SELECT employee_id, GROUP_CONCAT(salary ORDER BY year) AS salary_pattern 
+ FROM salary_history GROUP BY employee_id 
+) t GROUP BY salary_pattern HAVING COUNT(*) > 1;  
+
+32. Find customers who placed exactly the same order more than once.
+
+SELECT customer_id, order_details FROM orders 
+GROUP BY customer_id, order_details 
+HAVING COUNT(*) > 1;
+ 
+
+33. List top 3 customers who have spent the highest amount every year.
+
+SELECT year(order_date), customer_id, SUM(amount) AS total_spent 
+FROM orders GROUP BY year(order_date), customer_id 
+ORDER BY year(order_date), total_spent DESC LIMIT 3;
+
+34. Identify consecutive absent days for employees exceeding 3 days.
+
+SELECT employee_id FROM ( 
+ SELECT employee_id, 
+ DATEDIFF(end_date, start_date) AS absent_days 
+ FROM attendance WHERE status = 'Absent' 
+) t WHERE absent_days > 3;
+
+35. Find the average order value change compared to the previous month.
+
+SELECT month, AVG(order_value) - LAG(AVG(order_value)) OVER (ORDER BY month) AS value_change 
+FROM orders GROUP BY month;
+  
+36. Retrieve categories where at least one product has never been sold.
+
+SELECT category_id FROM products 
+WHERE category_id NOT IN (SELECT DISTINCT category_id FROM orders);
+
+37. Calculate the average number of items per order, excluding outliers.
+
+SELECT ROUND(AVG(item_count), 2) AS avg_items 
+FROM (SELECT order_id, COUNT(*) AS item_count FROM order_items GROUP BY order_id) t 
+WHERE item_count BETWEEN 5 AND 95;
+  
+38. Find employees whose total working hours are below the team average.
+
+SELECT employee_id FROM work_hours 
+WHERE total_hours < (SELECT AVG(total_hours) FROM work_hours);
+
