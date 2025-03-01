@@ -271,3 +271,91 @@ WHERE item_count BETWEEN 5 AND 95;
 SELECT employee_id FROM work_hours 
 WHERE total_hours < (SELECT AVG(total_hours) FROM work_hours);
 
+39. Identify products that have never been purchased by any customer.
+
+SELECT product_id 
+FROM products 
+WHERE product_id NOT IN (SELECT DISTINCT product_id FROM orders);
+
+40. Retrieve the second-highest salary in each department.
+
+SELECT department_id, MAX(salary) AS second_highest_salary 
+FROM (SELECT department_id, salary, 
+ RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS salary_rank 
+ FROM employees) subquery 
+WHERE salary_rank = 2 
+GROUP BY department_id;
+  
+41. Find customers who made purchases in consecutive months this year.
+  
+SELECT customer_id 
+FROM (SELECT customer_id, MONTH(order_date) AS order_month, 
+ LAG(MONTH(order_date)) OVER (PARTITION BY customer_id ORDER BY order_date) AS prev_month 
+ FROM orders 
+ WHERE YEAR(order_date) = YEAR(CURDATE())) subquery 
+WHERE order_month - prev_month = 1 
+GROUP BY customer_id;
+
+42. Calculate the average session duration for users, excluding their first login.
+  
+SELECT user_id, AVG(session_duration) AS avg_session_duration 
+FROM (SELECT user_id, session_duration, 
+ ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY login_time) AS session_rank 
+ FROM user_sessions) subquery 
+WHERE session_rank > 1 
+GROUP BY user_id;
+  
+43. Show the top 3 performing products based on sales revenue for each quarter.
+  
+SELECT quarter, product_id, SUM(sales) AS total_sales 
+FROM (SELECT product_id, sales, 
+ CASE 
+ WHEN MONTH(sale_date) BETWEEN 1 AND 3 THEN 'Q1' 
+ WHEN MONTH(sale_date) BETWEEN 4 AND 6 THEN 'Q2' 
+ WHEN MONTH(sale_date) BETWEEN 7 AND 9 THEN 'Q3' 
+ ELSE 'Q4' 
+ END AS quarter 
+ FROM sales) subquery 
+GROUP BY quarter, product_id 
+ORDER BY quarter, total_sales DESC LIMIT 3;
+ 
+44. Generate a report of employees who have never received a promotion.
+
+SELECT employee_id 
+FROM employees 
+WHERE employee_id NOT IN (SELECT DISTINCT employee_id FROM promotions);
+  
+45. Identify the months with the highest and lowest revenue in the past year.
+SELECT MONTH(sale_date) AS sale_month, SUM(sales) AS monthly_revenue 
+FROM sales 
+WHERE sale_date > DATE_SUB(CURDATE(), INTERVAL 1 YEAR) 
+GROUP BY sale_month 
+ORDER BY monthly_revenue DESC LIMIT 1 
+
+UNION ALL 
+
+SELECT MONTH(sale_date), SUM(sales) 
+FROM sales 
+WHERE sale_date > DATE_SUB(CURDATE(), INTERVAL 1 YEAR) 
+GROUP BY MONTH(sale_date) 
+ORDER BY monthly_revenue ASC LIMIT 1;
+
+46. Find the percentage of orders that were delivered late in the last 6 months.
+
+SELECT ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM orders WHERE order_date > DATE_SUB(CURDATE(), INTERVAL 6 MONTH)), 2) AS late_percentage 
+FROM orders 
+WHERE delivery_date > expected_delivery_date AND order_date > DATE_SUB(CURDATE(), INTERVAL 6 MONTH);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
