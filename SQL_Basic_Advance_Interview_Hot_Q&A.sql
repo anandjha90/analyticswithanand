@@ -346,6 +346,69 @@ SELECT ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM orders WHERE order_date > 
 FROM orders 
 WHERE delivery_date > expected_delivery_date AND order_date > DATE_SUB(CURDATE(), INTERVAL 6 MONTH);
 
+47. Find the employees who have worked for the longest consecutive period without any leave.
+
+SELECT employee_id, MAX(end_date - start_date) AS longest_period 
+FROM attendance_logs 
+WHERE status = 'Present' 
+GROUP BY employee_id;
+
+48. Identify the top 5 customers who have made the highest number of unique product purchases in the last quarter.
+
+SELECT customer_id, COUNT(DISTINCT product_id) AS unique_products 
+FROM orders 
+WHERE order_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 3 MONTH) AND CURDATE() 
+GROUP BY customer_id 
+ORDER BY unique_products DESC LIMIT 5;
+  
+49. Calculate the average time between two consecutive logins for users in the past week.
+
+SELECT user_id, AVG(TIMESTAMPDIFF(SECOND, login_time, LEAD(login_time) OVER (PARTITION BY user_id ORDER BY login_time))) AS avg_time_diff 
+FROM login_logs 
+WHERE login_time > DATE_SUB(CURDATE(), INTERVAL 7 DAY) 
+GROUP BY user_id;
+ 
+50. Retrieve the product with the highest number of returns in the last month.
+
+SELECT product_id, COUNT(*) AS return_count 
+FROM product_returns 
+WHERE return_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 MONTH) AND CURDATE() 
+GROUP BY product_id 
+ORDER BY return_count DESC LIMIT 1;
+  
+51. Show the percentage change in sales for each product category from the previous year.
+
+SELECT category_id, 
+ (SUM(CASE WHEN YEAR(sale_date) = YEAR(CURDATE()) - 1 THEN sales END) - 
+ SUM(CASE WHEN YEAR(sale_date) = YEAR(CURDATE()) - 2 THEN sales END)) / 
+ SUM(CASE WHEN YEAR(sale_date) = YEAR(CURDATE()) - 2 THEN sales END) * 100 AS sales_percentage_change 
+FROM sales 
+GROUP BY category_id;
+
+52. Find the employees who made the most number of overtime hours in the last 3 months.
+  
+SELECT employee_id, SUM(overtime_hours) AS total_overtime 
+FROM employee_overtime 
+WHERE overtime_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 3 MONTH) AND CURDATE() 
+GROUP BY employee_id 
+ORDER BY total_overtime DESC LIMIT 1;
+
+53. Retrieve the top-performing departments based on employee retention rates.
+
+SELECT department_id, 
+COUNT(DISTINCT employee_id) / (SELECT COUNT(DISTINCT employee_id) FROM employees WHERE department_id = d.department_id) * 100 AS retention_rate 
+FROM employee_departments d 
+WHERE status = 'Active' 
+GROUP BY department_id 
+ORDER BY retention_rate DESC LIMIT 1;
+  
+54. Find the product with the largest discount given, relative to its original price.
+
+SELECT product_id, 
+MAX((original_price - discounted_price) / original_price) AS max_discount_ratio 
+FROM products 
+GROUP BY product_id 
+ORDER BY max_discount_ratio DESC LIMIT 1;
 
 
 
