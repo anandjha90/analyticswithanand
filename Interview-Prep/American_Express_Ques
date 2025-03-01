@@ -1,0 +1,29 @@
+1. Describe a situation where your PySpark job failed due to data corruption. How did you identify the issue, and what steps did you take to reprocess the affected data?
+
+2. You're tasked with joining two large datasets in PySpark, but the operation is slow. What strategies would you employ to optimize the join performance?
+
+3. How would you manage schema evolution in PySpark when processing data from a source that occasionally adds new columns?
+
+4. Explain how you would set up a PySpark Streaming application to process real-time transaction data, ensuring low latency and fault tolerance.
+
+5. While aggregating user activity logs, you notice data skew causing performance bottlenecks. How would you address this issue in PySpark?
+
+6. Which serialization formats would you choose for storing intermediate data in PySpark to balance between speed and storage efficiency, and why?
+
+7. During data transformation, you encounter numerous null values in critical columns. What techniques in PySpark would you use to handle them appropriately?
+
+8. How would you design a partitioning strategy in PySpark for a dataset with time-series data to optimize query performance?
+
+9. In what scenarios would you use broadcast variables in PySpark, and how do they improve performance?
+
+10. Why is checkpointing important in PySpark Streaming, and how would you implement it?
+
+11. You're required to process a massive single file that doesn't fit into memory. What approach would you take in PySpark to handle this efficiently?
+
+12. Describe your approach to debugging a PySpark application that produces incorrect results without throwing errors.
+
+13. How would you integrate PySpark with Hive to perform SQL queries on existing Hive tables?
+
+14. Processing numerous small files can lead to inefficiencies. What strategies would you implement in PySpark to mitigate the small files problem?
+
+15. Provide an example of how you've used accumulators in PySpark to collect metrics during job execution.
