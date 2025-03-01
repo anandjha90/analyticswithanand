@@ -155,3 +155,56 @@ RANKX(ALL(Sales), Sales[SalesAmount], , DESC) > COUNTROWS(Sales) * 0.05
 ),
 Sales[SalesAmount]
 )
+
+21. Write a DAX formula to calculate the percentage change in sales compared to the previous month.
+
+(SUM(Sales[SalesAmount]) - CALCULATE(SUM(Sales[SalesAmount]), PREVIOUSMONTH(Sales[Date]))) /
+CALCULATE(SUM(Sales[SalesAmount]), PREVIOUSMONTH(Sales[Date]))
+
+
+22. How do you calculate a rolling total of sales for the last 6 months?
+
+CALCULATE(SUM(Sales[SalesAmount]), DATESINPERIOD(Sales[Date], MAX(Sales[Date]), -6, MONTH))
+
+23. Write a DAX measure to count customers who purchased a product for the first time in a given month.
+
+CALCULATE(DISTINCTCOUNT(Sales[CustomerID]),
+FILTER(VALUES(Sales[CustomerID]), CALCULATE(MIN(Sales[Date])) = MIN(Sales[Date])))
+
+
+24. How do you dynamically calculate the top 3 customers contributing the most revenue?
+
+CALCULATE(SUM(Sales[SalesAmount]),
+TOPN(3, VALUES(Sales[CustomerID]), SUM(Sales[SalesAmount]), DESC))
+
+25. Write a DAX formula to find the median sales amount per category.
+
+MEDIANX(FILTER(ALL(Sales), Sales[Category] = MAX(Sales[Category])), Sales[SalesAmount])
+
+26. How do you calculate the running total of sales but reset at the start of each year?
+
+CALCULATE(SUM(Sales[SalesAmount]),
+FILTER(ALL(Sales), Sales[Year] = MAX(Sales[Year]) && Sales[Date] <= MAX(Sales[Date])))
+
+27. Write a DAX measure to find the highest revenue day for each product.
+
+CALCULATE(MAX(Sales[SalesAmount]), ALLEXCEPT(Sales, Sales[ProductID], Sales[Date]))
+
+
+28. How do you calculate the number of months since a customer’s last purchase?
+
+DATEDIFF(CALCULATE(MAX(Sales[Date]), ALLEXCEPT(Sales, Sales[CustomerID])), TODAY(), MONTH)
+
+
+29. Write a DAX formula to find the percentage of total sales for each product.
+
+SUM(Sales[SalesAmount]) / CALCULATE(SUM(Sales[SalesAmount]), ALL(Sales))
+
+
+30. How do you calculate total revenue excluding the highest and lowest 5% of transactions?
+
+CALCULATE(SUM(Sales[SalesAmount]),
+FILTER(ALL(Sales),
+RANKX(ALL(Sales), Sales[SalesAmount], , ASC) > COUNTROWS(Sales) * 0.05 &&
+RANKX(ALL(Sales), Sales[SalesAmount], , DESC) > COUNTROWS(Sales) * 0.05))
+
