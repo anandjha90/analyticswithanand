@@ -646,8 +646,48 @@ SELECT customer_id FROM (
 ) order_summary 
 WHERE this_year_orders > last_year_orders;
 
+85. How can you find the second-highest salary in a table without using LIMIT or TOP?
 
+SELECT MAX(salary) FROM table WHERE salary NOT IN (SELECT MAX (salary) FROM table)
   
+86. Write a query to find employees whose salaries are higher than their managers’.
+
+SELECT e1.* FROM employees e1 JOIN employees e2 
+ON el.manager_id = e2.employee_id 
+WHERE e1.salary > e2.salary
+
+87. Identify duplicate rows in a table without using GROUP BY.
+
+SELECT * FROM table WHERE rowid IN (SELECT rowid FROM table GROUP BY column HAVING COUNT (*) > 1)
+  
+88. Write a query to find the top 10% earners in a table.
+
+SELECT * FROM table WHERE salary > (SELECT PERCENTILE_CONT (0.9) WITHIN GROUP (ORDER BY salary) FROM table)
+
+89. Calculate the cumulative sum of a column in a table.
+
+SELECT column, SUM(column) OVER (ORDER BY rowid) FROM table
+
+90. Find all employees who have never taken any leave.
+
+SELECT * FROM employees WHERE id NOT IN (SELECT employee_id FROM leaves)
+  
+91. Write a query to calculate the difference between the current row and the next row in a table.
+
+SELECT *, column - LEAD(column) OVER (ORDER BY rowid) FROM table
+  
+92. Find departments that have more than one employee.
+
+SELECT department FROM employees GROUP BY department HAVING COUNT (*) > 1
+
+93. Determine the maximum value of a column for each group without using GROUP BY.
+
+SELECT MAX(column) FROM table WHERE column NOT IN (SELECT MAX (column) FROM table GROUP BY group_column)
+  
+94. Identify employees who have taken more than 3 leaves in a single month.
+
+SELECT * FROM employees WHERE id IN (SELECT
+employee_id FROM leaves GROUP BY employee_id HAVING COUNT(*) > 3)
 
   
   
