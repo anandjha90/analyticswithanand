@@ -301,3 +301,85 @@ CALCULATE(
  RANKX(ALL(Sales), Sales[SalesAmount], , ASC) > COUNTROWS(Sales) * 0.1
  )
 )
+
+41. How do you calculate the running total of sales in DAX?
+
+RunningTotalSales = 
+CALCULATE(
+ SUM(Sales[SalesAmount]), 
+ FILTER(
+ ALL(Sales[Date]), 
+ Sales[Date] <= MAX(Sales[Date])
+ )
+)
+
+42. Write a DAX formula to find the total sales for the last 3 months dynamically.
+ 
+Last3MonthsSales = 
+CALCULATE(
+ SUM(Sales[SalesAmount]), 
+ DATESINPERIOD(Sales[Date], MAX(Sales[Date]), -3, MONTH)
+)
+ 
+43.How do you calculate the percentage contribution of each product to total sales?
+SalesPercentage = 
+DIVIDE(
+ SUM(Sales[SalesAmount]), 
+ CALCULATE(SUM(Sales[SalesAmount]), ALL(Sales))
+)
+
+44.Write a DAX measure to calculate year-over-year (YoY) growth in sales.
+ 
+YoYGrowth = 
+VAR CurrentYearSales = SUM(Sales[SalesAmount])
+VAR PreviousYearSales = CALCULATE(SUM(Sales[SalesAmount]), SAMEPERIODLASTYEAR(Sales[Date]))
+RETURN 
+ DIVIDE(CurrentYearSales - PreviousYearSales, PreviousYearSales) 
+
+45.How do you count distinct customers who made a purchase in the last 6 months?
+
+DistinctCustomers6M = 
+CALCULATE(
+ DISTINCTCOUNT(Sales[CustomerID]), 
+ DATESINPERIOD(Sales[Date], MAX(Sales[Date]), -6, MONTH)
+)
+
+46.Write a DAX formula to find the top 3 best-selling products dynamically.
+
+Top3Products = 
+TOPN(3, SUMMARIZE(Sales, Products[ProductName], "TotalSales", SUM(Sales[SalesAmount])), [TotalSales], DESC)
+
+47.How do you calculate the average sales per customer?
+
+AvgSalesPerCustomer = 
+DIVIDE(
+ SUM(Sales[SalesAmount]), 
+ DISTINCTCOUNT(Sales[CustomerID])
+) 
+
+48.Write a DAX measure to display cumulative sales but reset at each year’s start.
+
+ CumulativeSalesYearly = 
+CALCULATE(
+ SUM(Sales[SalesAmount]), 
+ FILTER(
+ ALL(Sales), 
+ Sales[Year] = MAX(Sales[Year]) && Sales[Date] <= MAX(Sales[Date])
+ )
+)
+ 
+49.How do you compare the current month’s sales with the previous month’s sales?
+ 
+SalesPreviousMonth = 
+CALCULATE(
+ SUM(Sales[SalesAmount]), 
+ PREVIOUSMONTH(Sales[Date])
+)
+
+50.Write a DAX formula to calculate the total revenue only for the top 10 customers.
+
+Top10CustomerRevenue = 
+CALCULATE(
+ SUM(Sales[SalesAmount]), 
+ TOPN(10, VALUES(Sales[CustomerID]), SUM(Sales[SalesAmount]), DESC)
+)
