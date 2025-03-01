@@ -490,11 +490,161 @@ FROM employees e
 JOIN sales s ON e.employee_id = s.employee_id 
 GROUP BY department_id, employee_id; 
 
+65. Write a query to calculate the median salary of employees in a table.
 
+SELECT AVG(salary) AS median_salary 
+FROM ( 
+ SELECT salary 
+ FROM employees 
+ ORDER BY salary 
+ LIMIT 2 - (SELECT COUNT(*) FROM employees) % 2 
+ OFFSET (SELECT (COUNT(*) - 1) / 2 FROM employees) 
+) subquery; 
 
+66. Identify products that were sold in all regions.
 
+SELECT product_id 
+FROM sales 
+GROUP BY product_id 
+HAVING COUNT(DISTINCT region_id) = (SELECT COUNT(*) FROM regions); 
 
+67. Retrieve the name of the manager who supervises the most employees.
 
+SELECT manager_id, COUNT(*) AS num_employees 
+FROM employees 
+GROUP BY manager_id 
+ORDER BY num_employees DESC 
+LIMIT 1; 
+
+68. Write a query to group employees by age ranges (e.g., 20–30, 31–40) and count the number of employees in each group.
+
+SELECT 
+  CASE 
+      WHEN age BETWEEN 20 AND 30 THEN '20-30' 
+      WHEN age BETWEEN 31 AND 40 THEN '31-40' 
+      WHEN age BETWEEN 41 AND 50 THEN '41-50' 
+  ELSE '50+' 
+  END AS age_range, 
+COUNT(*) AS num_employees 
+FROM employees 
+GROUP BY age_range; 
+
+69. Display the cumulative percentage of total sales for each product.
+
+SELECT product_id, 
+ SUM(sales) AS product_sales, 
+ SUM(SUM(sales)) OVER (ORDER BY SUM(sales) DESC) * 100.0 / SUM(SUM(sales)) OVER () AS cumulative_percentage 
+FROM sales_table 
+GROUP BY product_id; 
+ 
+70. Write a query to retrieve the first order placed by each customer.
+
+SELECT customer_id, MIN(order_date) AS first_order_date 
+FROM orders 
+GROUP BY customer_id; 
+  
+71. Identify employees who have never received a performance review.
+
+SELECT * 
+FROM employees 
+WHERE employee_id NOT IN (SELECT employee_id FROM performance_reviews); 
+  
+72. Find the most common value (mode) in a specific column.
+
+SELECT column_name, COUNT(*) AS frequency 
+FROM table_name 
+GROUP BY column_name 
+ORDER BY frequency DESC 
+LIMIT 1; 
+  
+73. Display all months where sales exceeded the average monthly sales.
+
+SELECT month, SUM(sales) AS monthly_sales 
+FROM sales 
+GROUP BY month 
+HAVING monthly_sales > (SELECT AVG(SUM(sales)) FROM sales GROUP BY month); 
+  
+74. Write a query to identify the employee(s) whose salary is closest to the average salary of the company.
+
+SELECT employee_id, salary 
+FROM employees 
+ORDER BY ABS(salary - (SELECT AVG(salary) FROM employees)) ASC 
+LIMIT 1; 
+
+75. Write a query to fetch the third-highest salary without using LIMIT or ROW_NUMBER().
+
+SELECT DISTINCT salary FROM employees e1 
+WHERE 2 = (SELECT COUNT(DISTINCT salary) FROM employees e2 WHERE e2.salary > e1.salary); 
+
+76. Find employees whose salaries are above the average salary of their department but below the average salary of the entire company.
+
+SELECT e.* FROM employees e 
+JOIN (SELECT department_id, AVG(salary) AS dept_avg_salary FROM employees GROUP BY department_id) d 
+ON e.department_id = d.department_id 
+WHERE e.salary > d.dept_avg_salary AND e.salary < (SELECT AVG(salary) FROM employees); 
+  
+77. Identify duplicate records in a table and write a query to delete all but one instance of each duplicate.
+
+-- Find duplicates 
+SELECT column1, column2, COUNT(*) FROM table_name 
+GROUP BY column1, column2 
+HAVING COUNT(*) > 1; 
+
+-- Delete duplicates 
+DELETE FROM table_name 
+WHERE id NOT IN ( 
+ SELECT MIN(id) FROM table_name GROUP BY column1, column2 
+); 
+
+78. Retrieve the top three highest-paid employees in each department.
+
+SELECT * FROM ( 
+ SELECT employee_id, department_id, salary, 
+ RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rank 
+ FROM employees 
+) ranked 
+WHERE rank <= 3; 
+
+79. Write a query to calculate the percentage contribution of each product to the total sales.
+SELECT product_id, 
+ SUM(sales) AS product_sales, 
+ (SUM(sales) * 100.0 / (SELECT SUM(sales) FROM sales_table)) AS percentage_contribution 
+FROM sales_table 
+GROUP BY product_id; 
+
+80. Display employees who joined within the last 6 months.
+
+SELECT * FROM employees 
+WHERE join_date >= DATE_ADD(CURRENT_DATE, INTERVAL -6 MONTH); 
+
+81. Identify the employee(s) with the longest tenure in the company.
+
+SELECT employee_id, DATEDIFF(CURRENT_DATE, join_date) AS tenure 
+FROM employees 
+ORDER BY tenure DESC 
+LIMIT 1; 
+  
+82. Create a query to find gaps in a sequence of IDs in a table.
+
+SELECT id + 1 AS missing_id 
+FROM table_name t1 
+WHERE NOT EXISTS (SELECT id FROM table_name t2 WHERE t2.id = t1.id + 1); 
+
+83. Retrieve all records in a table that have a matching record in another table based on two or more columns.
+
+SELECT t1.* FROM table1 t1 
+JOIN table2 t2 ON t1.column1 = t2.column1 AND t1.column2 = t2.column2; 
+
+10. Write a query to identify customers who placed more orders this year compared to last year.
+
+SELECT customer_id FROM ( 
+ SELECT customer_id, 
+ SUM(CASE WHEN YEAR(order_date) = YEAR(CURRENT_DATE) THEN 1 ELSE 0 END) AS this_year_orders, 
+ SUM(CASE WHEN YEAR(order_date) = YEAR(CURRENT_DATE) - 1 THEN 1 ELSE 0 END) AS last_year_orders 
+ FROM orders 
+ GROUP BY customer_id 
+) order_summary 
+WHERE this_year_orders > last_year_orders;
 
 
 
