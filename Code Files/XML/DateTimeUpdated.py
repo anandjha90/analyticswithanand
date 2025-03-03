@@ -1,6 +1,55 @@
 import xml.etree.ElementTree as ET
 import re
 
+# ✅ Function to Convert Alteryx DateTime Formats to Snowflake-Compatible Formats
+def sanitize_datetime_format(alteryx_format, is_input=True):
+    """
+    Converts Alteryx DateTime format specifiers into Snowflake-compatible format.
+    Handles DateTimeToString and StringToDateTime conversions.
+    - On input: Standardizes equivalent separators.
+    - On output: Keeps separators exactly as they are.
+    - Handles 2-digit year (`yy`) mapping to correct range.
+    """
+
+    # ✅ Standardize separators (ONLY for input formats)
+    if is_input:
+        # Replace '-' with '/', as both are equivalent
+        alteryx_format = re.sub(r"[-]", "/", alteryx_format)
+
+        # Remove unnecessary white spaces
+        alteryx_format = re.sub(r"\s+", " ", alteryx_format.strip())
+
+    # ✅ Mapping of Alteryx format specifiers to Snowflake format specifiers
+    format_mappings = {
+        # ✅ Days
+        "d": "D", "dd": "DD", "day": "Day", "dy": "DY", "EEEE": "Day",
+
+        # ✅ Months
+        "M": "FMMonth", "MM": "MM", "MMM": "Mon", "MMMM": "Month", "Mon": "Mon", "Month": "Month",
+
+        # ✅ Years
+        "yy": "YY",  # 2-digit year (Handled separately)
+        "yyyy": "YYYY",
+
+        # ✅ Hours (12-hour & 24-hour)
+        "H": "FMHH24", "HH": "HH24", "hh": "HH12", "ahh": "AM",
+
+        # ✅ Minutes & Seconds
+        "mm": "MI", "ss": "SS",
+
+        # ✅ Subseconds / Precision
+        "ffff": "FF"
+    }
+
+    # ✅ Replace Alteryx format specifiers with Snowflake equivalents
+    for alteryx_fmt, sql_fmt in format_mappings.items():
+        alteryx_format = alteryx_format.replace(alteryx_fmt, sql_fmt)
+
+    # ✅ Handle Custom Wildcard Case (*)
+    alteryx_format = alteryx_format.replace("*", "")
+
+    return alteryx_format
+
 def generate_cte_for_DateTime(xml_data, previousToolId, toolId, prev_tool_fields):
     """
     Parses the Alteryx DateTime Tool XML configuration and generates an equivalent SQL CTE.
@@ -62,29 +111,3 @@ def generate_cte_for_DateTime(xml_data, previousToolId, toolId, prev_tool_fields
 
     new_fields = prev_tool_fields + [output_field]
     return new_fields, cte_query
-
-# ✅ Function to Convert Alteryx DateTime Formats to Snowflake-Compatible Formats
-def sanitize_datetime_format(alteryx_format):
-    """
-    Converts Alteryx DateTime format specifiers into Snowflake-compatible format.
-    Handles both DateTimeToString and StringToDateTime conversions.
-    """
-    format_mappings = {
-        "yyyy-MM-dd": "YYYY-MM-DD",
-        "hh:mm:ss": "HH24:MI:SS",
-        "yyyy-MM-dd hh:mm:ss": "YYYY-MM-DD HH24:MI:SS",
-        "dd/MM/yyyy": "DD/MM/YYYY",
-        "MM/dd/yyyy": "MM/DD/YYYY",
-        "%d/%m/%Y": "DD/MM/YYYY",
-        "%m/%d/%Y": "MM/DD/YYYY",
-        "*": ""  # Wildcard (handled separately)
-    }
-
-    # ✅ Replace format specifiers with Snowflake equivalents
-    for alteryx_fmt, sql_fmt in format_mappings.items():
-        alteryx_format = alteryx_format.replace(alteryx_fmt, sql_fmt)
-
-    # ✅ Handle Custom Wildcard Case (*)
-    alteryx_format = alteryx_format.replace("*", "")
-
-    return alteryx_format
