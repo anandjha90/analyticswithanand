@@ -9,50 +9,36 @@ def generate_cte_for_DateTime(xml_data, previousToolId, toolId, prev_tool_fields
       - String to DateTime conversion (TO_DATE)
       - Custom DateTime formats
       - Language-based formatting
-      - Uses IsFrom = 'True' for DateTimeToString and 'False' for StringToDateTime
+      - Extracts all fields dynamically from <Configuration>
     """
     root = ET.fromstring(xml_data)
 
-    # ✅ Identify the Mode (DateTime to String OR String to DateTime)
-    conversion_type_node = root.find(".//DateTimeMode")
-    if conversion_type_node is None:
-        raise ValueError("Missing 'DateTimeMode' element in XML configuration.")
-    
-    conversion_type = conversion_type_node.text.strip()  # "DateTimeToString" or "StringToDateTime"
+    # ✅ Extract all configuration fields dynamically
+    config_node = root.find(".//Configuration")
+    if config_node is None:
+        raise ValueError("Missing 'Configuration' element in XML configuration.")
 
-    # ✅ Identify the Field to Convert
-    input_field_node = root.find(".//InputField")
-    if input_field_node is None or not input_field_node.text:
-        raise ValueError("Missing 'InputField' element in XML configuration.")
-    
-    input_field = input_field_node.text.strip()
+    config_params = {elem.tag: elem.text.strip() if elem.text else None for elem in config_node}
 
-    # ✅ Identify the Output Field Name
-    output_field_node = root.find(".//OutputField")
-    output_field = output_field_node.text.strip() if output_field_node is not None and output_field_node.text else "DateTime_Out"
+    # ✅ Extract required fields
+    input_field = config_params.get("InputField")
+    output_field = config_params.get("OutputField", "DateTime_Out")  # Default name if missing
+    datetime_format = config_params.get("DateTimeFormat")
+    isFrom = config_params.get("IsFrom", "False").lower() == "true"  # Default to 'False' if missing
 
-    # ✅ Identify DateTime Format
-    format_node = root.find(".//DateTimeFormat")
-    if format_node is None or not format_node.text:
-        raise ValueError("Missing 'DateTimeFormat' element in XML configuration.")
-    
-    datetime_format = format_node.text.strip()
+    if not input_field or not datetime_format:
+        raise ValueError("Missing required fields: 'InputField' or 'DateTimeFormat'.")
 
-    # ✅ Sanitize the Format (Convert Alteryx format specifiers to SQL-compatible format)
+    # ✅ Sanitize the DateTime format to be Snowflake-compatible
     sql_datetime_format = sanitize_datetime_format(datetime_format)
 
-    # ✅ Determine `IsFrom` Field (Boolean Conversion)
-    isFrom = "True" if conversion_type == "DateTimeToString" else "False"
-
-    # ✅ Generate SQL Expression with proper sanitization
-    if conversion_type == "DateTimeToString":
+    # ✅ Generate SQL Expression based on `IsFrom`
+    if isFrom:  # DateTime → String
         sql_expression = f"TO_CHAR('{input_field}', '{sql_datetime_format}') AS \"{output_field}\""
-    elif conversion_type == "StringToDateTime":
+    else:  # String → DateTime
         sql_expression = f"TO_DATE('{input_field}', '{sql_datetime_format}') AS \"{output_field}\""
-    else:
-        raise ValueError(f"Invalid DateTimeMode: {conversion_type}")
 
-    # ✅ Apply sanitize_expression_for_filter_formula_dynamic_rename
+    # ✅ Apply sanitize function for TO_CHAR & TO_DATE
     sql_expression = sanitize_expression_for_filter_formula_dynamic_rename(sql_expression)
 
     # ✅ Construct the SQL CTE
@@ -61,16 +47,15 @@ def generate_cte_for_DateTime(xml_data, previousToolId, toolId, prev_tool_fields
     cte_query = f"""
     CTE_{toolId} AS (
         SELECT {prev_fields_str},
-               {sql_expression},
-               '{isFrom}' AS "IsFrom"
+               {sql_expression}
         FROM CTE_{previousToolId}
     )
     """
 
-    new_fields = prev_tool_fields + [output_field, "IsFrom"]
+    new_fields = prev_tool_fields + [output_field]
     return new_fields, cte_query
 
-# ✅ Function to Convert Alteryx DateTime Formats to SQL-Compatible Formats
+# ✅ Function to Convert Alteryx DateTime Formats to Snowflake-Compatible Formats
 def sanitize_datetime_format(alteryx_format):
     """
     Converts Alteryx DateTime format specifiers into Snowflake-compatible format.
