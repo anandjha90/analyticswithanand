@@ -9,7 +9,7 @@ def generate_cte_for_DateTime(xml_data, previousToolId, toolId, prev_tool_fields
       - String to DateTime conversion (TO_DATE)
       - Custom DateTime formats
       - Language-based formatting
-      - Includes `isFrom` field to track conversion direction
+      - Uses IsFrom = 'True' for DateTimeToString and 'False' for StringToDateTime
     """
     root = ET.fromstring(xml_data)
 
@@ -41,16 +41,19 @@ def generate_cte_for_DateTime(xml_data, previousToolId, toolId, prev_tool_fields
     # ✅ Sanitize the Format (Convert Alteryx format specifiers to SQL-compatible format)
     sql_datetime_format = sanitize_datetime_format(datetime_format)
 
-    # ✅ Determine `isFrom` Field
-    isFrom = "Datetime" if conversion_type == "DateTimeToString" else "String"
+    # ✅ Determine `IsFrom` Field (Boolean Conversion)
+    isFrom = "True" if conversion_type == "DateTimeToString" else "False"
 
-    # ✅ Generate SQL Expression
+    # ✅ Generate SQL Expression with proper sanitization
     if conversion_type == "DateTimeToString":
         sql_expression = f"TO_CHAR('{input_field}', '{sql_datetime_format}') AS \"{output_field}\""
     elif conversion_type == "StringToDateTime":
         sql_expression = f"TO_DATE('{input_field}', '{sql_datetime_format}') AS \"{output_field}\""
     else:
         raise ValueError(f"Invalid DateTimeMode: {conversion_type}")
+
+    # ✅ Apply sanitize_expression_for_filter_formula_dynamic_rename
+    sql_expression = sanitize_expression_for_filter_formula_dynamic_rename(sql_expression)
 
     # ✅ Construct the SQL CTE
     prev_fields_str = ", ".join(f'"{field}"' for field in prev_tool_fields)
@@ -59,12 +62,12 @@ def generate_cte_for_DateTime(xml_data, previousToolId, toolId, prev_tool_fields
     CTE_{toolId} AS (
         SELECT {prev_fields_str},
                {sql_expression},
-               '{isFrom}' AS "isFrom"
+               '{isFrom}' AS "IsFrom"
         FROM CTE_{previousToolId}
     )
     """
 
-    new_fields = prev_tool_fields + [output_field, "isFrom"]
+    new_fields = prev_tool_fields + [output_field, "IsFrom"]
     return new_fields, cte_query
 
 # ✅ Function to Convert Alteryx DateTime Formats to SQL-Compatible Formats
