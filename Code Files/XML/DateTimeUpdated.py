@@ -9,10 +9,11 @@ def generate_cte_for_DateTime(xml_data, previousToolId, toolId, prev_tool_fields
       - String to DateTime conversion (TO_DATE)
       - Custom DateTime formats
       - Language-based formatting
+      - Includes `isFrom` field to track conversion direction
     """
     root = ET.fromstring(xml_data)
 
-    # ✅ Identify the Mode (Date/Time to String OR String to Date/Time)
+    # ✅ Identify the Mode (DateTime to String OR String to DateTime)
     conversion_type_node = root.find(".//DateTimeMode")
     if conversion_type_node is None:
         raise ValueError("Missing 'DateTimeMode' element in XML configuration.")
@@ -40,6 +41,9 @@ def generate_cte_for_DateTime(xml_data, previousToolId, toolId, prev_tool_fields
     # ✅ Sanitize the Format (Convert Alteryx format specifiers to SQL-compatible format)
     sql_datetime_format = sanitize_datetime_format(datetime_format)
 
+    # ✅ Determine `isFrom` Field
+    isFrom = "Datetime" if conversion_type == "DateTimeToString" else "String"
+
     # ✅ Generate SQL Expression
     if conversion_type == "DateTimeToString":
         sql_expression = f"TO_CHAR('{input_field}', '{sql_datetime_format}') AS \"{output_field}\""
@@ -54,12 +58,13 @@ def generate_cte_for_DateTime(xml_data, previousToolId, toolId, prev_tool_fields
     cte_query = f"""
     CTE_{toolId} AS (
         SELECT {prev_fields_str},
-               {sql_expression}
+               {sql_expression},
+               '{isFrom}' AS "isFrom"
         FROM CTE_{previousToolId}
     )
     """
 
-    new_fields = prev_tool_fields + [output_field]
+    new_fields = prev_tool_fields + [output_field, "isFrom"]
     return new_fields, cte_query
 
 # ✅ Function to Convert Alteryx DateTime Formats to SQL-Compatible Formats
