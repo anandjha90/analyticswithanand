@@ -9,27 +9,35 @@ def generate_cte_for_DateTime(xml_data, previousToolId, toolId, prev_tool_fields
       - String to DateTime conversion (TO_DATE)
       - Custom DateTime formats
       - Language-based formatting
-      - Extracts all fields dynamically from <Configuration>
+      - Extracts attributes in a specific order
     """
     root = ET.fromstring(xml_data)
 
-    # ✅ Extract all configuration fields dynamically
+    # ✅ Extract attributes in the required order
     config_node = root.find(".//Configuration")
     if config_node is None:
         raise ValueError("Missing 'Configuration' element in XML configuration.")
 
-    config_params = {elem.tag: elem.text.strip() if elem.text else None for elem in config_node}
+    isFrom = config_node.find(".//IsFrom")
+    isFrom = isFrom.get("value").strip().lower() == "true" if isFrom is not None else False  # Default: False
 
-    # ✅ Extract required fields
-    input_field = config_params.get("InputField")
-    output_field = config_params.get("OutputField", "DateTime_Out")  # Default name if missing
-    datetime_format = config_params.get("DateTimeFormat")
-    isFrom = config_params.get("IsFrom", "False").lower() == "true"  # Default to 'False' if missing
+    input_field_node = config_node.find(".//InputFieldName")
+    input_field = input_field_node.text.strip() if input_field_node is not None else None
 
+    language_node = config_node.find(".//Language")
+    language = language_node.text.strip() if language_node is not None else None  # Not used for Snowflake
+
+    format_node = config_node.find(".//Format")
+    datetime_format = format_node.text.strip() if format_node is not None else None
+
+    output_field_node = config_node.find(".//OutputFieldName")
+    output_field = output_field_node.text.strip() if output_field_node is not None else "DateTime_Out"
+
+    # ✅ Validation Checks
     if not input_field or not datetime_format:
-        raise ValueError("Missing required fields: 'InputField' or 'DateTimeFormat'.")
+        raise ValueError("Missing required fields: 'InputFieldName' or 'Format'.")
 
-    # ✅ Sanitize the DateTime format to be Snowflake-compatible
+    # ✅ Convert Alteryx datetime format to Snowflake format
     sql_datetime_format = sanitize_datetime_format(datetime_format)
 
     # ✅ Generate SQL Expression based on `IsFrom`
