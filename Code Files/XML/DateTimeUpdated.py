@@ -25,7 +25,7 @@ def sanitize_datetime_format(alteryx_format, is_input=True):
         "d": "D", "dd": "DD", "day": "Day", "dy": "DY", "EEEE": "Day",
 
         # ✅ Months
-        "M": "FMMonth", "MM": "MM", "MMM": "Mon", "MMMM": "Month", "Mon": "Mon", "Month": "Month",
+        "M": "FMMonth", "MM": "MM", "MMM": "Mon", "MMMM": "Mon", "Mon": "Mon", "Month": "Month",
 
         # ✅ Years
         "yy": "YY",  # 2-digit year (Handled separately)
