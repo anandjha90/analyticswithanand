@@ -25,14 +25,14 @@ def sanitize_datetime_format(alteryx_format, is_input=True):
         "d": "D", "dd": "DD", "day": "Day", "dy": "DY", "EEEE": "Day",
 
         # ✅ Months
-        "M": "FMMonth", "MM": "MM", "MMM": "Mon", "MMMM": "Mon", "Mon": "Mon", "Month": "Month",
+        "M": "M", "MM": "MM", "MMM": "Mon", "MMMM": "Mon", "Mon": "Mon", "Month": "Mon",
 
         # ✅ Years
         "yy": "YY",  # 2-digit year (Handled separately)
         "yyyy": "YYYY",
 
         # ✅ Hours (12-hour & 24-hour)
-        "H": "FMHH24", "HH": "HH24", "hh": "HH12", "ahh": "AM",
+        "H": "HH24", "HH": "HH24", "hh": "HH24", "ahh": "AM",
 
         # ✅ Minutes & Seconds
         "mm": "MI", "ss": "SS",
