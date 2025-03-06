@@ -41,57 +41,23 @@ def get_chart_download_link(fig):
     buf.seek(0)
     return buf
 
-
 def recognize_speech():
-    """Function to recognize speech using the microphone in multiple languages."""
+    """Function to recognize speech using the microphone."""
     recognizer = sr.Recognizer()
-
-    # Language selection (moved outside so it's pre-selected before clicking the button)
-    language_map = {
-        "English": "en-US",
-        "Spanish": "es-ES",
-        "French": "fr-FR",
-        "German": "de-DE",
-        "Hindi": "hi-IN",
-        "Chinese (Mandarin)": "zh-CN",
-        "Japanese": "ja-JP",
-        "Arabic": "ar-SA"
-    }
-
-    # 🟢 Ensure language selection happens BEFORE clicking the "Speak" button
-    selected_language = st.sidebar.selectbox("🌍 Choose Language for Speech Recognition", list(language_map.keys()), index=0)
-    selected_language_code = language_map[selected_language]
-
-    # 🟢 Display confirmation of selected language before speaking
-    st.sidebar.write(f"✅ Selected Language: *{selected_language}*")
-
     with sr.Microphone() as source:
-        st.info(f"🎤 Speak now in {selected_language}...")
-        recognizer.adjust_for_ambient_noise(source, duration=1)  # Adjust for ambient noise
+        st.info("🎤 Say your question to AI (hold your microphone close).")
+        recognizer.adjust_for_ambient_noise(source)  # Adjust for ambient noise
+        audio = recognizer.listen(source, timeout=5)
         try:
-            audio = recognizer.listen(source, timeout=5)
-
-            # 🟢 Recognize speech with the correct language setting
-            recognized_text = recognizer.recognize_google(audio, language=selected_language_code)
-
-            # ✅ Display recognized text
-            st.success(f"🎤 You said ({selected_language}): {recognized_text}")
-
-            # 🛠 Debugging output
-            st.write(f"🛠 Recognized (Language: {selected_language_code}): {recognized_text}")
-
-            # 🟡 Check if English words are mixed in non-English speech
-            if selected_language != "English" and any(word.lower() in recognized_text.lower() for word in ["chart", "generate", "data", "analyze"]):
-                st.warning("⚠ Your speech contains English words. This may affect recognition accuracy.")
-
-            return recognized_text
-
+            # Recognize the speech using Google Web Speech API
+            question = recognizer.recognize_google(audio)
+            st.success(f"🎤 You said: {question}")
+            return question
         except sr.UnknownValueError:
-            st.error("⚠ Sorry, I couldn't understand what you said. Try again.")
-        except sr.RequestError as e:
-            st.error(f"⚠ Could not connect to the speech recognition service. Check your internet connection. Error: {e}")
-
-    return None
+            st.error("⚠ Sorry, I couldn't understand what you said.")
+        except sr.RequestError:
+            st.error("⚠ Could not request results from the speech recognition service.")
+        return None
 
 if uploaded_file is not None:
     try:
@@ -284,4 +250,4 @@ if uploaded_file is not None:
         st.error(f"⚠ Error reading file: {e}")
 
 else:
-    st.info("📥 Upload a dataset to start.")
+    st.info("📥 Upload a dataset to start."
