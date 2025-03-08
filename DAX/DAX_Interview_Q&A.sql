@@ -383,3 +383,73 @@ CALCULATE(
  SUM(Sales[SalesAmount]), 
  TOPN(10, VALUES(Sales[CustomerID]), SUM(Sales[SalesAmount]), DESC)
 )
+
+51. Write a DAX formula to calculate the total sales made during weekends only.
+
+CALCULATE(
+SUM(Sales[SalesAmount]),
+FILTER(ALL(Sales), WEEKDAY(Sales[Date], 2) >= 6))
+
+52. How do you find customers who made exactly three purchases in a given year?
+
+CALCULATE(
+DISTINCTCOUNT(Sales[CustomerID]),
+FILTER(VALUES(Sales[CustomerID]),
+CALCULATE(COUNT(Sales[OrderID]), Sales[Year] = MAX(Sales[Year])) = 3))
+ 
+53. Write a DAX measure to calculate the percentage of returning customers each month.
+
+DIVIDE(
+CALCULATE(
+DISTINCTCOUNT(Sales[CustomerID]),
+FILTER(ALL(Sales), Sales[Date] >= EOMONTH(MAX(Sales[Date]), -1) + 1 &&
+Sales[Date] <= EOMONTH(MAX(Sales[Date]), 0) &&
+Sales[CustomerID] IN VALUES(Sales[CustomerID]))),
+DISTINCTCOUNT(Sales[CustomerID]))
+
+54. How do you find the top-selling product in each month dynamically?
+
+TOPN(1,
+SUMMARIZE(ALL(Sales), Sales[Month], Sales[ProductID], “TotalSales”, SUM(Sales[SalesAmount])),
+[TotalSales], DESC)
+
+55. Write a DAX formula to calculate the running total of sales but reset when sales drop below a certain threshold.
+
+VAR RunningTotal =
+CALCULATE(
+SUM(Sales[SalesAmount]),
+FILTER(ALL(Sales), Sales[Date] <= MAX(Sales[Date]))
+)
+RETURN
+IF(RunningTotal >= 1000, RunningTotal, 0)
+
+56. How do you determine the longest gap (in days) between any two purchases for each customer?
+ 
+MAXX(ADDCOLUMNS(Sales,“PreviousPurchase”, 
+     CALCULATE(MAX(Sales[Date]), Sales[Date] < EARLIER(Sales[Date]))),
+     DATEDIFF([PreviousPurchase], Sales[Date], DAY))
+
+57. Write a DAX measure to calculate the total sales in the most recent completed month.
+
+CALCULATE(SUM(Sales[SalesAmount])
+         ,FILTER(ALL(Sales), Sales[Date] >= EOMONTH(TODAY(), -2) + 1 && Sales[Date] <= EOMONTH(TODAY(), -1)))
+
+58. How do you identify customers whose first and last purchases were in different years?
+
+CALCULATE(DISTINCTCOUNT(Sales[CustomerID]),
+FILTER(VALUES(Sales[CustomerID]),
+YEAR(CALCULATE(MIN(Sales[Date]))) <> YEAR(CALCULATE(MAX(Sales[Date])))))
+
+59. Write a DAX formula to calculate the average revenue per order, excluding orders below the 25th percentile.
+
+AVERAGEX(
+FILTER(ALL(Sales),
+Sales[SalesAmount] > PERCENTILEX.INC(ALL(Sales), Sales[SalesAmount], 0.25)),Sales[SalesAmount])
+
+ 
+60. How do you find the most frequently purchased product for each customer?
+
+TOPN(1,
+SUMMARIZE(ALL(Sales), Sales[CustomerID], Sales[ProductID], “PurchaseCount”, COUNT(Sales[OrderID])),
+[PurchaseCount], DESC
+)
