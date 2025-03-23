@@ -1,7 +1,8 @@
 CREATE OR REPLACE DATABASE BANKING_DB;
 CREATE OR REPLACE SCHEMA BANKING_SCHEMA;
 
-CREATE TABLE CREDIT_CARD_CUSTOMERS_AUTO_DATA_LOAD_INCR (
+
+CREATE OR REPLACE TABLE CREDIT_CARD_CUSTOMERS_AUTO_DATA_LOAD_INCR (
     CUST_ID VARCHAR(20) PRIMARY KEY,
     CREDIT_CARD_NUMBER VARCHAR(19),
     BALANCE NUMBER(10,2),
@@ -31,19 +32,25 @@ CREATE OR REPLACE STORAGE integration s3_int
 TYPE = EXTERNAL_STAGE
 STORAGE_PROVIDER = S3
 ENABLED = TRUE
-STORAGE_AWS_ROLE_ARN ='arn:aws:iam::441615131317:role/bankrole'
-STORAGE_ALLOWED_LOCATIONS =('s3://czechbankdata/');
+STORAGE_AWS_ROLE_ARN ='arn:aws:iam::418295682990:role/ccc_role'
+STORAGE_ALLOWED_LOCATIONS =('s3://banking-awa/');
 
 DESC integration s3_int;
 
 
-CREATE OR REPLACE STAGE BANK
-URL ='s3://czechbankdata'
---credentials=(aws_key_id='AKIAXQKR3H3PSG72XFMK'aws_secret_key='eKL6a6FjlQHic4s8Ne712Aelzg2ou4j6tNsVvFq5')
-file_format = CSV
-storage_integration = s3_int;
+CREATE OR REPLACE STAGE BANK_STG_CRED
+URL ='s3://banking-awa/ccc_cust_txns'
+credentials=(aws_key_id='*************'aws_secret_key='******************') -- replace with your AWS access key
+file_format = CSV_FILE_FORMAT;
+-- storage_integration = s3_int;  (Do not execute this if you are creating via access key)
 
-LIST @BANK;
+CREATE OR REPLACE STAGE BANK_STG_SINTG
+URL ='s3://banking-awa'
+-- credentials=(aws_key_id='****************'aws_secret_key='*******************')   -- (Do not execute this if you are creating via storage Integration)
+file_format = CSV_FILE_FORMAT
+storage_integration = s3_int;  
+
+LIST @BANK_STG_CRED;
 
 SHOW STAGES;
 
@@ -55,7 +62,7 @@ SHOW STAGES;
 
 CREATE OR REPLACE PIPE CCC_DATA_INJEST_PIPE AUTO_INGEST = TRUE AS
 COPY INTO BANKING_DB.BANKING_SCHEMA.CREDIT_CARD_CUSTOMERS_AUTO_DATA_LOAD_INCR --yourdatabase -- your schema ---your table
-FROM '@BANK/District/' --s3 bucket subfolde4r name
+FROM '@BANK_STG_SINTG/ccc_cust_txns/' --s3 bucket subfolde4r name
 FILE_FORMAT = CSV_FILE_FORMAT;
 
 -- Checking pipe
@@ -69,9 +76,12 @@ SELECT count(*) FROM CREDIT_CARD_CUSTOMERS_AUTO_DATA_LOAD_INCR;
 
 -- Following are some snowpipe command which will help you to check snowpipe status
 
+-- This will show the latest file which has been processed
 select SYSTEM$PIPE_STATUS('CCC_DATA_INJEST_PIPE');
+
+-- to check wether the files count in source(AWS S3) & target(Snowflake) are matching or not use below command
+-- It will also help to answer question how many rows have been parsed in a particular table on any day or in last few days/hrs.
+-- We can get the complete picture
 
 select * from table(information_schema.copy_history(table_name=>'CREDIT_CARD_CUSTOMERS_AUTO_DATA_LOAD_INCR', start_time=>
 dateadd(hours, -1, current_timestamp())));
-
-
