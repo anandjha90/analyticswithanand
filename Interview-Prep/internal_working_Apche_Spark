@@ -1,0 +1,18 @@
+Apache Spark's architecture is designed to efficiently handle large-scale data processing through a master/worker pattern. 
+Here's a concise overview of its internal workings and key components:
+
+📌𝐌𝐚𝐬𝐭𝐞𝐫/𝐖𝐨𝐫𝐤𝐞𝐫 𝐏𝐚𝐭𝐭𝐞𝐫𝐧
+
+Driver Program: Acts as the central coordinator, orchestrating task execution across a cluster of worker nodes. 
+It communicates with the cluster manager to allocate resources and manage tasks.
+
+Cluster Manager: Manages resources and schedules jobs. Spark supports various cluster managers, including YARN, Mesos, and its standalone mode.
+
+📌Directed Acyclic Graph (DAG): Represents the logical execution plan, showing task dependencies. 
+The DAG scheduler optimizes execution by breaking operations into stages and minimizing data shuffling.
+
+📌𝐓𝐫𝐚𝐧𝐬𝐟𝐨𝐫𝐦𝐚𝐭𝐢𝐨𝐧𝐬 𝐚𝐧𝐝 𝐀𝐜𝐭𝐢𝐨𝐧𝐬
+
+Transformations: Operations like map, filter, join, and groupBy that create new RDDs. They are lazily evaluated, defining the computation plan.
+
+Actions: Operations like count, collect, save, and reduce that trigger computation and return results to the driver or write them to an output
