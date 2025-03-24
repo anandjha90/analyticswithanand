@@ -1,0 +1,58 @@
+Hello Everyone,
+This scenario based question was asked in the KPMG interview for Azure Data Engineer Role:
+
+“You need to process 500 GB of data daily from Azure Data Lake to Delta Lake. How would you choose the right Databricks cluster?”
+
+Here is how I would approach it:
+
+1. Choose the Right Cluster Type
+
+Databricks provides two main cluster types:
+ 1. All-Purpose Cluster – Used for interactive workloads but expensive
+ 2. Job Cluster – Best for scheduled ETL jobs since it automatically terminates after execution
+
+For this scenario, I would choose a Job Cluster to optimize costs and ensure efficiency.
+
+2. Select the Appropriate Cluster Mode
+
+Databricks offers different cluster modes, and the right choice depends on the workload:
+ 1. Standard Mode – Best for large-scale ETL jobs
+ 2. High Concurrency Mode – Suitable when multiple users need to run queries but not needed here
+ 3. Single Node Mode – Designed for small jobs, but 500 GB is too large for this
+
+For processing 500 GB daily, Standard Mode is the best option.
+
+3. Pick the Right Compute Resources
+
+The choice of virtual machines impacts the performance and efficiency of data processing:
+ 1. Memory-Optimized VMs (E-Series in Azure) – Best for handling large datasets
+ 2. Compute-Optimized VMs (F-Series in Azure) – Designed for CPU-heavy tasks but not ideal for this scenario
+
+I would select Memory-Optimized E-Series VMs for smoother data processing.
+
+4. Configure Worker Nodes and Autoscaling
+
+To efficiently process 500 GB of data, I would:
+ 1. Start with four worker nodes (Minimum Workers: 4, Maximum Workers: 8)
+ 2. Enable autoscaling to dynamically adjust resources based on workload
+ 3. Monitor job performance and fine-tune the configuration as needed
+
+5. Enable Photon for Performance Optimization
+
+Photon-accelerated clusters significantly improve performance for ETL jobs, especially when working with Delta Lake. Enabling Photon helps process data faster and reduces execution time.
+
+6. Optimize Costs Using Spot Instances
+
+To reduce costs, I would:
+ 1. Use Spot Instances, which are significantly cheaper than on-demand instances
+ 2. Enable Fallback to On-Demand Instances to prevent job failures in case of spot interruptions
+
+7. Final Cluster Configuration
+ • Cluster Type: Job Cluster
+ • Cluster Mode: Standard
+ • VM Type: Memory-Optimized (E-Series)
+ • Min Workers: 4, Max Workers: 8
+ • Autoscaling: Enabled
+ • Photon Acceleration: Enabled
+ • Spot Instances: Enabled with fallback option
+
