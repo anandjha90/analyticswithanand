@@ -1,0 +1,631 @@
+-- ASSIGNING THE ACCOUNT TYPE 
+USE ROLE ACCOUNTADMIN;
+
+-- USING THE WAREHOUSE AVAILABLE
+USE WAREHOUSE COMPUTE_WH;
+
+-- CREATING A DATABASE NAMED AS SUBQUERIES_DATABASE
+CREATE DATABASE IF NOT EXISTS SUBQUERIES_DATABASE;
+
+-- CREATING A SCHEMA NAMED AS SUBQUERIES_SCHEMA
+CREATE SCHEMA IF NOT EXISTS SUBQUERIES_SCHEMA;
+
+-- USING THE DATABASE CREATED
+USE DATABASE SUBQUERIES_DATABASE;
+
+-- USING THE SCHEMA CREATED 
+USE SCHEMA SUBQUERIES_SCHEMA;
+
+-- CREATING THE TABLE CUSTOMERS
+CREATE TABLE CUSTOMERS (
+    CUSTOMER_ID INT PRIMARY KEY,
+    CUSTOMER_NAME VARCHAR(100),
+    CITY VARCHAR(50),
+    COUNTRY VARCHAR(50),
+    JOINED_DATE DATE
+);
+
+-- CREATING THE TABLE ORDERS
+CREATE TABLE ORDERS (
+    ORDER_ID INT PRIMARY KEY,
+    CUSTOMER_ID INT,
+    PRODUCT_ID INT,
+    ORDER_DATE DATE,
+    SHIP_DATE DATE,
+    QUANTITY INT,
+    FOREIGN KEY (CUSTOMER_ID) REFERENCES CUSTOMERS(CUSTOMER_ID)
+);
+
+-- CREATING THE TABLE PRODUCTS
+CREATE TABLE PRODUCTS (
+    PRODUCT_ID INT PRIMARY KEY,
+    PRODUCT_NAME VARCHAR(100),
+    CATEGORY VARCHAR(50),
+    UNIT_PRICE DECIMAL(10, 2)
+);
+
+-- INSERTING VALUES INTO THE CUSTOMERS TABLE 
+INSERT INTO CUSTOMERS (CUSTOMER_ID, CUSTOMER_NAME, CITY, COUNTRY, JOINED_DATE) VALUES
+(1, 'John Doe', 'Toronto', 'Canada', '2022-01-15'),
+(2, 'Jane Smith', 'New York', 'USA', '2021-03-22'),
+(3, 'Carlos Lopez', 'Mexico City', 'Mexico', '2023-05-10'),
+(4, 'Sophia Patel', 'London', 'UK', '2021-11-19'),
+(5, 'Ahmed Khan', 'Mumbai', 'India', '2022-09-30'),
+(6, 'Emily Johnson', 'Los Angeles', 'USA', '2022-05-05'),
+(7, 'James Lee', 'Sydney', 'Australia', '2023-01-20'),
+(8, 'Emma Wilson', 'Vancouver', 'Canada', '2021-08-14'),
+(9, 'Mohammed Ali', 'Dubai', 'UAE', '2022-04-11'),
+(10, 'Liu Wei', 'Beijing', 'China', '2021-12-28'),
+(11, 'Olivia Brown', 'Melbourne', 'Australia', '2023-03-30'),
+(12, 'Isabella Martinez', 'Madrid', 'Spain', '2022-07-25'),
+(13, 'Liam Evans', 'Auckland', 'New Zealand', '2021-09-17'),
+(14, 'Hannah Williams', 'Chicago', 'USA', '2022-02-18'),
+(15, 'Arjun Gupta', 'Delhi', 'India', '2023-06-12'),
+(16, 'Lucas Kim', 'Seoul', 'South Korea', '2021-10-21'),
+(17, 'Eva Garcia', 'Barcelona', 'Spain', '2022-08-07'),
+(18, 'David Thompson', 'Houston', 'USA', '2023-07-02'),
+(19, 'Ava Adams', 'Boston', 'USA', '2021-11-30'),
+(20, 'Noah Clark', 'San Francisco', 'USA', '2022-03-19'),
+(21, 'Chloe Robinson', 'Paris', 'France', '2022-12-01'),
+(22, 'Mia Turner', 'Rome', 'Italy', '2021-05-22'),
+(23, 'Elijah Harris', 'Berlin', 'Germany', '2023-04-18'),
+(24, 'Zara Ahmed', 'Cairo', 'Egypt', '2022-06-03'),
+(25, 'William King', 'Dublin', 'Ireland', '2021-07-11'),
+(26, 'Sophia Lee', 'Tokyo', 'Japan', '2023-08-29'),
+(27, 'Benjamin Scott', 'Edinburgh', 'UK', '2021-01-08'),
+(28, 'Lucas Anderson', 'Stockholm', 'Sweden', '2022-10-14'),
+(29, 'Isla Perez', 'Buenos Aires', 'Argentina', '2023-02-25'),
+(30, 'Ryan Baker', 'Cape Town', 'South Africa', '2021-09-05');
+
+-- INSERTING THE VALUES INTO THE ORDERS TABLE
+INSERT INTO ORDERS (ORDER_ID, CUSTOMER_ID, PRODUCT_ID, ORDER_DATE, SHIP_DATE, QUANTITY)
+VALUES
+(1, 1, 101, '2024-01-01', '2024-01-05', 10),
+(2, 2, 102, '2024-01-03', '2024-01-06', 5),
+(3, 3, 103, '2024-01-05', '2024-01-10', 8),
+(4, 4, 104, '2024-01-07', '2024-01-12', 3),
+(5, 5, 105, '2024-01-10', '2024-01-15', 12),
+(6, 6, 106, '2024-01-12', '2024-01-17', 20),
+(7, 7, 107, '2024-01-14', '2024-01-18', 6),
+(8, 8, 108, '2024-01-17', '2024-01-22', 15),
+(9, 9, 109, '2024-01-18', '2024-01-23', 9),
+(10, 10, 110, '2024-01-20', '2024-01-25', 18),
+(11, 11, 111, '2024-01-23', '2024-01-28', 11),
+(12, 12, 112, '2024-01-25', '2024-01-29', 7),
+(13, 13, 113, '2024-01-27', '2024-02-01', 16),
+(14, 14, 114, '2024-01-29', '2024-02-03', 4),
+(15, 15, 115, '2024-01-31', '2024-02-05', 19),
+(16, 16, 116, '2024-02-02', '2024-02-07', 6),
+(17, 17, 117, '2024-02-04', '2024-02-08', 14),
+(18, 18, 118, '2024-02-06', '2024-02-10', 9),
+(19, 19, 119, '2024-02-08', '2024-02-13', 21),
+(20, 20, 120, '2024-02-10', '2024-02-15', 17),
+(21, 1, 101, '2024-02-12', '2024-02-17', 5),
+(22, 2, 102, '2024-02-14', '2024-02-19', 7),
+(23, 3, 103, '2024-02-15', '2024-02-21', 3),
+(24, 4, 104, '2024-02-17', '2024-02-22', 11),
+(25, 5, 105, '2024-02-18', '2024-02-23', 9),
+(26, 6, 106, '2024-02-19', '2024-02-24', 10),
+(27, 7, 107, '2024-02-20', '2024-02-25', 6),
+(28, 8, 108, '2024-02-21', '2024-02-26', 15),
+(29, 9, 109, '2024-02-22', '2024-02-27', 12),
+(30, 10, 110, '2024-02-23', '2024-02-28', 18),
+(31, 11, 111, '2024-02-24', '2024-03-01', 5),
+(32, 12, 112, '2024-02-25', '2024-03-02', 14),
+(33, 13, 113, '2024-02-26', '2024-03-03', 8),
+(34, 14, 114, '2024-02-27', '2024-03-04', 16),
+(35, 15, 115, '2024-02-28', '2024-03-05', 13),
+(36, 16, 116, '2024-03-01', '2024-03-06', 20),
+(37, 17, 117, '2024-03-02', '2024-03-07', 9),
+(38, 18, 118, '2024-03-03', '2024-03-08', 4),
+(39, 19, 119, '2024-03-04', '2024-03-09', 21),
+(40, 20, 120, '2024-03-05', '2024-03-10', 18),
+(41, 1, 101, '2024-03-06', '2024-03-11', 7),
+(42, 2, 102, '2024-03-07', '2024-03-12', 11),
+(43, 3, 103, '2024-03-08', '2024-03-13', 10),
+(44, 4, 104, '2024-03-09', '2024-03-14', 15),
+(45, 5, 105, '2024-03-10', '2024-03-15', 17),
+(46, 6, 106, '2024-03-11', '2024-03-16', 13),
+(47, 7, 107, '2024-03-12', '2024-03-17', 6),
+(48, 8, 108, '2024-03-13', '2024-03-18', 9),
+(49, 9, 109, '2024-03-14', '2024-03-19', 20),
+(50, 10, 110, '2024-03-15', '2024-03-20', 12);
+
+-- INSERTING VALUES INTO THE PRODUCTS TABLE
+INSERT INTO PRODUCTS (PRODUCT_ID, PRODUCT_NAME, CATEGORY, UNIT_PRICE)
+VALUES
+(101, 'Laptop', 'Electronics', 800.00),
+(102, 'Smartphone', 'Electronics', 600.00),
+(103, 'Tablet', 'Electronics', 300.00),
+(104, 'Headphones', 'Accessories', 50.00),
+(105, 'Keyboard', 'Accessories', 30.00),
+(106, 'Mouse', 'Accessories', 25.00),
+(107, 'Smartwatch', 'Wearables', 200.00),
+(108, 'Monitor', 'Electronics', 250.00),
+(109, 'External Hard Drive', 'Storage', 100.00),
+(110, 'USB-C Hub', 'Accessories', 20.00),
+(111, 'Gaming Console', 'Gaming', 400.00),
+(112, 'Router', 'Networking', 60.00),
+(113, 'Bluetooth Speaker', 'Audio', 80.00),
+(114, 'VR Headset', 'Gaming', 350.00),
+(115, 'Smart Glasses', 'Wearables', 500.00),
+(116, 'Action Camera', 'Cameras', 300.00),
+(117, 'Drone', 'Cameras', 600.00),
+(118, 'Smart Light Bulb', 'Home Automation', 40.00),
+(119, 'Electric Kettle', 'Home Appliances', 35.00),
+(120, 'Air Fryer', 'Home Appliances', 120.00),
+(121, 'Fitness Tracker', 'Wearables', 150.00),
+(122, 'Portable Projector', 'Home Entertainment', 450.00),
+(123, 'Wireless Charger', 'Accessories', 25.00),
+(124, 'XBOX', 'Electronics', 50.00),
+(125, 'PS5', 'Electronics', 100.00);
+
+
+
+SELECT * FROM ORDERS;
+SELECT * FROM PRODUCTS;
+SELECT * FROM CUSTOMERS;
+
+
+
+-- LET US START WITH SUBQUERIES 
+-- QUESTION 1
+/*
+        Get the total quantity (SUM OF QUANTITY) of products ordered by each customer.
+        Note that we need to display the Customer ID, Customer Name, PRODUCT_NAME.
+        You need to display all the customers even if they have not made any order.
+        If the total order is null then use the category "NOT ORDERED".
+*/
+
+-- USING JOINS 
+SELECT 
+    T1.CUSTOMER_ID,
+    T1.CUSTOMER_NAME,
+    T3.PRODUCT_NAME,
+    SUM(T2.QUANTITY)
+FROM CUSTOMERS AS T1
+LEFT JOIN ORDERS AS T2
+ON T1.CUSTOMER_ID = T2.CUSTOMER_ID
+LEFT JOIN PRODUCTS AS T3
+ON T2.PRODUCT_ID = T3.PRODUCT_ID
+WHERE T3.PRODUCT_NAME IS NOT NULL
+GROUP BY 
+    T1.CUSTOMER_ID,
+    T1.CUSTOMER_NAME,
+    T3.PRODUCT_NAME
+ORDER BY CUSTOMER_ID ASC;
+
+-- USING CTE 
+WITH CUSTOMER_ORDER_QTY AS (
+    SELECT 
+        CUSTOMER_ID,
+        PRODUCT_ID,
+        SUM(QUANTITY) AS TOTAL_QTY
+    FROM ORDERS
+    WHERE CUSTOMER_ID IN (4, 5, 6, 7)
+    GROUP BY CUSTOMER_ID, PRODUCT_ID
+)
+SELECT
+    T1.CUSTOMER_NAME, 
+    T3.PRODUCT_NAME, 
+    T2.TOTAL_QTY
+FROM CUSTOMERS AS T1
+LEFT JOIN CUSTOMER_ORDER_QTY AS T2
+ON T1.CUSTOMER_ID = T2.CUSTOMER_ID
+LEFT JOIN PRODUCTS AS T3
+ON T2.PRODUCT_ID = T3.PRODUCT_ID;
+
+-- USING SUBQUERIES 
+-- FIRST SUBQUERY WHERE YOU WILL USE CORRELATED SUBQUERY 
+SELECT
+    T1.CUSTOMER_ID,
+    T1.CUSTOMER_NAME,
+    (
+        SELECT SUM(QUANTITY)
+        FROM ORDERS AS O
+        WHERE 
+            T1.CUSTOMER_ID = O.CUSTOMER_ID
+            AND 
+            T2.PRODUCT_ID = O.PRODUCT_ID
+        
+    ) AS TOTAL_QTY
+FROM CUSTOMERS AS T1
+JOIN PRODUCTS AS T2
+ON T2.PRODUCT_ID IN (SELECT DISTINCT PRODUCT_ID FROM ORDERS WHERE T1.CUSTOMER_ID = CUSTOMER_ID);
+
+
+SELECT
+    T1.CUSTOMER_ID,
+    T1.CUSTOMER_NAME,
+    T2.PRODUCT_NAME,
+    (
+        SELECT SUM(QUANTITY)
+        FROM ORDERS AS O
+        WHERE 
+            T1.CUSTOMER_ID = O.CUSTOMER_ID
+            AND 
+            T2.PRODUCT_ID = O.PRODUCT_ID
+    ) AS TOTAL_QTY
+FROM CUSTOMERS AS T1
+JOIN PRODUCTS AS T2
+ON T2.PRODUCT_ID IN (
+                        SELECT DISTINCT PRODUCT_ID 
+                        FROM ORDERS 
+                        WHERE T1.CUSTOMER_ID = CUSTOMER_ID);
+
+
+
+-- QUESTION 2
+/*
+    List customers who have ordered more than 25 units in total.
+    Note That we need to display the name of the customers and their total sum of quntity.
+*/
+-- USING JOINS
+SELECT
+    T1.CUSTOMER_ID,
+    T1.CUSTOMER_NAME,
+    SUM(T2.QUANTITY) AS TOTAL_QTY
+FROM CUSTOMERS AS T1
+LEFT JOIN ORDERS AS T2
+ON T1.CUSTOMER_ID = T2.CUSTOMER_ID
+GROUP BY 
+    T1.CUSTOMER_ID,
+    T1.CUSTOMER_NAME
+HAVING SUM(T2.QUANTITY) > 25;
+
+
+-- USING CTE 
+WITH ABOVE_25_UNITS AS (
+    SELECT 
+        CUSTOMER_ID,
+        SUM(QUANTITY) AS TOTAL_QTY
+    FROM ORDERS
+    GROUP BY CUSTOMER_ID
+    HAVING SUM(QUANTITY) > 25
+)
+SELECT 
+    T1.CUSTOMER_NAME, 
+    T2.TOTAL_QTY
+FROM CUSTOMERS AS T1
+JOIN ABOVE_25_UNITS AS T2
+ON T1.CUSTOMER_ID = T2.CUSTOMER_ID;
+
+-- USING SUBQUERY
+SELECT
+    T2.CUSTOMER_NAME,
+    T1.TOTAL_QTY
+FROM (
+    SELECT 
+        CUSTOMER_ID, 
+        SUM(QUANTITY) AS TOTAL_QTY
+    FROM ORDERS 
+    GROUP BY CUSTOMER_ID
+    HAVING SUM(QUANTITY) > 25
+) AS T1
+JOIN CUSTOMERS AS T2
+ON T1.CUSTOMER_ID = T2.CUSTOMER_ID;
+
+SELECT
+    T1.CUSTOMER_ID,
+    T1.CUSTOMER_NAME,
+    (
+        SELECT SUM(O.QUANTITY)
+        FROM ORDERS AS O
+        WHERE O.CUSTOMER_ID = T1.CUSTOMER_ID
+    ) AS TOTAL_QTY
+FROM CUSTOMERS AS T1
+WHERE (
+        SELECT SUM(O.QUANTITY)
+        FROM ORDERS AS O
+        WHERE O.CUSTOMER_ID = T1.CUSTOMER_ID
+    ) > 25;
+
+
+
+
+
+-- QUESTION 3
+/*
+    Find all products that have never been ordered.
+    We need to display the product_id and product_name
+*/
+-- USING JOIN 
+SELECT
+    T1.PRODUCT_ID,
+    T1.PRODUCT_NAME
+FROM PRODUCTS AS T1
+LEFT JOIN ORDERS AS T2
+ON T1.PRODUCT_ID = T2.PRODUCT_ID
+WHERE T2.PRODUCT_ID IS NULL;
+
+-- USING SUBQUERIES
+SELECT 
+    PRODUCT_ID,
+    PRODUCT_NAME
+FROM PRODUCTS 
+WHERE PRODUCT_ID NOT IN (SELECT DISTINCT PRODUCT_ID FROM ORDERS);
+
+-- USING CTE 
+WITH ORDERED_PRODUCTS AS (
+    SELECT DISTINCT PRODUCT_ID
+    FROM ORDERS
+)
+SELECT 
+    PRODUCT_ID, 
+    PRODUCT_NAME
+FROM PRODUCTS 
+WHERE PRODUCT_ID NOT IN (SELECT DISTINCT PRODUCT_ID FROM ORDERED_PRODUCTS);
+
+
+-- QUESTION 4
+/*
+    Write a query in sql to get the details of the latest order of each customer.
+    Note that we need to display the 
+    customer_id, customer_name, product_name,latest order_date
+*/
+-- JOIN
+SELECT
+    T3.CUSTOMER_NAME AS CUSTOMER_NAME,
+    T4.PRODUCT_NAME AS PRODUCT_NAME,
+    T1.ORDER_DATE AS LATEST_ORDER_DATE
+FROM ORDERS AS T1
+LEFT JOIN ORDERS AS T2
+ON 
+    T1.CUSTOMER_ID = T2.CUSTOMER_ID
+    AND
+    T1.ORDER_DATE < T2.ORDER_DATE
+JOIN CUSTOMERS AS T3
+ON T1.CUSTOMER_ID = T3.CUSTOMER_ID
+JOIN PRODUCTS AS T4
+ON T1.PRODUCT_ID = T4.PRODUCT_ID
+WHERE T2.ORDER_DATE IS NULL
+ORDER BY T1.CUSTOMER_ID ASC;
+
+-- USING CTE 
+WITH LATEST_ORDER_DATA_ONLY AS (
+    SELECT
+        CUSTOMER_ID,
+        PRODUCT_ID,
+        MAX(ORDER_DATE) AS LATEST_ORDER_DATE
+    FROM ORDERS
+    GROUP BY 
+        CUSTOMER_ID, 
+        PRODUCT_ID
+    ORDER BY CUSTOMER_ID ASC
+)
+SELECT 
+    T2.CUSTOMER_NAME,
+    T3.PRODUCT_NAME,
+    T1.LATEST_ORDER_DATE
+FROM LATEST_ORDER_DATA_ONLY AS T1
+JOIN CUSTOMERS AS T2
+ON T1.CUSTOMER_ID = T2.CUSTOMER_ID
+JOIN PRODUCTS AS T3
+ON T1.PRODUCT_ID = T3.PRODUCT_ID;
+
+-- SUBQUERY
+
+
+
+
+
+
+
+
+
+-- QUESTION 5
+/*
+    Write a query to find the customer id, customer name, total spending (qty * unit price)
+    of top 3 customer 
+*/
+-- WITH CTE 
+WITH TotalBillAmount AS (
+    SELECT
+        T1.CUSTOMER_ID,
+        T1.PRODUCT_ID,
+        T1.QUANTITY,
+        T2.UNIT_PRICE,
+        (T1.QUANTITY * T2.UNIT_PRICE) AS TOTAL_BILL_AMOUNT
+    FROM ORDERS AS T1
+    JOIN PRODUCTS AS T2
+    ON T1.PRODUCT_ID = T2.PRODUCT_ID
+),
+TotalSpending AS (
+    SELECT 
+        CUSTOMER_ID,
+        SUM(TOTAL_BILL_AMOUNT) AS TOTAL_SPENDING
+    FROM TotalBillAmount
+    GROUP BY CUSTOMER_ID
+)
+SELECT * FROM TOTALSPENDING
+ORDER BY TOTAL_SPENDING DESC;
+
+
+-- USING SUBQUERIES 
+
+
+
+
+
+
+
+-- RECURSIVE TERMS - TO REPEAT, TILL WE HAVE A PARTICULAR TERMINATING CONDITION
+
+
+-- UNION AND UNION ALL ARE TWO OPERATION TO APPEND THE DATA FROM TABLES 
+
+CREATE TABLE IF NOT EXISTS TEMP1 (
+    id INT, 
+    name VARCHAR(100)
+);
+
+INSERT INTO TEMP1 VALUES 
+(1, 'Karan Shah'),
+(2, 'Aakash Yadav'),
+(3, 'Vinod Jaiswal');
+
+CREATE TABLE IF NOT EXISTS TEMP2 (
+    temp2_id INT, 
+    temp2_name VARCHAR(100)
+);
+
+INSERT INTO TEMP2 VALUES 
+(1, 'Karan Shah'),
+(2, 'Vineet'),
+(3, 'Sonam');
+
+SELECT * FROM TEMP1;
+SELECT * FROM TEMP2;
+
+-- UNION IT WILL REMOVE THE DUPLICATE VALUES AND THEN RETURN THE RESULT 
+SELECT * FROM TEMP1
+UNION 
+SELECT * FROM TEMP2;
+
+-- UNION ALL WILL RETURN THE RESULTS WITH THE DUPLICATE VALUES AS WELL.
+SELECT * FROM TEMP1
+UNION ALL
+SELECT * FROM TEMP2;
+
+
+
+-- POINTS TO CONSIDER 
+-- UNION AND UNION ALL REQUIRED SAME NUMBER OF COLUMNS INCLUDED FROM THE TABLES IN OPERATION
+-- ALL THE COLUMNS MUST HAVE THE SAME DATATYPE AS THE PREVIOUS TABLE INCLUDED 
+-- COLUMN NAMES WOULD BE TAKEN FROM THE FIRST TABLE INVOLVED IN THE OPERATION
+-- UNION IT WILL REMOVE THE DUPLICATE VALUES AND THEN RETURN THE RESULT 
+-- UNION ALL WILL RETURN THE RESULTS WITH THE DUPLICATE VALUES AS WELL.
+
+
+
+
+
+
+
+
+
+-- RECURSIVE CTE 
+-- UNDERSTANDING THE SYNTAX 
+
+
+
+-- QUESTION 1 
+/*
+    Use a recursive CTE to generate numbers from 1 to 10.
+*/
+WITH R_CTE1 AS (
+    SELECT 1 AS N -- BASE CONDITION
+
+    UNION ALL
+    
+    SELECT N + 1  -- RECURSIVE QUERY 
+    FROM R_CTE1
+    WHERE N < 10 -- TERMINATING CONDITION
+)
+SELECT *
+FROM R_CTE1;
+
+call 1 N = 1
+1
+
+CALL 2 N = 2
+1
+2
+
+CALL 3 N = 3
+1
+2
+3
+
+CALL 8 N = 8
+1
+2
+3
+4
+5
+6
+7
+8
+
+CALL 9 N = 9
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+CALL 10 N = 9 + 1 = 10
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+
+
+
+
+
+
+-- QUESTION 2
+/*
+    Use a recursive CTE to generate even numbers from 1 to 10.
+*/
+WITH R_CTE2 AS (
+    SELECT 2 AS N -- BASE CONDITION
+
+    UNION ALL
+    
+    SELECT N + 2 -- RECURSIVE CONDITION AS WELL
+    FROM R_CTE2 
+    WHERE N < 10
+)
+SELECT * FROM R_CTE2;
+
+
+
+
+
+
+
+
+
+
+-- CREATING A NEW TABLE
+CREATE TABLE EMPLOYEE (
+    employee_id INT,
+    employee_name STRING,
+    manager_id INT
+);
+
+INSERT INTO EMPLOYEE VALUES
+(1, 'CEO', NULL),
+(2, 'VP of Sales', 1),
+(3, 'VP of Marketing', 1),
+(4, 'Sales Manager 1', 2),
+(5, 'Sales Manager 2', 2),
+(6, 'Marketing Manager', 3),
+(7, 'Sales Executive', 4),
+(8, 'Marketing Executive', 6);
+
+
+
+
+
+
+
+
+
+
+
+
+
