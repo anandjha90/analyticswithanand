@@ -1,0 +1,27 @@
+-- ASSIGNING THE ACCOUNT TYPE 
+USE ROLE ACCOUNTADMIN;
+
+-- USING THE WAREHOUSE AVAILABLE
+USE WAREHOUSE COMPUTE_WH;
+
+-- CREATING A DATABASE NAMED AS SUBQUERIES_DATABASE
+CREATE DATABASE IF NOT EXISTS endtoend_project1;
+
+-- CREATING A SCHEMA NAMED AS SUBQUERIES_SCHEMA
+CREATE SCHEMA IF NOT EXISTS endtoend_project1_schema;
+
+-- USING THE DATABASE CREATED
+USE DATABASE endtoend_project1;
+
+-- USING THE SCHEMA CREATED 
+USE SCHEMA endtoend_project1_schema;
+
+
+-- Getting the data 
+/*
+    1. Blinkit_orders
+    2. Blinkit_order_items
+*/
+
+SELECT * FROM blinkit_order_items;
+SELECT* FROM blinkit_orders;
