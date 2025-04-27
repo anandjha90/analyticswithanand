@@ -1,0 +1,10 @@
+# Sign up for a free, 120 day Snowflake trial account
+The entire course can be completed using a free, 120 day Snowflake trial account. This is the recommended way of completing the course. The instructor will also be using a trial account throughout the course. 
+
+Use the link below to create your free, 120 day trial account:
+
+https://signup.snowflake.com/?trial=student&cloud=aws&region=us-west-2&utm_source=coursera&utm_campaign=genai1
+
+ If you prefer to use an existing Snowflake account to complete the course, note that you may not be able to complete specific operations or exercises, especially if your existing account does not have ACCOUNTADMIN privileges. Also, not all the features required for this course are available in all regions.
+
+If you want to try using your own Snowflake account, please select aws-us-west-2 region for the entirety of the course.
