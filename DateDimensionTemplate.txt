@@ -1,0 +1,33 @@
+1
+DateDimension = 
+ADDCOLUMNS (
+CALENDAR (DATE(YEAR(min(Invoice[InvoiceDate])),1,1), DATE(YEAR(MAX(Invoice[InvoiceDate])),12,31)),
+"DateAsInteger", FORMAT ( [Date], "YYYYMMDD" ),
+"Year", YEAR ( [Date] ),
+"Monthnumber", FORMAT ( [Date], "MM" ),
+"YearMonthnumber", FORMAT ( [Date], "YYYY/MM" ),
+"YearMonthShort", FORMAT ( [Date], "YYYY/mmm" ),
+"MonthNameShort", FORMAT ( [Date], "mmm" ),
+"MonthNameLong", FORMAT ( [Date], "mmmm" ),
+"DayOfWeekNumber", WEEKDAY ( [Date] ),
+"DayOfWeek", FORMAT ( [Date], "dddd" ),
+"DayOfWeekShort", FORMAT ( [Date], "ddd" ),
+"Quarter", "Q" & FORMAT ( [Date], "Q" ),
+"YearQuarter", FORMAT ( [Date], "YYYY" ) & "/Q" & FORMAT ( [Date], "Q" ))
+
+2
+DateDimension = 
+ADDCOLUMNS (
+CALENDAR (DATE(YEAR(min(Orders[Order Date])),1,1), DATE(YEAR(MAX(Orders[Order Date])),12,31)),
+"DateAsInteger", FORMAT ( [Date], "YYYYMMDD" ),
+"Year", YEAR ( [Date] ),
+"Monthnumber", FORMAT ( [Date], "MM" ),
+"YearMonthnumber", FORMAT ( [Date], "YYYY/MM" ),
+"YearMonthShort", FORMAT ( [Date], "YYYY/mmm" ),
+"MonthNameShort", FORMAT ( [Date], "mmm" ),
+"MonthNameLong", FORMAT ( [Date], "mmmm" ),
+"DayOfWeekNumber", WEEKDAY ( [Date] ),
+"DayOfWeek", FORMAT ( [Date], "dddd" ),
+"DayOfWeekShort", FORMAT ( [Date], "ddd" ),
+"Quarter", "Q" & FORMAT ( [Date], "Q" ),
+"YearQuarter", FORMAT ( [Date], "YYYY" ) & "/Q" & FORMAT ( [Date], "Q" ))
