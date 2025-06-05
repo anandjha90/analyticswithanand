@@ -1,4 +1,7 @@
+-- measure
 dynamic_username = USERPRINCIPALNAME()
+
+-- measure
 
 Employee_ID =
     LOOKUPVALUE(
@@ -6,3 +9,13 @@ Employee_ID =
         EMPLOYEES[EMAIL],
         USERPRINCIPALNAME()
     )
+
+-- for role creation under employee table
+PATHCONTAINS(
+    EMPLOYEES[path],
+    LOOKUPVALUE(
+        EMPLOYEES[EMPLOYEEID],
+        EMPLOYEES[EMAIL],
+        [dynamic_username]
+    )
+)
