@@ -1,0 +1,8 @@
+dynamic_username = USERPRINCIPALNAME()
+
+Employee_ID =
+    LOOKUPVALUE(
+        EMPLOYEES[EMPLOYEEID],
+        EMPLOYEES[EMAIL],
+        USERPRINCIPALNAME()
+    )
