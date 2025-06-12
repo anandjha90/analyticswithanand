@@ -1,0 +1,53 @@
+let
+    // Step 1: Add your credentials
+    client_id = "f7cd1ea9336443849023a1f8cabec0c8",
+    client_secret = "a7031e8d42f04529b01e4689f9d727eb",
+
+    // Step 2: Encode credentials
+    credentials = Text.ToBinary(client_id & ":" & client_secret),
+    encodedCredentials = Binary.ToText(credentials, BinaryEncoding.Base64),
+
+    // Step 3: Get access token
+    token_response = Json.Document(Web.Contents(
+        "https://accounts.spotify.com/api/token",
+        [
+            Headers = [
+                #"Authorization" = "Basic " & encodedCredentials,
+                #"Content-Type" = "application/x-www-form-urlencoded"
+            ],
+            Content = Text.ToBinary("grant_type=client_credentials")
+        ]
+    )),
+    access_token = token_response[access_token],
+
+    // Step 4: Playlist ID (Global Top 50)
+    playlist_id = "3vfgym4A6JQsVBc0zTt0wB",
+
+    // Step 5: Get tracks from playlist
+    response = Json.Document(Web.Contents(
+        "https://api.spotify.com/v1/playlists/" & playlist_id & "/tracks?limit=100",
+        [
+            Headers = [
+                #"Authorization" = "Bearer " & access_token
+            ]
+        ]
+    )),
+
+    // Step 6: Extract track items
+    items = response[items],
+    itemsTable = Table.FromList(items, Splitter.SplitByNothing(), {"Record"}),
+
+    // Step 7: Expand track details
+    expanded1 = Table.ExpandRecordColumn(itemsTable, "Record", {"track"}),
+    expandedTrack = Table.ExpandRecordColumn(expanded1, "track", {
+        "name", "duration_ms", "popularity", "external_urls", "album", "artists"
+    }),
+
+    expandedAlbum = Table.ExpandRecordColumn(expandedTrack, "album", {"name"}, {"album_name"}),
+    expandedArtistsList = Table.ExpandListColumn(expandedAlbum, "artists"),
+    expandedArtist = Table.ExpandRecordColumn(expandedArtistsList, "artists", {"name"}, {"artist_name"}),
+    expandedURL = Table.ExpandRecordColumn(expandedArtist, "external_urls", {"spotify"}, {"spotify_url"}),
+
+    final = Table.AddColumn(expandedURL, "duration_min", each Number.Round([duration_ms] / 60000, 2))
+in
+    final
