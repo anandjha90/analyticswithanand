@@ -1,0 +1,14 @@
+DEFINE
+    VAR MinimumAmount = 3400000
+    VAR MaximumAmount = 3900000
+
+EVALUATE
+FILTER(
+    ADDCOLUMNS(
+        SUMMARIZE(sales_data_1000_rows, sales_data_1000_rows[Category]),
+        "CategoryAmount", CALCULATE(SUM(sales_data_1000_rows[SalesAmount]))
+    ),
+    [CategoryAmount] >= MinimumAmount &&
+    [CategoryAmount] <= MaximumAmount
+)
+ORDER BY [CategoryAmount]
