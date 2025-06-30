@@ -26,7 +26,8 @@ with snowflake.connector.connect(**connection_params) as conn:
         # 2) last DML timestamp on this table
         cur.execute(f"""
             SELECT 
-                start_time 
+                start_time,
+                query_type
             FROM snowflake.account_usage.query_history
             WHERE query_text ILIKE '%%CREDIT_CARD_CUSTOMERS%%'
             AND query_type IN ('INSERT','UPDATE','DELETE','MERGE')
@@ -34,7 +35,10 @@ with snowflake.connector.connect(**connection_params) as conn:
             AND schema_name ilike 'DEMOSCHEMA'
             order by start_time desc
             limit 1;
-            """)   
+            """)  
+        last_dml_ts = ''
+        dml_type = ''
+
         for row in cur:
             print("last_dml_ts")
             last_dml_ts = row['START_TIME']
@@ -89,6 +93,15 @@ with snowflake.connector.connect(**connection_params) as conn:
                         , cluster_stats:total_constant_partition_count::int as total_constant_partition_count
                     from cte;
                 """)
+        
+        cluster_by_keys = ''
+        average_overlaps = float()
+        average_depth = float()
+        clustering_errors = ''
+        partition_depth_histogram = ''
+        total_partition_count = int()
+        total_constant_partition_count = int()
+
         for row in cur:
             print("clustering")
             cluster_by_keys = row['CLUSTER_BY_KEYS']
@@ -145,7 +158,7 @@ with snowflake.connector.connect(**connection_params) as conn:
                         {row_count} AS row_count,
                         TRY_TO_TIMESTAMP('{last_dml_ts}') as last_dml_ts,
                         TRY_TO_TIMESTAMP('{last_query_ts}') as last_query_ts,
-                        NULL as clone_lineage,
+                        parse_json($${clone_lineage}$$) as clone_lineage,
                         '{cluster_by_keys}' as cluster_by_keys,
                         {average_overlaps} as average_overlaps,
                         {average_depth} as average_depth,
