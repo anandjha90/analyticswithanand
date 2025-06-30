@@ -4,11 +4,11 @@ from snowflake.connector import DictCursor
 import json
 
 connection_params = {
-      "user" : 'ANALYTICSWITHANAND'
-    , "password" : 'A6jhamintu@1990'
-    , "account" : "PPSYLQC-HWB60503"
-    , "warehouse" : "DEMOWAREHOUSE"
-    , "role" : "ACCOUNTADMIN"
+      "user" : '*********************'
+    , "password" : '*****************'
+    , "account" : "*****************"
+    , "warehouse" : "*****************"
+    , "role" : "*************"
 }
 
 with snowflake.connector.connect(**connection_params) as conn:
