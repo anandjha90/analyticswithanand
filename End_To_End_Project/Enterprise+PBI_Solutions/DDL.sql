@@ -1,6 +1,13 @@
 CREATE OR REPLACE DATABASE PBI_DB;
 CREATE OR REPLACE SCHEMA PBI_SCHEMA;
 
+CREATE OR REPLACE FILE FORMAT CSV_FILE_FORMAT
+    type = 'csv' 
+    compression = 'none' 
+    field_delimiter = ','
+    field_optionally_enclosed_by = 'none'
+    skip_header = 1 ;  
+
 create or replace TABLE PBI_DB.PBI_SCHEMA.ATTENDANCE (
 	ATTENDANCEID VARCHAR(16777216) PRIMARY KEY,
 	EMPLOYEEID VARCHAR(16777216),
