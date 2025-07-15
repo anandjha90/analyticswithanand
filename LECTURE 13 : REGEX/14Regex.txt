@@ -1,0 +1,216 @@
+-- Assigning the warehouse to the account 
+USE WAREHOUSE COMPUTE_WH;
+
+-- Creating a database named as SALES_DATABASE
+CREATE DATABASE IF NOT EXISTS SQL_CLASS_14;
+
+-- CREATING a schema for the SALES_DATABASE 
+CREATE SCHEMA IF NOT EXISTS SQL_CLASS_14_SCHEMA;
+
+-- USING THE DATABASE CREATED SALES_DATABASE 
+USE DATABASE SQL_CLASS_14;
+
+-- USING THE SCHEMA CREATED SALES_SCHEMA
+USE SCHEMA SQL_CLASS_14_SCHEMA;
+
+
+-- Creating a table named sales transaction 
+CREATE OR REPLACE TABLE SALES_TRANSACTIONS (
+    TRANS_ID       INTEGER,
+    CUSTOMER_NAME  STRING,
+    REGION         STRING,
+    PRODUCT        STRING,
+    QUANTITY       INTEGER,
+    UNIT_PRICE     NUMBER(8,2),
+    DISCOUNT_PCT   NUMBER(5,2),
+    TRANS_DATE     DATE
+);
+
+
+-- Inserting Data Inside that Table
+INSERT INTO SALES_TRANSACTIONS VALUES
+(1,  'Amit',   'North', 'Laptop',      2, 65000, 10, '2024-12-05'),
+(2,  'Neha',   'South', 'Phone',       3, 28000,  0, '2025-01-17'),
+(3,  'Rohan',  'East',  'Tablet',      1, 32000,  5, '2025-03-02'),
+(4,  'Tara',   'North', 'Headphones',  5,  4500, 15, '2025-03-15'),
+(5,  'Sonal',  'West',  'Laptop',      1, 67000,  7, '2025-04-25'),
+(6,  'Yash',   'East',  'Camera',      2, 54000,  0, '2025-05-08'),
+(7,  'Priya',  'South', 'Phone',       4, 29000,  8, '2025-05-30'),
+(8,  'Karan',  'North', 'Smart-Watch', 3, 12000,  0, '2025-06-12'),
+(9,  'Isha',   'West',  'Laptop',      1, 69000, 12, '2025-06-20'),
+(10, 'Manav',  'East',  'Headphones',  2,  4800,  0, '2025-07-01'),
+(11, 'Divya',  'South', 'Camera',      1, 56000,  5, '2025-07-05'),
+(12, 'Raj',    'North', 'Tablet',      2, 33000,  0, '2025-07-10');
+
+
+-- Questions to solve
+/*
+Q1 – Region-wise Revenue Leaderboard with Filters
+Show each region’s total net revenue (after discount) where the region’s average discount % exceeds 
+the overall average discount. -- 2 QUERIES TO SOLVE
+List only regions with ≥ 3 transactions, sorted by revenue desc, and return just the top 2 regions.
+*/
+-- STEP 1 GETTING THE OVERALL AVERAGE DISCOUNT - 5.16
+SELECT 
+AVG(DISCOUNT_PCT) AS OVERALL_AVG_DISCOUNT 
+FROM SALES_TRANSACTIONS;
+
+-- STEP 2 REVENUE 
+SELECT
+    REGION, 
+    COUNT(*) AS TOTAL_TRANSACTIONS, 
+    AVG(DISCOUNT_PCT) AS REGION_AVG_DISCOUNT,
+    SUM(((QUANTITY * UNIT_PRICE) * (1 - DISCOUNT_PCT/100))) AS NET_REVENUE
+FROM SALES_TRANSACTIONS
+GROUP BY REGION
+HAVING 
+    COUNT(*) >= 3
+    AND 
+    REGION_AVG_DISCOUNT > 5.16
+ORDER BY NET_REVENUE DESC
+LIMIT 2
+
+
+SELECT *
+FROM SALES_TRANSACTIONS;
+
+
+/*
+Q2 – Premium Customers Sub-Report
+List customer names that bought a Laptop or Camera, spent more than ₹1 lakh in total net revenue, and whose name ends with ‘a’.
+For each qualifying customer show total units, total spend, earliest and latest purchase month name (string functions + date functions).
+Sort by total spend desc; display only the 2nd and 3rd rows of the sorted result.
+*/
+
+SELECT
+    CUSTOMER_NAME, 
+    SUM(QUANTITY) AS TOTAL_UNITS, 
+    SUM((UNIT_PRICE * QUANTITY) * (1 - DISCOUNT_PCT / 100)) AS TOTAL_BILL, 
+    TO_CHAR(MIN(TRANS_DATE), 'Month') AS earliest_MONTH, 
+    TO_CHAR(MAX(TRANS_DATE), 'Month') AS latest_MONTH 
+FROM SALES_TRANSACTIONS
+WHERE 
+    product IN ('Laptop', 'Camera')
+    and 
+    CUSTOMER_NAME LIKE '%I%a' 
+GROUP BY customer_name
+HAVING SUM((UNIT_PRICE * QUANTITY) * (1 - DISCOUNT_PCT / 100)) > 50000
+ORDER BY TOTAL_BILL DESC;
+
+
+
+
+
+
+-- REGEX
+CREATE OR REPLACE TABLE USER_DATA (
+    USER_ID        INTEGER,
+    USERNAME       STRING,
+    EMAIL          STRING,
+    PHONE_NUMBER   STRING,
+    ADDRESS        STRING
+);
+
+
+INSERT INTO USER_DATA VALUES
+(1,  'amit123',    'amit@gmail.com',     '9876543210',  'B-102, Sector-7, Delhi'),
+(2,  'PriyaS',     'priya_s@yahoo.com',  '9182736450',  'MG Road, Bengaluru'),
+(3,  'rahul_456',  'rahul456@mail.com',  '12345',       'A-1/34, Kolkata'),
+(4,  'Ramesh',     'ramesh@domain.net',  '',            'Park Street, Delhi'),
+(5,  'Neha@99',    'neha99@gmail.com',   '9999999999',  'Sector 17, Chandigarh'),
+(6,  'test_user',  'test@company.org',   '8123456789',  'Pune-411001'),
+(7,  'user999',    'user999@x.co.in',    NULL,          'Hyderabad'),
+(8,  'xyz',        'xyz#invalid.com',    '7012345678',  'Nashik 422005'),
+(9,  'manoj123',   'manoj123@live.com',  '1111111111',  'Ahmedabad, Gujarat'),
+(10, 'Anjali_@',   'anjali@demo.com',    '8877665544',  'JP Nagar, Bengaluru'),
+(11, 'AB123',      'ab123@mail.com',     '0000000000',  'Lucknow'),
+(12, 'guest',      'guest@guest.com',    '9123456789',  'Vizag AP');
+
+
+-- REGEX 
+-- REGULAR EXPRESSIONS 
+/*
+    SYMBOL | MEANING                                         | Example 
+    .      | Any Single Character                            | a.b -> acb, adb
+    *      | 0 or more instances of the character            | ab* -> a,ab, abb, abbb
+    +      | 1 or more instances of the preceding characters | ab+ -> ab, abb, abbb
+    ^      | String Starts with symbol                       | ^a -> apple, aman, ayush 
+    $      | String Ends with symbol                         | m$ -> ram
+    []     | Match Any Character Inside mentioned            | [abc] -> a, b, c
+    {x}    | Get the string based on the x count             | ^[a-d]{3} -> abc, acd, abd  
+    ()     | Captures the characters based on the pattern
+*/ 
+
+-- REGEX_LIKE() -> true / false 
+/*
+    1. Find all the usernames that contain only alphabets (no digits or special characters)
+*/
+SELECT
+    USERNAME
+FROM USER_DATA
+WHERE REGEXP_LIKE(USERNAME, '^[A-Za-z]+');
+
+
+/*
+    2. Write a sql query to get all the emails which end with domain .com
+*/
+SELECT 
+    EMAIL
+FROM USER_DATA
+WHERE REGEX_LIKE(EMAIL'^[A-Za-z1-9@_#]+\\.com$');
+
+
+SELECT * FROM USER_DATA;
+
+/*
+    3. Write a SQL query to get all the phone numbers whose length is 10 digits
+*/
+SELECT
+    USERNAME,
+    PHONE_NUMBER
+FROM USER_DATA
+WHERE REGEXP_LIKE(PHONE_NUMBER, '^[0-9]{10}$');
+
+
+-- REGEXP_INSTR()
+/*
+    4. Show all the emails where the symbol @ is located at position 6
+*/
+SELECT 
+    EMAIL
+FROM USER_DATA
+WHERE REGEXP_INSTR(EMAIL, '@') = 6;
+
+
+-- REGEXP_SUBSTR()
+/*
+    5. Extract the domain from each and every mail. 
+*/
+SELECT
+    EMAIL, 
+    REGEXP_SUBSTR(EMAIL, '@(.+)$', 2, 1, 'c', 1)
+FROM USER_DATA;
+
+SELECT
+    'AMIT@GMAIL.COM@GMAIL.COM',
+    REGEXP_SUBSTR('AMIT@GMAIL.COM@GMAIL.COM', '@');
+
+
+
+-- REGEXP_REPLACE()
+/*
+    6. Write a SQL query which returns us the phone numbers masked.
+       Only the last 4 digits of the phone numbers must be visible 
+    9873627632 -> XXXXXX7632
+*/
+SELECT
+    PHONE_NUMBER, 
+    REGEXP_REPLACE(PHONE_NUMBER, '^[0-9]{6}', 'XXXXXX') AS MASKED_PHONE_NUMBER
+FROM USER_DATA
+WHERE REGEXP_LIKE(PHONE_NUMBER, '^[0-9]{10}');
+
+
+
+
+
+
