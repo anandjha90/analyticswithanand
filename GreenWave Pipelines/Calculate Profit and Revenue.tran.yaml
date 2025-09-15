@@ -1,0 +1,421 @@
+type: "transformation"
+version: "1.0"
+pipeline:
+  components:
+    ORDERS:
+      type: "table-input"
+      parameters:
+        componentName: "ORDERS"
+        database: "DEMO_DATABASE"
+        schema: "DEMO_SCHEMA"
+        targetTable: "GW_ORDERS"
+        columnNames:
+        - "CUSTOMER_RID"
+        - "LAST_UPDATED"
+        - "ORDER_DATE"
+        - "RID"
+        timeOffset:
+    ORDER_ITEMS:
+      type: "table-input"
+      parameters:
+        componentName: "ORDER_ITEMS"
+        database: "DEMO_DATABASE"
+        schema: "DEMO_SCHEMA"
+        targetTable: "GW_ORDER_ITEMS"
+        columnNames:
+        - "ITEM_RID"
+        - "LAST_UPDATED"
+        - "ORDER_RID"
+        - "QUANTITY"
+        - "RID"
+        timeOffset:
+    ITEMS:
+      type: "table-input"
+      parameters:
+        componentName: "ITEMS"
+        database: "DEMO_DATABASE"
+        schema: "DEMO_SCHEMA"
+        targetTable: "GW_ITEMS"
+        columnNames:
+        - "COST"
+        - "LAST_UPDATED"
+        - "NAME"
+        - "PRICE"
+        - "RID"
+        timeOffset:
+    Join Tables:
+      type: "join"
+      sources:
+      - "Flatten JSON"
+      - "Convert data types for ORDERS"
+      - "Convert data types for ORDER_ITEMS"
+      - "Convert data types for ITEMS"
+      parameters:
+        componentName: "Join Tables"
+        mainTable: "Convert data types for ORDER_ITEMS"
+        mainTableAlias: "OI"
+        joins:
+        - - "Convert data types for ORDERS"
+          - "O"
+          - "Inner"
+        - - "Convert data types for ITEMS"
+          - "I"
+          - "Inner"
+        - - "Flatten JSON"
+          - "F"
+          - "Inner"
+        joinExpressions:
+        - - "\"OI\".\"ORDER_RID\" = \"O\".\"RID\""
+          - "OI_Inner_O"
+        - - "\"OI\".\"ITEM_RID\" = \"I\".\"RID\""
+          - "OI_Inner_I"
+        - - "\"O\".\"CUSTOMER_RID\" = \"F\".\"CUSTOMER_RID\""
+          - "OI_Inner_F"
+        columnMappings:
+        - - "O.ORDER_DATE"
+          - "ORDER_DATE"
+        - - "OI.QUANTITY"
+          - "QUANTITY"
+        - - "I.NAME"
+          - "ITEM_NAME"
+        - - "I.PRICE"
+          - "PRICE"
+        - - "I.COST"
+          - "COST"
+        - - "F.ACCOUNT_NAME"
+          - "ACCOUNT_NAME"
+    Calculate Profit & Revenue:
+      type: "calculator"
+      sources:
+      - "Join Tables"
+      parameters:
+        componentName: "Calculate Profit & Revenue"
+        includeInputColumns: "Yes"
+        calculations:
+        - - "((\"PRICE\" - \"COST\") * \"QUANTITY\")"
+          - "PROFIT"
+        - - "(\"PRICE\" * \"QUANTITY\")"
+          - "REVENUE"
+        - - "MONTH(\"ORDER_DATE\")\r\n"
+          - "ORDER_MONTH"
+        - - "YEAR(\"ORDER_DATE\")"
+          - "ORDER_YEAR"
+        - - "QUARTER(\"ORDER_DATE\")"
+          - "ORDER_QTR"
+    Aggregate:
+      type: "aggregate"
+      sources:
+      - "Calculate Profit & Revenue"
+      parameters:
+        componentName: "Aggregate"
+        groupings:
+        - "ACCOUNT_NAME"
+        - "ITEM_NAME"
+        - "ORDER_YEAR"
+        - "ORDER_QTR"
+        - "ORDER_MONTH"
+        aggregations:
+        - - "PROFIT"
+          - "Sum"
+        - - "REVENUE"
+          - "Sum"
+        groupingType: "Group By"
+    Flatten JSON:
+      type: "extract-nested-data-sf"
+      sources:
+      - "CUSTOMER_ACCOUNTS"
+      parameters:
+        componentName: "Flatten JSON"
+        includeInputColumns: "No"
+        columns:
+        - name: "data"
+          datatype: "VARIANT"
+          size: "0"
+          decimalPlaces: "0"
+          columnName: "DATA_VALUE"
+          aliasName: "DATA"
+          isArray: "true"
+          include: "false"
+          childElements:
+          - name: "data-element"
+            datatype: "VARIANT"
+            size: "0"
+            decimalPlaces: "0"
+            columnName: "DATA_VALUE"
+            aliasName: "DATA-ELEMENT"
+            isArray: "false"
+            include: "false"
+            childElements:
+            - name: "customer_rid"
+              datatype: "NUMBER"
+              size: "0"
+              decimalPlaces: "0"
+              columnName: "DATA_VALUE"
+              aliasName: "CUSTOMER_RID"
+              isArray: "false"
+              include: "true"
+            - name: "account_name"
+              datatype: "VARCHAR"
+              size: "0"
+              decimalPlaces: "0"
+              columnName: "DATA_VALUE"
+              aliasName: "ACCOUNT_NAME"
+              isArray: "false"
+              include: "true"
+        outerJoin: "False"
+        inputAlias: "I"
+        arrayPrefix: "F"
+        castingMethod: "Fail on invalid data"
+        caseColumnAliasNames: "No"
+    CUSTOMER_ACCOUNTS:
+      type: "table-input"
+      parameters:
+        componentName: "CUSTOMER_ACCOUNTS"
+        database: "DEMO_DATABASE"
+        schema: "DEMO_SCHEMA"
+        targetTable: "GW_CUSTOMER_ACCOUNTS"
+        columnNames:
+        - "DATA_VALUE"
+        timeOffset:
+    Convert data types for ORDERS:
+      type: "convert-type"
+      sources:
+      - "ORDERS"
+      parameters:
+        componentName: "Convert data types for ORDERS"
+        conversions:
+        - - "CUSTOMER_RID"
+          - "NUMBER"
+          - ""
+          - ""
+        - - "RID"
+          - "NUMBER"
+          - ""
+          - ""
+        - - "ORDER_DATE"
+          - "DATE"
+          - ""
+          - ""
+    Convert data types for ORDER_ITEMS:
+      type: "convert-type"
+      sources:
+      - "ORDER_ITEMS"
+      parameters:
+        componentName: "Convert data types for ORDER_ITEMS"
+        conversions:
+        - - "ITEM_RID"
+          - "NUMBER"
+          - ""
+          - ""
+        - - "ORDER_RID"
+          - "NUMBER"
+          - ""
+          - ""
+        - - "RID"
+          - "NUMBER"
+          - ""
+          - ""
+        - - "QUANTITY"
+          - "NUMBER"
+          - ""
+          - ""
+    Convert data types for ITEMS:
+      type: "convert-type"
+      sources:
+      - "ITEMS"
+      parameters:
+        componentName: "Convert data types for ITEMS"
+        conversions:
+        - - "RID"
+          - "NUMBER"
+          - ""
+          - ""
+        - - "COST"
+          - "NUMBER"
+          - "38"
+          - "2"
+        - - "PRICE"
+          - "NUMBER"
+          - "38"
+          - "2"
+    Rename:
+      type: "rename"
+      sources:
+      - "Aggregate"
+      parameters:
+        componentName: "Rename"
+        columnMapping:
+        - - "ITEM_NAME"
+          - "ITEM_NAME"
+        - - "ACCOUNT_NAME"
+          - "ACCOUNT_NAME"
+        - - "ORDER_YEAR"
+          - "ORDER_YEAR"
+        - - "ORDER_QTR"
+          - "ORDER_QTR"
+        - - "ORDER_MONTH"
+          - "ORDER_MONTH"
+        - - "sum_PROFIT"
+          - "TOT_PROFIT"
+        - - "sum_REVENUE"
+          - "TOT_REVENUE"
+        includeInputColumns: "No"
+    Rewrite Table:
+      type: "rewrite-table"
+      sources:
+      - "Rename"
+      parameters:
+        componentName: "Rewrite Table"
+        warehouse: "[Environment Default]"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        targetTable: "GW_PROFIT_BY_ACCOUNT"
+        orderBy:
+      postProcessing:
+        updateOutputMessage:
+        updateScalarVariables:
+design:
+  components:
+    ORDERS:
+      position:
+        x: 120
+        "y": 240
+      tempMetlId: 1
+    ORDER_ITEMS:
+      position:
+        x: 120
+        "y": 360
+      tempMetlId: 2
+    ITEMS:
+      position:
+        x: 120
+        "y": 480
+      tempMetlId: 3
+    Join Tables:
+      position:
+        x: 660
+        "y": 300
+      tempMetlId: 5
+    Calculate Profit & Revenue:
+      position:
+        x: 1010
+        "y": 300
+      tempMetlId: 7
+    Aggregate:
+      position:
+        x: 1200
+        "y": 300
+      tempMetlId: 8
+    Flatten JSON:
+      position:
+        x: 300
+        "y": 120
+      tempMetlId: 9
+    CUSTOMER_ACCOUNTS:
+      position:
+        x: 120
+        "y": 120
+      tempMetlId: 10
+    Convert data types for ORDERS:
+      position:
+        x: 300
+        "y": 240
+      tempMetlId: 11
+    Convert data types for ORDER_ITEMS:
+      position:
+        x: 300
+        "y": 360
+      tempMetlId: 12
+    Convert data types for ITEMS:
+      position:
+        x: 300
+        "y": 480
+      tempMetlId: 13
+    Rename:
+      position:
+        x: 1360
+        "y": 300
+      tempMetlId: 14
+    Rewrite Table:
+      position:
+        x: 1520
+        "y": 300
+      tempMetlId: 15
+  notes:
+    "1":
+      position:
+        x: -480
+        "y": 0
+      size:
+        height: 178
+        width: 420
+      theme: "green"
+      content: |-
+        #### Calculate Profit and Revenue
+
+        In this transformation pipeline, you will be taking the tables we created in the orchestration pipeline and joining them to create a single table of business-ready data!
+    "2":
+      position:
+        x: 0
+        "y": 0
+      size:
+        height: 223
+        width: 480
+      theme: "white"
+      content: "The **CUSTOMER_ACCOUNTS** table is holding some nested data, you can\
+        \ use the **extract nested data** component to easily flatten it into rows."
+    "3":
+      position:
+        x: 550
+        "y": 120
+      size:
+        height: 298
+        width: 300
+      theme: "white"
+      content: |-
+        All of the tables
+        generated in the
+        orchestration pipeline
+        are then joined to create
+        a single table.
+    "4":
+      position:
+        x: 900
+        "y": 120
+      size:
+        height: 298
+        width: 660
+      theme: "white"
+      content: "Using the **calculator** component, you can calculate the price, cost\
+        \ and quantity of goods sold and the **aggregate** component groups the multiple\
+        \ input rows from the calculation into a single output row, before populating\
+        \ the **PROFIT_BY_ACCOUNT** table!"
+    "5":
+      position:
+        x: -10
+        "y": 210
+      size:
+        height: 433
+        width: 480
+      theme: "white"
+      content: |-
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        For the tables loaded from the Excel workbook, you can use the **convert type** component to cast the numeric columns to the correct types.

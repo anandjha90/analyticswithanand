@@ -1,0 +1,246 @@
+type: "orchestration"
+version: "1.0"
+pipeline:
+  components:
+    Start:
+      type: "start"
+      transitions:
+        unconditional:
+        - "Create CUSTOMER_ACCOUNTS"
+        - "Run Create SHEET_NAMES"
+      parameters:
+        componentName: "Start"
+    Load Customer 360 Data:
+      type: "s3-load"
+      transitions:
+        success:
+        - "Wait"
+      parameters:
+        componentName: "Load Customer 360 Data"
+        stage: "[Custom]"
+        authentication: "Credentials"
+        s3ObjectPrefix: "s3://myawabucketnew/CUST/"
+        pattern: "customer_accounts.json"
+        encryption: "None"
+        warehouse: "DEMO_WAREHOUSE"
+        database: "DEMO_DATABASE"
+        schema: "DEMO_SCHEMA"
+        targetTable: "GW_CUSTOMER_ACCOUNTS"
+        loadColumns:
+        - "DATA_VALUE"
+        format: "[Custom]"
+        fileType: "JSON"
+        compression: "AUTO"
+        enableOctal: "False"
+        allowDuplicates: "False"
+        stripOuterArray: "False"
+        stripNullValues: "False"
+        ignoreUtf8Errors: "False"
+        nullIf1:
+        - - ""
+        trimSpace1: "False"
+        onError: "Abort Statement"
+        sizeLimitB:
+        purgeFiles: "False"
+        matchByColumnName: "None"
+        truncateColumns: "False"
+        forceLoad: "False"
+    Create CUSTOMER_ACCOUNTS:
+      type: "create-table"
+      transitions:
+        success:
+        - "Load Customer 360 Data"
+      parameters:
+        componentName: "Create CUSTOMER_ACCOUNTS"
+        createReplace: "Replace"
+        database: "DEMO_DATABASE"
+        schema: "DEMO_SCHEMA"
+        newTableName: "GW_CUSTOMER_ACCOUNTS"
+        tableType: "Permanent"
+        columns:
+        - - "DATA_VALUE"
+          - "VARIANT"
+          - ""
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        defaultDdlCollation:
+        primaryKeys:
+        clusteringKeys:
+        dataRetentionTimeInDays:
+        comment:
+    Wait:
+      type: "and"
+      transitions:
+        unconditional:
+        - "Run Calculate Profit and Revenue"
+      parameters:
+        componentName: "Wait"
+    Run Create SHEET_NAMES:
+      type: "run-transformation"
+      transitions:
+        success:
+        - "Table Iterator"
+      parameters:
+        componentName: "Run Create SHEET_NAMES"
+        transformationJob: "GreenWave Pipelines/Create SHEET_NAMES"
+        setScalarVariables:
+    Table Iterator:
+      type: "table-iterator"
+      transitions:
+        success:
+        - "Wait"
+      iterationTarget: "Excel Query"
+      parameters:
+        componentName: "Table Iterator"
+        mode: "Basic"
+        database: "DEMO_DATABASE"
+        schema: "DEMO_SCHEMA"
+        targetTable: "GW_SHEET_NAMES"
+        concurrency: "Concurrent"
+        columnMapping:
+        - - "WORKSHEET_NAME"
+          - "worksheet_name"
+    Run Calculate Profit and Revenue:
+      type: "run-transformation"
+      transitions:
+        success:
+        - "End Success"
+      parameters:
+        componentName: "Run Calculate Profit and Revenue"
+        transformationJob: "GreenWave Pipelines/Calculate Profit and Revenue"
+        setScalarVariables:
+    Excel Query:
+      type: "excel-query"
+      parameters:
+        componentName: "Excel Query"
+        basicAdvancedMode: "Advanced"
+        storageType: "Amazon S3 Storage"
+        storageUrl: "s3://myawabucketnew/CUST/store_lite.xlsx"
+        containsHeaderRow: "Yes"
+        connectionOptions:
+        sqlQuery: "SELECT * FROM ${worksheet_name}"
+        type: "Standard"
+        primaryKeys:
+        warehouse: "DEMO_WAREHOUSE"
+        database: "DEMO_DATABASE"
+        schema: "DEMO_SCHEMA"
+        targetTable: "GW_${worksheet_name}"
+        stage: "[Custom]"
+        stagePlatform: "Snowflake Managed"
+        loadOptions:
+        autoDebug: "Off"
+    End Success:
+      type: "end-success"
+      parameters:
+        componentName: "End Success"
+  variables:
+    worksheet_name:
+      metadata:
+        type: "TEXT"
+        description: ""
+        scope: "COPIED"
+        visibility: "PUBLIC"
+      defaultValue: "ITEMS"
+design:
+  components:
+    Start:
+      position:
+        x: 300
+        "y": 180
+      tempMetlId: 1
+    Load Customer 360 Data:
+      position:
+        x: 780
+        "y": 60
+      tempMetlId: 3
+    Create CUSTOMER_ACCOUNTS:
+      position:
+        x: 600
+        "y": 60
+      tempMetlId: 4
+    Wait:
+      position:
+        x: 1080
+        "y": 180
+      tempMetlId: 5
+    Run Create SHEET_NAMES:
+      position:
+        x: 600
+        "y": 300
+      tempMetlId: 6
+    Table Iterator:
+      position:
+        x: 780
+        "y": 290
+      tempMetlId: 7
+    Run Calculate Profit and Revenue:
+      position:
+        x: 1260
+        "y": 180
+      tempMetlId: 8
+    Excel Query:
+      position:
+        x: 780
+        "y": 290
+      tempMetlId: 9
+    End Success:
+      position:
+        x: 1440
+        "y": 180
+      tempMetlId: 10
+  notes:
+    "1":
+      position:
+        x: -60
+        "y": -60
+      size:
+        height: 178
+        width: 480
+      theme: "green"
+      content: |-
+        #### Welcome to the Designer
+
+        In this example pipeline, you are working for a fictional company called **GreenWave Technologies**. You will be calculating the profit and revenue for your business. You will use orchestration and transformation capabilities to see how easy it is to make your data business-ready faster!
+    "2":
+      position:
+        x: 480
+        "y": -60
+      size:
+        height: 238
+        width: 480
+      theme: "white"
+      content: "Here you are creating a new table which will be populated by a file\
+        \ stored in an **S3 bucket**.  The file contains some customer account information\
+        \ stored as JSON."
+    "3":
+      position:
+        x: 420
+        "y": 240
+      size:
+        height: 298
+        width: 480
+      theme: "white"
+      content: |-
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        \
+        Here you are running a transformation pipeline which will generate the names of the worksheets to extract data from. You are then iterating over this list of worksheets in an **Excel** workbook, which contains a variety of order information.
+    "4":
+      position:
+        x: 1150
+        "y": 70
+      size:
+        height: 238
+        width: 360
+      theme: "white"
+      content: "Using the **and** component, you are making sure the components prior\
+        \ are completed before running the **Calculate Profit and Revenue** transformation\
+        \ pipeline."

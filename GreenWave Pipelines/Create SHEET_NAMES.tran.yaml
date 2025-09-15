@@ -1,0 +1,63 @@
+type: "transformation"
+version: "1.0"
+pipeline:
+  components:
+    Generate worksheet names:
+      type: "fixed-flow"
+      parameters:
+        componentName: "Generate worksheet names"
+        columns:
+        - - "WORKSHEET_NAME"
+          - "VARCHAR"
+          - ""
+          - ""
+        values:
+        - - "ITEMS"
+        - - "ORDERS"
+        - - "ORDER_ITEMS"
+    Create SHEET_NAMES:
+      type: "rewrite-table"
+      sources:
+      - "Generate worksheet names"
+      parameters:
+        componentName: "Create SHEET_NAMES"
+        warehouse: "DEMO_WAREHOUSE"
+        database: "DEMO_DATABASE"
+        schema: "DEMO_SCHEMA"
+        targetTable: "GW_SHEET_NAMES"
+        orderBy:
+design:
+  components:
+    Generate worksheet names:
+      position:
+        x: -300
+        "y": -120
+      tempMetlId: 1
+    Create SHEET_NAMES:
+      position:
+        x: -120
+        "y": -120
+      tempMetlId: 2
+  notes:
+    "1":
+      position:
+        x: -900
+        "y": -240
+      size:
+        height: 178
+        width: 420
+      theme: "green"
+      content: |-
+        #### Generate worksheet names
+
+        This transformation pipeline is generating the worksheet names you will use for extracting raw order data.
+    "2":
+      position:
+        x: -420
+        "y": -240
+      size:
+        height: 238
+        width: 480
+      theme: "white"
+      content: "The **fixed flow** component is creating worksheet names and the **rewrite\
+        \ table** component is used to create a permanent table."
