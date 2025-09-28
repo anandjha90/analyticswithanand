@@ -1,3 +1,4 @@
+-- creating first file format
 CREATE OR REPLACE FILE FORMAT CSV_FORMAT 
   TYPE = 'CSV'
   PARSE_HEADER = TRUE
@@ -8,24 +9,24 @@ CREATE OR REPLACE FILE FORMAT CSV_FORMAT
   TRIM_SPACE = TRUE
   ENCODING = 'UTF8';
 
+-- creating storage integration for integrating with aws
 CREATE OR REPLACE STORAGE INTEGRATION S3_INT
 TYPE = EXTERNAL_STAGE
 ENABLED=TRUE
 STORAGE_PROVIDER = 'S3'
-STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::196024211961:role/awa_dev_role'
-STORAGE_ALLOWED_LOCATIONS =('s3://myawabucketnew/DEV/');
+STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::196024211961:role/awa_dev_role' --  replace with your arn
+STORAGE_ALLOWED_LOCATIONS =('s3://myawabucketnew/DEV/'); --  replace with your bucket/folder
 
 DESC STORAGE INTEGRATION S3_INT;
 
----Source Stage
+---Source Stage for landing files
 CREATE OR REPLACE STAGE STG_SCHEMA_FILES
 STORAGE_INTEGRATION = S3_INT
 URL = 's3://myawabucketnew/DEV/'
 FILE_FORMAT = 'CSV_FORMAT';
 
-
+-- list files
 LIST @STG_SCHEMA_FILES;
-
 
 ----> Infer schema to create table automatically 
 SELECT * from table(
@@ -36,11 +37,9 @@ SELECT * from table(
                                 )
                    );
 
-
 ---create table using template 
 CREATE OR REPLACE TABLE CUSTOMER_DATA
             USING TEMPLATE (
-
                SELECT ARRAY_AGG(OBJECT_CONSTRUCT(*)) FROM TABLE(
                     INFER_SCHEMA(
                     LOCATION=>'@STG_SCHEMA_FILES/customer_data_1.csv',
