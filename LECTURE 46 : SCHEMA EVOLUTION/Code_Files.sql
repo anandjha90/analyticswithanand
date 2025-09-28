@@ -1,17 +1,3 @@
-create or replace TABLE CUSTOMER_DATA_TEST (
-	CUST_ID VARCHAR(16777216),
-	CREDIT_CARD_NUMBER VARCHAR(16777216),
-	BALANCE NUMBER(7,2),
-	PURCHASES NUMBER(6,2),
-	INSTALLMENTS_PURCHASES NUMBER(6,2),
-	CASH_ADVANCE NUMBER(6,2),
-	CREDIT_LIMIT NUMBER(7,2),
-	PAYMENTS NUMBER(7,2),
-	MINIMUM_PAYMENTS NUMBER(7,2)
-);
-
-SHOW FILE FORMATS;
-
 CREATE OR REPLACE FILE FORMAT CSV_FORMAT 
   TYPE = 'CSV'
   PARSE_HEADER = TRUE
@@ -63,8 +49,8 @@ CREATE OR REPLACE TABLE CUSTOMER_DATA
                                 )
                    )
                    );
-            
-Select * from CUSTOMER_DATA;
+
+SHOW TABLES;
 
 DESC TABLE CUSTOMER_DATA;
 
@@ -72,8 +58,7 @@ DESC TABLE CUSTOMER_DATA;
 ALTER TABLE CUSTOMER_DATA SET ENABLE_SCHEMA_EVOLUTION=TRUE;
 ALTER FILE FORMAT CSV_FORMAT SET ERROR_ON_COLUMN_COUNT_MISMATCH=FALSE;
 
-SHOW TABLES;
-
+-- use this for testing as using snowpipe data will get ingested
 COPY INTO CUSTOMER_DATA
 FROM @STG_SCHEMA_FILES/customer_data_3.csv
 MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE
@@ -81,6 +66,7 @@ ON_ERROR = 'CONTINUE';
 
 Select * from CUSTOMER_DATA;
 
+-- using snowpipe for automatic data ingestion
 CREATE OR REPLACE PIPE CUSTOMER_DATA_PIPE 
   AUTO_INGEST = TRUE
 AS
@@ -96,13 +82,11 @@ SHOW PIPES;
 -- check pipe data flow status
 ALTER PIPE CUSTOMER_DATA_PIPE refresh;
 
--- now checking count where data has been arrived or not
-SELECT count(*) FROM DEMO_DATABASE.DEMO_SCHEMA.CUSTOMER_DATA;
-
--- Following are some snowpipe command which will help you to check snowpipe status
-
 -- This will show the latest file which has been processed
 select SYSTEM$PIPE_STATUS('CUSTOMER_DATA_PIPE');
+
+-- now checking count where data has been arrived or not
+SELECT count(*) FROM DEMO_DATABASE.DEMO_SCHEMA.CUSTOMER_DATA;
 
 -- to check wether the files count in source(AWS S3) & target(Snowflake) are matching or not use below command
 -- It will also help to answer question how many rows have been parsed in a particular table on any day or in last few days/hrs.
@@ -110,5 +94,3 @@ select SYSTEM$PIPE_STATUS('CUSTOMER_DATA_PIPE');
 
 select * from table(information_schema.copy_history(table_name=>'CUSTOMER_DATA', start_time=>
 dateadd(hours, -1, current_timestamp())));
-
-
