@@ -1,0 +1,59 @@
+CREATE OR REPLACE TABLE AUDIT.email_recipients (
+  email_address VARCHAR
+  );
+
+  INSERT INTO AUDIT.email_recipients VALUES
+('analyticswithanand@gmail.com'),
+('info@analyticswithanand.in');
+
+CREATE OR REPLACE NOTIFICATION INTEGRATION NOTIFICATION_INTG_EMAIL_TEST
+  TYPE = EMAIL
+  ENABLED = TRUE
+  ALLOWED_RECIPIENTS = ('analyticswithanand@gmail.com');
+
+
+--ALLOWED_RECIPIENTS = ('ankit.dataanalyst.14@gmail.com');
+
+SHOW NOTIFICATION INTEGRATIONS;
+
+DESC NOTIFICATION INTEGRATION NOTIFICATION_INTG_EMAIL;
+
+ALTER NOTIFICATION INTEGRATION NOTIFICATION_INTG_EMAIL
+SET ALLOWED_RECIPIENTS = ('<mailid>');
+
+
+ALTER NOTIFICATION INTEGRATION NOTIFICATION_INTG_EMAIL
+SET ALLOWED_RECIPIENTS = ('user1@company.com', 'user2@company.com');
+
+
+SELECT CURRENT_ACCOUNT(), CURRENT_REGION(), CURRENT_ROLE();
+
+SHOW INTEGRATIONS LIKE 'NOTIFICATION_INTG_EMAIL';
+
+GRANT USAGE ON INTEGRATION NOTIFICATION_INTG_EMAIL TO ROLE ACCOUNTADMIN;
+
+ --1️⃣ Drop existing integration (if exists)
+DROP NOTIFICATION INTEGRATION IF EXISTS NOTIFICATION_INTG_EMAIL;
+
+---2️⃣ Recreate the integration
+CREATE NOTIFICATION INTEGRATION NOTIFICATION_INTG_EMAIL
+  TYPE = EMAIL
+  ENABLED = TRUE
+  ALLOWED_RECIPIENTS = ('analyticswithanand@gmail.com');
+
+-- 3️⃣ Confirm creation and view configuration
+DESC NOTIFICATION INTEGRATION NOTIFICATION_INTG_EMAIL;
+
+-- 4️⃣ Optional: Check if it’s visible in the integrations list
+SHOW INTEGRATIONS LIKE 'NOTIFICATION_INTG_EMAIL';
+
+
+SHOW ORGANIZATION ACCOUNTS;
+*/
+
+CALL SYSTEM$SEND_EMAIL(
+  'NOTIFICATION_INTG_EMAIL',
+  'ankit.dataanalyst.14@gmail.com',
+  'Snowflake Email Test ✅',
+  'Hello! This is a test email sent directly from Snowflake.'
+);
