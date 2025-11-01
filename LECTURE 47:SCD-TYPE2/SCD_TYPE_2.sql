@@ -480,6 +480,7 @@ try {
 
 $$;
 
+
 CALL DEMO_SCD2.CURATED.SP_PROCESS_EMPLOYEE_DIM();
 
 -- ✅ SUCCESS: SCD2 run: job_id=SP_PROCESS_EMPLOYEE_DIM_2025-11-01T02-29-42-030Z_9234, inserted=9958, expired=10563, dup_collapsed=6346, total_curated=20521, duration_s=4
@@ -577,3 +578,266 @@ SELECT *, ROW_NUMBER() OVER (PARTITION BY C1 ORDER BY C1) AS rn
 FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE
 WHERE C1 = 'E954337';
 
+
+-- Data Quality Checks : Check row counts in staging vs expected (after each load).
+-- Row count sanity
+
+-- Count rows in staging and curated
+SELECT
+  'staging' AS source, COUNT(*) AS cnt
+FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE
+UNION ALL
+SELECT
+  'curated' AS source, COUNT(*) AS cnt
+FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM;
+
+
+-- Missing required fields (EID, Email, Address)
+-- Find rows missing critical values in staging.
+SELECT
+  COUNT(*) AS missing_count,
+  SUM(CASE WHEN C1 IS NULL OR TRIM(C1) = '' THEN 1 ELSE 0 END) AS missing_eid,
+  SUM(CASE WHEN C3 IS NULL OR TRIM(C3) = '' THEN 1 ELSE 0 END) AS missing_email,
+  SUM(CASE WHEN C5 IS NULL OR TRIM(C5) = '' THEN 1 ELSE 0 END) AS missing_address
+FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE;
+
+-- Invalid email format
+-- Detect emails that do not look valid (simple regex).
+
+SELECT COUNT(*) AS invalid_emails
+FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE
+WHERE C3 IS NOT NULL
+  AND NOT (LOWER(C3) RLIKE '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$');
+
+-- Duplicate EIDs in staging (per batch)
+-- Find EIDs appearing more than once in staging (per file or ingestion window).
+
+SELECT C1 AS EID, COUNT(*) AS cnt
+FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE
+GROUP BY C1
+HAVING COUNT(*) > 1
+ORDER BY cnt DESC;
+
+-- One email assigned to many EIDs (possible duplicates)
+-- Find emails reused across multiple EIDs — useful to detect account sharing or data quality issues.
+
+SELECT C3, COUNT(DISTINCT C1) AS num_eids, ARRAY_AGG(DISTINCT C1) AS eids
+FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE
+WHERE C3 IS NOT NULL AND TRIM(C3) <> ''
+GROUP BY C3
+HAVING COUNT(DISTINCT C1) > 1
+ORDER BY num_eids DESC;
+
+-- 6) Multiple distinct addresses per EID in staging
+-- This tells you EIDs that have 2+ addresses in the same batch (useful for SCD testing).
+
+SELECT C1, COUNT(DISTINCT C5) AS distinct_address_count, ARRAY_AGG(DISTINCT C5) AS addresses
+FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE
+GROUP BY C1
+HAVING COUNT(DISTINCT C5) >= 2
+ORDER BY distinct_address_count DESC;
+
+
+-- Check that curated SCD invariants hold: only one current row per EID
+-- SCD invariant: there should be at most one Is_Current = TRUE per EID.
+
+SELECT 
+    EID, 
+    COUNT(*) AS current_count,
+    ARRAY_AGG(
+        OBJECT_CONSTRUCT(
+            'Start_Date', Start_Date,
+            'End_Date', End_Date,
+            'Is_Current', Is_Current
+        )
+    ) AS obj
+FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM
+WHERE Is_Current = TRUE
+GROUP BY EID
+HAVING COUNT(*) > 1
+ORDER BY current_count DESC;
+
+
+
+-- Check SCD history chain integrity: latest Start_Date should be Is_Current
+-- Ensure the row with max(Start_Date) per EID is marked current.
+
+WITH latest AS (
+  SELECT EID, MAX(Start_Date) AS max_start
+  FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM
+  GROUP BY EID
+)
+SELECT c.EID, c.Start_Date, c.Is_Current
+FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM c
+JOIN latest l ON c.EID = l.EID AND c.Start_Date = l.max_start
+WHERE c.Is_Current = FALSE;
+
+-- Expired rows must have End_Date populated
+-- Check for expired rows where Is_Current = FALSE but End_Date is NULL.
+-- Threshold: should be 0.
+
+SELECT COUNT(*) AS missing_end_date
+FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM
+WHERE Is_Current = FALSE AND End_Date IS NULL;
+
+
+-- SRC_HASH change detection validation
+-- Find EIDs where current row and previous row have same SRC_HASH (unexpected) or missing SRC_HASH.
+
+-- A) Rows with NULL SRC_HASH
+SELECT COUNT(*) AS null_hash_count
+FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM
+WHERE SRC_HASH IS NULL;
+
+-- B) For EIDs with change events, check SRC_HASH differs
+WITH ranked AS (
+  SELECT EID, SRC_HASH, ROW_NUMBER() OVER (PARTITION BY EID ORDER BY Start_Date DESC) AS rn
+  FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM
+)
+SELECT r1.EID
+FROM ranked r1
+JOIN ranked r2 ON r1.EID = r2.EID AND r1.rn = 1 AND r2.rn = 2
+WHERE NVL(r1.SRC_HASH,'') = NVL(r2.SRC_HASH,'');
+
+-- If A > 0 — consider populating SRC_HASH. If B returns rows, it suggests insert/expire didn't change SRC_HASH — investigate.
+
+-- Company-level checks — count per company + missing company names
+-- Get counts per company and how many missing.
+
+-- A) Top companies by active employees
+SELECT CompanyName, COUNT(*) AS active_count
+FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM
+WHERE Is_Current = TRUE
+GROUP BY CompanyName
+ORDER BY active_count DESC;
+
+
+-- B) Missing company names in staging
+SELECT COUNT(*) AS missing_company FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE WHERE C6 IS NULL OR TRIM(C6) = '';
+
+-- Thresholds: missing_company ideally small; use top companies to spot unexpected names.
+
+-- Company name normalization issues (many variants)
+-- Detect high cardinality of company name variants that likely represent the same company (e.g., trailing spaces, different suffixes).
+
+SELECT LOWER(TRIM(CompanyName)) AS normalized_company, COUNT(*) AS cnt, ARRAY_AGG(DISTINCT CompanyName) AS variants
+FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM
+GROUP BY normalized_company
+HAVING COUNT(DISTINCT CompanyName) > 1
+ORDER BY cnt DESC;
+
+-- Action: build a mapping/normalization table or apply fuzzy matching.
+
+-- Email domain analysis (multiple companies)
+-- Show distribution of email domains for employees of selected companies. Replace companies in list.
+
+-- Replace the list with companies you want to analyze
+WITH company_list AS (
+  SELECT 'Company A' AS company UNION ALL SELECT 'Company B'
+)
+SELECT c.CompanyName, SPLIT_PART(LOWER(c.Email),'@',2) AS domain, COUNT(*) AS cnt
+FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM c
+JOIN company_list cl ON c.CompanyName = cl.company
+WHERE c.Is_Current = TRUE
+GROUP BY c.CompanyName, domain
+ORDER BY c.CompanyName, cnt DESC;
+
+-- Use this to spot corporate vs personal emails (e.g., many gmail.com for corporate employees is suspicious).
+-- Email uniqueness per company
+
+-- Check if multiple employees at same company share same email (likely data error).
+
+SELECT CompanyName, Email, COUNT(DISTINCT EID) AS eid_count
+FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM
+WHERE Is_Current = TRUE AND Email IS NOT NULL
+GROUP BY CompanyName, Email
+HAVING COUNT(DISTINCT EID) > 1
+ORDER BY eid_count DESC, CompanyName;
+
+-- Threshold: usually 1 per email per company.
+
+-- Data drift and change rate (per batch)
+-- If you capture BATCH_ID in curated (we added that), compute percent changed vs total per batch.
+
+-- Replace '<your_job_id_or_prefix>' with the job_id or partial string of the batch you want to analyze
+SELECT
+  SUBSTR(BATCH_ID, 1, 100) AS batch_sample,
+  COUNT(*) AS inserted_count
+FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM
+WHERE BATCH_ID LIKE '%batch3%'
+GROUP BY batch_sample
+ORDER BY inserted_count DESC;
+
+
+-- Or compute percent of EIDs changed today:
+
+SELECT
+  (SELECT COUNT(*) FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM WHERE DATE(Start_Date) = CURRENT_DATE()) AS inserted_today,
+  (SELECT COUNT(DISTINCT EID) FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM) AS total_eids,
+  ROUND(100.0 * (SELECT COUNT(*) FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM WHERE DATE(Start_Date) = CURRENT_DATE()) / NULLIF((SELECT COUNT(DISTINCT EID) FROM DEMO_SCD2.CURATED.EMPLOYEE_DIM),0),2) AS pct_changed_today;
+
+
+-- Use this to detect unexpectedly large churn.
+
+-- Automated ALERT: insert DQ failure into AUDIT.ERROR_LOG
+
+-- Example: if invalid emails exceed threshold (say 1% of staging rows), write an error log entry.
+
+-- 1) Compute invalid percentage
+WITH tot AS (SELECT COUNT(*) AS tot FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE),
+     bad AS (
+       SELECT COUNT(*) AS invalid_count
+       FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE
+       WHERE C3 IS NOT NULL
+         AND NOT (LOWER(C3) RLIKE '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
+     )
+SELECT b.invalid_count, t.tot,
+       ROUND(100.0 * b.invalid_count / NULLIF(t.tot,0),2) AS pct_invalid
+FROM tot t CROSS JOIN bad b;
+
+-- If pct_invalid > 1.0 then:
+
+INSERT INTO DEMO_SCD2.AUDIT.ERROR_LOG(FILE_NAME, ERROR_DETAILS)
+VALUES (NULL, 'Invalid email rate > 1%: ' || <pct_invalid>);
+
+-- (You can embed this logic in a TASK to auto-log.)
+
+-- Phone number format check
+-- Example: ensure 10-digit numeric phone numbers (India).
+
+SELECT COUNT(*) AS invalid_phone_count
+FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE
+WHERE C4 IS NOT NULL
+  AND NOT (REGEXP_REPLACE(C4, '\\D', '') RLIKE '^[0-9]{10}$');
+
+-- Action: normalize phone numbers on load (strip non-digits, country codes).
+
+-- Sampling for manual review
+-- Pull 20 random rows with potential problems for manual inspection.
+
+SELECT *
+FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE
+WHERE C3 IS NULL OR TRIM(C3) = '' OR NOT (LOWER(C3) RLIKE '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
+OR C6 IS NULL OR TRIM(C6) = '';
+
+
+-- DQ dashboard summary (single-row top-level)
+
+-- A compact summary reporting key DQ metrics in one row.
+
+WITH tot AS (SELECT COUNT(*) AS tot FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE),
+missing AS (
+  SELECT
+    SUM(CASE WHEN C1 IS NULL OR TRIM(C1) = '' THEN 1 ELSE 0 END) AS missing_eid,
+    SUM(CASE WHEN C3 IS NULL OR TRIM(C3) = '' THEN 1 ELSE 0 END) AS missing_email,
+    SUM(CASE WHEN C5 IS NULL OR TRIM(C5) = '' THEN 1 ELSE 0 END) AS missing_address
+  FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE
+),
+invalid_email AS (
+  SELECT COUNT(*) AS invalid_email_count
+  FROM DEMO_SCD2.STAGING.RAW_EMPLOYEE
+  WHERE C3 IS NOT NULL
+    AND NOT (LOWER(C3) RLIKE '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')
+)
+SELECT t.tot, m.missing_eid, m.missing_email, m.missing_address, ie.invalid_email_count
+FROM tot t CROSS JOIN missing m CROSS JOIN invalid_email ie;
