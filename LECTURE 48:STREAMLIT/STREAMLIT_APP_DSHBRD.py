@@ -324,7 +324,7 @@ else:
 env_db = os.getenv("SNOWFLAKE_DATABASE", "SALES_DB")
 env_schema = os.getenv("SNOWFLAKE_SCHEMA", "RAW")
 env_wh = os.getenv("SNOWFLAKE_WAREHOUSE", "WAREHOUSE_SNOWPRO")
-env_role = os.getenv("SNOWFLAKE_ROLE", "SYSADMIN")
+env_role = os.getenv("SNOWFLAKE_ROLE", "DESIGNER")
 
 sf_user = os.getenv("SNOWFLAKE_USER", "")
 sf_password = os.getenv("SNOWFLAKE_PASSWORD", "")
@@ -340,7 +340,7 @@ st.sidebar.header("⚙️ Connection Settings")
 env_db = os.getenv("SNOWFLAKE_DATABASE", "SALES_DB")
 env_schema = os.getenv("SNOWFLAKE_SCHEMA", "RAW")
 env_wh = os.getenv("SNOWFLAKE_WAREHOUSE", "WAREHOUSE_SNOWPRO")
-env_role = os.getenv("SNOWFLAKE_ROLE", "SYSADMIN")
+env_role = os.getenv("SNOWFLAKE_ROLE", "DESIGNER")
 
 sf_user = os.getenv("SNOWFLAKE_USER", "")
 sf_password = os.getenv("SNOWFLAKE_PASSWORD", "")
@@ -941,7 +941,7 @@ with tabs[3]:
     def get_filter_options():
         region_q = f"SELECT DISTINCT STATE AS REGION FROM {sf_schema}.FCT_SALES WHERE STATE IS NOT NULL;"
         category_q = f"SELECT DISTINCT CATEGORY FROM {sf_schema}.FCT_SALES WHERE CATEGORY IS NOT NULL;"
-        channel_q = f"SELECT DISTINCT CHANNEL_ID FROM {sf_schema}.FCT_SALES WHERE CHANNEL_ID IS NOT NULL;"
+        channel_q = f"SELECT DISTINCT CHANNEL_NAME FROM {sf_schema}.FCT_SALES WHERE CHANNEL_NAME IS NOT NULL;"
 
         try:
             df_region, _ = run_query(region_q, fetch=True)
@@ -950,7 +950,7 @@ with tabs[3]:
             return (
                 ["All"] + sorted(df_region["REGION"].dropna().astype(str).tolist()),
                 ["All"] + sorted(df_category["CATEGORY"].dropna().astype(str).tolist()),
-                ["All"] + sorted(df_channel["CHANNEL_ID"].dropna().astype(str).tolist())
+                ["All"] + sorted(df_channel["CHANNEL_NAME"].dropna().astype(str).tolist())
             )
         except Exception as e:
             st.warning(f"⚠️ Could not load filter values: {e}")
@@ -973,7 +973,7 @@ with tabs[3]:
     if category_sel != "All":
         filter_clause += f" AND CATEGORY = '{category_sel}'"
     if channel_sel != "All":
-        filter_clause += f" AND CHANNEL_ID = '{channel_sel}'"
+        filter_clause += f" AND CHANNEL_NAME = '{channel_sel}'"
 
     # ---------------------------
     # 2️⃣ KPI SQLs (filtered)
@@ -1153,7 +1153,7 @@ with tabs[4]:
     def get_filter_options():
         region_q = f"SELECT DISTINCT STATE AS REGION FROM {sf_schema}.FCT_SALES WHERE STATE IS NOT NULL;"
         category_q = f"SELECT DISTINCT CATEGORY FROM {sf_schema}.FCT_SALES WHERE CATEGORY IS NOT NULL;"
-        channel_q = f"SELECT DISTINCT CHANNEL_ID FROM {sf_schema}.FCT_SALES WHERE CHANNEL_ID IS NOT NULL;"
+        channel_q = f"SELECT DISTINCT CHANNEL_NAME FROM {sf_schema}.FCT_SALES WHERE CHANNEL_NAME IS NOT NULL;"
         try:
             df_region, _ = run_query(region_q, fetch=True)
             df_category, _ = run_query(category_q, fetch=True)
@@ -1161,7 +1161,7 @@ with tabs[4]:
             return (
                 ["All"] + sorted(df_region["REGION"].dropna().astype(str).tolist()),
                 ["All"] + sorted(df_category["CATEGORY"].dropna().astype(str).tolist()),
-                ["All"] + sorted(df_channel["CHANNEL_ID"].dropna().astype(str).tolist())
+                ["All"] + sorted(df_channel["CHANNEL_NAME"].dropna().astype(str).tolist())
             )
         except Exception as e:
             st.warning(f"⚠️ Could not load filter values: {e}")
@@ -1184,7 +1184,7 @@ with tabs[4]:
     if category_sel != "All":
         filter_clause += f" AND CATEGORY = '{category_sel}'"
     if channel_sel != "All":
-        filter_clause += f" AND CHANNEL_ID = '{channel_sel}'"
+        filter_clause += f" AND CHANNEL_NAME = '{channel_sel}'"
 
     # ==========================================================
     # Source and Metric Selection
