@@ -136,6 +136,7 @@ COPY INTO RAW.FCT_SALES FROM @RAW.SALES_STAGE/fct_sales.csv FILE_FORMAT = (FORMA
 COPY INTO RAW.FCT_PRESCRIPTIONS FROM @RAW.SALES_STAGE/fct_prescriptions.csv FILE_FORMAT = (FORMAT_NAME = RAW.CSV_FMT) ON_ERROR = 'CONTINUE' FORCE = TRUE;
 COPY INTO RAW.FCT_INVENTORY FROM @RAW.SALES_STAGE/fct_inventory.csv FILE_FORMAT = (FORMAT_NAME = RAW.CSV_FMT) ON_ERROR = 'CONTINUE' FORCE = TRUE;
 
+
 -- ============================================================
 -- 5️⃣ DATA VALIDATION
 -- ============================================================
@@ -176,6 +177,10 @@ SELECT
   SUM(TOTAL_SALES) AS TOTAL_SALES
 FROM RAW.FCT_SALES
 GROUP BY ORDER_DATE::DATE, CATEGORY, BRAND;
+
+select distinct region_id from SALES_DB.RAW.STORES;
+
+select distinct city from SALES_DB.RAW.CUSTOMERS;
 
 -- (2) Prescription Volume by Region
 CREATE OR REPLACE MATERIALIZED VIEW RAW.MV_PRESCRIPTIONS_BY_REGION
@@ -229,3 +234,116 @@ FROM INFORMATION_SCHEMA.TABLE_STORAGE_METRICS
 WHERE TABLE_SCHEMA = 'RAW'
   AND TABLE_NAME IN ('FCT_SALES','FCT_PRESCRIPTIONS','FCT_INVENTORY',
                      'MV_DAILY_SALES_SUMMARY','MV_PRESCRIPTIONS_BY_REGION','MV_INVENTORY_TREND');
+
+
+
+
+ALTER TABLE SALES_DB.RAW.CUSTOMERS
+ADD COLUMN IF NOT EXISTS REGION_NAME VARCHAR(50);
+
+UPDATE SALES_DB.RAW.CUSTOMERS
+SET REGION_NAME = CASE
+    WHEN ILIKE(CITY, 'Mumbai')            THEN 'West'
+    WHEN ILIKE(CITY, 'Pune')              THEN 'West'
+    WHEN ILIKE(CITY, 'Ahmedabad')         THEN 'West'
+    WHEN ILIKE(CITY, 'Jaipur')            THEN 'North-West'
+    WHEN ILIKE(CITY, 'Chandigarh')        THEN 'North'
+    WHEN ILIKE(CITY, 'Delhi')             THEN 'North'
+    WHEN ILIKE(CITY, 'Lucknow')           THEN 'North'
+    WHEN ILIKE(CITY, 'Noida')             THEN 'North'
+    WHEN ILIKE(CITY, 'Kolkata')           THEN 'East'
+    WHEN ILIKE(CITY, 'Indore')            THEN 'Central'
+    WHEN ILIKE(CITY, 'Nagpur')            THEN 'Central'
+    WHEN ILIKE(CITY, 'Bengaluru')         THEN 'South'
+    WHEN ILIKE(CITY, 'Hyderabad')         THEN 'South'
+    WHEN ILIKE(CITY, 'Chennai')           THEN 'South-East'    -- Chennai is south-east coast
+    WHEN ILIKE(CITY, 'Kochi')             THEN 'South-West'    -- Kerala -> south-west
+    ELSE 'Unknown'
+END;
+
+ALTER TABLE SALES_DB.RAW.FCT_INVENTORY
+ADD COLUMN IF NOT EXISTS REGION_NAME VARCHAR(50);
+
+UPDATE SALES_DB.RAW.FCT_INVENTORY
+SET REGION_NAME = CASE
+    WHEN REGION_ID = 'R1' THEN 'Central'
+    WHEN REGION_ID = 'R2' THEN 'North'
+    WHEN REGION_ID = 'R3' THEN 'South'
+    WHEN REGION_ID = 'R4' THEN 'East'
+    WHEN REGION_ID = 'R5' THEN 'North-East'
+    WHEN REGION_ID = 'R6' THEN 'South-East'
+    WHEN REGION_ID = 'R7' THEN 'West'
+    WHEN REGION_ID = 'R8' THEN 'South-West'
+    WHEN REGION_ID = 'R9' THEN 'North-West'
+    WHEN REGION_ID = 'R10' THEN 'Unknown'
+    ELSE 'Unknown'
+END;
+
+
+
+ALTER TABLE SALES_DB.RAW.FCT_PRESCRIPTIONS
+ADD COLUMN IF NOT EXISTS REGION_NAME VARCHAR(50);
+
+UPDATE SALES_DB.RAW.FCT_PRESCRIPTIONS
+SET REGION_NAME = CASE
+    WHEN REGION_ID = 'R1' THEN 'Central'
+    WHEN REGION_ID = 'R2' THEN 'North'
+    WHEN REGION_ID = 'R3' THEN 'South'
+    WHEN REGION_ID = 'R4' THEN 'East'
+    WHEN REGION_ID = 'R5' THEN 'North-East'
+    WHEN REGION_ID = 'R6' THEN 'South-East'
+    WHEN REGION_ID = 'R7' THEN 'West'
+    WHEN REGION_ID = 'R8' THEN 'South-West'
+    WHEN REGION_ID = 'R9' THEN 'North-West'
+    WHEN REGION_ID = 'R10' THEN 'Unknown'
+    ELSE 'Unknown'
+END;
+
+
+ALTER TABLE SALES_DB.RAW.STORES
+ADD COLUMN IF NOT EXISTS REGION_NAME VARCHAR(50);
+
+UPDATE SALES_DB.RAW.STORES
+SET REGION_NAME = CASE
+    WHEN REGION_ID = 'R1' THEN 'Central'
+    WHEN REGION_ID = 'R2' THEN 'North'
+    WHEN REGION_ID = 'R3' THEN 'South'
+    WHEN REGION_ID = 'R4' THEN 'East'
+    WHEN REGION_ID = 'R5' THEN 'North-East'
+    WHEN REGION_ID = 'R6' THEN 'South-East'
+    WHEN REGION_ID = 'R7' THEN 'West'
+    WHEN REGION_ID = 'R8' THEN 'South-West'
+    WHEN REGION_ID = 'R9' THEN 'North-West'
+    WHEN REGION_ID = 'R10' THEN 'Unknown'
+    ELSE 'Unknown'
+END;   
+
+SELECT DISTINCT CHANNEL_ID,CHANNEL_NAME FROM SALES_DB.RAW.SALES_CHANNELS;
+
+ALTER TABLE SALES_DB.RAW.FCT_SALES
+ADD COLUMN IF NOT EXISTS CHANNEL_NAME VARCHAR(50);
+
+UPDATE SALES_DB.RAW.FCT_SALES
+SET CHANNEL_NAME = CASE
+    WHEN CHANNEL_ID = 'CH01' THEN 'Tata 1mg App'
+    WHEN CHANNEL_ID = 'CH02' THEN 'Retail Pharmacy'
+    WHEN CHANNEL_ID = 'CH03' THEN 'Partner Hospitals'
+    WHEN CHANNEL_ID = 'CH04' THEN 'Teleconsult'
+    WHEN CHANNEL_ID = 'CH05' THEN 'Corporate Sales'
+END; 
+
+
+UPDATE SALES_DB.RAW.FCT_SALES
+SET REGION_NAME = CASE
+    WHEN REGION_ID = 'R1' THEN 'Central'
+    WHEN REGION_ID = 'R2' THEN 'North'
+    WHEN REGION_ID = 'R3' THEN 'South'
+    WHEN REGION_ID = 'R4' THEN 'East'
+    WHEN REGION_ID = 'R5' THEN 'North-East'
+    WHEN REGION_ID = 'R6' THEN 'South-East'
+    WHEN REGION_ID = 'R7' THEN 'West'
+    WHEN REGION_ID = 'R8' THEN 'South-West'
+    WHEN REGION_ID = 'R9' THEN 'North-West'
+    WHEN REGION_ID = 'R10' THEN 'Unknown'
+    ELSE 'Unknown'
+END; 
