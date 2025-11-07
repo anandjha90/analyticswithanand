@@ -1,0 +1,6 @@
+CHANNEL_ID,CHANNEL_NAME,TYPE,DESCRIPTION
+CH01,Tata 1mg App,Online,E-pharmacy mobile app
+CH02,Retail Pharmacy,Offline,Physical pharmacy outlets
+CH03,Partner Hospitals,Institutional,Bulk supply to hospitals
+CH04,Teleconsult,Online,Telemedicine prescriptions
+CH05,Corporate Sales,B2B,Corporate & institutional sales

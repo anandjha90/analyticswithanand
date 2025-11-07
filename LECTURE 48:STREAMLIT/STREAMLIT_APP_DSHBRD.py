@@ -1,0 +1,1572 @@
+# app.py
+# Snowflake Streamlit — Cleaned & Enhanced (No RBAC/ABAC/Email, MV + Clustering + Search Opt)
+# Author: Assistant (adapted) | Date: 2025-11-07
+# Notes: Keep env vars: SNOWFLAKE_USER, SNOWFLAKE_PASSWORD, SNOWFLAKE_ACCOUNT,
+# SNOWFLAKE_DATABASE (default SALES_DB), SNOWFLAKE_SCHEMA (default RAW), SNOWFLAKE_WAREHOUSE
+
+import streamlit as st
+import pandas as pd
+import snowflake.connector
+import os
+import time
+from datetime import datetime
+from typing import Tuple
+try:
+    from streamlit_autorefresh import st_autorefresh
+    HAS_AUTOREFRESH = True
+except ModuleNotFoundError:
+    HAS_AUTOREFRESH = False
+
+
+
+# optional autorefresh
+try:
+    from streamlit_autorefresh import st_autorefresh
+    HAS_AUTOREFRESH = True
+except Exception:
+    HAS_AUTOREFRESH = False
+
+# plotting
+try:
+    import plotly.express as px
+    import plotly.graph_objects as go
+    HAS_PLOTLY = True
+except Exception:
+    HAS_PLOTLY = False
+    import altair as alt
+
+# ---------------------------
+# Page & CSS
+# ---------------------------
+st.set_page_config(page_title="💊 Snowflake Performance & BI Dashboard", layout="wide", initial_sidebar_state="expanded")
+
+st.markdown("""
+<style>
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(to right, #f8faff, #e3f2fd);
+}
+[data-testid="stSidebar"] {background-color: #f1f3f6;}
+div.block-container {padding-top: 1rem;}
+.stButton button {
+    background: linear-gradient(90deg,#42a5f5,#1e88e5);
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:0.5rem 1.2rem;
+    font-weight:600;
+    transition: all 0.2s ease;
+}
+.stButton button:hover {transform: translateY(-2px); background: #1565c0;}
+.kpi-tile { flex: 1; background: linear-gradient(135deg, #e3f2fd, #ffffff); border-radius: 20px; padding: 20px; text-align:center; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+</style>
+""", unsafe_allow_html=True)
+st.markdown("""
+<style>
+/* Capsule-style Tabs */
+div[data-baseweb="tab-list"] {
+  background: #e3f2fd;
+  border-radius: 30px;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+div[data-baseweb="tab"] {
+  border-radius: 20px !important;
+  padding: 6px 18px !important;
+  margin: 0 6px !important;
+  transition: all 0.25s ease-in-out;
+  color: #0d47a1;
+}
+div[data-baseweb="tab"]:hover {
+  background-color: #90caf9 !important;
+  color: #0d47a1 !important;
+}
+div[data-baseweb="tab"][aria-selected="true"] {
+  background: linear-gradient(90deg,#1e88e5,#42a5f5);
+  color: white !important;
+  font-weight: 700;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+# ---------------------------
+# 🕒 LAST REFRESHED TILE (force-refresh on every rerun)
+# ---------------------------
+import uuid
+
+def show_last_refreshed_tile():
+    """Display dynamic 'Last Refreshed' tile tied to session refresh time."""
+    if "last_refresh_time" not in st.session_state:
+        st.session_state["last_refresh_time"] = datetime.now()
+
+    formatted_time = st.session_state["last_refresh_time"].strftime("%Y-%m-%d %H:%M:%S")
+
+    st.markdown(f"""
+    <div style="
+        position:fixed;
+        top:70px;
+        right:30px;
+        z-index:1000;
+        background:linear-gradient(135deg,#e3f2fd,#ffffff);
+        border-radius:12px;
+        padding:8px 16px;
+        box-shadow:0 3px 10px rgba(0,0,0,0.1);
+        font-size:13px;
+        font-weight:600;
+        color:#0d47a1;
+        border:1px solid #bbdefb;
+        animation: fadeFlash 0.8s ease;
+    ">
+        🕒 Last Refreshed: {formatted_time}
+    </div>
+    <style>
+    @keyframes fadeFlash {{
+        0% {{ background: #bbdefb; }}
+        100% {{ background: linear-gradient(135deg,#e3f2fd,#ffffff); }}
+    }}
+    </style>
+    """, unsafe_allow_html=True)
+
+
+st.markdown("<h1 style='text-align:center;color:#1565c0;'>🏔️ Snowflake Performance & BI Dashboard</h1>", unsafe_allow_html=True)
+st.divider()
+show_last_refreshed_tile()
+
+# ---------------------------
+# Sidebar: Connection + Auto-refresh + Stage Check
+# ---------------------------
+st.sidebar.markdown("---")
+st.sidebar.header("💊➕ TATA 1MG")
+
+
+# --------------------------------------------------------
+# 🎨 THEME TOGGLE — FINAL WHITE TEXT VERSION
+# --------------------------------------------------------
+st.sidebar.markdown("---")
+st.sidebar.header("🎨 Theme Settings")
+
+if "theme" not in st.session_state:
+    st.session_state["theme"] = "Light"
+
+theme_choice = st.sidebar.radio(
+    "Select Theme:",
+    ["Light", "Dark"],
+    index=0 if st.session_state["theme"] == "Light" else 1,
+    horizontal=True,
+    key="theme_selector"
+)
+
+st.session_state["theme"] = theme_choice
+
+# =========================
+# 🌑 DARK THEME (Bright white text)
+# =========================
+if st.session_state["theme"] == "Dark":
+    st.markdown("""
+    <style>
+    /* App Background */
+    [data-testid="stAppViewContainer"] {
+        background: #0f0f0f !important;
+        color: #ffffff !important;
+    }
+    [data-testid="stSidebar"] {
+        background-color: #161616 !important;
+        color: #ffffff !important;
+    }
+
+    div.block-container {
+        color: #ffffff !important;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6, p, label, span {
+        color: #ffffff !important;
+    }
+
+    /* Buttons */
+    .stButton button {
+        background: linear-gradient(90deg,#9c27b0,#6a1b9a) !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 0.5rem 1.2rem !important;
+        font-weight: 600 !important;
+        transition: all 0.2s ease !important;
+    }
+    .stButton button:hover {
+        background: #ab47bc !important;
+        transform: translateY(-2px);
+    }
+
+    /* KPI Tiles */
+    .kpi-tile {
+        background: linear-gradient(135deg,#1a1a1a,#292929) !important;
+        border-radius: 20px !important;
+        padding: 20px !important;
+        text-align: center !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 12px rgba(255,255,255,0.08) !important;
+    }
+
+    /* Tabs */
+    div[data-baseweb="tab-list"] {
+        background: #1e1e1e !important;
+        border-radius: 30px !important;
+        padding: 6px !important;
+        display: flex !important;
+        justify-content: center !important;
+        margin-bottom: 12px !important;
+    }
+    div[data-baseweb="tab"] {
+        border-radius: 20px !important;
+        padding: 6px 18px !important;
+        margin: 0 6px !important;
+        transition: all 0.25s ease-in-out !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+    }
+    div[data-baseweb="tab"]:hover {
+        background-color: #333333 !important;
+        color: #ffffff !important;
+    }
+    div[data-baseweb="tab"][aria-selected="true"] {
+        background: linear-gradient(90deg,#9c27b0,#7b1fa2) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        box-shadow: 0 3px 10px rgba(255,255,255,0.25) !important;
+    }
+
+    /* Inputs & Selects */
+    select, textarea, input {
+        background-color: #1c1c1c !important;
+        color: #ffffff !important;
+        border: 1px solid #555 !important;
+    }
+
+    /* DataFrames and Code */
+    .stDataFrame, pre, code, .stMarkdown code {
+        background-color: #1c1c1c !important;
+        color: #ffffff !important;
+    }
+
+    /* Dividers */
+    hr, .stDivider {
+        border-color: #333333 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# =========================
+# ☀️ LIGHT THEME (Original)
+# =========================
+else:
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background: linear-gradient(to right, #f8faff, #e3f2fd);
+        color: #000000;
+    }
+    [data-testid="stSidebar"] {background-color: #f1f3f6;}
+    div.block-container {padding-top: 1rem;}
+    h1, h2, h3, h4, h5, h6 {color: #0d47a1;}
+
+    .stButton button {
+        background: linear-gradient(90deg,#42a5f5,#1e88e5);
+        color:white;
+        border:none;
+        border-radius:8px;
+        padding:0.5rem 1.2rem;
+        font-weight:600;
+        transition: all 0.2s ease;
+    }
+    .stButton button:hover {
+        background: #1565c0;
+        transform: translateY(-2px);
+    }
+
+    .kpi-tile {
+        background: linear-gradient(135deg, #e3f2fd, #ffffff);
+        border-radius: 20px;
+        padding: 20px;
+        text-align:center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        color: #000000;
+    }
+
+    div[data-baseweb="tab-list"] {
+        background: #e3f2fd;
+        border-radius: 30px;
+        padding: 6px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 12px;
+    }
+    div[data-baseweb="tab"] {
+        color: #0d47a1;
+    }
+    div[data-baseweb="tab"]:hover {
+        background-color: #90caf9 !important;
+        color: #0d47a1 !important;
+    }
+    div[data-baseweb="tab"][aria-selected="true"] {
+        background: linear-gradient(90deg,#1e88e5,#42a5f5);
+        color: white !important;
+        font-weight: 700;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+
+env_db = os.getenv("SNOWFLAKE_DATABASE", "SALES_DB")
+env_schema = os.getenv("SNOWFLAKE_SCHEMA", "RAW")
+env_wh = os.getenv("SNOWFLAKE_WAREHOUSE", "WAREHOUSE_SNOWPRO")
+env_role = os.getenv("SNOWFLAKE_ROLE", "SYSADMIN")
+
+sf_user = os.getenv("SNOWFLAKE_USER", "")
+sf_password = os.getenv("SNOWFLAKE_PASSWORD", "")
+sf_account = os.getenv("SNOWFLAKE_ACCOUNT", "")
+
+# --------------------------------------------------------
+# ⚙️ SIDEBAR — Dynamic Connection Settings
+# --------------------------------------------------------
+st.sidebar.markdown("---")
+st.sidebar.header("⚙️ Connection Settings")
+
+# Environment defaults
+env_db = os.getenv("SNOWFLAKE_DATABASE", "SALES_DB")
+env_schema = os.getenv("SNOWFLAKE_SCHEMA", "RAW")
+env_wh = os.getenv("SNOWFLAKE_WAREHOUSE", "WAREHOUSE_SNOWPRO")
+env_role = os.getenv("SNOWFLAKE_ROLE", "SYSADMIN")
+
+sf_user = os.getenv("SNOWFLAKE_USER", "")
+sf_password = os.getenv("SNOWFLAKE_PASSWORD", "")
+sf_account = os.getenv("SNOWFLAKE_ACCOUNT", "")
+
+# ✅ Utility function to fetch live Snowflake metadata
+def fetch_snowflake_metadata(default_db=env_db):
+    db_list, schema_list, wh_list, role_list = [], [], [], []
+    try:
+        temp_conn = snowflake.connector.connect(
+            user=sf_user,
+            password=sf_password,
+            account=sf_account,
+            client_session_keep_alive=False
+        )
+        cur = temp_conn.cursor()
+        try:
+            # Fetch databases
+            cur.execute("SHOW DATABASES")
+            db_list = sorted({row[1] for row in cur.fetchall() if row and len(row) > 1})
+
+            # Fetch schemas
+            try:
+                cur.execute(f"SHOW SCHEMAS IN DATABASE {default_db}")
+                schema_list = sorted({row[1] for row in cur.fetchall() if row and len(row) > 1})
+            except Exception:
+                schema_list = []
+
+            # Fetch warehouses
+            try:
+                cur.execute("SHOW WAREHOUSES")
+                wh_rows = cur.fetchall()
+                wh_list = sorted({row[1] for row in wh_rows if row and len(row) > 1})
+            except Exception:
+                wh_list = []
+
+            # Fetch roles (with fallback)
+            try:
+                cur.execute("SHOW ROLES")
+                role_rows = cur.fetchall()
+                role_list = sorted({row[1] for row in role_rows if row and len(row) > 1})
+
+                # Fallback — for limited role visibility
+                if len(role_list) <= 1:
+                    try:
+                        cur.execute("""
+                            SELECT DISTINCT ROLE_NAME 
+                            FROM SNOWFLAKE.ACCOUNT_USAGE.GRANTS_TO_USERS
+                            WHERE DELETED_ON IS NULL
+                            ORDER BY ROLE_NAME;
+                        """)
+                        role_list = sorted({r[0] for r in cur.fetchall() if r and r[0]})
+                    except Exception:
+                        pass
+            except Exception:
+                role_list = []
+
+        finally:
+            cur.close()
+            temp_conn.close()
+    except Exception:
+        db_list, schema_list, wh_list, role_list = [], [], [], []
+
+    # Ensure fallback values
+    db_list = db_list or [env_db]
+    schema_list = schema_list or [env_schema]
+    wh_list = wh_list or [env_wh]
+    role_list = role_list or [env_role]
+
+    return db_list, schema_list, wh_list, role_list
+
+# Initial fetch
+db_list, schema_list, wh_list, role_list = fetch_snowflake_metadata(env_db)
+
+# Sidebar dropdowns (selectboxes)
+sf_database = st.sidebar.selectbox(
+    "🗃️ Database", db_list, 
+    index=db_list.index(env_db) if env_db in db_list else 0, 
+    key="sb_database"
+)
+sf_schema = st.sidebar.selectbox(
+    "📂 Schema", schema_list, 
+    index=schema_list.index(env_schema) if env_schema in schema_list else 0, 
+    key="sb_schema"
+)
+sf_warehouse = st.sidebar.selectbox(
+    "🏗️ Warehouse", wh_list, 
+    index=wh_list.index(env_wh) if env_wh in wh_list else 0, 
+    key="sb_warehouse"
+)
+sf_role = st.sidebar.selectbox(
+    "👤 Role", role_list, 
+    index=role_list.index(env_role) if env_role in role_list else 0, 
+    key="sb_role"
+)
+
+# Apply settings button — triggers rerun
+if st.sidebar.button("🔄 Apply Settings"):
+    st.toast("🔁 Refreshing Snowflake connection...", icon="🔁")
+    try:
+        st.cache_resource.clear()
+        st.cache_data.clear()
+    except Exception:
+        pass
+    st.rerun()
+
+
+st.sidebar.markdown("---")
+
+
+
+
+
+
+# ---------------------------
+# connection resource
+# ---------------------------
+@st.cache_resource(ttl=3600)
+def get_conn(db, schema, wh, role):
+    try:
+        conn = snowflake.connector.connect(
+            user=sf_user,
+            password=sf_password,
+            account=sf_account,
+            warehouse=wh,
+            database=db,
+            schema=schema,
+            role=role,
+            client_session_keep_alive=True
+        )
+        return conn
+    except Exception as e:
+        return None
+
+conn = get_conn(sf_database, sf_schema, sf_warehouse, sf_role)
+if conn is None:
+    st.sidebar.error("❌ Unable to connect — check credentials and network.")
+    st.stop()
+else:
+    st.sidebar.success(f"✅ Connected to {sf_database}.{sf_schema} | WH: {sf_warehouse}")
+
+
+# =========================================================
+# 🔁 AUTO-REFRESH (Safe Fallback — No External Dependency Needed)
+# =========================================================
+st.sidebar.markdown("---")
+st.sidebar.header("🔁 Auto-Refresh Settings")
+
+if "last_refresh_time" not in st.session_state:
+    st.session_state["last_refresh_time"] = datetime.now()
+if "last_data_hash" not in st.session_state:
+    st.session_state["last_data_hash"] = None
+if "last_auto_refresh" not in st.session_state:
+    st.session_state["last_auto_refresh"] = time.time()
+
+auto_refresh = st.sidebar.checkbox("Enable auto-refresh", value=False, key="auto_refresh_flag")
+refresh_interval = st.sidebar.slider("Refresh every (seconds):", 10, 300, 60, step=10, key="refresh_interval_slider")
+
+def compute_data_hash():
+    try:
+        df, _ = run_query(f"SELECT COUNT(*) AS ROWS, MAX(ORDER_DATE) AS LATEST_DATE FROM {sf_schema}.FCT_SALES;", fetch=True)
+        if not df.empty:
+            val = str(df.iloc[0]["ROWS"]) + str(df.iloc[0]["LATEST_DATE"])
+            return hash(val)
+    except Exception:
+        return None
+    return None
+
+if auto_refresh:
+    st.sidebar.success(f"✅ Auto-refresh active every {refresh_interval} seconds")
+
+    now = time.time()
+
+    # --- If module available, use it
+    if HAS_AUTOREFRESH:
+        refresh_counter = st_autorefresh(interval=refresh_interval * 1000, limit=None, key="auto_refresh_key")
+
+        if refresh_counter:
+            st.session_state["last_refresh_time"] = datetime.now()
+            new_hash = compute_data_hash()
+            if new_hash and new_hash != st.session_state["last_data_hash"]:
+                st.session_state["last_data_hash"] = new_hash
+                st.toast("📊 Auto-refresh triggered — new data detected!", icon="✅")
+            else:
+                st.toast("🔁 Auto-refresh triggered — no change in data.", icon="🕒")
+    else:
+        # --- Pure Streamlit fallback (timer-based rerun)
+        if now - st.session_state["last_auto_refresh"] > refresh_interval:
+            st.session_state["last_auto_refresh"] = now
+            st.session_state["last_refresh_time"] = datetime.now()
+
+            new_hash = compute_data_hash()
+            if new_hash and new_hash != st.session_state["last_data_hash"]:
+                st.session_state["last_data_hash"] = new_hash
+                st.toast("📊 Fallback refresh — new data detected!", icon="✅")
+            else:
+                st.toast("🔁 Fallback refresh — no change in data.", icon="🕒")
+
+            # 👇 trigger full app rerun automatically
+            st.rerun()
+else:
+    st.sidebar.info("⏸️ Auto-refresh disabled.")
+
+
+
+# ---------------------------
+# Query executor
+# ---------------------------
+def run_query(q: str, fetch: bool = False, timeout: int = 300):
+    """Execute SQL. If fetch=True return (df, elapsed_seconds) else (None, elapsed_seconds)."""
+    cur = conn.cursor()
+    try:
+        start = time.time()
+        cur.execute(q)
+        elapsed = time.time() - start
+        if fetch:
+            rows = cur.fetchall()
+            cols = [c[0] for c in cur.description] if cur.description else []
+            df = pd.DataFrame(rows, columns=cols)
+            return df, elapsed
+        return None, elapsed
+    finally:
+        try:
+            cur.close()
+        except Exception:
+            pass
+
+# ---------------------------
+# Stage file listing helper
+# ---------------------------
+def list_stage_files(database: str, schema: str, stage_name: str = "SALES_STAGE"):
+    try:
+        safe_db = database.strip('"')
+        safe_schema = schema.strip('"')
+        q = f"LIST @{safe_db}.{safe_schema}.{stage_name}"
+        df, _ = run_query(q, fetch=True)
+        if not df.empty and "name" in df.columns:
+            return df["name"].astype(str).tolist()
+        return []
+    except Exception:
+        return []
+
+# ---------------------------
+# Tables list (7-table model)
+# ---------------------------
+FULL_TABLES = [
+    "PRODUCTS",
+    "CUSTOMERS",
+    "STORES",
+    "SALES_CHANNELS",
+    "FCT_SALES",
+    "FCT_PRESCRIPTIONS",
+    "FCT_INVENTORY"
+]
+
+# ---------------------------
+# Tabs
+# ---------------------------
+tabs = st.tabs([
+    "ℹ️ Intro & User Guide",
+    "📦 Data Load",
+    "⚙️ Optimization",
+    "📊 KPIs",
+    "📈 BI Visuals",
+    "🧩 Performance",
+    "🧠 AI Analyst"
+])
+
+
+
+# ==========================================================
+# TAB 0: INTRO — Overview & User Guide
+# ==========================================================
+with tabs[0]:
+    st.markdown("""
+    <h2 style='background:linear-gradient(90deg,#26c6da,#0097a7);
+                padding:10px;border-radius:10px;color:white;'>
+        ℹ️ Welcome — Pharma Analytics Dashboard
+    </h2>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    This interactive **Snowflake Streamlit Dashboard** provides a complete data analytics
+    and optimization environment for the **Pharma domain**, built on a 7-table model:
+
+    **📦 Core Tables**
+    - **PRODUCTS** – Master catalog of all pharmaceutical products  
+    - **CUSTOMERS** – End customers and patient demographics  
+    - **STORES** – Store or outlet details by city and region  
+    - **SALES_CHANNELS** – Sales channel metadata (Retail / Online / Hospital)  
+    - **FCT_SALES** – Transaction-level sales fact data  
+    - **FCT_PRESCRIPTIONS** – Doctor–patient prescription details  
+    - **FCT_INVENTORY** – Daily stock movement and closing balances  
+
+    **⚙️ Key Capabilities**
+    - Load and refresh data directly from internal stage **`@RAW.SALES_STAGE`**  
+    - Apply **clustering keys** to optimize large fact tables  
+    - Create and maintain the **materialized view** `MV_DAILY_SALES_SUMMARY`  
+    - Enable **Search Optimization Service (SOS)** for faster lookups  
+    - Generate **KPIs, visual analytics, and AI-powered insights** using Cortex AI  
+
+    **🔐 Note**
+    - All queries execute under the currently connected **Snowflake user/role**  
+    - RBAC, ABAC, and masking policies are enforced automatically by Snowflake  
+    - Email alerts and notifications are disabled in this demo version  
+
+    ---
+    💡 *Tip:* Use the sidebar to switch databases, schemas, warehouses, or roles — then explore tabs for data load, optimization, KPIs, and AI insights.
+    """)
+
+
+# ==========================================================
+# TAB 1: Data Load  🎈 with Success Celebration
+# ==========================================================
+with tabs[1]:
+    st.markdown("<h2 style='background:linear-gradient(90deg,#42a5f5,#1e88e5);padding:10px;border-radius:10px;color:white;'>📦 Data Load & Management</h2>", unsafe_allow_html=True)
+    st.info("Upload CSVs to @RAW.SALES_STAGE and use the tools below to truncate/load tables. Balloons will 🎈 appear when all tables load successfully!")
+
+    # ------------------------------------------
+    # 🔎 Stage file listing
+    # ------------------------------------------
+    if st.button("🔎 Check Stage Files (@RAW.SALES_STAGE)"):
+        files = list_stage_files(sf_database, sf_schema, "SALES_STAGE")
+        if files:
+            st.success(f"📂 Found {len(files)} files in @{sf_schema}.SALES_STAGE")
+            st.write(pd.DataFrame(files, columns=["name"]))
+        else:
+            st.warning("⚠️ No files found or insufficient privileges to list stage files.")
+
+    # ------------------------------------------
+    # 🧹 Truncate options
+    # ------------------------------------------
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("### 🧹 Truncate Selected Table")
+        table_options = [f"{sf_schema}.{t}" for t in FULL_TABLES]
+        selected_table = st.selectbox("Select table to truncate", table_options, key="truncate_select")
+        confirm_single = st.checkbox("Confirm truncate", key="confirm_single")
+        if st.button("⚠️ Truncate Selected Table"):
+            if not confirm_single:
+                st.warning("Please confirm before truncating.")
+            else:
+                try:
+                    q = f"TRUNCATE TABLE IF EXISTS {selected_table};"
+                    _, t = run_query(q)
+                    st.success(f"✅ {selected_table} truncated ({t:.2f}s)")
+                except Exception as e:
+                    st.error(f"❌ Error truncating {selected_table}: {e}")
+
+    with col2:
+        st.markdown("### 🧨 Truncate All RAW Tables")
+        confirm_all = st.checkbox("Yes, confirm truncate ALL RAW tables", key="confirm_all")
+        if st.button("💣 Truncate ALL Tables"):
+            if not confirm_all:
+                st.warning("Please confirm before truncating all tables.")
+            else:
+                progress = st.progress(0)
+                total = len(FULL_TABLES)
+                success = 0
+                for i, tname in enumerate(FULL_TABLES, start=1):
+                    fq = f"{sf_schema}.{tname}"
+                    try:
+                        _, t_elapsed = run_query(f"TRUNCATE TABLE IF EXISTS {fq};")
+                        st.success(f"✅ {fq} truncated ({t_elapsed:.2f}s)")
+                        success += 1
+                    except Exception as e:
+                        st.error(f"❌ Error truncating {fq}: {e}")
+                    progress.progress(int(i / total * 100))
+                    time.sleep(0.15)
+                progress.empty()
+                if success == total:
+                    st.success("🎉 All tables truncated successfully!")
+                    st.balloons()
+                else:
+                    st.warning(f"⚠️ {success}/{total} tables truncated.")
+
+    # ------------------------------------------
+    # 🚀 COPY INTO operations
+    # ------------------------------------------
+    st.markdown("---")
+    col3, col4 = st.columns(2)
+
+    copy_options = {
+        f"{sf_schema}.PRODUCTS": f"COPY INTO {sf_schema}.PRODUCTS FROM @{sf_schema}.SALES_STAGE/products.csv FILE_FORMAT=(FORMAT_NAME = {sf_schema}.CSV_FMT) ON_ERROR='CONTINUE' FORCE=TRUE",
+        f"{sf_schema}.CUSTOMERS": f"COPY INTO {sf_schema}.CUSTOMERS FROM @{sf_schema}.SALES_STAGE/customers.csv FILE_FORMAT=(FORMAT_NAME = {sf_schema}.CSV_FMT) ON_ERROR='CONTINUE' FORCE=TRUE",
+        f"{sf_schema}.STORES": f"COPY INTO {sf_schema}.STORES FROM @{sf_schema}.SALES_STAGE/stores.csv FILE_FORMAT=(FORMAT_NAME = {sf_schema}.CSV_FMT) ON_ERROR='CONTINUE' FORCE=TRUE",
+        f"{sf_schema}.SALES_CHANNELS": f"COPY INTO {sf_schema}.SALES_CHANNELS FROM @{sf_schema}.SALES_STAGE/sales_channels.csv FILE_FORMAT=(FORMAT_NAME = {sf_schema}.CSV_FMT) ON_ERROR='CONTINUE' FORCE=TRUE",
+        f"{sf_schema}.FCT_SALES": f"COPY INTO {sf_schema}.FCT_SALES FROM @{sf_schema}.SALES_STAGE/fct_sales.csv FILE_FORMAT=(FORMAT_NAME = {sf_schema}.CSV_FMT) ON_ERROR='CONTINUE' FORCE=TRUE",
+        f"{sf_schema}.FCT_PRESCRIPTIONS": f"COPY INTO {sf_schema}.FCT_PRESCRIPTIONS FROM @{sf_schema}.SALES_STAGE/fct_prescriptions.csv FILE_FORMAT=(FORMAT_NAME = {sf_schema}.CSV_FMT) ON_ERROR='CONTINUE' FORCE=TRUE",
+        f"{sf_schema}.FCT_INVENTORY": f"COPY INTO {sf_schema}.FCT_INVENTORY FROM @{sf_schema}.SALES_STAGE/fct_inventory.csv FILE_FORMAT=(FORMAT_NAME = {sf_schema}.CSV_FMT) ON_ERROR='CONTINUE' FORCE=TRUE"
+    }
+
+    with col3:
+        st.markdown("### 📂 Load Single Table (COPY INTO)")
+        selected_copy = st.selectbox("Select table to load:", list(copy_options.keys()), key="load_select")
+        confirm_copy = st.checkbox("Confirm load", key="confirm_single_copy")
+        if st.button("🚀 Run COPY INTO for Selected Table"):
+            if not confirm_copy:
+                st.warning("Please confirm before loading.")
+            else:
+                try:
+                    sql = copy_options[selected_copy]
+                    _, t = run_query(sql)
+                    st.success(f"✅ {selected_copy} loaded ({t:.2f}s)")
+                except Exception as e:
+                    st.error(f"❌ Error loading {selected_copy}: {e}")
+
+with col4:
+    st.markdown("### 🧩 Load All Tables")
+    confirm_all_copy = st.checkbox("Confirm load ALL tables", key="confirm_all_copy")
+    if st.button("📦 Run COPY INTO for ALL Tables"):
+        if not confirm_all_copy:
+            st.warning("Please confirm before bulk load.")
+        else:
+            total = len(copy_options)
+            progress = st.progress(0)
+            success = 0
+            for i, (tbl, sql) in enumerate(copy_options.items(), start=1):
+                tbl_name = tbl.split(".")[-1]
+                try:
+                    _, t = run_query(sql)
+                    st.success(f"✅ {tbl_name} loaded ({t:.2f}s)")
+                    success += 1
+                except Exception as e:
+                    st.error(f"❌ Error loading {tbl_name}: {e}")
+                progress.progress(int(i / total * 100))
+                time.sleep(0.2)
+            progress.empty()
+            if success == total:
+                st.success("🎉 All tables loaded successfully!")
+                st.balloons()
+            else:
+                st.warning(f"⚠️ {success}/{total} tables loaded successfully.")
+
+# ==========================================================
+# TAB 2: OPTIMIZATION — Clustering + Multi-MV + Search Optimization (Simplified)
+# ==========================================================
+with tabs[2]:
+    st.markdown("<h2 style='background:linear-gradient(90deg,#66bb6a,#43a047);padding:10px;border-radius:10px;color:white;'>⚙️ Optimization — Clustering & Materialized Views</h2>", unsafe_allow_html=True)
+    st.info("Apply clustering keys, create optimized materialized views, and enable Search Optimization for faster queries.")
+
+    # ----------------------------------------------------------------
+    # Detect current role and user (for info display)
+    # ----------------------------------------------------------------
+    try:
+        df_ident, _ = run_query("SELECT CURRENT_ROLE() AS ROLE, CURRENT_USER() AS USER", fetch=True)
+        current_role = df_ident.iloc[0]["ROLE"]
+        current_user = df_ident.iloc[0]["USER"]
+    except Exception:
+        current_role, current_user = "UNKNOWN", "UNKNOWN"
+
+    col1, col2 = st.columns(2)
+
+    # ==========================================================
+    # LEFT COLUMN — Clustering Controls
+    # ==========================================================
+    with col1:
+        st.markdown("### 🧩 Clustering Controls")
+        table_to_cluster = st.selectbox(
+            "Select Fact Table:",
+            [f"{sf_schema}.FCT_SALES", f"{sf_schema}.FCT_PRESCRIPTIONS", f"{sf_schema}.FCT_INVENTORY"],
+            key="cluster_table"
+        )
+
+        if st.button("🔍 Show Clustering Info"):
+            try:
+                df_info, _ = run_query(f"SELECT SYSTEM$CLUSTERING_INFORMATION('{table_to_cluster}') AS INFO", fetch=True)
+                st.code(df_info.iloc[0, 0] if not df_info.empty and df_info.iloc[0, 0] else "No clustering info available.", language="json")
+            except Exception as e:
+                st.error(f"❌ Error fetching clustering info: {e}")
+
+        if st.button("⚙️ Apply Clustering"):
+            if "FCT_SALES" in table_to_cluster:
+                cluster_key = "(ORDER_DATE, PRODUCT_ID, CHANNEL_ID)"
+            elif "FCT_PRESCRIPTIONS" in table_to_cluster:
+                cluster_key = "(PRESCRIPTION_DATE, PRODUCT_ID, REGION_ID)"
+            else:
+                cluster_key = "(INVENTORY_DATE, PRODUCT_ID, STORE_ID)"
+            try:
+                _, t = run_query(f"ALTER TABLE {table_to_cluster} CLUSTER BY {cluster_key}")
+                st.success(f"✅ Cluster key applied on {table_to_cluster} {cluster_key} ({t:.2f}s)")
+            except Exception as e:
+                st.error(f"❌ Error applying clustering: {e}")
+
+        st.markdown("---")
+        st.markdown("### ⚡ Search Optimization")
+        st.caption("Enables faster point lookups on frequently queried tables (may add cost).")
+
+        so_table = st.selectbox(
+            "Select Table for Search Optimization:",
+            [f"{sf_schema}.FCT_SALES", f"{sf_schema}.FCT_PRESCRIPTIONS", f"{sf_schema}.FCT_INVENTORY"],
+            key="so_table"
+        )
+
+        if st.button("Enable Search Optimization"):
+            try:
+                _, t = run_query(f"ALTER TABLE {so_table} ADD SEARCH OPTIMIZATION;")
+                st.success(f"✅ Search Optimization enabled on {so_table} ({t:.2f}s)")
+            except Exception as e:
+                st.error(f"❌ Error enabling Search Optimization: {e}")
+
+    # ==========================================================
+    # RIGHT COLUMN — Materialized View Creation
+    # ==========================================================
+    with col2:
+        st.markdown("### 🧱 Materialized View Creation")
+        mv_choice = st.selectbox(
+            "Select Materialized View to Create:",
+            ["MV_DAILY_SALES_SUMMARY", "MV_PRESCRIPTIONS_BY_REGION", "MV_INVENTORY_TREND"],
+            key="mv_choice"
+        )
+
+        mv_sql_map = {
+            "MV_DAILY_SALES_SUMMARY": f"""
+                CREATE OR REPLACE MATERIALIZED VIEW {sf_schema}.MV_DAILY_SALES_SUMMARY
+                CLUSTER BY (ORDER_DATE, CATEGORY)
+                AS
+                SELECT
+                  ORDER_DATE::DATE AS ORDER_DATE,
+                  CATEGORY,
+                  BRAND,
+                  SUM(QUANTITY) AS TOTAL_QTY,
+                  SUM(TOTAL_SALES) AS TOTAL_SALES
+                FROM {sf_schema}.FCT_SALES
+                GROUP BY ORDER_DATE::DATE, CATEGORY, BRAND;
+            """,
+            "MV_PRESCRIPTIONS_BY_REGION": f"""
+                CREATE OR REPLACE MATERIALIZED VIEW {sf_schema}.MV_PRESCRIPTIONS_BY_REGION
+                CLUSTER BY (PRESCRIPTION_DATE, REGION_ID)
+                AS
+                SELECT
+                  PRESCRIPTION_DATE::DATE AS PRESCRIPTION_DATE,
+                  REGION_ID,
+                  COUNT(PRESCRIPTION_ID) AS TOTAL_PRESCRIPTIONS,
+                  SUM(QUANTITY) AS TOTAL_QUANTITY
+                FROM {sf_schema}.FCT_PRESCRIPTIONS
+                GROUP BY PRESCRIPTION_DATE::DATE, REGION_ID;
+            """,
+            "MV_INVENTORY_TREND": f"""
+                CREATE OR REPLACE MATERIALIZED VIEW {sf_schema}.MV_INVENTORY_TREND
+                CLUSTER BY (INVENTORY_DATE, PRODUCT_ID)
+                AS
+                SELECT
+                  INVENTORY_DATE::DATE AS INVENTORY_DATE,
+                  PRODUCT_ID,
+                  SUM(OPENING_STOCK) AS TOTAL_OPENING,
+                  SUM(PURCHASES) AS TOTAL_PURCHASES,
+                  SUM(SALES) AS TOTAL_SALES,
+                  SUM(CLOSING_STOCK) AS TOTAL_CLOSING
+                FROM {sf_schema}.FCT_INVENTORY
+                GROUP BY INVENTORY_DATE::DATE, PRODUCT_ID;
+            """
+        }
+
+        mv_sql = mv_sql_map[mv_choice]
+
+        with st.expander(f"📜 SQL Script for {mv_choice}"):
+            st.code(mv_sql, language="sql")
+
+        if st.button(f"🆕 Create / Replace {mv_choice}"):
+            try:
+                _, t = run_query(mv_sql)
+                st.success(f"✅ {mv_choice} created or replaced successfully ({t:.2f}s)")
+            except Exception as e:
+                st.error(f"❌ Error creating Materialized View: {e}")
+
+    # Footer
+    st.markdown("---")
+    st.caption(f"🔧 User: {current_user} | Role: {current_role}")
+
+# ==========================================================
+# TAB 3: KPIs (derived from 7 tables) — with Filters + Query Viewer
+# ==========================================================
+with tabs[3]:
+    st.markdown("<h2 style='background:linear-gradient(90deg,#42a5f5,#1e88e5);padding:10px;border-radius:10px;color:white;'>📊 Business KPIs</h2>", unsafe_allow_html=True)
+    st.markdown("### KPI Overview — aggregated from the 7-table model with dynamic filters")
+    st.divider()
+
+    # ---------------------------
+    # 1️⃣ FILTER CONTROLS
+    # ---------------------------
+    st.markdown("#### 🔍 Filters")
+
+    colf1, colf2, colf3 = st.columns(3)
+    with colf1:
+        start_date = st.date_input("Start Date", pd.to_datetime("today") - pd.Timedelta(days=30), key="kpi_start")
+    with colf2:
+        end_date = st.date_input("End Date", pd.to_datetime("today"), key="kpi_end")
+    with colf3:
+        st.caption("Filters auto-refresh KPIs dynamically")
+
+    start_str = start_date.strftime("%Y-%m-%d")
+    end_str = end_date.strftime("%Y-%m-%d")
+
+    # dynamic filter fetching (region, category, channel)
+    @st.cache_data(show_spinner=False)
+    def get_filter_options():
+        region_q = f"SELECT DISTINCT STATE AS REGION FROM {sf_schema}.FCT_SALES WHERE STATE IS NOT NULL;"
+        category_q = f"SELECT DISTINCT CATEGORY FROM {sf_schema}.FCT_SALES WHERE CATEGORY IS NOT NULL;"
+        channel_q = f"SELECT DISTINCT CHANNEL_ID FROM {sf_schema}.FCT_SALES WHERE CHANNEL_ID IS NOT NULL;"
+
+        try:
+            df_region, _ = run_query(region_q, fetch=True)
+            df_category, _ = run_query(category_q, fetch=True)
+            df_channel, _ = run_query(channel_q, fetch=True)
+            return (
+                ["All"] + sorted(df_region["REGION"].dropna().astype(str).tolist()),
+                ["All"] + sorted(df_category["CATEGORY"].dropna().astype(str).tolist()),
+                ["All"] + sorted(df_channel["CHANNEL_ID"].dropna().astype(str).tolist())
+            )
+        except Exception as e:
+            st.warning(f"⚠️ Could not load filter values: {e}")
+            return ["All"], ["All"], ["All"]
+
+    region_opts, cat_opts, chan_opts = get_filter_options()
+
+    colr1, colr2, colr3 = st.columns(3)
+    with colr1:
+        region_sel = st.selectbox("🌍 Region (State)", region_opts, index=0)
+    with colr2:
+        category_sel = st.selectbox("🏷️ Category", cat_opts, index=0)
+    with colr3:
+        channel_sel = st.selectbox("🛒 Channel", chan_opts, index=0)
+
+    # apply filter conditions dynamically
+    filter_clause = "1=1"
+    if region_sel != "All":
+        filter_clause += f" AND STATE = '{region_sel}'"
+    if category_sel != "All":
+        filter_clause += f" AND CATEGORY = '{category_sel}'"
+    if channel_sel != "All":
+        filter_clause += f" AND CHANNEL_ID = '{channel_sel}'"
+
+    # ---------------------------
+    # 2️⃣ KPI SQLs (filtered)
+    # ---------------------------
+    kpi_sql = f"""
+    SELECT
+      COALESCE(SUM(TOTAL_SALES),0) AS TOTAL_SALES,
+      COALESCE(COUNT(DISTINCT ORDER_ID),0) AS TOTAL_ORDERS,
+      COALESCE(AVG(NULLIF(TOTAL_SALES,0)/NULLIF(QUANTITY,1)),0) AS AVG_ORDER_VALUE
+    FROM {sf_schema}.FCT_SALES
+    WHERE ORDER_DATE BETWEEN '{start_str}' AND '{end_str}'
+      AND {filter_clause};
+    """
+
+    customers_sql = f"""
+    SELECT COUNT(DISTINCT CUSTOMER_ID) AS UNIQUE_CUSTOMERS
+    FROM {sf_schema}.FCT_SALES
+    WHERE ORDER_DATE BETWEEN '{start_str}' AND '{end_str}'
+      AND {filter_clause};
+    """
+
+    stores_sql = f"""
+    SELECT COUNT(DISTINCT STORE_ID) AS ACTIVE_STORES
+    FROM {sf_schema}.FCT_SALES
+    WHERE ORDER_DATE BETWEEN '{start_str}' AND '{end_str}'
+      AND {filter_clause};
+    """
+
+    top_category_sql = f"""
+    SELECT CATEGORY, SUM(TOTAL_SALES) AS TOTAL_SALES
+    FROM {sf_schema}.FCT_SALES
+    WHERE ORDER_DATE BETWEEN '{start_str}' AND '{end_str}'
+      AND {filter_clause}
+    GROUP BY CATEGORY
+    ORDER BY TOTAL_SALES DESC
+    LIMIT 1;
+    """
+
+    prescriptions_sql = f"""
+    SELECT COUNT(DISTINCT PRESCRIPTION_ID) AS TOTAL_PRESCRIPTIONS, SUM(QUANTITY) AS PRESC_QUANTITY
+    FROM {sf_schema}.FCT_PRESCRIPTIONS
+    WHERE PRESCRIPTION_DATE BETWEEN '{start_str}' AND '{end_str}';
+    """
+
+    inventory_sql = f"""
+    SELECT
+      AVG(COALESCE(CLOSING_STOCK,0)) AS AVG_CLOSING_STOCK,
+      SUM(COALESCE(CLOSING_STOCK,0)) AS TOTAL_CLOSING_STOCK
+    FROM {sf_schema}.FCT_INVENTORY
+    WHERE INVENTORY_DATE BETWEEN '{start_str}' AND '{end_str}';
+    """
+
+    # ---------------------------
+    # 3️⃣ Run Queries
+    # ---------------------------
+    try:
+        df_kpi, _ = run_query(kpi_sql, fetch=True)
+        df_cust, _ = run_query(customers_sql, fetch=True)
+        df_store, _ = run_query(stores_sql, fetch=True)
+        df_topcat, _ = run_query(top_category_sql, fetch=True)
+        df_presc, _ = run_query(prescriptions_sql, fetch=True)
+        df_inv, _ = run_query(inventory_sql, fetch=True)
+    except Exception as e:
+        st.error(f"❌ Error fetching KPI data: {e}")
+        df_kpi = df_cust = df_store = df_topcat = df_presc = df_inv = pd.DataFrame()
+
+    # ---------------------------
+    # 4️⃣ Extract KPI Values
+    # ---------------------------
+    total_sales = float(df_kpi.iloc[0]["TOTAL_SALES"]) if not df_kpi.empty else 0
+    total_orders = int(df_kpi.iloc[0]["TOTAL_ORDERS"]) if not df_kpi.empty else 0
+    avg_order_val = float(df_kpi.iloc[0]["AVG_ORDER_VALUE"]) if not df_kpi.empty else 0
+    unique_customers = int(df_cust.iloc[0]["UNIQUE_CUSTOMERS"]) if not df_cust.empty else 0
+    active_stores = int(df_store.iloc[0]["ACTIVE_STORES"]) if not df_store.empty else 0
+    top_category = df_topcat.iloc[0]["CATEGORY"] if not df_topcat.empty else "N/A"
+    top_category_sales = float(df_topcat.iloc[0]["TOTAL_SALES"]) if not df_topcat.empty else 0
+    total_prescriptions = int(df_presc.iloc[0]["TOTAL_PRESCRIPTIONS"]) if not df_presc.empty else 0
+    presc_quantity = int(df_presc.iloc[0]["PRESC_QUANTITY"]) if not df_presc.empty else 0
+    avg_closing_stock = float(df_inv.iloc[0]["AVG_CLOSING_STOCK"]) if not df_inv.empty else 0
+
+    # ---------------------------
+    # 5️⃣ KPI TILES
+    # ---------------------------
+    theme_color = "#1565c0"
+    st.markdown(f"""
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;">
+        <div class="kpi-tile" style="border-top:5px solid {theme_color};">
+            <div style="font-size:14px;font-weight:700;color:{theme_color};">💰 Total Sales</div>
+            <div style="font-size:20px;font-weight:900;">₹{total_sales:,.0f}</div>
+        </div>
+        <div class="kpi-tile" style="border-top:5px solid {theme_color};">
+            <div style="font-size:14px;font-weight:700;color:{theme_color};">🛍️ Total Orders</div>
+            <div style="font-size:20px;font-weight:900;">{total_orders:,}</div>
+        </div>
+        <div class="kpi-tile" style="border-top:5px solid {theme_color};">
+            <div style="font-size:14px;font-weight:700;color:{theme_color};">📦 Avg Order Value</div>
+            <div style="font-size:20px;font-weight:900;">₹{avg_order_val:,.0f}</div>
+        </div>
+        <div class="kpi-tile" style="border-top:5px solid {theme_color};">
+            <div style="font-size:14px;font-weight:700;color:{theme_color};">👥 Unique Customers</div>
+            <div style="font-size:20px;font-weight:900;">{unique_customers:,}</div>
+        </div>
+        <div class="kpi-tile" style="border-top:5px solid {theme_color};">
+            <div style="font-size:14px;font-weight:700;color:{theme_color};">🏬 Active Stores</div>
+            <div style="font-size:20px;font-weight:900;">{active_stores:,}</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ---------------------------
+    # 6️⃣ SECONDARY KPIs
+    # ---------------------------
+    st.markdown("---")
+    st.markdown(f"**🏷️ Top Category:** {top_category} — ₹{top_category_sales:,.0f}")
+    st.markdown(f"**💊 Total Prescriptions:** {total_prescriptions:,} (Qty: {presc_quantity:,})")
+    st.markdown(f"**📦 Avg Closing Stock:** {avg_closing_stock:,.2f}")
+
+    # ---------------------------
+    # 7️⃣ 📜 Query Viewer — Dynamic SQL
+    # ---------------------------
+    st.markdown("---")
+    st.markdown("### 📜 Queries Used (Dynamic SQL Preview)")
+
+    with st.expander("🧾 Main KPI Query"):
+        st.code(kpi_sql, language="sql")
+    with st.expander("👥 Unique Customers Query"):
+        st.code(customers_sql, language="sql")
+    with st.expander("🏬 Active Stores Query"):
+        st.code(stores_sql, language="sql")
+    with st.expander("🏷️ Top Category Query"):
+        st.code(top_category_sql, language="sql")
+    with st.expander("💊 Prescriptions Query"):
+        st.code(prescriptions_sql, language="sql")
+    with st.expander("📦 Inventory Query"):
+        st.code(inventory_sql, language="sql")
+
+    # ---------------------------
+    # 8️⃣ Download
+    # ---------------------------
+    export_df = pd.DataFrame([
+        {"metric": "total_sales", "value": total_sales, "region": region_sel, "category": category_sel, "channel": channel_sel},
+        {"metric": "total_orders", "value": total_orders},
+        {"metric": "avg_order_value", "value": avg_order_val},
+        {"metric": "unique_customers", "value": unique_customers},
+        {"metric": "active_stores", "value": active_stores}
+    ])
+    st.download_button(
+        "⬇️ Download KPI metrics (CSV)",
+        export_df.to_csv(index=False).encode("utf-8"),
+        f"kpis_{start_str}_to_{end_str}.csv",
+        "text/csv"
+    )
+
+
+# ==========================================================
+# TAB 4: Visual Analytics (with Region, Category, Channel filters)
+# ==========================================================
+with tabs[4]:
+    st.markdown("<h2 style='background:linear-gradient(90deg,#5c6bc0,#3949ab);padding:10px;border-radius:10px;color:white;'>📈 Visual Analytics</h2>", unsafe_allow_html=True)
+    st.markdown("### Interactive BI Visuals — Filtered by Region, Category, Channel")
+    st.divider()
+
+    # Date range filters
+    colv1, colv2 = st.columns(2)
+    with colv1:
+        start_date_v = st.date_input("Start Date (Visuals)", pd.to_datetime("today") - pd.Timedelta(days=90), key="vis_start")
+    with colv2:
+        end_date_v = st.date_input("End Date (Visuals)", pd.to_datetime("today"), key="vis_end")
+
+    start_v = start_date_v.strftime("%Y-%m-%d")
+    end_v = end_date_v.strftime("%Y-%m-%d")
+
+    # ==========================================================
+    # Load dynamic filters for region, category, channel (same as KPI tab)
+    # ==========================================================
+    @st.cache_data(show_spinner=False)
+    def get_filter_options():
+        region_q = f"SELECT DISTINCT STATE AS REGION FROM {sf_schema}.FCT_SALES WHERE STATE IS NOT NULL;"
+        category_q = f"SELECT DISTINCT CATEGORY FROM {sf_schema}.FCT_SALES WHERE CATEGORY IS NOT NULL;"
+        channel_q = f"SELECT DISTINCT CHANNEL_ID FROM {sf_schema}.FCT_SALES WHERE CHANNEL_ID IS NOT NULL;"
+        try:
+            df_region, _ = run_query(region_q, fetch=True)
+            df_category, _ = run_query(category_q, fetch=True)
+            df_channel, _ = run_query(channel_q, fetch=True)
+            return (
+                ["All"] + sorted(df_region["REGION"].dropna().astype(str).tolist()),
+                ["All"] + sorted(df_category["CATEGORY"].dropna().astype(str).tolist()),
+                ["All"] + sorted(df_channel["CHANNEL_ID"].dropna().astype(str).tolist())
+            )
+        except Exception as e:
+            st.warning(f"⚠️ Could not load filter values: {e}")
+            return ["All"], ["All"], ["All"]
+
+    region_opts, cat_opts, chan_opts = get_filter_options()
+
+    colr1, colr2, colr3 = st.columns(3)
+    with colr1:
+        region_sel = st.selectbox("🌍 Region (State)", region_opts, index=0, key="vis_region")
+    with colr2:
+        category_sel = st.selectbox("🏷️ Category", cat_opts, index=0, key="vis_category")
+    with colr3:
+        channel_sel = st.selectbox("🛒 Channel", chan_opts, index=0, key="vis_channel")
+
+    # Build filter clause
+    filter_clause = "1=1"
+    if region_sel != "All":
+        filter_clause += f" AND STATE = '{region_sel}'"
+    if category_sel != "All":
+        filter_clause += f" AND CATEGORY = '{category_sel}'"
+    if channel_sel != "All":
+        filter_clause += f" AND CHANNEL_ID = '{channel_sel}'"
+
+    # ==========================================================
+    # Source and Metric Selection
+    # ==========================================================
+    source_choice = st.radio("📊 Source:", ["Base Table (FCT_SALES)", "Materialized View (MV_DAILY_SALES_SUMMARY)"], horizontal=True)
+    metric_choice = st.radio("📈 Metric:", ["Total Sales", "Order Count"], horizontal=True)
+
+    # ==========================================================
+    # Query construction based on filters and source
+    # ==========================================================
+    if source_choice == "Base Table (FCT_SALES)":
+        q_trend = f"""
+        SELECT 
+            ORDER_DATE::DATE AS ORDER_DATE,
+            CATEGORY,
+            SUM(TOTAL_SALES) AS TOTAL_SALES,
+            COUNT(DISTINCT ORDER_ID) AS ORDER_COUNT
+        FROM {sf_schema}.FCT_SALES
+        WHERE ORDER_DATE BETWEEN '{start_v}' AND '{end_v}'
+          AND {filter_clause}
+        GROUP BY ORDER_DATE::DATE, CATEGORY
+        ORDER BY ORDER_DATE::DATE;
+        """
+    else:
+        q_trend = f"""
+        SELECT 
+            ORDER_DATE::DATE AS ORDER_DATE,
+            CATEGORY,
+            SUM(TOTAL_SALES) AS TOTAL_SALES,
+            SUM(TOTAL_QTY) AS ORDER_COUNT
+        FROM {sf_schema}.MV_DAILY_SALES_SUMMARY
+        WHERE ORDER_DATE BETWEEN '{start_v}' AND '{end_v}'
+          AND CATEGORY IS NOT NULL
+        GROUP BY ORDER_DATE::DATE, CATEGORY
+        ORDER BY ORDER_DATE::DATE;
+        """
+
+    with st.expander("📜 Query used"):
+        st.code(q_trend, language="sql")
+
+    # ==========================================================
+    # Run query and visualize
+    # ==========================================================
+    try:
+        df_trend, _ = run_query(q_trend, fetch=True)
+    except Exception as e:
+        st.error(f"❌ Error fetching visuals data: {e}")
+        df_trend = pd.DataFrame()
+
+    if not df_trend.empty:
+        metric_col = "TOTAL_SALES" if metric_choice == "Total Sales" else "ORDER_COUNT"
+        df_trend["ORDER_DATE"] = pd.to_datetime(df_trend["ORDER_DATE"])
+
+        # Visualization
+        if HAS_PLOTLY:
+            import plotly.express as px
+            fig = px.line(
+                df_trend,
+                x="ORDER_DATE",
+                y=metric_col,
+                color="CATEGORY",
+                title=f"{metric_choice} Trend ({start_v} → {end_v})",
+                markers=True
+            )
+            fig.update_layout(
+                plot_bgcolor="#ffffff",
+                paper_bgcolor="#f9f9fb",
+                font=dict(size=13, color="#0d47a1"),
+                legend_title_text="Category"
+            )
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            import altair as alt
+            chart = alt.Chart(df_trend).mark_line(point=True).encode(
+                x="ORDER_DATE:T",
+                y=f"{metric_col}:Q",
+                color="CATEGORY:N",
+                tooltip=["ORDER_DATE", metric_col, "CATEGORY"]
+            ).interactive()
+            st.altair_chart(chart, use_container_width=True)
+
+        # Download visual data
+        st.download_button(
+            "⬇️ Download visual data (CSV)",
+            df_trend.to_csv(index=False).encode("utf-8"),
+            f"visuals_{start_v}_to_{end_v}.csv",
+            "text/csv"
+        )
+    else:
+        st.info("No data found for selected filters or MV not created yet.")
+
+# ==========================================================
+# TAB 5: Performance Comparison
+# ==========================================================
+with tabs[5]:
+    st.markdown("<h2 style='background:linear-gradient(90deg,#8e24aa,#6a1b9a);padding:10px;border-radius:10px;color:white;'>🧩 Performance Comparison</h2>", unsafe_allow_html=True)
+    st.divider()
+
+    start_p = st.date_input("Start Date (Performance)", pd.to_datetime("today") - pd.Timedelta(days=30), key="perf_start")
+    end_p = st.date_input("End Date (Performance)", pd.to_datetime("today"), key="perf_end")
+
+    if st.button("⚔️ Run Performance Comparison"):
+        s = start_p.strftime("%Y-%m-%d")
+        e = end_p.strftime("%Y-%m-%d")
+
+        q_raw = f"""
+        SELECT ORDER_DATE::DATE AS ORDER_DATE, SUM(TOTAL_SALES) AS SUM_TOTAL
+        FROM {sf_schema}.FCT_SALES
+        WHERE ORDER_DATE BETWEEN '{s}' AND '{e}'
+        GROUP BY ORDER_DATE::DATE
+        ORDER BY ORDER_DATE::DATE;
+        """
+
+        q_mv = f"""
+        SELECT ORDER_DATE::DATE AS ORDER_DATE, SUM(TOTAL_SALES) AS SUM_TOTAL
+        FROM {sf_schema}.MV_DAILY_SALES_SUMMARY
+        WHERE ORDER_DATE BETWEEN '{s}' AND '{e}'
+        GROUP BY ORDER_DATE::DATE
+        ORDER BY ORDER_DATE::DATE;
+        """
+
+        try:
+            df_raw, t_raw = run_query(q_raw, fetch=True)
+        except Exception as e:
+            st.error(f"❌ Error running raw query: {e}")
+            df_raw = pd.DataFrame()
+            t_raw = 0.0
+
+        try:
+            df_mv, t_mv = run_query(q_mv, fetch=True)
+        except Exception as e:
+            st.warning(f"⚠️ MV query error (maybe MV not created yet): {e}")
+            df_mv = pd.DataFrame()
+            t_mv = 0.0
+
+        st.success(f"⏱ Raw: {t_raw:.3f}s | MV: {t_mv:.3f}s | Speed Gain: {(t_raw - t_mv):.3f}s")
+
+        if HAS_PLOTLY:
+            if not df_raw.empty:
+                df_raw["ORDER_DATE"] = pd.to_datetime(df_raw["ORDER_DATE"])
+                fig1 = px.line(df_raw, x="ORDER_DATE", y="SUM_TOTAL", title="Raw — Daily Sales", markers=True)
+                st.plotly_chart(fig1, use_container_width=True)
+            if not df_mv.empty:
+                df_mv["ORDER_DATE"] = pd.to_datetime(df_mv["ORDER_DATE"])
+                fig2 = px.line(df_mv, x="ORDER_DATE", y="SUM_TOTAL", title="MV — Daily Sales", markers=True)
+                st.plotly_chart(fig2, use_container_width=True)
+        else:
+            if not df_raw.empty:
+                st.altair_chart(
+                    alt.Chart(df_raw).mark_line(point=True).encode(x="ORDER_DATE:T", y="SUM_TOTAL:Q").properties(title="Raw — Daily Sales"),
+                    use_container_width=True
+                )
+            if not df_mv.empty:
+                st.altair_chart(
+                    alt.Chart(df_mv).mark_line(point=True).encode(x="ORDER_DATE:T", y="SUM_TOTAL:Q").properties(title="MV — Daily Sales"),
+                    use_container_width=True
+                )
+
+
+# ==========================================================
+# TAB 6: AI ANALYST — Powered by Snowflake Cortex AI (Final Integrated Version)
+# ==========================================================
+with tabs[6]:
+    st.markdown(
+        "<h2 style='background:linear-gradient(90deg,#00bcd4,#00695c);padding:10px;border-radius:10px;color:white;'>🧠 AI Analyst — Cortex AI Insights</h2>",
+        unsafe_allow_html=True
+    )
+    st.info("Cortex AI summarizes dataset structures, generates insights, visual recommendations, and proposes new KPIs.")
+
+    # ----------------------------------------------------------
+    # TABLE SELECTION
+    # ----------------------------------------------------------
+    st.markdown("### 🔍 Select Tables for AI Analysis")
+    selected_tables = st.multiselect(
+        "Choose tables to analyze:",
+        FULL_TABLES,
+        default=["FCT_SALES", "FCT_PRESCRIPTIONS", "FCT_INVENTORY"]
+    )
+
+    # ----------------------------------------------------------
+    # CORTEX AI SUMMARY ANALYSIS
+    # ----------------------------------------------------------
+    if st.button("🚀 Run Cortex AI Analysis"):
+        if not selected_tables:
+            st.warning("Please select at least one table.")
+        else:
+            with st.spinner("🧠 Analyzing datasets with Cortex AI..."):
+                try:
+                    table_meta = []
+                    for tbl in selected_tables:
+                        try:
+                            q = f"SHOW COLUMNS IN {sf_schema}.{tbl};"
+                            df_meta, _ = run_query(q, fetch=True)
+                            if not df_meta.empty:
+                                columns = ", ".join(df_meta['column_name'].astype(str).tolist())
+                                table_meta.append(f"Table {tbl}: Columns - {columns}")
+                        except Exception as e:
+                            st.warning(f"⚠️ Could not read metadata for {tbl}: {e}")
+
+                    if not table_meta:
+                        st.error("No metadata found for selected tables.")
+                        st.stop()
+
+                    prompt = (
+                        "You are a Snowflake Cortex AI data analyst. "
+                        "Analyze the following Pharma dataset tables. "
+                        "For each table, summarize attribute meanings, relationships, and business implications. "
+                        "Then, recommend potential visualizations and KPIs for executive dashboards.\n\n"
+                        + "\n".join(table_meta)
+                    )
+
+                    cortex_sql = f"""
+                    SELECT SNOWFLAKE.CORTEX.COMPLETE(
+                        'mistral-large',
+                        '{prompt}'
+                    ) AS ANALYSIS;
+                    """
+                    df_ai, _ = run_query(cortex_sql, fetch=True)
+                    if not df_ai.empty:
+                        ai_summary = df_ai.iloc[0, 0]
+                        st.success("✅ Cortex AI Summary Complete")
+                        st.markdown("### 🧾 AI Summary Report")
+                        st.markdown(ai_summary)
+                    else:
+                        st.warning("⚠️ No summary returned from Cortex.")
+                except Exception as e:
+                    st.error(f"❌ Cortex AI summary failed: {e}")
+
+    # ----------------------------------------------------------
+    # 🤖 ASK YOUR DATA — AI Q&A ASSISTANT (TEXT INPUT ONLY)
+    # ----------------------------------------------------------
+    st.markdown("---")
+    st.markdown("<h3 style='color:#00bcd4;'>💬 Ask Your Data — AI Q&A Assistant</h3>", unsafe_allow_html=True)
+    st.caption(
+        "Type your analytical question below and click **Ask AI**. "
+        "Cortex AI will analyze your Snowflake Pharma datasets and respond with insights and SQL if relevant."
+    )
+
+    user_query = st.text_input(
+        "💬 Ask a question about your data:",
+        key="ai_query_textbox",
+        placeholder="e.g. Which region had the highest sales growth last quarter?"
+    )
+
+    if st.button("🤖 Ask AI"):
+        query = (st.session_state.get("ai_query_textbox") or "").strip()
+        if not query:
+            st.warning("Please type a question first.")
+        else:
+            with st.spinner("🔍 Querying Cortex AI..."):
+                try:
+                    table_info = ""
+                    if selected_tables:
+                        meta_lines = []
+                        for tbl in selected_tables:
+                            try:
+                                q = f"SHOW COLUMNS IN {sf_schema}.{tbl};"
+                                df_meta, _ = run_query(q, fetch=True)
+                                if not df_meta.empty:
+                                    cols = ", ".join(df_meta['column_name'].astype(str).tolist())
+                                    meta_lines.append(f"{tbl}: {cols}")
+                            except Exception:
+                                pass
+                        if meta_lines:
+                            table_info = "\\n\\nTable metadata:\\n" + "\\n".join(meta_lines)
+
+                    prompt_qna = (
+                        "You are a Snowflake Cortex AI data analyst. "
+                        "Answer using pharma Sales, Prescriptions, and Inventory tables. "
+                        "Include reasoning, metrics, and a runnable SQL query when applicable.\\n\\n"
+                        f"User Question: {query}{table_info}"
+                    )
+
+                    safe_prompt = (
+                        prompt_qna.replace("'", "''")
+                        .replace("\\", "\\\\")
+                        .replace("\n", "\\n")
+                    )
+
+                    cortex_qna_sql = f"""
+                    SELECT SNOWFLAKE.CORTEX.COMPLETE(
+                        'mistral-large',
+                        '{safe_prompt}'
+                    ) AS AI_RESPONSE;
+                    """
+                    df_qna, _ = run_query(cortex_qna_sql, fetch=True)
+
+                    if not df_qna.empty:
+                        ai_answer = df_qna.iloc[0, 0]
+                        st.success("✅ Answer Generated")
+                        st.markdown("### 🧾 AI Analytical Response")
+                        st.markdown(ai_answer)
+
+                        import re
+                        sql_match = re.findall(r"(?i)(SELECT[\\s\\S]*?;)", ai_answer)
+                        if sql_match:
+                            st.markdown("### 🧮 Suggested SQL Query")
+                            st.code(sql_match[0], language="sql")
+                        else:
+                            st.info("💡 No explicit SQL found. Try asking: *'Show SQL for this metric.'*")
+                    else:
+                        st.warning("⚠️ No response returned from Cortex AI.")
+                except Exception as e:
+                    st.error(f"❌ Error: {e}")
+
+    # ----------------------------------------------------------
+    # AI VISUAL INSIGHTS SECTION
+    # ----------------------------------------------------------
+    st.markdown("---")
+    st.markdown("### 📊 Cortex AI — Visual Insights (Automated)")
+    st.caption("Cortex AI will interpret your data and recommend or display sample visual trends.")
+
+    selected_visual_table = st.selectbox(
+        "Select a table for AI visual exploration:",
+        ["FCT_SALES", "FCT_PRESCRIPTIONS", "FCT_INVENTORY"]
+    )
+
+    if st.button("📈 Generate AI Visual Insights", key="gen_vis_insights"):
+        with st.spinner("Analyzing table data with Cortex AI for visual suggestions..."):
+            try:
+                prompt_vis = (
+                    "Analyze this table and suggest 2-3 visualizations. "
+                    "Focus on trends, correlations, and metrics. "
+                    "Output each suggestion as a short markdown summary."
+                    f" Table: {selected_visual_table}"
+                )
+                safe_prompt_vis = prompt_vis.replace("'", "''").replace("\n", "\\n")
+                cortex_vsql = f"""
+                SELECT SNOWFLAKE.CORTEX.COMPLETE(
+                    'mistral-large',
+                    '{safe_prompt_vis}'
+                ) AS VISUAL_INSIGHTS;
+                """
+                df_vis, _ = run_query(cortex_vsql, fetch=True)
+                if not df_vis.empty:
+                    vis_summary = df_vis.iloc[0, 0]
+                    st.success("✅ Cortex Visual Insights Ready")
+                    st.markdown("### 🧭 Suggested Visualizations & Trends")
+                    st.markdown(vis_summary)
+                else:
+                    st.warning("⚠️ No visual recommendations returned.")
+            except Exception as e:
+                st.error(f"❌ Error running Cortex visual insights: {e}")
+
+    # ----------------------------------------------------------
+    # KPI RECOMMENDATIONS
+    # ----------------------------------------------------------
+    st.markdown("---")
+    st.markdown("### 💡 Cortex AI — Suggested KPIs")
+    st.caption("AI will recommend new business KPIs based on dataset relationships.")
+
+    if st.button("💼 Generate KPI Recommendations", key="gen_kpi_reco"):
+        with st.spinner("Generating KPI suggestions using Cortex AI..."):
+            try:
+                prompt_kpi = (
+                    "You are an AI analytics expert for a pharmaceutical company. "
+                    "Based on sales, prescription, and inventory data, suggest 5-7 actionable KPIs with short business rationale. "
+                    "Each KPI should include a formula or definition that can be implemented in SQL."
+                )
+                safe_prompt_kpi = prompt_kpi.replace("'", "''").replace("\n", "\\n")
+                cortex_kpi_sql = f"""
+                SELECT SNOWFLAKE.CORTEX.COMPLETE(
+                    'mistral-large',
+                    '{safe_prompt_kpi}'
+                ) AS KPI_RECOMMENDATIONS;
+                """
+                df_kpi, _ = run_query(cortex_kpi_sql, fetch=True)
+                if not df_kpi.empty:
+                    st.success("✅ KPI Recommendations Generated")
+                    st.markdown("### 📊 Recommended KPIs")
+                    st.markdown(df_kpi.iloc[0, 0])
+                else:
+                    st.warning("⚠️ No KPI suggestions returned.")
+            except Exception as e:
+                st.error(f"❌ Error generating KPI recommendations: {e}")
+
+    # ----------------------------------------------------------
+    # FOOTER
+    # ----------------------------------------------------------
+    st.markdown("---")
+    st.caption("🧠 Powered by Snowflake Cortex AI | Models: Mistral-Large | Auto-Visual & KPI Generation Enabled")
+
+# OUTSIDE TAB FOOTER
+st.markdown("---")
+st.caption("📘 Built with ❤️ using Snowflake, Streamlit & Python | © 2025 ANKIT SHARMA Analytics")

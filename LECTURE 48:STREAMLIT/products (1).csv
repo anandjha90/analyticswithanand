@@ -1,0 +1,1001 @@
+PRODUCT_ID,PRODUCT_NAME,BRAND,CATEGORY,PRICE,PACK_SIZE,HSN_CODE
+P00001,Amoxicillin 250mg,LifeCare,Cough & Cold,227.59,1 bottle,2679
+P00002,Amlodipine 250mg,MediFast,Analgesic,47.71,15 tablets,4811
+P00003,Amlodipine 100ml,HealCo,Cough & Cold,685.9,1 bottle,9928
+P00004,Azithromycin 500mg,BioHeal,Gastro,772.77,10 tablets,3615
+P00005,Azithromycin 100mg,LifeCare,Supplement,220.24,30 tablets,2674
+P00006,Amoxicillin 10ml,CureAll,Cardiac,808.17,100 ml,5333
+P00007,Paracetamol SR,BioHeal,Antibiotic,925.0,60 tablets,2291
+P00008,Amlodipine 100mg,PharmaOne,Cough & Cold,675.25,10 tablets,4733
+P00009,Vitamin C 250mg,NutriX,Antibiotic,373.52,60 tablets,6977
+P00010,Ibuprofen 100mg,PharmaOne,Cough & Cold,643.26,1 bottle,2169
+P00011,Omeprazole SR,MedPlus,Cough & Cold,171.96,60 tablets,5422
+P00012,Amlodipine 500mg,PharmaOne,Analgesic,233.01,10 tablets,6168
+P00013,Azithromycin 100mg,CureAll,Cough & Cold,869.22,100 ml,6155
+P00014,Cetirizine SR,BioHeal,Diabetes,842.76,1 bottle,8517
+P00015,Ibuprofen 100mg,MedPlus,Cough & Cold,712.84,100 ml,5304
+P00016,Omeprazole 10ml,MediFast,Cardiac,223.97,15 tablets,9348
+P00017,Metformin 250mg,HealCo,Antibiotic,162.14,15 tablets,7916
+P00018,Omeprazole 250mg,MediFast,Diabetes,574.18,60 tablets,9669
+P00019,Vitamin C 100ml,HealCo,Antibiotic,653.99,100 ml,5371
+P00020,Pantoprazole 250mg,LifeCare,Diabetes,167.09,10 tablets,5315
+P00021,Amlodipine XL,MedPlus,Antibiotic,829.58,30 tablets,9317
+P00022,Omeprazole 500mg,MedPlus,Cardiac,729.14,100 ml,9689
+P00023,Paracetamol 100ml,PharmaOne,Dermatology,38.11,30 tablets,6038
+P00024,Cetirizine 250mg,NutriX,Antibiotic,99.66,60 tablets,2133
+P00025,Amlodipine XL,MedPlus,Supplement,633.57,100 ml,3705
+P00026,Vitamin C 100ml,MediFast,Cough & Cold,883.89,1 bottle,4295
+P00027,Vitamin C 10ml,PharmaOne,Dermatology,856.64,60 tablets,2982
+P00028,Cetirizine 500mg,CureAll,Cardiac,39.56,100 ml,4770
+P00029,Omeprazole 500mg,HealCo,Antibiotic,678.29,10 tablets,4750
+P00030,Amoxicillin 250mg,PharmaOne,Antibiotic,498.17,30 tablets,8953
+P00031,Cetirizine 100ml,MedPlus,Dermatology,245.99,60 tablets,7669
+P00032,Cetirizine 250mg,CureAll,Diabetes,349.5,60 tablets,8651
+P00033,Paracetamol SR,CureAll,Analgesic,394.44,30 tablets,2790
+P00034,Cetirizine 500mg,NutriX,Dermatology,150.37,15 tablets,5563
+P00035,Metformin 500mg,CureAll,Dermatology,771.46,100 ml,2604
+P00036,Paracetamol SR,HealCo,Antibiotic,881.52,15 tablets,3724
+P00037,Azithromycin 10ml,BioHeal,Cough & Cold,824.12,10 tablets,3697
+P00038,Azithromycin 250mg,MediFast,Gastro,881.66,60 tablets,5673
+P00039,Azithromycin SR,BioHeal,Supplement,196.61,15 tablets,1958
+P00040,Omeprazole SR,HealCo,Cardiac,73.16,100 ml,8811
+P00041,Amlodipine XL,MedPlus,Analgesic,913.52,10 tablets,4044
+P00042,Amoxicillin 100ml,CureAll,Cough & Cold,395.51,100 ml,5033
+P00043,Omeprazole 100ml,HealCo,Antibiotic,409.88,100 ml,9565
+P00044,Pantoprazole 100mg,NutriX,Cardiac,241.98,60 tablets,3144
+P00045,Vitamin C 10ml,PharmaOne,Antibiotic,28.66,100 ml,2638
+P00046,Amoxicillin 100ml,NutriX,Gastro,143.18,30 tablets,2127
+P00047,Cetirizine 100mg,LifeCare,Supplement,427.51,100 ml,5956
+P00048,Omeprazole XL,HealCo,Gastro,886.53,10 tablets,3200
+P00049,Vitamin C 250mg,CureAll,Supplement,273.28,100 ml,4450
+P00050,Pantoprazole 500mg,LifeCare,Dermatology,253.54,10 tablets,2512
+P00051,Azithromycin XL,LifeCare,Analgesic,23.3,15 tablets,5291
+P00052,Ibuprofen SR,BioHeal,Diabetes,541.64,10 tablets,2232
+P00053,Ibuprofen 100ml,HealCo,Cardiac,561.73,15 tablets,8041
+P00054,Ibuprofen 250mg,LifeCare,Cardiac,856.05,10 tablets,6862
+P00055,Cetirizine SR,NutriX,Antibiotic,348.92,100 ml,7658
+P00056,Omeprazole SR,MedPlus,Cough & Cold,824.08,15 tablets,7755
+P00057,Paracetamol 500mg,PharmaOne,Diabetes,766.08,1 bottle,5065
+P00058,Vitamin C 500mg,CureAll,Diabetes,831.12,60 tablets,4644
+P00059,Cetirizine XL,BioHeal,Cardiac,303.83,15 tablets,4652
+P00060,Paracetamol SR,NutriX,Diabetes,325.28,10 tablets,5573
+P00061,Pantoprazole SR,MediFast,Cardiac,893.49,10 tablets,5279
+P00062,Ibuprofen 100ml,LifeCare,Analgesic,120.81,60 tablets,6663
+P00063,Pantoprazole 10ml,CureAll,Diabetes,856.54,15 tablets,5173
+P00064,Paracetamol SR,MediFast,Analgesic,503.53,100 ml,4228
+P00065,Pantoprazole 10ml,CureAll,Cardiac,599.53,1 bottle,3041
+P00066,Vitamin C 100ml,LifeCare,Diabetes,323.35,1 bottle,5844
+P00067,Amlodipine 500mg,NutriX,Diabetes,638.38,60 tablets,3851
+P00068,Omeprazole 100ml,LifeCare,Diabetes,529.58,10 tablets,5978
+P00069,Vitamin C 500mg,MediFast,Cardiac,452.44,60 tablets,4501
+P00070,Amlodipine 10ml,MedPlus,Antibiotic,283.92,1 bottle,6491
+P00071,Amoxicillin XL,NutriX,Gastro,228.92,15 tablets,3414
+P00072,Paracetamol 250mg,NutriX,Dermatology,588.48,10 tablets,8461
+P00073,Azithromycin SR,NutriX,Diabetes,479.77,15 tablets,3417
+P00074,Paracetamol XL,CureAll,Diabetes,223.52,1 bottle,9486
+P00075,Metformin 250mg,NutriX,Antibiotic,444.51,60 tablets,9702
+P00076,Amlodipine 100ml,PharmaOne,Dermatology,589.77,1 bottle,9270
+P00077,Azithromycin XL,BioHeal,Supplement,711.6,60 tablets,8373
+P00078,Vitamin C XL,NutriX,Gastro,732.21,100 ml,8939
+P00079,Cetirizine 100mg,BioHeal,Antibiotic,683.6,15 tablets,5451
+P00080,Pantoprazole 100mg,CureAll,Supplement,160.27,60 tablets,3503
+P00081,Cetirizine 250mg,MediFast,Diabetes,327.72,60 tablets,7812
+P00082,Paracetamol 500mg,MediFast,Diabetes,861.5,100 ml,1320
+P00083,Omeprazole 10ml,BioHeal,Analgesic,896.75,30 tablets,7389
+P00084,Azithromycin 100ml,NutriX,Dermatology,224.06,60 tablets,8956
+P00085,Paracetamol 10ml,PharmaOne,Diabetes,693.49,60 tablets,3091
+P00086,Omeprazole 100ml,HealCo,Diabetes,570.46,1 bottle,1444
+P00087,Amoxicillin SR,MediFast,Supplement,826.17,15 tablets,1823
+P00088,Vitamin C 10ml,PharmaOne,Cough & Cold,442.87,30 tablets,7211
+P00089,Vitamin C XL,MediFast,Gastro,796.47,60 tablets,1317
+P00090,Amlodipine 250mg,PharmaOne,Cough & Cold,624.63,1 bottle,1659
+P00091,Paracetamol 500mg,NutriX,Analgesic,597.84,15 tablets,3068
+P00092,Metformin SR,CureAll,Cough & Cold,452.48,30 tablets,7043
+P00093,Ibuprofen 100ml,CureAll,Supplement,917.19,10 tablets,1420
+P00094,Vitamin C 100ml,MediFast,Diabetes,895.57,15 tablets,2245
+P00095,Omeprazole SR,NutriX,Antibiotic,668.39,30 tablets,2983
+P00096,Omeprazole XL,HealCo,Cardiac,515.45,1 bottle,7071
+P00097,Amoxicillin 100ml,PharmaOne,Analgesic,810.11,60 tablets,2729
+P00098,Azithromycin 100mg,BioHeal,Supplement,425.0,1 bottle,9548
+P00099,Vitamin C 100ml,BioHeal,Dermatology,425.08,1 bottle,5397
+P00100,Pantoprazole XL,NutriX,Antibiotic,279.4,60 tablets,4995
+P00101,Metformin 100ml,MediFast,Cardiac,46.69,30 tablets,3979
+P00102,Metformin 500mg,PharmaOne,Gastro,336.52,100 ml,5526
+P00103,Amlodipine 250mg,NutriX,Antibiotic,244.46,60 tablets,9004
+P00104,Amlodipine XL,NutriX,Dermatology,620.69,60 tablets,8342
+P00105,Paracetamol 250mg,LifeCare,Cough & Cold,396.09,15 tablets,6016
+P00106,Omeprazole 100mg,BioHeal,Cardiac,415.72,1 bottle,6419
+P00107,Pantoprazole SR,BioHeal,Gastro,305.16,15 tablets,2976
+P00108,Cetirizine 100mg,CureAll,Supplement,198.13,1 bottle,8933
+P00109,Vitamin C SR,LifeCare,Antibiotic,794.34,30 tablets,4727
+P00110,Pantoprazole 500mg,LifeCare,Analgesic,678.46,15 tablets,5494
+P00111,Paracetamol 250mg,LifeCare,Supplement,613.22,60 tablets,2680
+P00112,Paracetamol 100ml,LifeCare,Dermatology,465.2,30 tablets,4020
+P00113,Paracetamol 100mg,BioHeal,Antibiotic,784.57,60 tablets,9056
+P00114,Amoxicillin 100ml,HealCo,Supplement,158.75,100 ml,5978
+P00115,Amoxicillin 500mg,CureAll,Diabetes,583.88,100 ml,4697
+P00116,Amlodipine 10ml,BioHeal,Dermatology,296.54,100 ml,8025
+P00117,Vitamin C 100ml,HealCo,Antibiotic,901.26,15 tablets,4457
+P00118,Vitamin C SR,CureAll,Supplement,243.07,100 ml,2229
+P00119,Ibuprofen 250mg,MediFast,Dermatology,661.12,60 tablets,5771
+P00120,Paracetamol 500mg,LifeCare,Gastro,673.78,60 tablets,2166
+P00121,Cetirizine 100mg,NutriX,Diabetes,126.74,15 tablets,3441
+P00122,Vitamin C XL,MedPlus,Antibiotic,75.46,30 tablets,5728
+P00123,Metformin 250mg,BioHeal,Gastro,670.75,30 tablets,9199
+P00124,Amlodipine 10ml,BioHeal,Antibiotic,576.17,60 tablets,6280
+P00125,Omeprazole 100mg,HealCo,Antibiotic,232.9,1 bottle,1339
+P00126,Vitamin C 100ml,HealCo,Supplement,457.57,1 bottle,8245
+P00127,Vitamin C 500mg,MediFast,Dermatology,921.22,60 tablets,6700
+P00128,Azithromycin 100mg,PharmaOne,Antibiotic,817.69,30 tablets,7744
+P00129,Metformin 100mg,MediFast,Analgesic,442.99,30 tablets,5135
+P00130,Pantoprazole 250mg,MediFast,Analgesic,631.62,100 ml,8569
+P00131,Azithromycin 250mg,NutriX,Cardiac,599.05,60 tablets,8242
+P00132,Paracetamol 500mg,LifeCare,Supplement,882.74,60 tablets,8941
+P00133,Amoxicillin 250mg,NutriX,Supplement,309.0,10 tablets,7684
+P00134,Amoxicillin 500mg,CureAll,Dermatology,900.77,1 bottle,3522
+P00135,Metformin SR,LifeCare,Gastro,406.41,60 tablets,8736
+P00136,Cetirizine 10ml,MedPlus,Diabetes,197.27,100 ml,9327
+P00137,Ibuprofen XL,CureAll,Gastro,738.59,60 tablets,6568
+P00138,Amlodipine 100mg,HealCo,Gastro,695.23,100 ml,9022
+P00139,Ibuprofen 10ml,BioHeal,Cardiac,329.17,100 ml,7180
+P00140,Metformin 100mg,NutriX,Cough & Cold,551.77,15 tablets,7730
+P00141,Paracetamol 100mg,BioHeal,Diabetes,379.05,1 bottle,3492
+P00142,Metformin 250mg,MedPlus,Cardiac,828.82,60 tablets,2633
+P00143,Amlodipine 10ml,HealCo,Supplement,401.28,1 bottle,3529
+P00144,Amoxicillin 10ml,LifeCare,Cardiac,599.63,60 tablets,2315
+P00145,Pantoprazole XL,MediFast,Cardiac,602.92,60 tablets,9864
+P00146,Paracetamol 100ml,CureAll,Cough & Cold,606.98,30 tablets,4727
+P00147,Amoxicillin 10ml,CureAll,Antibiotic,432.62,1 bottle,5906
+P00148,Paracetamol 250mg,PharmaOne,Analgesic,292.83,30 tablets,8056
+P00149,Ibuprofen 500mg,MediFast,Supplement,178.08,10 tablets,7267
+P00150,Omeprazole SR,NutriX,Dermatology,868.93,15 tablets,4804
+P00151,Metformin SR,LifeCare,Dermatology,257.45,10 tablets,8622
+P00152,Vitamin C SR,MedPlus,Antibiotic,430.81,30 tablets,5901
+P00153,Azithromycin SR,LifeCare,Dermatology,806.13,15 tablets,7302
+P00154,Metformin 250mg,NutriX,Diabetes,551.89,100 ml,5847
+P00155,Vitamin C 250mg,MediFast,Gastro,27.53,1 bottle,1803
+P00156,Omeprazole SR,BioHeal,Gastro,741.44,15 tablets,6772
+P00157,Cetirizine SR,NutriX,Gastro,650.32,1 bottle,3240
+P00158,Amoxicillin SR,HealCo,Gastro,753.41,10 tablets,6977
+P00159,Ibuprofen 250mg,LifeCare,Cardiac,715.16,15 tablets,4289
+P00160,Ibuprofen XL,PharmaOne,Gastro,792.34,30 tablets,8894
+P00161,Vitamin C SR,PharmaOne,Antibiotic,455.55,10 tablets,3306
+P00162,Cetirizine XL,MediFast,Cardiac,103.98,60 tablets,1228
+P00163,Vitamin C 100ml,CureAll,Dermatology,362.78,1 bottle,5295
+P00164,Omeprazole 10ml,PharmaOne,Antibiotic,647.6,60 tablets,1410
+P00165,Omeprazole 100ml,PharmaOne,Cough & Cold,622.32,1 bottle,8606
+P00166,Vitamin C SR,MediFast,Antibiotic,149.99,10 tablets,5986
+P00167,Metformin 250mg,CureAll,Cough & Cold,845.15,15 tablets,7367
+P00168,Metformin 100mg,MediFast,Supplement,843.43,1 bottle,2622
+P00169,Metformin 100ml,MediFast,Gastro,50.43,30 tablets,4559
+P00170,Metformin 10ml,NutriX,Cardiac,112.4,1 bottle,7018
+P00171,Amlodipine SR,PharmaOne,Analgesic,390.27,15 tablets,3001
+P00172,Metformin 250mg,NutriX,Analgesic,67.04,30 tablets,4990
+P00173,Ibuprofen XL,NutriX,Antibiotic,791.73,100 ml,4394
+P00174,Omeprazole 500mg,NutriX,Cardiac,740.16,100 ml,1046
+P00175,Vitamin C XL,MedPlus,Supplement,522.4,15 tablets,2801
+P00176,Paracetamol 500mg,HealCo,Cardiac,754.69,15 tablets,6304
+P00177,Paracetamol 500mg,LifeCare,Analgesic,137.89,60 tablets,9619
+P00178,Amoxicillin SR,CureAll,Dermatology,436.9,30 tablets,9408
+P00179,Omeprazole 250mg,BioHeal,Cough & Cold,899.24,10 tablets,9543
+P00180,Vitamin C 10ml,HealCo,Analgesic,948.69,60 tablets,7984
+P00181,Amoxicillin 10ml,BioHeal,Antibiotic,856.32,30 tablets,3430
+P00182,Amoxicillin 500mg,LifeCare,Cardiac,374.24,100 ml,9692
+P00183,Vitamin C 10ml,MediFast,Antibiotic,757.58,10 tablets,4522
+P00184,Azithromycin 10ml,NutriX,Diabetes,335.21,60 tablets,7532
+P00185,Azithromycin SR,CureAll,Cardiac,416.89,1 bottle,5176
+P00186,Pantoprazole 500mg,BioHeal,Antibiotic,104.84,10 tablets,2527
+P00187,Azithromycin 250mg,PharmaOne,Supplement,537.42,100 ml,6400
+P00188,Amoxicillin 10ml,PharmaOne,Diabetes,827.33,1 bottle,1842
+P00189,Vitamin C 100ml,LifeCare,Cardiac,116.35,100 ml,4485
+P00190,Ibuprofen SR,BioHeal,Cough & Cold,807.97,30 tablets,7022
+P00191,Amoxicillin XL,LifeCare,Cough & Cold,770.72,100 ml,1430
+P00192,Omeprazole SR,LifeCare,Analgesic,187.79,1 bottle,6062
+P00193,Pantoprazole 100mg,HealCo,Supplement,828.97,100 ml,7566
+P00194,Amoxicillin 500mg,HealCo,Antibiotic,713.88,15 tablets,7163
+P00195,Azithromycin 10ml,PharmaOne,Supplement,364.15,1 bottle,6314
+P00196,Omeprazole 100ml,CureAll,Analgesic,164.69,100 ml,1815
+P00197,Amoxicillin 100mg,BioHeal,Diabetes,471.67,60 tablets,7785
+P00198,Vitamin C 500mg,CureAll,Cardiac,419.82,30 tablets,8972
+P00199,Amlodipine SR,LifeCare,Analgesic,225.08,100 ml,1897
+P00200,Paracetamol 500mg,LifeCare,Cough & Cold,733.64,30 tablets,5742
+P00201,Pantoprazole 250mg,HealCo,Dermatology,714.72,15 tablets,3116
+P00202,Azithromycin 100ml,NutriX,Cardiac,87.03,1 bottle,1693
+P00203,Azithromycin 250mg,BioHeal,Antibiotic,821.76,100 ml,8033
+P00204,Omeprazole 10ml,MediFast,Gastro,127.11,10 tablets,6321
+P00205,Ibuprofen XL,BioHeal,Cardiac,101.96,10 tablets,4986
+P00206,Azithromycin 100ml,MediFast,Antibiotic,388.06,30 tablets,6562
+P00207,Cetirizine 100mg,MedPlus,Antibiotic,494.75,10 tablets,9693
+P00208,Amlodipine 500mg,PharmaOne,Cardiac,696.46,1 bottle,3419
+P00209,Cetirizine 250mg,MedPlus,Gastro,203.46,100 ml,3504
+P00210,Amoxicillin 500mg,BioHeal,Dermatology,721.63,100 ml,8354
+P00211,Omeprazole SR,PharmaOne,Cardiac,160.39,10 tablets,8682
+P00212,Metformin SR,LifeCare,Gastro,570.02,30 tablets,9312
+P00213,Amoxicillin 100mg,BioHeal,Dermatology,54.97,30 tablets,5703
+P00214,Amoxicillin SR,CureAll,Diabetes,450.32,100 ml,1672
+P00215,Metformin XL,NutriX,Cardiac,582.66,100 ml,3471
+P00216,Paracetamol 10ml,CureAll,Cardiac,933.62,10 tablets,9266
+P00217,Ibuprofen 250mg,NutriX,Dermatology,941.62,100 ml,9564
+P00218,Omeprazole 500mg,PharmaOne,Cardiac,873.68,60 tablets,7697
+P00219,Pantoprazole SR,HealCo,Cardiac,81.3,10 tablets,7333
+P00220,Vitamin C 100mg,MedPlus,Cardiac,95.8,1 bottle,3317
+P00221,Pantoprazole 100mg,MediFast,Supplement,573.39,10 tablets,6072
+P00222,Amlodipine 10ml,PharmaOne,Supplement,643.21,1 bottle,9624
+P00223,Amoxicillin SR,MediFast,Cardiac,36.95,30 tablets,3953
+P00224,Cetirizine 100mg,BioHeal,Cough & Cold,230.69,15 tablets,3538
+P00225,Amoxicillin 100mg,CureAll,Analgesic,635.59,100 ml,3147
+P00226,Omeprazole 10ml,MedPlus,Supplement,188.19,1 bottle,3712
+P00227,Metformin 250mg,MediFast,Cardiac,649.02,15 tablets,8277
+P00228,Omeprazole 100mg,BioHeal,Cough & Cold,516.63,30 tablets,8684
+P00229,Cetirizine 100mg,BioHeal,Dermatology,735.58,60 tablets,9239
+P00230,Amlodipine 10ml,MedPlus,Cough & Cold,765.17,15 tablets,5096
+P00231,Paracetamol SR,BioHeal,Cardiac,535.72,10 tablets,9452
+P00232,Amoxicillin 100mg,CureAll,Supplement,273.7,100 ml,3414
+P00233,Azithromycin 250mg,NutriX,Dermatology,842.71,10 tablets,7797
+P00234,Paracetamol 10ml,PharmaOne,Cough & Cold,379.13,10 tablets,7142
+P00235,Cetirizine 250mg,PharmaOne,Antibiotic,800.43,1 bottle,6493
+P00236,Ibuprofen 500mg,HealCo,Gastro,873.18,60 tablets,3273
+P00237,Metformin 10ml,HealCo,Antibiotic,37.67,15 tablets,3449
+P00238,Amlodipine SR,MediFast,Antibiotic,741.84,15 tablets,5934
+P00239,Amoxicillin 250mg,NutriX,Diabetes,614.23,100 ml,8489
+P00240,Amoxicillin 250mg,BioHeal,Analgesic,607.72,100 ml,4963
+P00241,Ibuprofen 100mg,MediFast,Analgesic,591.77,15 tablets,7825
+P00242,Ibuprofen SR,CureAll,Cardiac,82.94,100 ml,9914
+P00243,Amlodipine XL,HealCo,Diabetes,832.2,10 tablets,7338
+P00244,Pantoprazole 100mg,HealCo,Cardiac,753.32,30 tablets,4950
+P00245,Amoxicillin XL,PharmaOne,Supplement,61.23,100 ml,6546
+P00246,Ibuprofen XL,BioHeal,Dermatology,607.51,15 tablets,2033
+P00247,Metformin 250mg,LifeCare,Cough & Cold,60.74,15 tablets,1686
+P00248,Pantoprazole 100mg,MediFast,Dermatology,255.58,1 bottle,4131
+P00249,Vitamin C 100mg,HealCo,Cardiac,274.09,30 tablets,8159
+P00250,Azithromycin SR,BioHeal,Diabetes,335.3,15 tablets,9129
+P00251,Metformin 100mg,LifeCare,Antibiotic,696.19,10 tablets,8055
+P00252,Omeprazole XL,MedPlus,Gastro,318.73,10 tablets,6372
+P00253,Vitamin C 100mg,BioHeal,Diabetes,174.98,60 tablets,6759
+P00254,Metformin 250mg,PharmaOne,Diabetes,275.34,10 tablets,2229
+P00255,Azithromycin 100mg,MedPlus,Analgesic,152.78,100 ml,8179
+P00256,Paracetamol 500mg,CureAll,Cough & Cold,744.02,30 tablets,6933
+P00257,Azithromycin 100ml,HealCo,Supplement,651.53,30 tablets,7095
+P00258,Metformin XL,CureAll,Supplement,512.4,60 tablets,6150
+P00259,Vitamin C 500mg,CureAll,Analgesic,704.18,60 tablets,9482
+P00260,Azithromycin 100ml,CureAll,Gastro,740.72,1 bottle,8311
+P00261,Cetirizine 100ml,LifeCare,Dermatology,206.17,15 tablets,2213
+P00262,Metformin 500mg,BioHeal,Antibiotic,773.78,30 tablets,6692
+P00263,Amoxicillin 100ml,LifeCare,Gastro,811.77,1 bottle,3852
+P00264,Pantoprazole 100ml,NutriX,Antibiotic,936.17,15 tablets,4878
+P00265,Metformin 250mg,PharmaOne,Cardiac,454.69,100 ml,3126
+P00266,Omeprazole 250mg,CureAll,Gastro,390.29,1 bottle,8842
+P00267,Amlodipine 10ml,MediFast,Antibiotic,136.55,30 tablets,2215
+P00268,Metformin 10ml,PharmaOne,Supplement,836.5,100 ml,3981
+P00269,Ibuprofen 10ml,HealCo,Antibiotic,501.83,30 tablets,3697
+P00270,Ibuprofen 100mg,NutriX,Cardiac,901.16,100 ml,5653
+P00271,Amoxicillin 100mg,NutriX,Gastro,136.41,30 tablets,9740
+P00272,Amoxicillin 100ml,MedPlus,Supplement,179.22,100 ml,6531
+P00273,Omeprazole 250mg,HealCo,Antibiotic,62.28,1 bottle,5336
+P00274,Cetirizine XL,MediFast,Analgesic,483.18,1 bottle,9938
+P00275,Vitamin C SR,LifeCare,Dermatology,247.74,1 bottle,7653
+P00276,Vitamin C 10ml,CureAll,Analgesic,167.01,60 tablets,8933
+P00277,Metformin 500mg,PharmaOne,Supplement,310.7,1 bottle,6231
+P00278,Pantoprazole 10ml,MedPlus,Cardiac,498.93,10 tablets,6228
+P00279,Cetirizine 10ml,CureAll,Gastro,438.12,15 tablets,2586
+P00280,Paracetamol 100mg,MediFast,Diabetes,250.89,15 tablets,6364
+P00281,Omeprazole SR,PharmaOne,Cough & Cold,729.7,60 tablets,9433
+P00282,Metformin 10ml,LifeCare,Dermatology,41.55,60 tablets,9281
+P00283,Metformin 500mg,NutriX,Cardiac,65.25,30 tablets,9108
+P00284,Omeprazole XL,BioHeal,Gastro,519.12,10 tablets,8060
+P00285,Ibuprofen 100mg,PharmaOne,Diabetes,360.32,60 tablets,1838
+P00286,Omeprazole 100ml,NutriX,Cardiac,534.5,10 tablets,7329
+P00287,Amlodipine 10ml,LifeCare,Antibiotic,139.66,10 tablets,7453
+P00288,Pantoprazole XL,PharmaOne,Cardiac,722.12,15 tablets,9341
+P00289,Azithromycin 100ml,HealCo,Analgesic,56.19,1 bottle,6456
+P00290,Metformin 100ml,BioHeal,Supplement,583.82,100 ml,3290
+P00291,Pantoprazole 100ml,PharmaOne,Supplement,385.45,100 ml,5902
+P00292,Omeprazole 100mg,BioHeal,Gastro,461.65,10 tablets,7035
+P00293,Pantoprazole SR,CureAll,Diabetes,562.84,1 bottle,1436
+P00294,Omeprazole 10ml,LifeCare,Cough & Cold,690.9,100 ml,8871
+P00295,Ibuprofen 100ml,MediFast,Supplement,784.15,15 tablets,1517
+P00296,Omeprazole SR,CureAll,Cough & Cold,37.61,30 tablets,7861
+P00297,Ibuprofen 10ml,NutriX,Diabetes,486.69,100 ml,8726
+P00298,Paracetamol SR,MedPlus,Cough & Cold,541.62,1 bottle,8837
+P00299,Amlodipine 10ml,PharmaOne,Supplement,447.49,100 ml,6608
+P00300,Amlodipine 100mg,LifeCare,Dermatology,198.81,15 tablets,5571
+P00301,Amlodipine 100mg,NutriX,Gastro,737.19,1 bottle,4396
+P00302,Metformin 100mg,BioHeal,Cardiac,541.25,1 bottle,5480
+P00303,Vitamin C 250mg,MediFast,Diabetes,781.09,15 tablets,5758
+P00304,Paracetamol 100mg,CureAll,Cardiac,879.33,1 bottle,5201
+P00305,Metformin 500mg,NutriX,Gastro,887.71,1 bottle,5450
+P00306,Ibuprofen 250mg,NutriX,Cough & Cold,67.21,100 ml,4697
+P00307,Cetirizine 250mg,CureAll,Diabetes,327.17,60 tablets,2647
+P00308,Ibuprofen 250mg,MedPlus,Diabetes,627.19,60 tablets,8822
+P00309,Cetirizine XL,LifeCare,Cardiac,285.44,10 tablets,2465
+P00310,Omeprazole 500mg,HealCo,Supplement,408.63,15 tablets,1595
+P00311,Azithromycin XL,BioHeal,Supplement,891.05,30 tablets,1613
+P00312,Paracetamol 100mg,CureAll,Cardiac,284.64,1 bottle,9901
+P00313,Amlodipine 10ml,MedPlus,Dermatology,273.74,10 tablets,6417
+P00314,Ibuprofen SR,BioHeal,Gastro,688.3,10 tablets,6523
+P00315,Vitamin C 100ml,NutriX,Supplement,588.19,1 bottle,7643
+P00316,Azithromycin 100ml,PharmaOne,Antibiotic,392.77,10 tablets,4027
+P00317,Ibuprofen 10ml,PharmaOne,Cough & Cold,26.35,60 tablets,4858
+P00318,Metformin XL,LifeCare,Cardiac,300.81,1 bottle,1187
+P00319,Vitamin C SR,PharmaOne,Cough & Cold,77.78,10 tablets,8625
+P00320,Vitamin C 500mg,MediFast,Gastro,661.97,1 bottle,5833
+P00321,Pantoprazole 100ml,NutriX,Cough & Cold,910.35,60 tablets,3509
+P00322,Metformin SR,PharmaOne,Diabetes,672.8,60 tablets,9806
+P00323,Cetirizine XL,NutriX,Antibiotic,508.72,100 ml,6927
+P00324,Amoxicillin 100ml,CureAll,Analgesic,790.76,100 ml,4312
+P00325,Omeprazole 100ml,MedPlus,Supplement,325.15,100 ml,8239
+P00326,Amoxicillin SR,NutriX,Dermatology,104.58,100 ml,8298
+P00327,Paracetamol 10ml,MedPlus,Diabetes,444.82,10 tablets,8575
+P00328,Vitamin C SR,HealCo,Diabetes,256.65,10 tablets,4570
+P00329,Omeprazole 250mg,HealCo,Diabetes,340.41,10 tablets,9866
+P00330,Paracetamol 250mg,BioHeal,Analgesic,286.99,15 tablets,3218
+P00331,Azithromycin 100mg,MediFast,Dermatology,828.75,60 tablets,7154
+P00332,Amoxicillin SR,MedPlus,Cardiac,130.33,100 ml,7439
+P00333,Amlodipine 500mg,NutriX,Analgesic,723.25,30 tablets,8585
+P00334,Amlodipine 10ml,MediFast,Cough & Cold,250.19,30 tablets,3541
+P00335,Vitamin C 500mg,CureAll,Analgesic,772.81,60 tablets,1256
+P00336,Cetirizine 500mg,CureAll,Antibiotic,572.37,60 tablets,1797
+P00337,Cetirizine SR,HealCo,Diabetes,428.24,100 ml,4559
+P00338,Paracetamol 500mg,LifeCare,Cough & Cold,778.68,1 bottle,6224
+P00339,Omeprazole 100ml,PharmaOne,Cough & Cold,300.64,15 tablets,9540
+P00340,Cetirizine 10ml,LifeCare,Gastro,76.69,100 ml,3869
+P00341,Azithromycin 100ml,BioHeal,Analgesic,924.23,1 bottle,7244
+P00342,Amlodipine 100mg,MediFast,Diabetes,158.77,60 tablets,4012
+P00343,Amlodipine 10ml,NutriX,Cough & Cold,299.68,1 bottle,3365
+P00344,Metformin 250mg,MediFast,Diabetes,538.28,15 tablets,7363
+P00345,Cetirizine 100mg,NutriX,Cardiac,621.44,60 tablets,7079
+P00346,Amoxicillin 100ml,NutriX,Analgesic,269.67,1 bottle,1647
+P00347,Amoxicillin 500mg,NutriX,Dermatology,214.27,30 tablets,5967
+P00348,Paracetamol 500mg,NutriX,Antibiotic,714.6,60 tablets,4974
+P00349,Omeprazole SR,NutriX,Diabetes,871.07,100 ml,6269
+P00350,Vitamin C 10ml,BioHeal,Cardiac,306.83,30 tablets,9401
+P00351,Metformin 10ml,CureAll,Dermatology,728.31,30 tablets,4328
+P00352,Pantoprazole 100mg,MediFast,Analgesic,543.15,15 tablets,3390
+P00353,Paracetamol 100mg,MediFast,Gastro,161.74,30 tablets,4768
+P00354,Azithromycin 100ml,NutriX,Dermatology,532.1,1 bottle,6530
+P00355,Vitamin C XL,BioHeal,Dermatology,448.57,1 bottle,6770
+P00356,Ibuprofen 500mg,BioHeal,Supplement,872.72,100 ml,1962
+P00357,Amlodipine 250mg,CureAll,Analgesic,730.84,60 tablets,3252
+P00358,Cetirizine 250mg,MedPlus,Analgesic,223.41,60 tablets,7114
+P00359,Paracetamol 100ml,BioHeal,Dermatology,34.63,100 ml,7739
+P00360,Paracetamol 250mg,LifeCare,Gastro,35.94,1 bottle,8054
+P00361,Ibuprofen 250mg,CureAll,Supplement,244.1,100 ml,9625
+P00362,Vitamin C XL,PharmaOne,Gastro,759.29,10 tablets,7112
+P00363,Azithromycin 10ml,NutriX,Cough & Cold,298.98,10 tablets,1519
+P00364,Amoxicillin 10ml,MediFast,Diabetes,534.01,10 tablets,1154
+P00365,Ibuprofen 250mg,BioHeal,Diabetes,619.76,30 tablets,2562
+P00366,Amlodipine 250mg,NutriX,Cough & Cold,858.18,1 bottle,8790
+P00367,Vitamin C 250mg,CureAll,Gastro,856.36,100 ml,1539
+P00368,Ibuprofen XL,PharmaOne,Analgesic,914.17,100 ml,3362
+P00369,Azithromycin 250mg,LifeCare,Supplement,544.48,100 ml,7375
+P00370,Amlodipine 100mg,MediFast,Supplement,755.16,1 bottle,2284
+P00371,Amlodipine SR,PharmaOne,Analgesic,110.85,15 tablets,2245
+P00372,Pantoprazole 100ml,MediFast,Cardiac,47.55,30 tablets,8381
+P00373,Metformin 500mg,PharmaOne,Diabetes,421.62,1 bottle,7227
+P00374,Amoxicillin XL,LifeCare,Cough & Cold,683.19,10 tablets,5390
+P00375,Ibuprofen 10ml,MedPlus,Diabetes,314.51,10 tablets,2499
+P00376,Paracetamol 100mg,BioHeal,Cardiac,728.05,10 tablets,3170
+P00377,Amoxicillin 500mg,MediFast,Dermatology,538.0,100 ml,7685
+P00378,Amoxicillin 250mg,CureAll,Cardiac,535.42,100 ml,6315
+P00379,Azithromycin 250mg,LifeCare,Diabetes,380.65,10 tablets,4977
+P00380,Omeprazole 100ml,MedPlus,Diabetes,177.64,30 tablets,5933
+P00381,Vitamin C 10ml,MedPlus,Antibiotic,175.5,30 tablets,7899
+P00382,Vitamin C 10ml,CureAll,Cardiac,254.08,15 tablets,9123
+P00383,Omeprazole 100ml,NutriX,Dermatology,119.48,30 tablets,1110
+P00384,Azithromycin 100mg,MediFast,Cardiac,429.41,60 tablets,3230
+P00385,Vitamin C 100mg,NutriX,Dermatology,312.19,60 tablets,6228
+P00386,Vitamin C SR,BioHeal,Cough & Cold,323.07,30 tablets,7437
+P00387,Pantoprazole 250mg,NutriX,Supplement,653.99,100 ml,1440
+P00388,Metformin SR,NutriX,Dermatology,761.85,1 bottle,2133
+P00389,Azithromycin SR,BioHeal,Supplement,609.0,15 tablets,5139
+P00390,Ibuprofen SR,MediFast,Diabetes,88.79,100 ml,8851
+P00391,Omeprazole 10ml,MediFast,Analgesic,755.37,30 tablets,9796
+P00392,Omeprazole SR,CureAll,Antibiotic,735.13,1 bottle,6816
+P00393,Ibuprofen SR,HealCo,Diabetes,919.13,30 tablets,8052
+P00394,Amoxicillin 250mg,CureAll,Gastro,226.46,1 bottle,9499
+P00395,Amlodipine 100ml,NutriX,Dermatology,367.93,60 tablets,9199
+P00396,Ibuprofen 100mg,HealCo,Dermatology,117.23,60 tablets,2406
+P00397,Amoxicillin XL,MedPlus,Cardiac,310.06,60 tablets,4389
+P00398,Amlodipine 10ml,PharmaOne,Dermatology,110.79,1 bottle,8412
+P00399,Pantoprazole 250mg,LifeCare,Analgesic,773.47,10 tablets,1370
+P00400,Pantoprazole SR,CureAll,Supplement,884.83,1 bottle,4996
+P00401,Amlodipine 500mg,MedPlus,Cardiac,540.66,60 tablets,4798
+P00402,Azithromycin SR,MedPlus,Supplement,615.65,60 tablets,7481
+P00403,Paracetamol SR,NutriX,Dermatology,570.75,60 tablets,1072
+P00404,Cetirizine 500mg,LifeCare,Antibiotic,556.93,100 ml,4063
+P00405,Pantoprazole 100mg,NutriX,Dermatology,125.98,1 bottle,9019
+P00406,Amlodipine SR,PharmaOne,Diabetes,588.52,100 ml,2871
+P00407,Pantoprazole 100mg,BioHeal,Supplement,776.78,1 bottle,5873
+P00408,Omeprazole 100ml,CureAll,Supplement,311.26,15 tablets,6003
+P00409,Amoxicillin 500mg,PharmaOne,Supplement,495.07,60 tablets,3258
+P00410,Omeprazole 10ml,MediFast,Supplement,472.6,100 ml,3838
+P00411,Amlodipine 500mg,BioHeal,Gastro,150.48,30 tablets,8389
+P00412,Omeprazole 250mg,PharmaOne,Analgesic,470.69,15 tablets,7290
+P00413,Amlodipine 100ml,BioHeal,Diabetes,656.77,60 tablets,8272
+P00414,Metformin 500mg,CureAll,Analgesic,760.17,15 tablets,5785
+P00415,Paracetamol 100mg,NutriX,Gastro,176.43,60 tablets,9115
+P00416,Amlodipine 100ml,CureAll,Antibiotic,269.14,100 ml,7010
+P00417,Amlodipine XL,HealCo,Dermatology,528.11,60 tablets,2677
+P00418,Cetirizine 100mg,HealCo,Dermatology,264.42,10 tablets,8193
+P00419,Amoxicillin XL,NutriX,Cough & Cold,773.95,100 ml,6744
+P00420,Omeprazole SR,MediFast,Supplement,593.02,15 tablets,4390
+P00421,Paracetamol 100ml,PharmaOne,Gastro,575.08,15 tablets,6302
+P00422,Vitamin C 100mg,LifeCare,Antibiotic,146.1,60 tablets,1971
+P00423,Vitamin C XL,MedPlus,Supplement,252.2,1 bottle,6277
+P00424,Cetirizine XL,MediFast,Dermatology,152.22,1 bottle,5402
+P00425,Azithromycin 10ml,BioHeal,Antibiotic,609.27,10 tablets,7600
+P00426,Amlodipine SR,LifeCare,Cardiac,442.87,60 tablets,6362
+P00427,Omeprazole 250mg,CureAll,Dermatology,610.4,1 bottle,6869
+P00428,Amoxicillin XL,MediFast,Cough & Cold,920.36,15 tablets,9105
+P00429,Vitamin C 100mg,LifeCare,Cardiac,529.0,15 tablets,8951
+P00430,Pantoprazole SR,HealCo,Analgesic,112.6,60 tablets,1266
+P00431,Amoxicillin XL,MedPlus,Dermatology,444.56,60 tablets,4314
+P00432,Ibuprofen SR,LifeCare,Supplement,833.21,30 tablets,2529
+P00433,Pantoprazole 100mg,CureAll,Cardiac,637.99,1 bottle,3711
+P00434,Paracetamol 10ml,LifeCare,Cough & Cold,419.18,10 tablets,2559
+P00435,Paracetamol 500mg,BioHeal,Antibiotic,143.41,15 tablets,9510
+P00436,Metformin 250mg,HealCo,Cardiac,779.91,60 tablets,3165
+P00437,Metformin 250mg,NutriX,Diabetes,103.08,10 tablets,2690
+P00438,Pantoprazole 100mg,LifeCare,Supplement,375.93,15 tablets,3340
+P00439,Amoxicillin 100ml,HealCo,Supplement,429.29,1 bottle,4490
+P00440,Ibuprofen 10ml,BioHeal,Cough & Cold,100.62,10 tablets,3293
+P00441,Amoxicillin 100ml,MediFast,Cardiac,915.82,30 tablets,3290
+P00442,Cetirizine 100mg,CureAll,Cough & Cold,534.66,100 ml,5668
+P00443,Paracetamol XL,LifeCare,Cough & Cold,501.51,100 ml,4090
+P00444,Azithromycin 100mg,HealCo,Cough & Cold,480.25,10 tablets,4949
+P00445,Metformin SR,CureAll,Analgesic,937.8,30 tablets,3162
+P00446,Azithromycin XL,MediFast,Cardiac,528.11,15 tablets,8717
+P00447,Amoxicillin 250mg,CureAll,Analgesic,263.83,10 tablets,1990
+P00448,Azithromycin 100ml,LifeCare,Diabetes,413.92,60 tablets,2350
+P00449,Amlodipine 100ml,MedPlus,Gastro,97.75,10 tablets,9377
+P00450,Cetirizine XL,MedPlus,Cardiac,383.38,1 bottle,2083
+P00451,Vitamin C SR,MediFast,Cough & Cold,73.85,10 tablets,8118
+P00452,Amoxicillin 10ml,HealCo,Gastro,639.45,1 bottle,3877
+P00453,Amoxicillin 250mg,MedPlus,Analgesic,172.36,30 tablets,9568
+P00454,Amlodipine XL,LifeCare,Supplement,365.84,1 bottle,5403
+P00455,Amoxicillin XL,HealCo,Cardiac,770.61,30 tablets,9582
+P00456,Amoxicillin 100mg,CureAll,Dermatology,443.33,30 tablets,1908
+P00457,Metformin XL,MedPlus,Cardiac,166.3,10 tablets,2889
+P00458,Cetirizine SR,HealCo,Analgesic,818.58,10 tablets,5006
+P00459,Paracetamol 10ml,PharmaOne,Diabetes,875.81,15 tablets,1579
+P00460,Amlodipine XL,MediFast,Cough & Cold,319.28,60 tablets,6241
+P00461,Vitamin C XL,CureAll,Cardiac,131.04,1 bottle,1862
+P00462,Ibuprofen 500mg,HealCo,Diabetes,84.1,60 tablets,5625
+P00463,Vitamin C 100mg,CureAll,Dermatology,27.41,15 tablets,5777
+P00464,Omeprazole XL,LifeCare,Cough & Cold,451.45,100 ml,9083
+P00465,Cetirizine SR,NutriX,Supplement,25.93,60 tablets,1391
+P00466,Cetirizine 100ml,PharmaOne,Analgesic,904.42,10 tablets,7164
+P00467,Vitamin C 250mg,NutriX,Cough & Cold,410.43,10 tablets,3332
+P00468,Vitamin C 250mg,HealCo,Cough & Cold,854.48,100 ml,7767
+P00469,Pantoprazole 10ml,CureAll,Antibiotic,490.05,1 bottle,7461
+P00470,Amoxicillin 100ml,HealCo,Diabetes,636.07,15 tablets,4879
+P00471,Vitamin C 100mg,PharmaOne,Diabetes,671.67,1 bottle,6345
+P00472,Pantoprazole 10ml,LifeCare,Cough & Cold,89.46,15 tablets,3230
+P00473,Omeprazole 250mg,MedPlus,Antibiotic,172.87,60 tablets,6145
+P00474,Azithromycin 250mg,PharmaOne,Cough & Cold,440.28,60 tablets,5341
+P00475,Amoxicillin 250mg,MedPlus,Gastro,788.54,1 bottle,1660
+P00476,Cetirizine XL,PharmaOne,Supplement,104.83,15 tablets,6828
+P00477,Azithromycin 100ml,HealCo,Gastro,261.96,15 tablets,1509
+P00478,Azithromycin XL,BioHeal,Cough & Cold,108.09,10 tablets,3290
+P00479,Amoxicillin 250mg,HealCo,Cough & Cold,141.57,60 tablets,7098
+P00480,Amoxicillin 100ml,LifeCare,Antibiotic,40.27,10 tablets,4239
+P00481,Metformin XL,MedPlus,Antibiotic,861.72,30 tablets,3007
+P00482,Paracetamol 10ml,HealCo,Supplement,879.44,60 tablets,7471
+P00483,Metformin 250mg,MediFast,Diabetes,180.71,15 tablets,4066
+P00484,Vitamin C 100mg,BioHeal,Supplement,52.22,100 ml,5026
+P00485,Vitamin C 10ml,MediFast,Dermatology,76.71,30 tablets,7275
+P00486,Ibuprofen 10ml,NutriX,Cough & Cold,606.6,100 ml,1319
+P00487,Azithromycin XL,PharmaOne,Dermatology,526.4,60 tablets,6636
+P00488,Omeprazole 100ml,PharmaOne,Diabetes,271.51,10 tablets,6224
+P00489,Omeprazole 500mg,HealCo,Gastro,74.49,60 tablets,9674
+P00490,Pantoprazole XL,NutriX,Supplement,113.12,1 bottle,4951
+P00491,Vitamin C 100ml,HealCo,Cough & Cold,555.39,60 tablets,6813
+P00492,Ibuprofen 500mg,NutriX,Cardiac,769.78,1 bottle,6878
+P00493,Omeprazole 250mg,PharmaOne,Supplement,543.69,15 tablets,9064
+P00494,Amlodipine 100mg,MedPlus,Dermatology,55.31,10 tablets,4811
+P00495,Omeprazole 500mg,HealCo,Dermatology,20.64,100 ml,4300
+P00496,Ibuprofen 100mg,MedPlus,Cardiac,75.39,15 tablets,3320
+P00497,Amoxicillin XL,PharmaOne,Antibiotic,367.44,1 bottle,7481
+P00498,Omeprazole 250mg,PharmaOne,Gastro,320.02,15 tablets,8157
+P00499,Metformin SR,PharmaOne,Supplement,677.68,100 ml,6846
+P00500,Cetirizine SR,MedPlus,Diabetes,305.35,1 bottle,5825
+P00501,Ibuprofen 500mg,HealCo,Diabetes,811.2,100 ml,1530
+P00502,Ibuprofen 100ml,PharmaOne,Cough & Cold,614.87,10 tablets,9129
+P00503,Ibuprofen 100mg,CureAll,Cough & Cold,342.53,30 tablets,3750
+P00504,Amoxicillin XL,PharmaOne,Dermatology,30.6,15 tablets,5088
+P00505,Amoxicillin 100mg,LifeCare,Antibiotic,689.98,10 tablets,7323
+P00506,Metformin SR,MediFast,Supplement,842.63,60 tablets,7204
+P00507,Pantoprazole 100ml,MediFast,Antibiotic,790.79,100 ml,4695
+P00508,Ibuprofen 10ml,CureAll,Analgesic,294.27,30 tablets,5278
+P00509,Amoxicillin 250mg,PharmaOne,Supplement,845.78,15 tablets,2228
+P00510,Amlodipine 250mg,PharmaOne,Dermatology,675.19,60 tablets,3703
+P00511,Omeprazole 10ml,MedPlus,Analgesic,114.17,15 tablets,4112
+P00512,Azithromycin SR,LifeCare,Gastro,296.58,10 tablets,1813
+P00513,Azithromycin 100ml,BioHeal,Supplement,70.69,10 tablets,8005
+P00514,Amoxicillin 100mg,BioHeal,Cough & Cold,110.2,15 tablets,3798
+P00515,Vitamin C 250mg,BioHeal,Antibiotic,306.77,60 tablets,8715
+P00516,Metformin SR,LifeCare,Antibiotic,616.94,60 tablets,4029
+P00517,Pantoprazole 10ml,PharmaOne,Supplement,434.57,30 tablets,8204
+P00518,Metformin 100mg,NutriX,Gastro,544.75,15 tablets,2584
+P00519,Amoxicillin SR,PharmaOne,Diabetes,922.76,100 ml,4727
+P00520,Amlodipine 250mg,MediFast,Diabetes,918.03,1 bottle,8779
+P00521,Omeprazole 500mg,BioHeal,Gastro,93.43,1 bottle,1568
+P00522,Amlodipine 100ml,MedPlus,Antibiotic,902.81,60 tablets,3832
+P00523,Ibuprofen 500mg,NutriX,Supplement,59.69,10 tablets,8133
+P00524,Cetirizine XL,MedPlus,Gastro,317.37,1 bottle,2097
+P00525,Amoxicillin 10ml,MediFast,Cardiac,816.66,100 ml,8506
+P00526,Paracetamol XL,MediFast,Antibiotic,405.43,15 tablets,2641
+P00527,Amoxicillin 100ml,CureAll,Gastro,826.75,30 tablets,7732
+P00528,Vitamin C 10ml,BioHeal,Dermatology,54.84,30 tablets,7602
+P00529,Ibuprofen 100ml,MediFast,Analgesic,388.09,30 tablets,4892
+P00530,Paracetamol SR,BioHeal,Gastro,854.24,10 tablets,6535
+P00531,Vitamin C 100mg,LifeCare,Dermatology,818.16,1 bottle,2609
+P00532,Cetirizine 500mg,LifeCare,Dermatology,739.85,30 tablets,5414
+P00533,Azithromycin 100ml,CureAll,Cough & Cold,430.8,60 tablets,8937
+P00534,Amlodipine XL,PharmaOne,Analgesic,499.2,15 tablets,2075
+P00535,Vitamin C SR,MediFast,Supplement,745.88,100 ml,1474
+P00536,Ibuprofen 500mg,NutriX,Analgesic,252.03,60 tablets,1828
+P00537,Pantoprazole SR,NutriX,Gastro,362.57,60 tablets,9275
+P00538,Azithromycin SR,CureAll,Analgesic,245.0,60 tablets,8308
+P00539,Ibuprofen XL,BioHeal,Cardiac,340.15,30 tablets,2480
+P00540,Vitamin C 250mg,MediFast,Analgesic,171.5,100 ml,4511
+P00541,Cetirizine SR,NutriX,Cough & Cold,270.25,60 tablets,9409
+P00542,Paracetamol XL,HealCo,Dermatology,867.71,1 bottle,3837
+P00543,Omeprazole XL,HealCo,Cough & Cold,254.72,30 tablets,5511
+P00544,Azithromycin 10ml,PharmaOne,Dermatology,254.36,60 tablets,5950
+P00545,Amlodipine XL,MediFast,Antibiotic,26.83,1 bottle,7131
+P00546,Amlodipine SR,LifeCare,Gastro,656.5,60 tablets,2045
+P00547,Pantoprazole 100mg,PharmaOne,Gastro,262.87,1 bottle,5895
+P00548,Cetirizine 500mg,NutriX,Analgesic,769.05,100 ml,7620
+P00549,Pantoprazole SR,MedPlus,Analgesic,629.52,30 tablets,5250
+P00550,Azithromycin 10ml,MediFast,Analgesic,562.21,100 ml,4111
+P00551,Pantoprazole SR,NutriX,Dermatology,863.07,1 bottle,6873
+P00552,Amlodipine 100mg,MedPlus,Supplement,293.22,60 tablets,3096
+P00553,Vitamin C SR,MedPlus,Cardiac,628.62,15 tablets,6820
+P00554,Cetirizine SR,LifeCare,Diabetes,752.92,30 tablets,7089
+P00555,Vitamin C 100ml,LifeCare,Dermatology,811.63,60 tablets,1879
+P00556,Omeprazole 100ml,CureAll,Dermatology,847.17,100 ml,2963
+P00557,Azithromycin 100ml,LifeCare,Diabetes,70.28,15 tablets,3250
+P00558,Cetirizine 100mg,MediFast,Dermatology,153.2,1 bottle,3954
+P00559,Amoxicillin 10ml,PharmaOne,Supplement,311.48,10 tablets,1077
+P00560,Metformin 100mg,NutriX,Supplement,555.94,15 tablets,9021
+P00561,Amoxicillin 500mg,MediFast,Diabetes,395.16,60 tablets,7280
+P00562,Paracetamol 250mg,NutriX,Cardiac,903.56,30 tablets,9700
+P00563,Cetirizine 250mg,HealCo,Cough & Cold,230.43,30 tablets,6113
+P00564,Ibuprofen 250mg,MediFast,Gastro,175.33,10 tablets,5885
+P00565,Vitamin C 10ml,PharmaOne,Diabetes,845.82,15 tablets,6615
+P00566,Metformin 100mg,NutriX,Supplement,901.72,60 tablets,1313
+P00567,Cetirizine 500mg,MedPlus,Cough & Cold,702.69,100 ml,9267
+P00568,Ibuprofen 250mg,PharmaOne,Analgesic,368.93,1 bottle,5190
+P00569,Amlodipine 100ml,HealCo,Analgesic,635.63,1 bottle,1323
+P00570,Paracetamol SR,CureAll,Diabetes,433.21,10 tablets,9966
+P00571,Vitamin C 10ml,MedPlus,Cough & Cold,666.53,1 bottle,1152
+P00572,Vitamin C 10ml,CureAll,Gastro,599.2,1 bottle,3247
+P00573,Azithromycin XL,CureAll,Antibiotic,282.92,10 tablets,9154
+P00574,Cetirizine 100ml,NutriX,Gastro,793.29,15 tablets,6864
+P00575,Azithromycin 100mg,MedPlus,Analgesic,529.77,15 tablets,8875
+P00576,Pantoprazole 500mg,HealCo,Analgesic,644.62,10 tablets,9095
+P00577,Ibuprofen 250mg,CureAll,Antibiotic,861.44,1 bottle,4787
+P00578,Metformin 100mg,LifeCare,Dermatology,66.57,15 tablets,1646
+P00579,Vitamin C 100mg,PharmaOne,Diabetes,706.84,10 tablets,1751
+P00580,Paracetamol XL,MedPlus,Supplement,325.65,60 tablets,5395
+P00581,Amoxicillin 100mg,PharmaOne,Supplement,125.86,60 tablets,8479
+P00582,Vitamin C XL,MediFast,Dermatology,763.91,1 bottle,3732
+P00583,Amoxicillin 500mg,HealCo,Supplement,116.45,100 ml,8908
+P00584,Omeprazole SR,BioHeal,Supplement,588.53,30 tablets,1472
+P00585,Ibuprofen 10ml,BioHeal,Antibiotic,845.46,60 tablets,1753
+P00586,Amoxicillin 100mg,PharmaOne,Analgesic,675.25,1 bottle,9598
+P00587,Omeprazole SR,NutriX,Cardiac,502.76,1 bottle,2560
+P00588,Azithromycin SR,NutriX,Dermatology,341.55,1 bottle,7305
+P00589,Ibuprofen XL,HealCo,Analgesic,618.36,15 tablets,9283
+P00590,Metformin XL,BioHeal,Supplement,89.62,60 tablets,6253
+P00591,Cetirizine 100mg,LifeCare,Analgesic,491.44,100 ml,7203
+P00592,Azithromycin XL,NutriX,Antibiotic,446.96,100 ml,8341
+P00593,Amoxicillin XL,BioHeal,Dermatology,313.94,60 tablets,1291
+P00594,Amoxicillin 10ml,MediFast,Analgesic,538.13,10 tablets,2489
+P00595,Omeprazole 100ml,LifeCare,Cough & Cold,628.77,60 tablets,6584
+P00596,Pantoprazole XL,HealCo,Cough & Cold,805.22,30 tablets,8751
+P00597,Pantoprazole SR,BioHeal,Antibiotic,110.62,1 bottle,4633
+P00598,Paracetamol 100mg,PharmaOne,Gastro,529.35,30 tablets,2741
+P00599,Paracetamol 500mg,BioHeal,Supplement,784.31,1 bottle,7704
+P00600,Amoxicillin 100mg,NutriX,Cough & Cold,132.29,60 tablets,4532
+P00601,Metformin XL,NutriX,Cardiac,120.22,60 tablets,1761
+P00602,Omeprazole 250mg,BioHeal,Dermatology,632.36,100 ml,3205
+P00603,Metformin 250mg,HealCo,Diabetes,800.1,60 tablets,9328
+P00604,Ibuprofen SR,MedPlus,Supplement,116.31,1 bottle,6273
+P00605,Amlodipine 10ml,MediFast,Cough & Cold,274.44,30 tablets,5819
+P00606,Metformin XL,MedPlus,Supplement,403.85,1 bottle,9393
+P00607,Vitamin C XL,PharmaOne,Cough & Cold,206.83,100 ml,5760
+P00608,Pantoprazole SR,MedPlus,Supplement,488.62,1 bottle,6281
+P00609,Amoxicillin XL,PharmaOne,Dermatology,562.01,1 bottle,7839
+P00610,Amlodipine 100mg,MediFast,Analgesic,506.14,10 tablets,7240
+P00611,Ibuprofen 250mg,HealCo,Cough & Cold,268.29,15 tablets,5695
+P00612,Vitamin C 500mg,HealCo,Gastro,209.72,100 ml,1529
+P00613,Pantoprazole XL,BioHeal,Antibiotic,592.98,1 bottle,4675
+P00614,Amlodipine 10ml,NutriX,Gastro,664.43,10 tablets,7251
+P00615,Azithromycin 10ml,PharmaOne,Analgesic,32.06,30 tablets,4327
+P00616,Omeprazole XL,BioHeal,Cough & Cold,867.68,1 bottle,7025
+P00617,Omeprazole 100ml,NutriX,Cough & Cold,293.59,15 tablets,2220
+P00618,Ibuprofen 500mg,CureAll,Diabetes,57.79,30 tablets,5329
+P00619,Ibuprofen 500mg,LifeCare,Analgesic,327.42,1 bottle,3536
+P00620,Paracetamol 500mg,PharmaOne,Analgesic,739.5,1 bottle,5934
+P00621,Metformin XL,PharmaOne,Antibiotic,749.15,30 tablets,9608
+P00622,Cetirizine 500mg,CureAll,Supplement,406.82,100 ml,7609
+P00623,Amoxicillin 100mg,NutriX,Cough & Cold,636.9,30 tablets,6911
+P00624,Vitamin C 500mg,BioHeal,Analgesic,126.69,30 tablets,8301
+P00625,Cetirizine SR,NutriX,Analgesic,654.77,30 tablets,7248
+P00626,Amoxicillin 10ml,LifeCare,Gastro,42.98,100 ml,7143
+P00627,Amlodipine XL,BioHeal,Dermatology,60.78,1 bottle,4154
+P00628,Pantoprazole 100ml,CureAll,Antibiotic,175.68,100 ml,9736
+P00629,Paracetamol SR,CureAll,Cough & Cold,643.41,15 tablets,7950
+P00630,Amoxicillin 500mg,MediFast,Antibiotic,714.61,15 tablets,1389
+P00631,Metformin SR,PharmaOne,Analgesic,101.39,10 tablets,3916
+P00632,Vitamin C 100ml,CureAll,Cough & Cold,867.22,60 tablets,7357
+P00633,Metformin SR,MediFast,Diabetes,314.26,60 tablets,2938
+P00634,Amlodipine 250mg,CureAll,Analgesic,671.82,10 tablets,6860
+P00635,Amlodipine 250mg,LifeCare,Gastro,584.11,30 tablets,8170
+P00636,Azithromycin 10ml,HealCo,Dermatology,165.38,15 tablets,3234
+P00637,Azithromycin XL,LifeCare,Supplement,297.19,1 bottle,7113
+P00638,Paracetamol 100ml,MedPlus,Antibiotic,58.85,100 ml,7456
+P00639,Amlodipine 100ml,CureAll,Gastro,215.35,1 bottle,6633
+P00640,Cetirizine 10ml,MedPlus,Supplement,191.11,100 ml,5140
+P00641,Cetirizine 250mg,MedPlus,Analgesic,811.79,100 ml,8557
+P00642,Amlodipine 250mg,LifeCare,Antibiotic,253.14,15 tablets,8982
+P00643,Pantoprazole 100mg,MedPlus,Cough & Cold,113.04,100 ml,2143
+P00644,Cetirizine 100mg,BioHeal,Dermatology,325.36,1 bottle,6008
+P00645,Omeprazole 500mg,PharmaOne,Cardiac,911.55,15 tablets,1079
+P00646,Pantoprazole 500mg,NutriX,Diabetes,277.31,30 tablets,3200
+P00647,Pantoprazole 10ml,BioHeal,Dermatology,353.63,30 tablets,8978
+P00648,Amlodipine 250mg,MedPlus,Antibiotic,802.87,15 tablets,9824
+P00649,Cetirizine 100mg,CureAll,Antibiotic,849.66,100 ml,1511
+P00650,Omeprazole 100ml,MediFast,Cough & Cold,862.86,100 ml,5269
+P00651,Amlodipine 100ml,BioHeal,Supplement,360.21,15 tablets,5767
+P00652,Ibuprofen 10ml,CureAll,Diabetes,358.39,10 tablets,4913
+P00653,Omeprazole SR,MedPlus,Supplement,434.99,15 tablets,3395
+P00654,Metformin 100mg,HealCo,Cough & Cold,728.17,15 tablets,2029
+P00655,Vitamin C 100mg,NutriX,Analgesic,641.78,100 ml,6918
+P00656,Azithromycin 10ml,BioHeal,Analgesic,57.11,1 bottle,6309
+P00657,Amoxicillin SR,LifeCare,Gastro,558.13,100 ml,3848
+P00658,Azithromycin SR,MediFast,Cardiac,566.54,10 tablets,9465
+P00659,Vitamin C 10ml,NutriX,Diabetes,348.2,30 tablets,8976
+P00660,Metformin 100ml,HealCo,Supplement,429.11,15 tablets,2263
+P00661,Amlodipine SR,LifeCare,Cough & Cold,159.72,15 tablets,6934
+P00662,Omeprazole SR,CureAll,Cough & Cold,405.59,30 tablets,2856
+P00663,Metformin SR,BioHeal,Dermatology,215.95,15 tablets,7732
+P00664,Paracetamol 500mg,HealCo,Supplement,553.34,15 tablets,3207
+P00665,Amlodipine 250mg,MedPlus,Analgesic,174.7,15 tablets,9464
+P00666,Azithromycin 100ml,HealCo,Gastro,900.95,15 tablets,8359
+P00667,Omeprazole 10ml,BioHeal,Supplement,224.01,60 tablets,3338
+P00668,Omeprazole XL,MedPlus,Gastro,175.98,1 bottle,6614
+P00669,Metformin 100ml,CureAll,Cough & Cold,371.74,15 tablets,2778
+P00670,Paracetamol 500mg,MediFast,Supplement,583.13,15 tablets,8796
+P00671,Omeprazole 100ml,HealCo,Antibiotic,106.67,1 bottle,3135
+P00672,Omeprazole 100ml,HealCo,Diabetes,505.5,30 tablets,1711
+P00673,Amlodipine 10ml,NutriX,Dermatology,754.29,60 tablets,6742
+P00674,Omeprazole XL,CureAll,Diabetes,144.51,60 tablets,4809
+P00675,Amoxicillin 100mg,MediFast,Gastro,195.79,1 bottle,1116
+P00676,Omeprazole 100ml,CureAll,Analgesic,368.78,15 tablets,6175
+P00677,Azithromycin 100mg,CureAll,Supplement,416.25,100 ml,5155
+P00678,Vitamin C XL,MediFast,Cardiac,589.05,1 bottle,7511
+P00679,Cetirizine 10ml,BioHeal,Supplement,364.3,100 ml,8925
+P00680,Vitamin C 100mg,PharmaOne,Diabetes,704.28,1 bottle,2951
+P00681,Cetirizine 10ml,MedPlus,Antibiotic,219.45,60 tablets,6544
+P00682,Amlodipine 100ml,HealCo,Supplement,381.87,1 bottle,1086
+P00683,Amoxicillin XL,MedPlus,Dermatology,881.05,60 tablets,2444
+P00684,Amoxicillin 100mg,NutriX,Cardiac,94.44,10 tablets,7296
+P00685,Azithromycin 100ml,LifeCare,Analgesic,899.52,15 tablets,9099
+P00686,Metformin 250mg,NutriX,Gastro,201.11,100 ml,9364
+P00687,Amlodipine SR,NutriX,Supplement,646.84,30 tablets,4919
+P00688,Paracetamol 500mg,CureAll,Gastro,745.1,30 tablets,7474
+P00689,Azithromycin 100ml,NutriX,Analgesic,705.34,10 tablets,2477
+P00690,Amlodipine 100mg,PharmaOne,Cardiac,915.86,30 tablets,4707
+P00691,Omeprazole 500mg,BioHeal,Diabetes,554.66,30 tablets,3867
+P00692,Azithromycin 100ml,CureAll,Antibiotic,487.95,30 tablets,2917
+P00693,Amlodipine 100mg,LifeCare,Dermatology,918.43,100 ml,8923
+P00694,Cetirizine XL,PharmaOne,Dermatology,653.88,100 ml,1448
+P00695,Metformin 250mg,LifeCare,Antibiotic,375.89,15 tablets,4767
+P00696,Pantoprazole 10ml,PharmaOne,Analgesic,671.76,30 tablets,5067
+P00697,Vitamin C 250mg,MediFast,Cardiac,90.71,15 tablets,8807
+P00698,Pantoprazole 100mg,NutriX,Gastro,189.99,1 bottle,4115
+P00699,Metformin SR,NutriX,Cough & Cold,703.95,30 tablets,4387
+P00700,Cetirizine 500mg,NutriX,Cardiac,165.08,10 tablets,2964
+P00701,Amoxicillin SR,BioHeal,Analgesic,730.75,100 ml,1692
+P00702,Metformin 100mg,PharmaOne,Dermatology,855.25,100 ml,5501
+P00703,Metformin 500mg,LifeCare,Diabetes,226.55,100 ml,3101
+P00704,Paracetamol 100ml,MediFast,Dermatology,893.88,10 tablets,9232
+P00705,Pantoprazole 10ml,MedPlus,Dermatology,928.15,1 bottle,9490
+P00706,Metformin 100mg,HealCo,Analgesic,646.92,60 tablets,2650
+P00707,Pantoprazole 100mg,LifeCare,Supplement,530.16,15 tablets,5413
+P00708,Metformin 100ml,PharmaOne,Cardiac,191.04,60 tablets,4449
+P00709,Azithromycin SR,PharmaOne,Cardiac,814.52,30 tablets,8384
+P00710,Ibuprofen 100ml,MedPlus,Cough & Cold,777.2,1 bottle,5422
+P00711,Cetirizine 100ml,MediFast,Diabetes,202.34,1 bottle,3450
+P00712,Metformin XL,HealCo,Supplement,412.01,15 tablets,9470
+P00713,Amlodipine SR,PharmaOne,Dermatology,299.03,100 ml,1781
+P00714,Azithromycin 250mg,MedPlus,Analgesic,220.38,30 tablets,8807
+P00715,Amoxicillin 10ml,PharmaOne,Gastro,355.69,100 ml,5222
+P00716,Pantoprazole 250mg,MediFast,Antibiotic,346.51,1 bottle,4259
+P00717,Omeprazole 100ml,MedPlus,Gastro,350.25,1 bottle,9363
+P00718,Metformin XL,BioHeal,Antibiotic,374.4,30 tablets,8598
+P00719,Ibuprofen XL,MedPlus,Cardiac,412.29,100 ml,7631
+P00720,Amoxicillin 250mg,MedPlus,Cardiac,232.24,30 tablets,5773
+P00721,Vitamin C 100ml,MediFast,Gastro,845.55,30 tablets,9535
+P00722,Metformin 10ml,MedPlus,Supplement,814.42,15 tablets,4844
+P00723,Vitamin C SR,CureAll,Cough & Cold,175.23,10 tablets,2565
+P00724,Amoxicillin 10ml,HealCo,Analgesic,736.97,100 ml,2363
+P00725,Amoxicillin 100mg,MedPlus,Antibiotic,628.99,60 tablets,6068
+P00726,Cetirizine 500mg,LifeCare,Dermatology,602.63,15 tablets,9630
+P00727,Ibuprofen 250mg,HealCo,Cardiac,820.14,30 tablets,8801
+P00728,Metformin XL,LifeCare,Dermatology,145.66,1 bottle,9835
+P00729,Ibuprofen 100ml,BioHeal,Diabetes,506.82,1 bottle,9745
+P00730,Vitamin C 100mg,BioHeal,Cough & Cold,768.38,60 tablets,6044
+P00731,Pantoprazole 10ml,LifeCare,Supplement,302.32,10 tablets,9574
+P00732,Ibuprofen 100mg,LifeCare,Dermatology,517.64,1 bottle,9059
+P00733,Metformin 100mg,HealCo,Diabetes,762.11,100 ml,4788
+P00734,Paracetamol 100ml,PharmaOne,Cough & Cold,402.91,100 ml,8161
+P00735,Azithromycin 500mg,MedPlus,Diabetes,790.44,15 tablets,5308
+P00736,Amoxicillin 10ml,NutriX,Gastro,284.75,1 bottle,9715
+P00737,Vitamin C 10ml,NutriX,Antibiotic,189.64,30 tablets,2808
+P00738,Metformin 100ml,BioHeal,Gastro,671.44,60 tablets,4076
+P00739,Pantoprazole 250mg,MedPlus,Analgesic,921.84,10 tablets,4046
+P00740,Amoxicillin 100mg,LifeCare,Supplement,685.13,1 bottle,1134
+P00741,Cetirizine 250mg,MedPlus,Analgesic,479.03,30 tablets,7885
+P00742,Vitamin C XL,BioHeal,Cardiac,451.23,10 tablets,6410
+P00743,Amoxicillin XL,MedPlus,Analgesic,267.85,60 tablets,2169
+P00744,Amlodipine 10ml,MedPlus,Cough & Cold,853.0,30 tablets,7251
+P00745,Paracetamol 250mg,NutriX,Diabetes,737.24,60 tablets,5049
+P00746,Paracetamol 500mg,BioHeal,Antibiotic,504.66,15 tablets,8746
+P00747,Azithromycin SR,LifeCare,Cardiac,167.51,1 bottle,1691
+P00748,Amlodipine 100ml,CureAll,Gastro,467.54,30 tablets,4255
+P00749,Pantoprazole 250mg,NutriX,Antibiotic,239.45,60 tablets,6316
+P00750,Paracetamol 500mg,LifeCare,Antibiotic,388.1,15 tablets,1146
+P00751,Paracetamol 100ml,BioHeal,Supplement,365.4,10 tablets,5075
+P00752,Ibuprofen 10ml,CureAll,Cardiac,885.69,1 bottle,1983
+P00753,Paracetamol 100mg,MedPlus,Antibiotic,137.02,15 tablets,6189
+P00754,Amlodipine XL,PharmaOne,Dermatology,701.87,10 tablets,7189
+P00755,Pantoprazole SR,MedPlus,Gastro,855.76,60 tablets,8168
+P00756,Amlodipine 100mg,BioHeal,Cough & Cold,547.03,100 ml,6696
+P00757,Pantoprazole SR,BioHeal,Gastro,826.93,100 ml,3627
+P00758,Amoxicillin 100ml,MedPlus,Dermatology,294.98,30 tablets,9873
+P00759,Pantoprazole 10ml,HealCo,Diabetes,702.3,10 tablets,6965
+P00760,Omeprazole 500mg,PharmaOne,Antibiotic,632.21,100 ml,7348
+P00761,Cetirizine 100ml,BioHeal,Supplement,590.13,30 tablets,7714
+P00762,Pantoprazole 250mg,CureAll,Antibiotic,60.71,15 tablets,3926
+P00763,Paracetamol 500mg,CureAll,Dermatology,198.2,10 tablets,7366
+P00764,Metformin 100ml,LifeCare,Analgesic,360.71,100 ml,2161
+P00765,Paracetamol 500mg,BioHeal,Antibiotic,455.3,1 bottle,1994
+P00766,Pantoprazole 100ml,MediFast,Cardiac,758.65,10 tablets,5355
+P00767,Amlodipine 250mg,CureAll,Gastro,92.48,15 tablets,9511
+P00768,Amoxicillin 250mg,NutriX,Diabetes,196.2,100 ml,5075
+P00769,Omeprazole SR,MedPlus,Diabetes,713.88,1 bottle,6864
+P00770,Metformin SR,MediFast,Antibiotic,175.13,15 tablets,7579
+P00771,Amlodipine 100mg,MedPlus,Dermatology,888.17,30 tablets,6319
+P00772,Pantoprazole 10ml,MediFast,Cardiac,585.82,100 ml,9939
+P00773,Cetirizine 10ml,LifeCare,Cardiac,914.34,60 tablets,7505
+P00774,Paracetamol SR,HealCo,Gastro,574.06,100 ml,3213
+P00775,Vitamin C 250mg,LifeCare,Cough & Cold,219.79,30 tablets,1355
+P00776,Vitamin C 100ml,MedPlus,Antibiotic,55.09,30 tablets,3557
+P00777,Ibuprofen 100mg,PharmaOne,Cough & Cold,236.68,30 tablets,2505
+P00778,Omeprazole 10ml,NutriX,Antibiotic,692.93,60 tablets,3832
+P00779,Metformin XL,CureAll,Gastro,54.76,100 ml,7251
+P00780,Amoxicillin XL,HealCo,Cardiac,343.58,60 tablets,7824
+P00781,Amoxicillin XL,NutriX,Analgesic,609.52,1 bottle,7266
+P00782,Paracetamol 100mg,HealCo,Cardiac,522.13,15 tablets,6354
+P00783,Amlodipine SR,NutriX,Supplement,66.98,1 bottle,7436
+P00784,Metformin XL,CureAll,Cough & Cold,421.7,60 tablets,3425
+P00785,Ibuprofen 100mg,CureAll,Dermatology,551.44,10 tablets,9980
+P00786,Azithromycin 100mg,CureAll,Diabetes,486.7,1 bottle,3136
+P00787,Ibuprofen 10ml,NutriX,Dermatology,387.65,100 ml,4212
+P00788,Amlodipine 100ml,NutriX,Cough & Cold,86.63,60 tablets,6298
+P00789,Omeprazole 250mg,CureAll,Diabetes,413.89,30 tablets,4120
+P00790,Pantoprazole 100mg,HealCo,Gastro,177.41,30 tablets,8245
+P00791,Omeprazole 500mg,BioHeal,Analgesic,879.52,15 tablets,4271
+P00792,Pantoprazole 500mg,CureAll,Antibiotic,707.81,15 tablets,3419
+P00793,Vitamin C 250mg,PharmaOne,Antibiotic,303.76,60 tablets,1372
+P00794,Pantoprazole 500mg,NutriX,Cough & Cold,528.17,30 tablets,9991
+P00795,Metformin 100ml,MedPlus,Analgesic,370.24,1 bottle,9631
+P00796,Paracetamol 100mg,MedPlus,Analgesic,284.13,1 bottle,5444
+P00797,Paracetamol 10ml,HealCo,Antibiotic,381.44,30 tablets,6901
+P00798,Amoxicillin 250mg,LifeCare,Diabetes,234.99,60 tablets,9331
+P00799,Amoxicillin 100mg,BioHeal,Antibiotic,193.37,100 ml,8503
+P00800,Amlodipine SR,HealCo,Analgesic,250.07,100 ml,5995
+P00801,Pantoprazole 10ml,MediFast,Supplement,37.09,1 bottle,6765
+P00802,Pantoprazole SR,LifeCare,Cough & Cold,946.27,100 ml,5519
+P00803,Paracetamol SR,LifeCare,Diabetes,848.07,10 tablets,5590
+P00804,Cetirizine 500mg,PharmaOne,Diabetes,630.95,10 tablets,7262
+P00805,Amlodipine SR,NutriX,Diabetes,243.54,15 tablets,7987
+P00806,Vitamin C 100ml,PharmaOne,Dermatology,524.28,15 tablets,3270
+P00807,Omeprazole 100ml,NutriX,Supplement,307.37,1 bottle,9582
+P00808,Ibuprofen 10ml,MedPlus,Supplement,315.27,100 ml,9732
+P00809,Amoxicillin 500mg,PharmaOne,Supplement,696.18,30 tablets,7783
+P00810,Azithromycin 100mg,BioHeal,Gastro,161.32,15 tablets,2749
+P00811,Ibuprofen 500mg,HealCo,Gastro,583.21,100 ml,4783
+P00812,Omeprazole 500mg,NutriX,Analgesic,354.11,1 bottle,8808
+P00813,Ibuprofen 100ml,BioHeal,Cardiac,191.1,60 tablets,9051
+P00814,Metformin 500mg,MedPlus,Cough & Cold,230.43,60 tablets,1245
+P00815,Vitamin C 10ml,NutriX,Cough & Cold,724.73,10 tablets,3901
+P00816,Metformin XL,BioHeal,Cardiac,826.1,15 tablets,8005
+P00817,Azithromycin XL,HealCo,Diabetes,689.79,60 tablets,9784
+P00818,Amlodipine SR,HealCo,Antibiotic,440.0,10 tablets,5025
+P00819,Amlodipine 100ml,MediFast,Analgesic,538.66,100 ml,1807
+P00820,Cetirizine 100mg,BioHeal,Diabetes,842.49,30 tablets,8558
+P00821,Ibuprofen 10ml,LifeCare,Analgesic,661.66,15 tablets,8595
+P00822,Metformin 250mg,CureAll,Supplement,744.22,1 bottle,9952
+P00823,Ibuprofen 10ml,MediFast,Cardiac,439.32,15 tablets,8433
+P00824,Omeprazole SR,NutriX,Dermatology,103.87,30 tablets,3686
+P00825,Amoxicillin 250mg,CureAll,Dermatology,609.69,10 tablets,9582
+P00826,Azithromycin SR,MedPlus,Diabetes,531.82,10 tablets,3799
+P00827,Pantoprazole 100ml,MedPlus,Supplement,828.0,15 tablets,1840
+P00828,Azithromycin 100mg,LifeCare,Dermatology,288.57,15 tablets,2926
+P00829,Ibuprofen 500mg,HealCo,Gastro,31.35,60 tablets,9169
+P00830,Amlodipine XL,HealCo,Dermatology,241.23,100 ml,8794
+P00831,Metformin 10ml,BioHeal,Antibiotic,579.13,10 tablets,5009
+P00832,Amlodipine 100mg,NutriX,Analgesic,191.9,10 tablets,6718
+P00833,Paracetamol 500mg,HealCo,Gastro,327.93,10 tablets,1803
+P00834,Amoxicillin 10ml,MedPlus,Supplement,645.04,100 ml,3906
+P00835,Metformin SR,PharmaOne,Analgesic,106.61,30 tablets,6289
+P00836,Pantoprazole 10ml,CureAll,Diabetes,804.28,10 tablets,5797
+P00837,Metformin 500mg,CureAll,Gastro,326.16,60 tablets,9595
+P00838,Cetirizine SR,NutriX,Analgesic,121.65,1 bottle,9666
+P00839,Amoxicillin 10ml,LifeCare,Diabetes,586.23,30 tablets,5254
+P00840,Amlodipine 100ml,PharmaOne,Supplement,591.29,60 tablets,9514
+P00841,Metformin 10ml,MedPlus,Cough & Cold,678.99,15 tablets,1025
+P00842,Amoxicillin 250mg,BioHeal,Antibiotic,705.85,15 tablets,7793
+P00843,Azithromycin 250mg,PharmaOne,Cardiac,541.19,1 bottle,4478
+P00844,Paracetamol SR,NutriX,Gastro,256.61,10 tablets,6042
+P00845,Vitamin C 100ml,PharmaOne,Analgesic,125.87,30 tablets,6592
+P00846,Azithromycin SR,HealCo,Supplement,200.43,30 tablets,8849
+P00847,Metformin XL,HealCo,Supplement,467.79,1 bottle,8546
+P00848,Amlodipine 100mg,BioHeal,Diabetes,882.84,10 tablets,9537
+P00849,Vitamin C 100ml,PharmaOne,Analgesic,213.68,1 bottle,6434
+P00850,Pantoprazole 250mg,MedPlus,Gastro,801.89,30 tablets,7147
+P00851,Amlodipine XL,MedPlus,Diabetes,194.26,10 tablets,6050
+P00852,Pantoprazole SR,HealCo,Gastro,404.9,60 tablets,4893
+P00853,Pantoprazole 10ml,LifeCare,Cough & Cold,508.34,15 tablets,2838
+P00854,Pantoprazole XL,HealCo,Cough & Cold,869.42,60 tablets,9290
+P00855,Paracetamol XL,BioHeal,Supplement,196.9,60 tablets,9579
+P00856,Vitamin C XL,PharmaOne,Supplement,735.62,10 tablets,9456
+P00857,Ibuprofen 500mg,HealCo,Dermatology,380.46,100 ml,2897
+P00858,Paracetamol 100mg,HealCo,Antibiotic,329.96,10 tablets,2689
+P00859,Amlodipine XL,LifeCare,Analgesic,557.13,30 tablets,4438
+P00860,Pantoprazole 500mg,NutriX,Gastro,277.28,30 tablets,8227
+P00861,Amoxicillin 100mg,MedPlus,Supplement,274.48,10 tablets,9422
+P00862,Amoxicillin 500mg,PharmaOne,Cardiac,272.08,1 bottle,5641
+P00863,Omeprazole 500mg,MedPlus,Antibiotic,309.58,30 tablets,9856
+P00864,Metformin 250mg,MedPlus,Analgesic,457.78,1 bottle,1826
+P00865,Amoxicillin 10ml,HealCo,Antibiotic,416.61,15 tablets,8304
+P00866,Omeprazole 100mg,LifeCare,Cardiac,780.22,1 bottle,9740
+P00867,Amoxicillin XL,BioHeal,Supplement,106.41,1 bottle,8672
+P00868,Amoxicillin 10ml,LifeCare,Dermatology,457.61,15 tablets,3354
+P00869,Omeprazole 100mg,PharmaOne,Diabetes,190.52,1 bottle,6412
+P00870,Pantoprazole 10ml,BioHeal,Analgesic,80.79,10 tablets,6758
+P00871,Metformin 10ml,MedPlus,Gastro,734.19,100 ml,3087
+P00872,Amlodipine 250mg,MediFast,Antibiotic,323.06,1 bottle,2162
+P00873,Vitamin C 100ml,BioHeal,Diabetes,569.2,15 tablets,4992
+P00874,Amlodipine 500mg,BioHeal,Diabetes,81.44,15 tablets,8063
+P00875,Azithromycin 100ml,PharmaOne,Cough & Cold,180.97,1 bottle,2276
+P00876,Omeprazole XL,BioHeal,Antibiotic,570.71,60 tablets,6330
+P00877,Amlodipine 250mg,BioHeal,Supplement,306.47,60 tablets,2140
+P00878,Omeprazole 250mg,MediFast,Cardiac,479.69,1 bottle,2007
+P00879,Amoxicillin 500mg,MedPlus,Analgesic,724.08,1 bottle,3444
+P00880,Metformin 100ml,LifeCare,Diabetes,592.48,60 tablets,4205
+P00881,Cetirizine SR,PharmaOne,Gastro,550.36,1 bottle,5989
+P00882,Azithromycin SR,PharmaOne,Antibiotic,561.94,100 ml,9362
+P00883,Azithromycin XL,MedPlus,Gastro,78.04,100 ml,1870
+P00884,Paracetamol SR,PharmaOne,Antibiotic,820.96,10 tablets,4854
+P00885,Azithromycin SR,MediFast,Cardiac,681.95,60 tablets,7251
+P00886,Azithromycin 100ml,NutriX,Supplement,461.63,15 tablets,7301
+P00887,Pantoprazole XL,MediFast,Supplement,288.28,1 bottle,3056
+P00888,Ibuprofen 250mg,CureAll,Analgesic,153.92,60 tablets,8155
+P00889,Ibuprofen 250mg,MedPlus,Diabetes,819.94,1 bottle,7974
+P00890,Omeprazole 500mg,BioHeal,Diabetes,533.41,60 tablets,7303
+P00891,Pantoprazole 500mg,MedPlus,Diabetes,582.25,100 ml,9161
+P00892,Cetirizine SR,LifeCare,Diabetes,881.7,100 ml,7012
+P00893,Paracetamol 250mg,BioHeal,Cardiac,125.24,60 tablets,2311
+P00894,Ibuprofen SR,LifeCare,Dermatology,500.76,100 ml,2449
+P00895,Cetirizine 10ml,CureAll,Gastro,590.13,30 tablets,9765
+P00896,Paracetamol 10ml,BioHeal,Dermatology,553.79,30 tablets,7897
+P00897,Pantoprazole XL,LifeCare,Gastro,175.78,1 bottle,5981
+P00898,Omeprazole 100mg,HealCo,Dermatology,557.67,100 ml,1845
+P00899,Vitamin C XL,HealCo,Gastro,470.83,15 tablets,9283
+P00900,Amoxicillin XL,LifeCare,Gastro,143.26,30 tablets,5509
+P00901,Vitamin C 250mg,CureAll,Supplement,866.42,1 bottle,3476
+P00902,Metformin 100mg,MedPlus,Gastro,747.75,15 tablets,8944
+P00903,Ibuprofen XL,HealCo,Cardiac,935.19,15 tablets,3525
+P00904,Metformin XL,MediFast,Diabetes,241.29,60 tablets,3740
+P00905,Cetirizine 100ml,PharmaOne,Analgesic,617.3,10 tablets,1860
+P00906,Ibuprofen 10ml,MediFast,Dermatology,300.27,1 bottle,9724
+P00907,Cetirizine 10ml,MediFast,Dermatology,264.24,100 ml,8122
+P00908,Paracetamol 100mg,BioHeal,Diabetes,651.0,100 ml,1672
+P00909,Amoxicillin 100ml,PharmaOne,Diabetes,587.75,1 bottle,5466
+P00910,Pantoprazole 100mg,LifeCare,Antibiotic,257.47,100 ml,7408
+P00911,Metformin XL,NutriX,Cough & Cold,503.56,1 bottle,3947
+P00912,Pantoprazole 100ml,HealCo,Analgesic,793.47,10 tablets,7737
+P00913,Amoxicillin 100ml,CureAll,Dermatology,346.91,1 bottle,5641
+P00914,Vitamin C 500mg,HealCo,Analgesic,596.04,10 tablets,4552
+P00915,Omeprazole SR,CureAll,Antibiotic,100.34,100 ml,3128
+P00916,Azithromycin SR,MedPlus,Antibiotic,666.96,30 tablets,5826
+P00917,Metformin SR,CureAll,Dermatology,878.11,30 tablets,7995
+P00918,Pantoprazole 100mg,MedPlus,Antibiotic,277.88,10 tablets,7271
+P00919,Azithromycin 100mg,HealCo,Gastro,908.71,30 tablets,3915
+P00920,Metformin 250mg,BioHeal,Cough & Cold,587.58,15 tablets,9061
+P00921,Amoxicillin 500mg,MediFast,Cough & Cold,590.99,10 tablets,8234
+P00922,Vitamin C 250mg,HealCo,Antibiotic,85.48,1 bottle,5105
+P00923,Metformin 250mg,BioHeal,Supplement,627.16,10 tablets,1619
+P00924,Azithromycin 100mg,MedPlus,Cardiac,861.29,100 ml,1060
+P00925,Amlodipine SR,BioHeal,Dermatology,425.53,1 bottle,2148
+P00926,Amlodipine 500mg,HealCo,Diabetes,907.36,60 tablets,2985
+P00927,Omeprazole 100ml,PharmaOne,Cardiac,654.11,60 tablets,1904
+P00928,Amoxicillin 100mg,PharmaOne,Antibiotic,802.3,30 tablets,4327
+P00929,Ibuprofen 100ml,HealCo,Diabetes,634.48,30 tablets,7391
+P00930,Amoxicillin SR,PharmaOne,Dermatology,98.92,1 bottle,8175
+P00931,Cetirizine 500mg,HealCo,Cough & Cold,43.59,100 ml,4907
+P00932,Metformin 10ml,CureAll,Gastro,484.71,60 tablets,1268
+P00933,Paracetamol 100mg,HealCo,Cardiac,752.63,10 tablets,7643
+P00934,Amoxicillin 500mg,BioHeal,Supplement,709.18,15 tablets,2180
+P00935,Paracetamol SR,MedPlus,Dermatology,628.06,60 tablets,1750
+P00936,Cetirizine SR,MedPlus,Analgesic,180.19,10 tablets,6035
+P00937,Amoxicillin 10ml,MedPlus,Antibiotic,780.55,10 tablets,2870
+P00938,Metformin 100ml,NutriX,Antibiotic,768.14,60 tablets,6527
+P00939,Azithromycin 100mg,CureAll,Supplement,319.08,15 tablets,1746
+P00940,Omeprazole 500mg,PharmaOne,Antibiotic,132.29,15 tablets,7801
+P00941,Ibuprofen SR,PharmaOne,Supplement,427.95,100 ml,1666
+P00942,Ibuprofen 250mg,MediFast,Supplement,34.54,60 tablets,2322
+P00943,Paracetamol 250mg,MedPlus,Antibiotic,677.27,100 ml,5648
+P00944,Azithromycin SR,BioHeal,Supplement,211.73,1 bottle,5439
+P00945,Amlodipine 10ml,MediFast,Cough & Cold,892.42,100 ml,1616
+P00946,Omeprazole 500mg,BioHeal,Antibiotic,603.29,30 tablets,6699
+P00947,Azithromycin 250mg,NutriX,Cough & Cold,129.28,100 ml,2567
+P00948,Omeprazole 100mg,NutriX,Dermatology,736.41,1 bottle,4409
+P00949,Vitamin C 250mg,NutriX,Antibiotic,760.85,1 bottle,8772
+P00950,Metformin 500mg,MedPlus,Analgesic,70.25,30 tablets,5670
+P00951,Cetirizine 10ml,LifeCare,Cardiac,593.64,60 tablets,1709
+P00952,Amoxicillin SR,HealCo,Supplement,166.98,10 tablets,8947
+P00953,Amlodipine 250mg,CureAll,Cough & Cold,690.9,100 ml,6340
+P00954,Azithromycin 500mg,PharmaOne,Cough & Cold,744.45,30 tablets,4731
+P00955,Amoxicillin 500mg,MediFast,Cough & Cold,369.25,15 tablets,2204
+P00956,Metformin 100ml,BioHeal,Analgesic,848.15,15 tablets,4541
+P00957,Omeprazole 10ml,MedPlus,Diabetes,367.34,60 tablets,4181
+P00958,Pantoprazole 100mg,NutriX,Cardiac,138.31,1 bottle,1977
+P00959,Vitamin C 500mg,CureAll,Dermatology,446.48,15 tablets,6629
+P00960,Cetirizine 100mg,MedPlus,Supplement,557.65,100 ml,4763
+P00961,Amoxicillin 10ml,BioHeal,Cough & Cold,570.17,60 tablets,5573
+P00962,Paracetamol SR,MediFast,Cough & Cold,250.48,60 tablets,4643
+P00963,Omeprazole 500mg,HealCo,Diabetes,931.57,10 tablets,8711
+P00964,Amlodipine 250mg,MediFast,Diabetes,465.72,1 bottle,2605
+P00965,Metformin 10ml,NutriX,Antibiotic,539.39,10 tablets,7662
+P00966,Cetirizine 500mg,PharmaOne,Gastro,242.33,10 tablets,1260
+P00967,Metformin SR,LifeCare,Supplement,674.07,100 ml,1399
+P00968,Metformin 10ml,MedPlus,Diabetes,192.0,30 tablets,8607
+P00969,Paracetamol XL,CureAll,Diabetes,850.89,30 tablets,9698
+P00970,Paracetamol 100mg,MediFast,Gastro,669.19,100 ml,9887
+P00971,Omeprazole XL,NutriX,Antibiotic,597.02,30 tablets,1898
+P00972,Amlodipine SR,PharmaOne,Analgesic,123.2,30 tablets,8624
+P00973,Omeprazole 250mg,PharmaOne,Cardiac,183.0,100 ml,2097
+P00974,Amlodipine SR,NutriX,Supplement,932.56,15 tablets,9841
+P00975,Amoxicillin SR,BioHeal,Cough & Cold,720.45,15 tablets,6250
+P00976,Pantoprazole 100mg,MediFast,Gastro,70.65,30 tablets,6656
+P00977,Metformin 10ml,CureAll,Dermatology,680.14,1 bottle,9730
+P00978,Vitamin C 10ml,PharmaOne,Antibiotic,195.17,60 tablets,2430
+P00979,Amoxicillin 10ml,MedPlus,Gastro,911.18,10 tablets,2791
+P00980,Ibuprofen 100mg,CureAll,Supplement,481.59,15 tablets,9530
+P00981,Paracetamol 100mg,MediFast,Supplement,460.73,60 tablets,8272
+P00982,Paracetamol 100mg,NutriX,Antibiotic,40.49,15 tablets,9513
+P00983,Pantoprazole 10ml,PharmaOne,Cardiac,472.12,1 bottle,9686
+P00984,Amlodipine 10ml,BioHeal,Gastro,547.54,30 tablets,3813
+P00985,Vitamin C 500mg,BioHeal,Cardiac,922.77,10 tablets,3430
+P00986,Pantoprazole 100mg,BioHeal,Supplement,595.33,15 tablets,9770
+P00987,Vitamin C 500mg,MedPlus,Supplement,169.97,10 tablets,1674
+P00988,Pantoprazole 100ml,MedPlus,Dermatology,262.18,15 tablets,4361
+P00989,Amlodipine SR,HealCo,Cardiac,929.56,15 tablets,7109
+P00990,Metformin 100ml,MedPlus,Gastro,132.99,10 tablets,7628
+P00991,Metformin XL,MedPlus,Dermatology,882.86,15 tablets,1070
+P00992,Amlodipine 100ml,PharmaOne,Gastro,460.74,30 tablets,3409
+P00993,Omeprazole SR,BioHeal,Cardiac,660.91,1 bottle,8847
+P00994,Paracetamol 500mg,CureAll,Gastro,43.06,100 ml,4610
+P00995,Metformin 100mg,CureAll,Cardiac,71.18,1 bottle,4197
+P00996,Omeprazole 100ml,NutriX,Gastro,202.02,10 tablets,9821
+P00997,Metformin SR,CureAll,Diabetes,200.84,30 tablets,9381
+P00998,Paracetamol SR,PharmaOne,Diabetes,157.59,60 tablets,7056
+P00999,Azithromycin 100mg,HealCo,Gastro,340.78,30 tablets,8300
+P01000,Amlodipine 250mg,NutriX,Dermatology,709.62,60 tablets,8249
