@@ -1,14 +1,9 @@
 GRANT CREATE MODEL ON SCHEMA DEMODATABASE.DEMOSCHEMA TO ROLE ACCOUNTADMIN;
 
-
-
-
 --Extracting information from multiple documents
 SELECT DEMODATABASE.DEMOSCHEMA.DEMO_DOCUMENT_AI!PREDICT(
   GET_PRESIGNED_URL(@DOCUMENT_UPLOAD, RELATIVE_PATH), 2)
 FROM DIRECTORY(@DOCUMENT_UPLOAD);
-
-
 
 --Stage Creation
 
@@ -31,3 +26,4 @@ SELECT
     prediction_output:"Title"[0].value::string           AS Title,
     prediction_output:"Weight"[0].value::string           AS Weight
 FROM raw;
+
