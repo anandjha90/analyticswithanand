@@ -1,0 +1,707 @@
+
+
+NOte: using the sample data "SNOWFLAKE_SAMPLE_DATA", some query wont work directly on it, create seperate database, schema, and all table form sample schema contain all tables "SNOWFLAKE_SAMPLE_DATA"."SCHEMA TPCH_SF100"
+
+some code is commented please run on large not on 5xl warehouse(i need to create new account to test it )
+
+-- ========================================================================
+-- SNOWFLAKE QUERY PROFILE OPTIMIZATION LAB
+-- Use Case: Optimizing Regional Sales Dashboard Using Query Profile
+-- Project: Monday Morning "Weekly Performance by Region" Dashboard Timing Out
+-- ========================================================================
+
+-- ========================================================================
+-- LAB OVERVIEW
+-- ========================================================================
+
+/*
+SCENARIO:
+Your executive team runs a "Regional Sales by Day of Week" report every Monday 
+morning. The query is timing out (90+ seconds) and needs to run in under 30 seconds.
+
+YOUR TASK:
+1. Run the problematic query
+2. Analyze Query Profile to identify bottlenecks
+3. Apply targeted optimizations based on Query Profile insights
+4. Validate improvements using Query Profile metrics
+
+LEARNING OBJECTIVES:
+- Navigate Snowflake Query Profile UI
+- Interpret Query Profile metrics (execution time, spillage, partition pruning)
+- Identify expensive operators
+- Apply data-driven optimizations
+- Measure performance improvements
+*/
+
+-- ========================================================================
+-- ENVIRONMENT SETUP
+-- ========================================================================
+
+-- Use Snowflake Sample Database
+USE DATABASE SNOWFLAKE_SAMPLE_DATA;
+USE SCHEMA TPCH_SF100;
+
+-- Set your warehouse
+USE WAREHOUSE COMPUTE_WH;
+
+-- CRITICAL: Disable result cache for accurate benchmarking
+ALTER SESSION SET USE_CACHED_RESULT = FALSE;
+
+-- ========================================================================
+-- STEP 1: RUN BASELINE QUERY & CAPTURE QUERY PROFILE
+-- ========================================================================
+
+/*
+INSTRUCTIONS:
+1. Run this query and note the execution time
+2. Copy the QUERY_ID from the results
+3. Go to: Snowflake UI → Activity → Query History
+4. Find your query and click "Query Profile"
+
+WHAT TO LOOK FOR IN QUERY PROFILE:
+□ Total execution time (should be 60-90+ seconds)
+□ Most expensive operators (sort by time %)
+□ Bytes scanned vs partitions scanned
+□ Data spillage indicators
+□ Join strategies and data movement
+*/
+
+-- BASELINE QUERY - Regional Sales Dashboard (SLOW VERSION)
+SELECT 
+    R.R_NAME AS REGION,
+    DAYOFWEEK(O.O_ORDERDATE) AS DAY_ID,
+    DAYNAME(O.O_ORDERDATE) AS WEEK_DAY_NAME,
+    SUM(O.O_TOTALPRICE) AS TOTAL_SALES
+FROM 
+    ORDERS AS O 
+    LEFT JOIN CUSTOMER AS C ON C.C_CUSTKEY = O.O_CUSTKEY
+    LEFT JOIN NATION AS N ON N.N_NATIONKEY = C.C_NATIONKEY
+    LEFT JOIN REGION AS R ON R.R_REGIONKEY = N.N_REGIONKEY
+WHERE YEAR(O.O_ORDERDATE) = 1995
+GROUP BY R.R_NAME, DAYOFWEEK(O.O_ORDERDATE), DAYNAME(O.O_ORDERDATE)
+ORDER BY R.R_NAME, DAYOFWEEK(O.O_ORDERDATE);
+
+-- Save this for analysis
+SET baseline_query_id = LAST_QUERY_ID();
+SELECT $baseline_query_id as baseline_query_id;
+
+-- ========================================================================
+-- STEP 2: ANALYZE BASELINE QUERY PROFILE
+-- ========================================================================
+
+/*
+QUERY PROFILE ANALYSIS CHECKLIST:
+
+Navigate to Query Profile UI and document:
+
+1. OVERVIEW TAB:
+   □ Total execution time: _______ seconds
+   □ Rows produced: _______
+   □ Bytes scanned: _______ GB
+   □ Partitions scanned: _______ / _______ (ratio: _____%)
+
+2. PROFILE TAB - EXPENSIVE OPERATORS:
+   Look at the operator tree and identify top 3 time consumers:
+   □ Operator 1: _____________ (___% of total time)
+   □ Operator 2: _____________ (___% of total time)  
+   □ Operator 3: _____________ (___% of total time)
+
+3. COMMON ISSUES TO IDENTIFY:
+   □ TableScan[ORDERS] - Is this scanning ALL partitions?
+   □ Aggregate - Is data spilling to disk?
+   □ Join operations - Are there large data transfers?
+   □ Sort operation - Taking excessive time?
+
+4. PARTITION PRUNING:
+   Check "Partitions scanned" vs "Partitions total"
+   □ Poor pruning (<50%): Filter not leveraging clustering
+   □ Good pruning (>80%): Effective partition elimination
+*/
+
+-- Query performance metrics via SQL
+SELECT 
+    *
+FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY())
+WHERE query_id = $baseline_query_id;
+
+-- ========================================================================
+-- EXPECTED QUERY PROFILE FINDINGS
+-- ========================================================================
+
+/*
+TYPICAL BOTTLENECKS YOU'LL SEE IN QUERY PROFILE:
+
+1. ❌ POOR PARTITION PRUNING (20-30%)
+   Problem: YEAR(O_ORDERDATE) = 1995 prevents partition elimination
+   Query Profile shows: Scanning 80-90% of all partitions
+   Impact: Reading ~100GB instead of ~10GB
+   
+2. ❌ EXPENSIVE TABLE SCAN
+   Problem: TableScan[ORDERS] is top time consumer (30-40%)
+   Query Profile shows: Long-running scan operation
+   Impact: Processing 150M rows when only need ~5M
+   
+3. ❌ INEFFICIENT JOINS
+   Problem: 3 separate LEFT JOINs with small dimension tables
+   Query Profile shows: Multiple join operators, data redistribution
+   Impact: Network data transfer, join overhead
+   
+4. ❌ LARGE AGGREGATION
+   Problem: Grouping on high-cardinality columns
+   Query Profile shows: Aggregate operator taking 15-20% time
+   Impact: May see spillage if memory insufficient
+   
+5. ❌ SORT OPERATION
+   Problem: ORDER BY on final result
+   Query Profile shows: Sort operator at end of pipeline
+   Impact: Additional 5-10% overhead
+*/
+
+-- ========================================================================
+-- STEP 3: OPTIMIZATION 1 - FIX PARTITION PRUNING
+-- ========================================================================
+
+/*
+QUERY PROFILE INSIGHT:
+The Query Profile shows poor partition pruning because YEAR(O_ORDERDATE) 
+forces a full table scan. Snowflake cannot use micro-partition metadata.
+
+SOLUTION:
+Replace function with direct date comparison to enable partition pruning.
+
+EXPECTED QUERY PROFILE IMPROVEMENT:
+- Partition pruning: 20% → 90%+
+- Bytes scanned: Reduce by 70-80%
+- TableScan time: Reduce by 50-60%
+*/
+
+-- OPTIMIZATION 1: Fixed WHERE clause for partition pruning
+SELECT 
+    R.R_NAME AS REGION,
+    DAYOFWEEK(O.O_ORDERDATE) AS DAY_ID,
+    DAYNAME(O.O_ORDERDATE) AS WEEK_DAY_NAME,
+    SUM(O.O_TOTALPRICE) AS TOTAL_SALES
+FROM 
+    ORDERS AS O 
+    LEFT JOIN CUSTOMER AS C ON C.C_CUSTKEY = O.O_CUSTKEY
+    LEFT JOIN NATION AS N ON N.N_NATIONKEY = C.C_NATIONKEY
+    LEFT JOIN REGION AS R ON R.R_REGIONKEY = N.N_REGIONKEY
+WHERE O.O_ORDERDATE >= '1995-01-01' 
+  AND O.O_ORDERDATE < '1996-01-01'
+GROUP BY R.R_NAME, DAYOFWEEK(O.O_ORDERDATE), DAYNAME(O.O_ORDERDATE)
+ORDER BY R.R_NAME, DAYOFWEEK(O.O_ORDERDATE);
+
+SET opt1_query_id = LAST_QUERY_ID();
+
+/*
+VALIDATE IN QUERY PROFILE:
+1. Open Query Profile for this query
+2. Check "Partitions scanned" - should be 10-20% of total
+3. Compare TableScan[ORDERS] time with baseline
+4. Note reduction in "Bytes scanned"
+
+Expected: 30-50% faster execution
+*/
+
+-- ========================================================================
+-- STEP 4: OPTIMIZATION 2 - OPTIMIZE JOIN STRATEGY
+-- ========================================================================
+
+/*
+QUERY PROFILE INSIGHT:
+LEFT JOINs create larger intermediate results and prevent certain optimizations.
+Query Profile shows unnecessary data processing in join operators.
+
+SOLUTION:
+Change to INNER JOINs (assuming referential integrity exists).
+
+EXPECTED QUERY PROFILE IMPROVEMENT:
+- Join operator time: Reduce by 20-30%
+- Rows processed: Fewer null handling
+- Better join strategy selection by optimizer
+*/
+
+-- OPTIMIZATION 2: INNER JOINs for better performance
+SELECT 
+    R.R_NAME AS REGION,
+    DAYOFWEEK(O.O_ORDERDATE) AS DAY_ID,
+    DAYNAME(O.O_ORDERDATE) AS WEEK_DAY_NAME,
+    SUM(O.O_TOTALPRICE) AS TOTAL_SALES
+FROM 
+    ORDERS AS O 
+    INNER JOIN CUSTOMER AS C ON C.C_CUSTKEY = O.O_CUSTKEY
+    INNER JOIN NATION AS N ON N.N_NATIONKEY = C.C_NATIONKEY
+    INNER JOIN REGION AS R ON R.R_REGIONKEY = N.N_REGIONKEY
+WHERE O.O_ORDERDATE >= '1995-01-01' 
+  AND O.O_ORDERDATE < '1996-01-01'
+GROUP BY R.R_NAME, DAYOFWEEK(O.O_ORDERDATE), DAYNAME(O.O_ORDERDATE)
+ORDER BY R.R_NAME, DAYOFWEEK(O.O_ORDERDATE);
+
+SET opt2_query_id = LAST_QUERY_ID();
+
+/*
+VALIDATE IN QUERY PROFILE:
+1. Compare join operator execution time
+2. Check for reduced data volumes in join nodes
+3. Note any changes in join strategy (Hash vs Merge)
+
+Expected: Additional 10-15% improvement
+*/
+
+-- ========================================================================
+-- STEP 5: OPTIMIZATION 3 - EARLY FILTERING WITH CTE
+-- ========================================================================
+
+/*
+QUERY PROFILE INSIGHT:
+Current query joins ORDERS (150M rows) to dimension tables before filtering.
+Query Profile shows large data volumes flowing through join operators.
+
+SOLUTION:
+Filter ORDERS first to reduce join input size dramatically.
+
+EXPECTED QUERY PROFILE IMPROVEMENT:
+- Join input size: 150M rows → 5M rows (97% reduction)
+- Join operator time: Reduce by 40-50%
+- Memory usage: Significantly reduced
+- Less likely to spill to disk
+*/
+
+-- OPTIMIZATION 3: Early filtering reduces join input
+WITH filtered_orders AS (
+    -- Filter first: reduces 150M rows to ~5M rows
+    SELECT 
+        O_CUSTKEY,
+        O_TOTALPRICE,
+        DAYOFWEEK(O_ORDERDATE) AS DAY_ID,
+        DAYNAME(O_ORDERDATE) AS WEEK_DAY_NAME
+    FROM ORDERS
+    WHERE O_ORDERDATE >= '1995-01-01' 
+      AND O_ORDERDATE < '1996-01-01'
+)
+SELECT 
+    R.R_NAME AS REGION,
+    O.DAY_ID,
+    O.WEEK_DAY_NAME,
+    SUM(O.O_TOTALPRICE) AS TOTAL_SALES
+FROM filtered_orders AS O
+INNER JOIN CUSTOMER AS C ON C.C_CUSTKEY = O.O_CUSTKEY
+INNER JOIN NATION AS N ON N.N_NATIONKEY = C.C_NATIONKEY
+INNER JOIN REGION AS R ON R.R_REGIONKEY = N.N_REGIONKEY
+GROUP BY R.R_NAME, O.DAY_ID, O.WEEK_DAY_NAME
+ORDER BY R.R_NAME, O.DAY_ID;
+
+SET opt3_query_id = LAST_QUERY_ID();
+
+/*
+VALIDATE IN QUERY PROFILE:
+1. Look at the operator tree structure
+2. Find TableScan[ORDERS] - should show early filtering
+3. Check join operators - input rows should be much smaller
+4. Verify no spillage (bytes_spilled = 0)
+
+Expected: Additional 15-20% improvement (60-70% total vs baseline)
+*/
+
+-- ========================================================================
+-- STEP 6: ADD CLUSTERING KEY (STRUCTURAL OPTIMIZATION)
+-- ========================================================================
+
+/*
+QUERY PROFILE INSIGHT:
+Even with direct date comparison, partition pruning may be suboptimal
+if data is not physically organized by date.
+
+SOLUTION:
+Add clustering key on O_ORDERDATE for optimal partition pruning.
+
+EXPECTED QUERY PROFILE IMPROVEMENT:
+- Partition pruning: 80% → 95%+
+- Micro-partitions scanned: Further 50% reduction
+- TableScan time: Additional 30-40% improvement
+*/
+
+-- Apply clustering (one-time setup - takes time to recluster)
+THIS FOLLWING QUERY WILL GIVE ERROR
+ALTER TABLE ORDERS CLUSTER BY (O_ORDERDATE);
+
+-- Check clustering status
+SELECT SYSTEM$CLUSTERING_INFORMATION('ORDERS', '(O_ORDERDATE)');
+
+-- Check clustering depth (target: < 4)
+SELECT SYSTEM$CLUSTERING_DEPTH('ORDERS', '(O_ORDERDATE)') as clustering_depth;
+
+-- Wait for automatic reclustering, then run the query again
+-- Use the same query from OPTIMIZATION 3
+
+WITH filtered_orders AS (
+    SELECT 
+        O_CUSTKEY,
+        O_TOTALPRICE,
+        DAYOFWEEK(O_ORDERDATE) AS DAY_ID,
+        DAYNAME(O_ORDERDATE) AS WEEK_DAY_NAME
+    FROM ORDERS
+    WHERE O_ORDERDATE >= '1995-01-01' 
+      AND O_ORDERDATE < '1996-01-01'
+)
+SELECT 
+    R.R_NAME AS REGION,
+    O.DAY_ID,
+    O.WEEK_DAY_NAME,
+    SUM(O.O_TOTALPRICE) AS TOTAL_SALES
+FROM filtered_orders AS O
+INNER JOIN CUSTOMER AS C ON C.C_CUSTKEY = O.O_CUSTKEY
+INNER JOIN NATION AS N ON N.N_NATIONKEY = C.C_NATIONKEY
+INNER JOIN REGION AS R ON R.R_REGIONKEY = N.N_REGIONKEY
+GROUP BY R.R_NAME, O.DAY_ID, O.WEEK_DAY_NAME
+ORDER BY R.R_NAME, O.DAY_ID;
+
+SET opt4_query_id = LAST_QUERY_ID();
+
+/*
+VALIDATE IN QUERY PROFILE:
+1. Check partition pruning ratio - should be 90-95%
+2. Compare partitions_scanned with previous versions
+3. Note dramatic reduction in bytes_scanned
+4. TableScan[ORDERS] should be much faster
+
+Expected: 70-85% faster than baseline!
+*/
+
+-- -- ========================================================================
+-- -- STEP 7: COMPARE ALL VERSIONS USING QUERY PROFILE METRICS
+-- -- ========================================================================
+
+-- -- Side-by-side comparison of all optimization attempts
+-- SELECT 
+--     CASE 
+--         WHEN query_id = $baseline_query_id THEN '1. BASELINE (Original)'
+--         WHEN query_id = $opt1_query_id THEN '2. Fixed Partition Pruning'
+--         WHEN query_id = $opt2_query_id THEN '3. INNER JOINs'
+--         -- WHEN query_id = $opt3_query_id THEN '4. Early Filtering CTE'
+--         -- WHEN query_id = $opt4_query_id THEN '5. With Clustering'
+--         ELSE 'Other'
+--     END as optimization_stage,
+    
+--     query_id,
+    
+--     -- KEY QUERY PROFILE METRIC 1: Execution Time
+--     total_elapsed_time/1000 as execution_seconds,
+--     ROUND(total_elapsed_time/1000.0/60, 2) as execution_minutes,
+    
+--     -- KEY QUERY PROFILE METRIC 2: Data Scanned
+--     bytes_scanned/1024/1024/1024 as gb_scanned,
+--     rows_produced,
+    
+--     -- KEY QUERY PROFILE METRIC 3: Partition Pruning
+--     partitions_scanned,
+--     partitions_total,
+--     ROUND((1 - partitions_scanned::FLOAT / NULLIF(partitions_total, 0)) * 100, 2) 
+--         as partition_pruning_pct,
+    
+--     -- KEY QUERY PROFILE METRIC 4: Memory Efficiency (Spillage)
+--     bytes_spilled_to_local_storage/1024/1024/1024 as gb_spilled_local,
+--     bytes_spilled_to_remote_storage/1024/1024/1024 as gb_spilled_remote,
+--     CASE 
+--         WHEN bytes_spilled_to_local_storage > 0 OR bytes_spilled_to_remote_storage > 0 
+--         THEN '⚠️ SPILLAGE DETECTED'
+--         ELSE '✅ No Spillage'
+--     END as memory_status,
+    
+--     -- KEY QUERY PROFILE METRIC 5: Cost
+--     credits_used_cloud_services,
+    
+--     warehouse_size,
+--     start_time
+    
+-- FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY())
+-- WHERE query_id IN ($baseline_query_id, $opt1_query_id, $opt2_query_id, $opt3_query_id, $opt4_query_id)
+-- ORDER BY start_time;
+
+-- -- Calculate percentage improvements
+-- WITH metrics AS (
+--     SELECT 
+--         query_id,
+--         total_elapsed_time/1000 as seconds,
+--         bytes_scanned/1024/1024/1024 as gb_scanned,
+--         partitions_scanned,
+--         partitions_total
+--     FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY())
+--     WHERE query_id IN ($baseline_query_id, $opt1_query_id, $opt2_query_id, $opt3_query_id, $opt4_query_id)
+-- ),
+-- baseline_metrics AS (
+--     SELECT * FROM metrics WHERE query_id = $baseline_query_id
+-- ),
+-- final_metrics AS (
+--     SELECT * FROM metrics WHERE query_id = $opt4_query_id
+-- )
+-- SELECT 
+--     '📊 PERFORMANCE IMPROVEMENT SUMMARY' as metric,
+    
+--     -- Time improvement
+--     b.seconds as baseline_seconds,
+--     f.seconds as optimized_seconds,
+--     ROUND((b.seconds - f.seconds) * 100.0 / b.seconds, 2) as time_improvement_pct,
+    
+--     -- Data scanning improvement
+--     b.gb_scanned as baseline_gb,
+--     f.gb_scanned as optimized_gb,
+--     ROUND((b.gb_scanned - f.gb_scanned) * 100.0 / b.gb_scanned, 2) as data_reduction_pct,
+    
+--     -- Partition pruning improvement
+--     ROUND((b.partitions_total - b.partitions_scanned) * 100.0 / b.partitions_total, 2) 
+--         as baseline_pruning_pct,
+--     ROUND((f.partitions_total - f.partitions_scanned) * 100.0 / f.partitions_total, 2) 
+--         as optimized_pruning_pct,
+    
+--     CASE 
+--         WHEN (b.seconds - f.seconds) * 100.0 / b.seconds >= 70 THEN '🎯 TARGET MET! (<30 sec)'
+--         WHEN (b.seconds - f.seconds) * 100.0 / b.seconds >= 50 THEN '✅ Good improvement'
+--         ELSE '⚠️ More optimization needed'
+--     END as performance_status
+    
+-- FROM baseline_metrics b
+-- CROSS JOIN final_metrics f;
+
+-- ========================================================================
+-- STEP 8: DETAILED QUERY PROFILE ANALYSIS QUERIES
+-- ========================================================================
+
+-- Get detailed operator-level statistics
+-- Replace <QUERY_ID> with your actual query ID
+SELECT 
+    *
+    -- query_id,
+    -- step_id,
+    -- operator_type,
+    -- operator_statistics,
+    -- execution_time_breakdown
+FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_SESSION())
+WHERE query_id = $baseline_query_id  -- Change to any query ID
+-- ORDER BY step_id;
+;
+
+-- Analyze partition pruning efficiency over time
+SELECT 
+    DATE_TRUNC('hour', start_time) as hour,
+    -- AVG(partitions_scanned::FLOAT / NULLIF(partitions_total, 0)) * 100 as avg_scan_pct,
+    AVG(total_elapsed_time/1000) as avg_seconds,
+    COUNT(*) as query_count
+FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY())
+WHERE query_text LIKE '%R.R_NAME AS REGION%'
+  AND execution_status = 'SUCCESS'
+  AND start_time >= DATEADD(day, -1, CURRENT_TIMESTAMP())
+GROUP BY DATE_TRUNC('hour', start_time)
+ORDER BY hour DESC;
+
+-- Identify queries with spillage (memory pressure)
+SELECT 
+    *
+    -- query_id,
+    -- query_text,
+    -- total_elapsed_time/1000 as seconds,
+    -- bytes_spilled_to_local_storage/1024/1024/1024 as gb_spilled_local,
+    -- bytes_spilled_to_remote_storage/1024/1024/1024 as gb_spilled_remote,
+    -- warehouse_size
+FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY())
+-- WHERE (bytes_spilled_to_local_storage > 0 OR bytes_spilled_to_remote_storage > 0)
+-- AND start_time >= DATEADD(day, -1, CURRENT_TIMESTAMP())
+-- ORDER BY bytes_spilled_to_remote_storage DESC
+LIMIT 20;
+
+-- ========================================================================
+-- STEP 9: ADVANCED - MATERIALIZED VIEW APPROACH
+-- ========================================================================
+
+/*
+QUERY PROFILE INSIGHT:
+For recurring Monday morning reports, Query Profile will still show 
+significant compute time even after optimizations.
+
+SOLUTION:
+Pre-aggregate with a materialized view for near-instant results.
+
+EXPECTED QUERY PROFILE IMPROVEMENT:
+- Execution time: Reduce to <1 second
+- Bytes scanned: Minimal (reading pre-aggregated data)
+- Query Profile will show simple TableScan on materialized view
+*/
+
+-- Create materialized view (one-time setup)
+
+MATERIALIZED view not allow on  shared sample data
+
+-- CREATE OR REPLACE MATERIALIZED VIEW MV_DAILY_REGIONAL_SALES AS
+-- SELECT 
+--     R.R_NAME AS REGION,
+--     O.O_ORDERDATE,
+--     DAYOFWEEK(O.O_ORDERDATE) AS DAY_ID,
+--     DAYNAME(O.O_ORDERDATE) AS WEEK_DAY_NAME,
+--     SUM(O.O_TOTALPRICE) AS TOTAL_SALES,
+--     COUNT(O.O_ORDERKEY) AS ORDER_COUNT
+-- FROM ORDERS AS O
+-- INNER JOIN CUSTOMER AS C ON C.C_CUSTKEY = O.O_CUSTKEY
+-- INNER JOIN NATION AS N ON N.N_NATIONKEY = C.C_NATIONKEY
+-- INNER JOIN REGION AS R ON R.R_REGIONKEY = N.N_REGIONKEY
+-- GROUP BY 
+--     R.R_NAME,
+--     O.O_ORDERDATE,
+--     DAYOFWEEK(O.O_ORDERDATE),
+--     DAYNAME(O.O_ORDERDATE);
+
+
+
+
+-- Ultra-fast query on materialized view
+SELECT 
+    REGION,
+    DAY_ID,
+    WEEK_DAY_NAME,
+    SUM(TOTAL_SALES) AS TOTAL_SALES
+FROM MV_DAILY_REGIONAL_SALES
+WHERE O_ORDERDATE >= '1995-01-01' 
+  AND O_ORDERDATE < '1996-01-01'
+GROUP BY REGION, DAY_ID, WEEK_DAY_NAME
+ORDER BY REGION, DAY_ID;
+
+SET mv_query_id = LAST_QUERY_ID();
+
+/*
+VALIDATE IN QUERY PROFILE:
+1. Query Profile should show single TableScan[MV_DAILY_REGIONAL_SALES]
+2. Execution time should be <1 second
+3. Bytes scanned should be minimal
+4. No complex joins or aggregations visible
+
+Expected: 95%+ improvement vs baseline!
+*/
+
+-- ========================================================================
+-- LAB EXERCISES
+-- ========================================================================
+
+/*
+EXERCISE 1: BASELINE QUERY PROFILE DEEP DIVE
+1. Run the baseline query
+2. Open Query Profile and take screenshots of:
+   - Overview tab (execution time, bytes scanned, partitions)
+   - Profile tab (operator tree with timings)
+3. Identify the top 3 most expensive operators
+4. Document spillage (if any)
+5. Calculate partition pruning percentage
+
+EXERCISE 2: INCREMENTAL OPTIMIZATION TRACKING
+1. Run each optimization (1-4) sequentially
+2. For each, document in Query Profile:
+   - Execution time change
+   - Partition pruning improvement
+   - Bytes scanned reduction
+   - Changes in operator tree
+3. Create a performance tracking table
+
+EXERCISE 3: QUERY PROFILE COMPARISON
+1. Open 2 browser tabs with Query Profile
+2. Tab 1: Baseline query
+3. Tab 2: Optimized query (with clustering)
+4. Compare side-by-side:
+   - Operator execution times
+   - Data volumes at each stage
+   - Join strategies
+   - Partition pruning efficiency
+
+EXERCISE 4: IDENTIFY YOUR OWN BOTTLENECK
+1. Find a slow query in your environment
+2. Analyze its Query Profile
+3. Identify the top bottleneck
+4. Propose and implement a fix
+5. Validate improvement in Query Profile
+
+EXERCISE 5: SPILLAGE INVESTIGATION
+1. Intentionally create spillage by:
+   - Using a very small warehouse (XSMALL)
+   - Running a large aggregation
+2. Observe spillage in Query Profile
+3. Increase warehouse size
+4. Compare Query Profiles before/after
+
+BONUS: CLUSTERING IMPACT ANALYSIS
+1. Query ORDERS before clustering
+2. Apply clustering: ALTER TABLE ORDERS CLUSTER BY (O_ORDERDATE)
+3. Monitor: SELECT SYSTEM$CLUSTERING_INFORMATION('ORDERS', '(O_ORDERDATE)')
+4. Run query after clustering completes
+5. Compare partition pruning in Query Profiles
+*/
+
+-- ========================================================================
+-- QUERY PROFILE ANALYSIS CHECKLIST
+-- ========================================================================
+
+/*
+USE THIS CHECKLIST FOR ANY QUERY OPTIMIZATION:
+
+□ OVERVIEW TAB
+  □ Total execution time
+  □ Bytes scanned (is it reasonable for the filter?)
+  □ Rows produced
+  □ Partitions scanned / total (pruning %)
+  □ Any error messages or warnings
+
+□ PROFILE TAB - OPERATOR TREE
+  □ Which operator takes most time? (sort by %)
+  □ TableScan operators - are they scanning efficiently?
+  □ Join operators - what join type? (Hash/Merge/Nested Loop)
+  □ Aggregate operators - any spillage?
+  □ Sort operators - necessary or can be eliminated?
+  □ Filter operators - pushed down or applied late?
+
+□ DATA MOVEMENT
+  □ Large "Bytes sent over network"? (indicates inefficient joins)
+  □ Data redistribution happening?
+  □ Broadcast vs redistribute strategy
+
+□ MEMORY PRESSURE
+  □ Bytes spilled to local storage
+  □ Bytes spilled to remote storage
+  □ If spillage exists → increase warehouse size
+
+□ PARTITION PRUNING
+  □ Pruning % = (total - scanned) / total
+  □ <50% = Poor (add clustering or fix filter)
+  □ 50-80% = Moderate (room for improvement)
+  □ >80% = Good (well optimized)
+
+□ OPTIMIZATION OPPORTUNITIES
+  □ Can filter be applied earlier?
+  □ Can joins be reordered?
+  □ Should dimension tables be pre-joined?
+  □ Would clustering help?
+  □ Is a materialized view appropriate?
+*/
+
+
+-- Re-enable result cache after testing
+ALTER SESSION SET USE_CACHED_RESULT = TRUE;
+
+-- ========================================================================
+-- KEY TAKEAWAYS
+-- ========================================================================
+
+/*
+QUERY PROFILE IS YOUR BEST FRIEND FOR OPTIMIZATION:
+
+1. Always start with Query Profile, not guessing
+2. Focus on operators taking >20% of execution time
+3. Partition pruning should be >80% for date-filtered queries
+4. Spillage = memory pressure = need bigger warehouse or better query
+5. Join strategy matters - Hash join for small dimensions, proper join order
+6. Filter early, join late
+7. Use clustering for frequently filtered columns
+8. Materialized views for recurring aggregations
+9. Monitor queries regularly to catch regressions
+10. Measure everything - Query Profile provides the truth!
+
+TARGET METRICS FOR WELL-OPTIMIZED QUERIES:
+✅ Partition pruning: >80%
+✅ No spillage (bytes_spilled = 0)
+✅ Execution time: Within SLA (<30 sec for this use case)
+✅ Credits use
