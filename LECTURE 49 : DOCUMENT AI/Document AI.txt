@@ -1,0 +1,33 @@
+GRANT CREATE MODEL ON SCHEMA DEMODATABASE.DEMOSCHEMA TO ROLE ACCOUNTADMIN;
+
+
+
+
+--Extracting information from multiple documents
+SELECT DEMODATABASE.DEMOSCHEMA.DEMO_DOCUMENT_AI!PREDICT(
+  GET_PRESIGNED_URL(@DOCUMENT_UPLOAD, RELATIVE_PATH), 2)
+FROM DIRECTORY(@DOCUMENT_UPLOAD);
+
+
+
+--Stage Creation
+
+CREATE OR REPLACE STAGE DOCUMENT_UPLOAD
+DIRECTORY = (ENABLE = TRUE)
+ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE');
+
+--Flatten Data from json to structured format
+
+WITH raw AS (
+    SELECT DEMODATABASE.DEMOSCHEMA.DEMO_DOCUMENT_AI!PREDICT(
+               GET_PRESIGNED_URL(@DOCUMENT_UPLOAD, RELATIVE_PATH), 1
+           ) AS prediction_output
+    FROM DIRECTORY(@DOCUMENT_UPLOAD)
+)
+SELECT
+    prediction_output:"Fabric"[0].value::string         AS Fabric,
+    prediction_output:"Manufacturer_Code"[0].value::string AS Manufacturer_Code,
+    prediction_output:"Size"[0].value::string           AS Size,
+    prediction_output:"Title"[0].value::string           AS Title,
+    prediction_output:"Weight"[0].value::string           AS Weight
+FROM raw;
