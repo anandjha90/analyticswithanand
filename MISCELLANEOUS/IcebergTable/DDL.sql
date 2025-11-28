@@ -1,14 +1,39 @@
-create or replace file format order_db.public.csv_format
+CREATE OR REPLACE DATABASE ORDERS_DB;
+CREATE OR REPLACE SCHEMA ORDERS_DB.ORDERS_SCHEMA;
+
+create or replace file format csv_format
                     type = csv
                     skip_header = 1
                     null_if = ('NULL', 'null')
                     empty_field_as_null = true;
 
 --upload both files
-create or replace stage order_db.public.iceberg_load
-file_format = order_db.public.csv_format;
+create or replace stage orders_db.orders_schema.iceberg_load
+file_format = orders_db.orders_schema.csv_format;
   
-list @order_db.public.iceberg_load;
+list @orders_db.orders_schema.iceberg_load;
+
+-- tables just for testing
+create or replace iceberg table customer_detail (
+  CUST_NUM varchar,
+  CUST_STAT varchar,
+  CUST_BAL number(10,0),
+  INV_NO varchar,
+  INV_AMT number(10,2),
+  CRID varchar,
+  SSN varchar,
+  phone number(10,0),
+  Email varchar
+)
+
+create or replace table Accessory_Detail (
+  CUST_NUM varchar,
+  Accessory varchar,
+  status varchar,
+  amount number(10,0),
+  renewal varchar
+);
+
   
 
 create external volume iceberg_int
@@ -24,19 +49,27 @@ create external volume iceberg_int
 
    describe external volume iceberg_int;
 
-  {"NAME":"iceberg_bucket","STORAGE_PROVIDER":"S3","STORAGE_BASE_URL":"s3://icebergconfigbucket/","STORAGE_ALLOWED_LOCATIONS":["s3://icebergconfigbucket/*"],"STORAGE_AWS_ROLE_ARN":"arn:aws:iam::913267004595:role/icebergconfigrole","STORAGE_AWS_IAM_USER_ARN":"arn:aws:iam::940482405254:user/hzdt0000-s","STORAGE_AWS_EXTERNAL_ID":"RU48962_SFCRole=2_iMI2Dcus3iSF+ArSHAB83WJ8twQ=","ENCRYPTION_TYPE":"NONE","ENCRYPTION_KMS_KEY_ID":""};
+{"NAME":"iceberg_bucket",
+  "STORAGE_PROVIDER":"S3",
+  "STORAGE_BASE_URL":"s3://icebergconfigbucket/",
+  "STORAGE_ALLOWED_LOCATIONS"["s3://icebergconfigbucket/*"],
+  "STORAGE_AWS_ROLE_ARN":"arn:aws:iam::913267004595:role/icebergconfigrole",
+  "STORAGE_AWS_IAM_USER_ARN":"arn:aws:iam::940482405254:user/hzdt0000s",
+  "STORAGE_AWS_EXTERNAL_ID":"RU48962_SFCRole=2_iMI2Dcus3iSF+ArSHAB83WJ8twQ=",
+  "ENCRYPTION_TYPE":"NONE","ENCRYPTION_KMS_KEY_ID":""
+};
 
 
-  create or replace iceberg table customer_detail (
-   CUST_NUM varchar,
-  CUST_STAT varchar ,
-  CUST_BAL number(10,0),
-  INV_NO varchar ,
-  INV_AMT number(10,2),
-  CRID varchar ,
-  SSN varchar,
-  phone number(10,0),
-  Email varchar
+create or replace iceberg table customer_detail (
+CUST_NUM varchar,
+CUST_STAT varchar ,
+CUST_BAL number(10,0),
+INV_NO varchar ,
+INV_AMT number(10,2),
+CRID varchar ,
+SSN varchar,
+phone number(10,0),
+Email varchar
 )
 CATALOG = 'SNOWFLAKE'
 external_volume='iceberg_int'
@@ -44,25 +77,25 @@ BASE_LOCATION = 'CUSTOMER_INFO';
 
 show tables;
 
-  copy into customer_detail
-from @order_db.public.iceberg_load/Customer_Invoice.csv
+copy into customer_detail
+from @orders_db.orders_schema.iceberg_load/Customer_Invoice.csv
 on_error = CONTINUE;
 
 select * from customer_detail;
 
 https://www.tablab.app/parquet/view
 
- create or replace table Accessory_Detail (
-   CUST_NUM varchar,
-  Accessory varchar ,
-    status varchar ,
-  amount number(10,0),
-  renewal varchar 
+create or replace table Accessory_Detail (
+CUST_NUM varchar,
+Accessory varchar ,
+status varchar ,
+amount number(10,0),
+renewal varchar 
   
 );
 
-  copy into Accessory_Detail
-from @order_db.public.iceberg_load/Accessory.csv
+copy into Accessory_Detail
+from @orders_db.orders_schema.iceberg_load/Accessory.csv
 on_error = CONTINUE;
 
 select * from Accessory_Detail;
@@ -98,7 +131,6 @@ ALTER iceberg TABLE customer_detail ADD ROW ACCESS POLICY CRID_ACCESS_POLICY ON 
 select * from Filtered_Customer_Accessory;
 
 
-
 CREATE OR REPLACE ICEBERG TABLE Customer_Accessory_iceberg (
     CUSTOMER_ID varchar,
     status varchar ,
@@ -112,4 +144,3 @@ CREATE OR REPLACE ICEBERG TABLE Customer_Accessory_iceberg (
     BASE_LOCATION = 'CUST_ACCESSORY';
 
     select * from Customer_Accessory_iceberg;
-
