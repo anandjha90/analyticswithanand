@@ -34,7 +34,14 @@ create or replace table Accessory_Detail (
   renewal varchar
 );
 
-  
+CREATE OR REPLACE ICEBERG TABLE Customer_Accessory_iceberg (
+    CUSTOMER_ID varchar,
+    status varchar,
+    customer_bal number(10,0),
+    Accessory varchar,
+    Accessory_Status varchar,
+    amount number(10,0)
+);
 
 create external volume iceberg_int
   storage_locations =
