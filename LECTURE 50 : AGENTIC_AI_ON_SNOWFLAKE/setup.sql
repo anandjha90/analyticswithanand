@@ -1,3 +1,7 @@
+CREATE OR REPLACE WAREHOUSE DEMO_WAREHOUSE;
+CREATE OR REPLACE DATABASE DEMO_DATABASE;
+CREATE OR REPLACE SCHEMA DEMO_SCHEMA;
+
 -- 1. Create consumer role
 USE ROLE ACCOUNTADMIN;
 CREATE OR REPLACE ROLE sales_intelligence_role;
@@ -139,3 +143,28 @@ GRANT READ ON STAGE models TO ROLE sales_intelligence_role;
 
 -- 6. Enable cross region inference (required to use claude-4-sonnet)
 ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'AWS_US';
+
+-- View feedback provided by users
+-- The resulting table contains columns that include information about the agent, the user who provided feedback, feedback provided by the user, and whether the feedback was positive or negative.
+
+SELECT * FROM TABLE(SNOWFLAKE.LOCAL.GET_AI_OBSERVABILITY_EVENTS('SALES_INTELLIGENCE', 'DATA', 'SALES_INTELLIGENCE_AGENT', 'CORTEX AGENT')) WHERE RECORD:name='CORTEX_AGENT_FEEDBACK';
+
+--Access control and permissions
+-- To view Cortex Agent logs, users must have the following privileges:
+--      OWNERSHIP or MONITOR privileges on the AGENT object
+--      The CORTEX_USER database role
+--      The AI_OBSERVABILITY_EVENTS_LOOKUP application role
+
+USE ROLE ACCOUNTADMIN;
+--CREATE ROLE sales_intelligence_role;
+GRANT MONITOR ON AGENT SALES_INTELLIGENCE_AGENT TO ROLE sales_intelligence_role;
+GRANT DATABASE ROLE SNOWFLAKE.CORTEX_USER TO ROLE sales_intelligence_role;
+GRANT APPLICATION ROLE SNOWFLAKE.AI_OBSERVABILITY_EVENTS_LOOKUP TO ROLE sales_intelligence_role;
+GRANT APPLICATION ROLE SNOWFLAKE.AI_OBSERVABILITY_ADMIN TO ROLE sales_intelligence_role;
+
+SET my_user = CURRENT_USER();
+GRANT ROLE sales_intelligence_role to user IDENTIFIER($my_user);
+
+-- Grant monitoring access to future agents
+-- To grant a role monitoring access on future agents created in a schema, use the following SQL command:
+GRANT MONITOR ON FUTURE AGENTS IN SCHEMA SALES_INTELLIGENCE.DATA TO ROLE sales_intelligence_role;
