@@ -42,24 +42,25 @@ SELECT SYSTEM$SHOW_OAUTH_CLIENT_SECRETS('SALES_MCP_OAUTH');
 -- ============================================
 
 -- Create the MCP Server that exposes Cortex Agent
-CREATE OR REPLACE MCP SERVER SALES_INTELLIGENCE_MCP
+CREATE OR REPLACE MCP SERVER sales_mcp_server
     FROM SPECIFICATION $$
     tools:
       # Cortex Agent for sales intelligence
-      - name: "sales-intelligence-agent"
+      - name: "sales-intelligence"
         type: "CORTEX_AGENT_RUN"
-        identifier: "SALES_INTELLIGENCE.DATA.SALES_AGENT"
-        description: "AI agent for sales intelligence that can search conversations, analyze metrics, and query sales data"
+        identifier: "SALES_INTELLIGENCE.DATA.SALES_INTELLIGENCE_AGENT"
+        description: "Analyzes B2B sales data by combining structured metrics with unstructured conversation transcripts.
+        Use for questions about win rates, deal analysis, sales rep performance, or customer conversation insights."
         title: "Sales Intelligence Agent"
     $$;
 
 -- Grant permissions
-GRANT USAGE ON MCP SERVER SALES_INTELLIGENCE.DATA.SALES_INTELLIGENCE_MCP TO ROLE SALES_INTELLIGENCE_ROLE;
+GRANT USAGE ON MCP SERVER SALES_INTELLIGENCE.DATA.sales_mcp_server TO ROLE SALES_INTELLIGENCE_ROLE;
 
 -- Grant access to OAuth integration
 GRANT USAGE ON INTEGRATION SALES_MCP_OAUTH TO ROLE SALES_INTELLIGENCE_ROLE;
 
-GRANT USAGE ON AGENT SALES_AGENT TO ROLE SALES_INTELLIGENCE_ROLE;
+GRANT USAGE ON AGENT SALES_INTELLIGENCE_AGENT TO ROLE SALES_INTELLIGENCE_ROLE;
 
 -- Verify the configuration
 DESC SECURITY INTEGRATION SALES_MCP_OAUTH;
@@ -68,7 +69,6 @@ DESC SECURITY INTEGRATION SALES_MCP_OAUTH;
 SHOW MCP SERVERS IN SCHEMA SALES_INTELLIGENCE.DATA;
 
 -- Describe the MCP server to see its configuration
-DESCRIBE MCP SERVER SALES_INTELLIGENCE_MCP;
-
+DESCRIBE MCP SERVER sales_mcp_server;
 
 SELECT SYSTEM$SHOW_OAUTH_CLIENT_SECRETS('SALES_MCP_OAUTH');
