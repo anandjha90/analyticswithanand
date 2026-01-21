@@ -6,3 +6,5 @@
 
 4.What was the sentiment in our lost deals?
 
+5.Give me a quick summary of our pipeline
+
