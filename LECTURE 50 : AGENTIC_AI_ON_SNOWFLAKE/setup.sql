@@ -2,6 +2,12 @@ CREATE OR REPLACE WAREHOUSE DEMO_WAREHOUSE;
 CREATE OR REPLACE DATABASE DEMO_DATABASE;
 CREATE OR REPLACE SCHEMA DEMO_SCHEMA;
 
+-- Enable cross-region inference for ALL regions (for GPT-5 and other models)
+ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'ANY_REGION';
+
+-- 6. Enable cross region inference (required to use claude-4-sonnet)
+ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'AWS_US';
+
 -- 1. Create consumer role
 USE ROLE ACCOUNTADMIN;
 CREATE OR REPLACE ROLE sales_intelligence_role;
@@ -115,6 +121,11 @@ VALUES
 
 ('DEAL010', 'UpgradeNow Corp', 65000, '2024-02-18', 'Pending', false, 'Rachel Torres', 'Analytics Pro');
 
+-- Verify data insertion
+SELECT 'Conversations Count' AS METRIC, COUNT(*)::VARCHAR AS VALUE FROM SALES_CONVERSATIONS
+UNION ALL
+SELECT 'Metrics Count', COUNT(*)::VARCHAR FROM SALES_METRICS;
+
 ALTER TABLE sales_conversations SET CHANGE_TRACKING = TRUE;
 
 -- 4. Create the search service
@@ -137,12 +148,20 @@ CREATE OR REPLACE CORTEX SEARCH SERVICE sales_conversation_search
 );
 GRANT USAGE ON CORTEX SEARCH SERVICE sales_conversation_search TO ROLE sales_intelligence_role;
 
--- 5. Create Stage
-CREATE OR REPLACE STAGE models DIRECTORY = (ENABLE = TRUE);
+-- 5. Create stage for semantic model (needed for Cortex Analyst)
+CREATE OR REPLACE STAGE MODELS
+    DIRECTORY = (ENABLE = TRUE)
+    COMMENT = 'Stage for semantic models and AI configurations';
+
 GRANT READ ON STAGE models TO ROLE sales_intelligence_role;
 
--- 6. Enable cross region inference (required to use claude-4-sonnet)
-ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'AWS_US';
+create or replace network policy allow_all
+  allowed_ip_list = ('0.0.0.0/0');
+
+SET current_user_var = CURRENT_USER();
+ALTER USER IDENTIFIER($current_user_var) SET NETWORK_POLICY = 'ALLOW_ALL';
+
+
 
 -- View feedback provided by users
 -- The resulting table contains columns that include information about the agent, the user who provided feedback, feedback provided by the user, and whether the feedback was positive or negative.
@@ -164,6 +183,37 @@ GRANT APPLICATION ROLE SNOWFLAKE.AI_OBSERVABILITY_ADMIN TO ROLE sales_intelligen
 
 SET my_user = CURRENT_USER();
 GRANT ROLE sales_intelligence_role to user IDENTIFIER($my_user);
+
+-- Verify the semantic view was created
+SHOW SEMANTIC VIEWS IN SCHEMA SALES_INTELLIGENCE.DATA; --SALES_METRICS_VIEW
+
+CREATE ROLE IF NOT EXISTS SALES_INTELLIGENCE_ROLE;
+
+-- Grant database and schema access
+GRANT USAGE ON DATABASE SALES_INTELLIGENCE TO ROLE SALES_INTELLIGENCE_ROLE;
+GRANT USAGE ON SCHEMA SALES_INTELLIGENCE.DATA TO ROLE SALES_INTELLIGENCE_ROLE;
+
+-- Grant access to all tables in the schema
+GRANT SELECT ON ALL TABLES IN SCHEMA SALES_INTELLIGENCE.DATA TO ROLE SALES_INTELLIGENCE_ROLE;
+GRANT SELECT ON FUTURE TABLES IN SCHEMA SALES_INTELLIGENCE.DATA TO ROLE SALES_INTELLIGENCE_ROLE;
+
+-- Grant access to Cortex Search Service
+GRANT USAGE ON CORTEX SEARCH SERVICE SALES_INTELLIGENCE.DATA.SALES_CONVERSATIONS_SEARCH TO ROLE SALES_INTELLIGENCE_ROLE;
+
+GRANT SELECT ON SEMANTIC VIEW SALES_METRICS_VIEW TO ROLE SALES_INTELLIGENCE_ROLE;
+
+-- Grant access to warehouse
+GRANT USAGE ON WAREHOUSE SALES_INTELLIGENCE_WH TO ROLE SALES_INTELLIGENCE_ROLE;
+
+GRANT CREATE AGENT ON SCHEMA SALES_INTELLIGENCE.DATA TO ROLE SALES_INTELLIGENCE_ROLE;
+
+GRANT ROLE SALES_INTELLIGENCE_ROLE TO USER IDENTIFIER($current_user_var);
+
+SHOW GRANTS TO USER IDENTIFIER($current_user_var);
+ALTER USER IDENTIFIER($current_user_var) SET DEFAULT_ROLE = SALES_INTELLIGENCE_ROLE;
+
+SELECT '✅ SETUP COMPLETE!' AS STATUS,
+       'All tables, search service, and permissions are configured.' AS MESSAGE;
 
 -- Grant monitoring access to future agents
 -- To grant a role monitoring access on future agents created in a schema, use the following SQL command:
