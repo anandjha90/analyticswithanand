@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "sales_mcp_server": {
+      "url": "https://ZJBEQEA-MYB15903.snowflakecomputing.com/api/v2/databases/SALES_INTELLIGENCE/schemas/DATA/mcp-servers/sales_mcp_server",
+      "headers": {
+      "Authorization": "Bearer eyJraWQiOiIxMjM1ODAxNzg0MzciLCJhbGciOiJFUzI1NiJ9.eyJwIjoiNDgyNzM0ODUyOjQ4MjczNDg1MiIsImlzcyI6IlNGOjEwNDkiLCJleHAiOjE4MDA1MzQ5ODZ9.i4OBqf2pbP8gEPPWNZQHHd0QKaBW9UL8UU6iROevAPkzuO-oOenim4oo2F_1DsG_202WfHITHCwYeb9hGyZmlA"
+      }
+    }
+  }
+}
