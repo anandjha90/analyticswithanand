@@ -1,0 +1,51 @@
+STORE_ID,STORE_NAME,REGION_ID,CITY,STATE,CHANNEL_ID,STORE_TYPE,OPENING_DATE,FLOOR_AREA_SQFT,MANAGER
+STR001,Chandigarh Store 1,R2,Chandigarh,Punjab,CH03,Mini,2018-04-01,3975,Amit Shah
+STR002,Surat Store 2,R2,Surat,Gujarat,CH02,Flagship,2022-07-29,4009,Isha Iyer
+STR003,Hyderabad Store 3,R3,Hyderabad,Telangana,CH03,Mini,2022-07-26,3838,Priya Bose
+STR004,Mumbai Store 4,R4,Mumbai,Maharashtra,CH01,Flagship,2021-03-08,4874,Kavya Nair
+STR005,Kolkata Store 5,R1,Kolkata,West Bengal,CH01,Flagship,2018-01-12,3329,Varun Kumar
+STR006,Chandigarh Store 6,R2,Chandigarh,Punjab,CH03,Flagship,2023-04-12,1109,Arjun Nair
+STR007,Mumbai Store 7,R5,Mumbai,Maharashtra,CH02,Express,2020-10-27,1851,Isha Mehta
+STR008,Lucknow Store 8,R2,Lucknow,Uttar Pradesh,CH02,Express,2018-01-25,2343,Kiran Bose
+STR009,Kochi Store 9,R5,Kochi,Kerala,CH02,Express,2020-02-10,1012,Mohan Gupta
+STR010,Jaipur Store 10,R1,Jaipur,Rajasthan,CH01,Mini,2022-01-15,590,Tara Patel
+STR011,Nagpur Store 11,R4,Nagpur,Maharashtra,CH03,Mini,2018-07-19,2370,Ritu Pillai
+STR012,Chandigarh Store 12,R4,Chandigarh,Punjab,CH02,Mini,2020-12-11,1756,Sanjay Sharma
+STR013,Jaipur Store 13,R2,Jaipur,Rajasthan,CH02,Flagship,2018-07-31,3900,Pooja Bose
+STR014,Chandigarh Store 14,R5,Chandigarh,Punjab,CH02,Mini,2020-11-12,1059,Vikram Kapoor
+STR015,Bhopal Store 15,R5,Bhopal,Madhya Pradesh,CH02,Express,2022-12-16,1349,Rohan Reddy
+STR016,Surat Store 16,R2,Surat,Gujarat,CH01,Flagship,2021-10-01,1118,Arjun Joshi
+STR017,Hyderabad Store 17,R2,Hyderabad,Telangana,CH02,Flagship,2020-03-08,1386,Rajesh Bose
+STR018,Chandigarh Store 18,R5,Chandigarh,Punjab,CH03,Flagship,2019-06-22,3229,Ritu Pandey
+STR019,Bhopal Store 19,R3,Bhopal,Madhya Pradesh,CH02,Express,2020-08-11,4198,Arjun Gupta
+STR020,Pune Store 20,R3,Pune,Maharashtra,CH03,Flagship,2018-08-02,1981,Meera Rao
+STR021,Kolkata Store 21,R3,Kolkata,West Bengal,CH01,Flagship,2021-01-03,4766,Sneha Verma
+STR022,Surat Store 22,R3,Surat,Gujarat,CH01,Flagship,2019-10-06,3629,Geeta Mishra
+STR023,Chennai Store 23,R5,Chennai,Tamil Nadu,CH01,Mini,2021-08-25,3269,Vikram Patel
+STR024,Chennai Store 24,R5,Chennai,Tamil Nadu,CH03,Mini,2019-11-18,4922,Sneha Tiwari
+STR025,Chennai Store 25,R4,Chennai,Tamil Nadu,CH03,Express,2019-02-26,4702,Divya Kumar
+STR026,Jaipur Store 26,R3,Jaipur,Rajasthan,CH02,Flagship,2018-05-25,2631,Sanjay Reddy
+STR027,Bengaluru Store 27,R1,Bengaluru,Karnataka,CH01,Express,2021-09-15,4778,Pooja Nair
+STR028,Chennai Store 28,R3,Chennai,Tamil Nadu,CH02,Flagship,2019-04-14,1298,Sneha Joshi
+STR029,Ahmedabad Store 29,R2,Ahmedabad,Gujarat,CH03,Flagship,2022-09-01,3688,Aarav Nair
+STR030,Mumbai Store 30,R5,Mumbai,Maharashtra,CH02,Express,2019-04-13,2884,Amit Bose
+STR031,Mumbai Store 31,R5,Mumbai,Maharashtra,CH01,Express,2021-03-03,4458,Nisha Kumar
+STR032,Jaipur Store 32,R2,Jaipur,Rajasthan,CH02,Express,2019-07-08,1682,Lata Pandey
+STR033,Hyderabad Store 33,R1,Hyderabad,Telangana,CH02,Express,2021-04-21,4454,Mohan Singh
+STR034,Surat Store 34,R4,Surat,Gujarat,CH01,Flagship,2020-04-10,4587,Vikram Patel
+STR035,Kolkata Store 35,R5,Kolkata,West Bengal,CH03,Mini,2019-02-14,3733,Kavya Patel
+STR036,Surat Store 36,R3,Surat,Gujarat,CH01,Mini,2021-03-20,3694,Varun Tiwari
+STR037,Chennai Store 37,R1,Chennai,Tamil Nadu,CH01,Mini,2020-01-15,1825,Sanjay Mehta
+STR038,Surat Store 38,R3,Surat,Gujarat,CH02,Express,2019-07-08,4017,Amit Mehta
+STR039,Delhi Store 39,R5,Delhi,Delhi,CH03,Flagship,2021-11-26,3787,Priya Rao
+STR040,Kochi Store 40,R2,Kochi,Kerala,CH03,Mini,2023-02-17,667,Sanjay Gupta
+STR041,Chandigarh Store 41,R5,Chandigarh,Punjab,CH01,Mini,2023-04-05,4485,Dev Sharma
+STR042,Chennai Store 42,R3,Chennai,Tamil Nadu,CH01,Express,2020-03-07,1437,Mohan Pandey
+STR043,Ahmedabad Store 43,R1,Ahmedabad,Gujarat,CH01,Mini,2022-08-16,1066,Lata Pillai
+STR044,Jaipur Store 44,R5,Jaipur,Rajasthan,CH01,Flagship,2021-11-08,3753,Kavya Reddy
+STR045,Lucknow Store 45,R4,Lucknow,Uttar Pradesh,CH02,Flagship,2020-09-11,4287,Arjun Joshi
+STR046,Delhi Store 46,R3,Delhi,Delhi,CH01,Flagship,2018-10-14,2539,Dev Shah
+STR047,Kochi Store 47,R2,Kochi,Kerala,CH02,Flagship,2020-11-12,3789,Ritu Sharma
+STR048,Bengaluru Store 48,R2,Bengaluru,Karnataka,CH01,Express,2020-06-13,705,Kavya Kapoor
+STR049,Ahmedabad Store 49,R3,Ahmedabad,Gujarat,CH02,Mini,2021-06-27,585,Vikram Pandey
+STR050,Chennai Store 50,R2,Chennai,Tamil Nadu,CH02,Mini,2020-02-26,2390,Ajay Kapoor
