@@ -898,4 +898,4 @@ with tabs[6]:
 # FOOTER
 # ============================================================
 st.markdown("---")
-st.caption("🛒 ECommerce Analytics | Built with ❤️ using Snowflake, Streamlit & Python | © 2025 Trainer Demo")
+st.caption("🛒 ECommerce Analytics | Built with ❤️ using Snowflake, Streamlit & Python")
