@@ -1,0 +1,649 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.4">
+  <Nodes>
+    <Node ToolID="5">
+      <GuiSettings Plugin="LockInGui.LockInInput.LockInInput">
+        <Position x="54" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Connection>TAI</Connection>
+          <Query>select * 
+from TaiNet.dbo.TAIUNPK</Query>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Source=TAI
+Query=select * 
+from TaiNet.dbo.TA...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="LockInEngine.dll" EngineDllEntryPoint="AlteryxLockInInput" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="LockInGui.LockInSelect.LockInSelect">
+        <Position x="174" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Unpk_Process_Date" selected="True" />
+            <SelectField field="Unpk_Reins_Co" selected="True" />
+            <SelectField field="Unpk_Tai_Co" selected="True" />
+            <SelectField field="Unpk_Debit_Credit_Code" selected="True" />
+            <SelectField field="Unpk_Imgl_Acct" selected="True" />
+            <SelectField field="Unpk_Imsubseq_Code" selected="True" />
+            <SelectField field="Unpk_Eff_Date" selected="True" />
+            <SelectField field="Unpk_Amount" selected="True" />
+            <SelectField field="Unpk_Num_Of_Decimals" selected="True" />
+            <SelectField field="Unpk_Policy_Number" selected="True" />
+            <SelectField field="Unpk_Acc_Code" selected="True" />
+            <SelectField field="Unpk_Treaty_Number" selected="True" />
+            <SelectField field="Unpk_Tai_System_Treaty" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="LockInEngine.dll" EngineDllEntryPoint="AlteryxLockInSelect" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="LockInGui.LockInStreamOut.LockInStreamOut">
+        <Position x="462" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Sort value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="LockInEngine.dll" EngineDllEntryPoint="AlteryxLockInStreamOut" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="LockInGui.LockInFilter.LockInFilter">
+        <Position x="270" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Custom</Mode>
+          <Expression>Unpk_process_date in ('20240131','20240229','20240331','20240430','20240531','20240630','20240731','20240831','20240930')</Expression>
+          <ValidateBeforeRun value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Unpk_process_date in ('20240131','20240229','20240331','20240...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="LockInEngine.dll" EngineDllEntryPoint="AlteryxLockInFilter" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="630" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [Unpk_Debit_Credit_Code] = 60 then [Unpk_Amount] * -1 else [Unpk_Amount] endif&#xA;" field="Unpk_Amount" size="18.2" type="FixedDecimal" />
+            <FormulaField expression="if [Unpk_Treaty_Number] = 'ML01' then 'ML03' else [Unpk_Treaty_Number] endif" field="Unpk_Treaty_Number" size="9" type="String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Unpk_Amount = if [Unpk_Debit_Credit_Code] = 60 then [Unpk_Amount] * -1 else [Unp...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="534" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Unpk_Process_Date" selected="True" type="Double" size="8" />
+            <SelectField field="Unpk_Debit_Credit_Code" selected="True" type="Double" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="66" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="56">J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm</File>
+          <FormatSpecificOptions>
+            <FirstRowData>False</FirstRowData>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>COA_All_Accounts v12.xlsm</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Ctrl #" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="Double" />
+            <Field name="Owner" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Owner2" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Owner3" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Acct Type" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="L1" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="L2" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="L3" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="L4" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="L5" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="L6" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="L7" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="L8" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="L9" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="Double" />
+            <Field name="L10" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="Double" />
+            <Field name="Tree Range" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Historical Conversion Account #" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Future State Account #" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="F19" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="Double" />
+            <Field name="Short Description" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Long Description" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Legacy Acct #" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Legacy Account Description" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Zero Account Balance for  Three Years" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Included in Budget&#xA;2011" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Interco Acct (mark with &quot;X&quot;)" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Research or Review Needed" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Notes/Follow-ups" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Email Notification Date" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Short Length" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="Double" />
+            <Field name="Long Length" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="Double" />
+            <Field name="Short&#xA;Over/(Under)&#xA;Nodes - 20&#xA;Acct Descr - 10" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="Double" />
+            <Field name="Long&#xA;Over/(Under)&#xA;Node &amp; Acct Descr - 30" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="Double" />
+            <Field name="STAT Report ID" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="STAT Line Descriptions" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="STAT Detail Line Descriptions" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="GAAP Report ID" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="GAAP MGMT Rollup Line Descriptions" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="GAAP MGMT Detail Line Descriptions" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="format" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="Double" />
+            <Field name="SA Report ID" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="SA Line Descriptions" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="SA Detail Line Descriptions" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Book Code" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Allow Override" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="Control Account" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="F47" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+            <Field name="F48" size="255" source="File: J:\Reinsurance\Reference\TIDES\COA_All_Accounts v12.xlsm" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings>
+        <Position x="174" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">False</Value>
+          <Value name="Check Box (136)">False</Value>
+          <Value name="List Box (11)">""</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">True</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">False</Value>
+          <Value name="Check Box (122)">False</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="282" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Future State Account #" selected="True" />
+            <SelectField field="Long Description" selected="True" />
+            <SelectField field="Legacy Acct #" selected="True" />
+            <SelectField field="Legacy Account Description" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="342" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Unpk_Imgl_Acct" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Legacy Acct #" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Unpk_Process_Date" selected="True" />
+                <SelectField field="Left_Unpk_Eff_Date" selected="True" />
+                <SelectField field="Left_Unpk_Reins_Co" selected="True" />
+                <SelectField field="Left_Unpk_Tai_Co" selected="True" />
+                <SelectField field="Left_Unpk_Debit_Credit_Code" selected="False" />
+                <SelectField field="Left_Unpk_Imgl_Acct" selected="False" />
+                <SelectField field="Left_Unpk_Imsubseq_Code" selected="True" />
+                <SelectField field="Left_Unpk_Amount" selected="True" />
+                <SelectField field="Left_Unpk_Num_Of_Decimals" selected="False" />
+                <SelectField field="Left_Unpk_Policy_Number" selected="True" />
+                <SelectField field="Left_Unpk_Acc_Code" selected="False" />
+                <SelectField field="Left_Unpk_Treaty_Number" selected="True" />
+                <SelectField field="Left_Unpk_Tai_System_Treaty" selected="True" />
+                <SelectField field="Right_Future State Account #" selected="True" />
+                <SelectField field="Right_Long Description" selected="True" />
+                <SelectField field="Right_Legacy Acct #" selected="True" />
+                <SelectField field="Right_Legacy Account Description" selected="True" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+        <Position x="894" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupFields>
+            <Field field="Unpk_Reins_Co" />
+            <Field field="Unpk_Treaty_Number" />
+            <Field field="Future State Account #" />
+            <Field field="Long Description" />
+            <Field field="Business Type" />
+            <Field field="Business Unit" />
+          </GroupFields>
+          <HeaderField field="Unpk_Process_Date" />
+          <DataField field="Unpk_Amount" />
+          <Methods>
+            <Method method="Sum" />
+          </Methods>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Unpk_Reins_Co" size="2" source="CrossTab:Group:Sum:" type="String" />
+            <Field name="Unpk_Treaty_Number" size="9" source="CrossTab:Group:Sum:" type="String" />
+            <Field name="Future State Account #" size="255" source="CrossTab:Group:Sum:" type="V_String" />
+            <Field name="Long Description" size="255" source="CrossTab:Group:Sum:" type="V_String" />
+            <Field name="Business Type" size="1073741823" source="CrossTab:Group:Sum:" type="V_WString" />
+            <Field name="Business Unit" size="1073741823" source="CrossTab:Group:Sum:" type="V_WString" />
+            <Field name="20240131" source="CrossTab:Header:Unpk_Process_Date:20240131:Sum:" type="Double" />
+            <Field name="20240229" source="CrossTab:Header:Unpk_Process_Date:20240229:Sum:" type="Double" />
+            <Field name="20240331" source="CrossTab:Header:Unpk_Process_Date:20240331:Sum:" type="Double" />
+            <Field name="20240430" source="CrossTab:Header:Unpk_Process_Date:20240430:Sum:" type="Double" />
+            <Field name="20240531" source="CrossTab:Header:Unpk_Process_Date:20240531:Sum:" type="Double" />
+            <Field name="20240630" source="CrossTab:Header:Unpk_Process_Date:20240630:Sum:" type="Double" />
+            <Field name="20240731" source="CrossTab:Header:Unpk_Process_Date:20240731:Sum:" type="Double" />
+            <Field name="20240831" source="CrossTab:Header:Unpk_Process_Date:20240831:Sum:" type="Double" />
+            <Field name="20240930" source="CrossTab:Header:Unpk_Process_Date:20240930:Sum:" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Unpk_Reins_Co" order="Asc" />
+            <Field field="Unpk_Treaty_Number" order="Asc" />
+            <Field field="Future State Account #" order="Asc" />
+            <Field field="Long Description" order="Asc" />
+            <Field field="Business Type" order="Asc" />
+            <Field field="Business Unit" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="714" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Legacy Acct #] + &quot; &quot; + [Legacy Account Description]" field="Legacy Acct #" size="255" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Legacy Acct # = [Legacy Acct #] + " " + [Legacy Account Description]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="894" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Business Type" action="GroupBy" rename="Business Type" />
+            <SummarizeField field="Unpk_Reins_Co" action="GroupBy" rename="Unpk_Reins_Co" />
+            <SummarizeField field="Unpk_Treaty_Number" action="GroupBy" rename="Unpk_Treaty_Number" />
+            <SummarizeField field="Future State Account #" action="GroupBy" rename="Future State Account #" />
+            <SummarizeField field="Long Description" action="GroupBy" rename="Long Description" />
+            <SummarizeField field="Unpk_Amount" action="Sum" rename="Sum_Unpk_Amount" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="534" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [Unpk_Treaty_Number] = 'TA02' then '42' elseif right([Unpk_Reins_Co],1) = &quot;X&quot; or [Unpk_Treaty_Number] = 'GA12' then '45' elseif left([Unpk_Tai_Co],2) = '15' then '42' elseif [Unpk_Treaty_Number] = 'ML03' then '41' elseif [Unpk_Treaty_Number] = 'SL08' then '47' else '40' endif" field="Business Type" size="1073741823" type="V_WString" />
+            <FormulaField expression="IF Right([Unpk_Tai_Co],1) = &quot;1&quot; THEN &quot;PLA01&quot;  ELSE &quot;PL001&quot; ENDIF" field="Business Unit" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Business Type = if [Unpk_Treaty_Number] = 'TA02' then '42' elseif right([Unpk_Re...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="894" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Unpk_Tai_Co" action="GroupBy" rename="Unpk_Tai_Co" />
+            <SummarizeField field="Unpk_Reins_Co" action="GroupBy" rename="Unpk_Reins_Co" />
+            <SummarizeField field="Legacy Acct #" action="GroupBy" rename="Legacy Acct #" />
+            <SummarizeField field="Unpk_Amount" action="Sum" rename="Sum_Unpk_Amount" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="726" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [Unpk_Process_Date] &lt; 20180331 then [Unpk_Amount] * .01 else [Unpk_Amount] endif" field="Unpk_Amount" size="18.2" type="FixedDecimal" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Unpk_Amount = if [Unpk_Process_Date] &lt; 20180331 then [Unpk_Amount] * .01 else [U...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="LockInGui.LockInFilter.LockInFilter">
+        <Position x="366" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Custom</Mode>
+          <Expression><![CDATA[[unpk_imgl_acct] in ( '2010001',  '2010006',  '2010009', '2010010',  '2030001',  '2030006',  '2030011',  '2030013',  '2050006', '2050007',  '2050009',  '2057068',  '2070006',  '2070007',  '2570007',  '2670011',  '2680008')  
+]]></Expression>
+          <ValidateBeforeRun value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[unpk_imgl_acct] in ( '2010001',  '2010006',  '2010009', '201...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="LockInEngine.dll" EngineDllEntryPoint="AlteryxLockInFilter" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="990" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\jduffy\AppData\Local\Temp\Engine_17860_89601d9a94e5400ea7733926bddebdf2_\Engine_23296_90a61554e543486e9c30b5e226dea45f_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="1038" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File MaxRecords="" FileFormat="25">J:\Reinsurance\Queries\Alteryx\Outputs\unpktobsum.xlsx|||Sheet1</File>
+          <Passwords />
+          <FormatSpecificOptions>
+            <PreserveFormat>False</PreserveFormat>
+            <SkipFieldNames>False</SkipFieldNames>
+            <OutputOption>RemoveFile</OutputOption>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>unpktobsum.xlsx
+Query=Sheet1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="True" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="12" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="17" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output26" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="19" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="19" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Join" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="25" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="True" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Unpk to bsum</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="9c410825-cd08-44e1-9522-0eaddbcb1011" />
+      <Telemetry>
+        <PreviousWorkflowId value="857bae09-c0ed-40f6-8c94-012a27cdfa76" />
+        <OriginWorkflowId value="467e181e-9b6e-4da6-8d8c-47337fb437dd" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

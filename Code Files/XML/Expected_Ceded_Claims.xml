@@ -1,0 +1,1537 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.4">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">\\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q1\Traditional\IBNR\Expected_Ceded_Claims_Output_12.31.23.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Expected_Ceded_Claims_Output_12.31.23.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Item" size="1073741823" source="CrossTab:Group:Sum:" type="V_WString" />
+            <Field name="Ffilekey" size="254" source="CrossTab:Group:Sum:" type="V_String" />
+            <Field name="PolM_Sub_Seg" size="6" source="Summarize: GroupBy - PolM_Sub_Seg" type="String" />
+            <Field name="Treaty" size="2048" source="(Multiple Sources)" type="V_String" />
+            <Field name="Expected Claims" source="(Multiple Sources)" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">\\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`</File>
+          <FormatSpecificOptions>
+            <FirstRowData>False</FirstRowData>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>9.30.24 Net IBNR Reallocation - JE.xlsx
+Query=`PL Recon$`</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Net IBNR Reallocation: PL Based on Distribution of Future Net Mortality" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F2" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F3" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F4" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="F5" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F6" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F7" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="F8" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F9" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="F10" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F11" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F12" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F13" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F14" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F15" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F16" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="F17" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F18" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F19" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="F20" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F21" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="F22" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F23" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="F24" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F25" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F26" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F27" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F28" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="F29" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F30" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F31" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="F32" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F33" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="F34" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="F35" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="F36" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicRename.DynamicRename">
+        <Position x="126" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <RenameMode>FirstRow</RenameMode>
+          <Fields orderChanged="False">
+            <Field name="Net IBNR Reallocation: PL Based on Distribution of Future Net Mortality" />
+            <Field name="F2" />
+            <Field name="F3" />
+            <Field name="F4" />
+            <Field name="F5" />
+            <Field name="F6" />
+            <Field name="F7" />
+            <Field name="F8" />
+            <Field name="F9" />
+            <Field name="F10" />
+            <Field name="F11" />
+            <Field name="F12" />
+            <Field name="F13" />
+            <Field name="F14" />
+            <Field name="F15" />
+            <Field name="F16" />
+            <Field name="F17" />
+            <Field name="F18" />
+            <Field name="F19" />
+            <Field name="F20" />
+            <Field name="F21" />
+            <Field name="F22" />
+            <Field name="F23" />
+            <Field name="F24" />
+            <Field name="F25" />
+            <Field name="F26" />
+            <Field name="F27" />
+            <Field name="F28" />
+            <Field name="F29" />
+            <Field name="F30" />
+            <Field name="F31" />
+            <Field name="F32" />
+            <Field name="F33" />
+            <Field name="F34" />
+            <Field name="F35" />
+            <Field name="F36" />
+            <Field name="*Unknown" />
+          </Fields>
+          <Expression />
+          <FirstRow>
+            <OnError>Warn</OnError>
+          </FirstRow>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Field_37" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Anticipated Net" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_2" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_3" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="Full Year Plan (Net)" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_4" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_5" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="Incr (Decr) IBNR" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_6" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="Ending GL" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_7" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Current GL (Direct)" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_8" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_9" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Desired Direct" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_10" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="Full Year Plan (Direct)" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_11" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_12" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="Incr (Decr) IBNR2" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_13" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="Ending GL2" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_14" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="Current GL (Ceded)" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_15" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_16" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Desired Ceded" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_17" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="Full Year Plan (Ceded)" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_18" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_19" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="Incr (Decr) IBNR3" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_20" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="Ending GL3" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+            <Field name="Field_37_21" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="Double" />
+            <Field name="Field_37_22" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PL Recon$`" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicRename" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="198" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Field_37" selected="True" rename="Subseg0" />
+            <SelectField field="Incr (Decr) IBNR3" selected="True" rename="Incr (Decr) IBNR" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="270" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="Substring([Subseg0],3,3)" field="Subseg" size="1073741823" type="V_WString" />
+            <FormulaField expression="&quot;PL&quot;" field="Business Unit" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="2">
+          <Name />
+          <AnnotationText><![CDATA[Subseg = Substring([Subseg0],3,3)
+]]></AnnotationText>
+          <DefaultAnnotationText><![CDATA[Subseg = Substring([Subseg0],3,3)
+Business Unit = "PL"
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="342" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Skip</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="2">
+          <Name />
+          <DefaultAnnotationText>Skip 1st 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="342" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="PolM_Sub_Seg" action="GroupBy" rename="PolM_Sub_Seg" />
+            <SummarizeField field="Expected Claims" action="Sum" rename="Expected Claims_Sub_Seg" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Sum by Subseg</AnnotationText>
+          <DefaultAnnotationText>Sum by Subseg</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="414" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="PolM_Sub_Seg" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="PolM_Sub_Seg" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_PolM_Sub_Seg" selected="False" rename="Right_PolM_Sub_Seg" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="486" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="PolM_Sub_Seg" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Subseg" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_Business Unit" selected="True" input="Right_" />
+                <SelectField field="Left_PolM_Sub_Seg" selected="True" input="Left_" />
+                <SelectField field="Left_Treaty" selected="True" input="Left_" />
+                <SelectField field="Left_Expected Claims" selected="True" input="Left_" />
+                <SelectField field="Left_Expected Claims_Sub_Seg" selected="True" input="Left_" />
+                <SelectField field="Right_Subseg0" selected="False" input="Right_" />
+                <SelectField field="Right_Subseg" selected="False" input="Right_" />
+                <SelectField field="Right_Incr (Decr) IBNR" selected="True" input="Right_" />
+                <SelectField field="Left_Business_Type" selected="True" input="Left_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="558" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Incr (Decr) IBNR]*([Expected Claims]/[Expected Claims_Sub_Seg])" field="Ceded IBNR by Treaty" size="8" type="Double" />
+            <FormulaField expression="If Left([Treaty],3) = &quot;AML&quot; Then &quot;Assumed&quot;&#xA;ElseIf Left([Treaty],3) = &quot;CML&quot; Then &quot;Ceded&quot;&#xA;Else Null()&#xA;Endif" field="Business_Type" size="1073741823" type="V_WString" />
+            <FormulaField expression="If left([Treaty],1) = &quot;C&quot; Then Right([Treaty],Length([Treaty])-1)&#xA;Else [Treaty]&#xA;Endif" field="Treaty" size="2048" type="V_String" />
+            <FormulaField expression="Left([Treaty],2)" field="CO" size="1073741823" type="V_WString" />
+            <FormulaField expression="[PolM_Sub_Seg]+&quot;L&quot;" field="Product" size="1073741823" type="V_WString" />
+            <FormulaField expression="&quot;PL001&quot;" field="BU" size="1073741823" type="V_WString" />
+            <FormulaField expression="[Treaty]+&quot;S&quot;" field="TREATY3" size="1073741823" type="V_WString" />
+            <FormulaField expression="[Ceded IBNR by Treaty]" field="Round" size="19.2" type="FixedDecimal" />
+            <FormulaField expression="ABS([Round])" field="ABS" size="19.2" type="FixedDecimal" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="2">
+          <Name />
+          <AnnotationText><![CDATA[Calc = [Current GL (Ceded)]*([Expected Claims]/[Expected Claims_Sub_Seg])
+]]></AnnotationText>
+          <DefaultAnnotationText>Ceded IBNR by Treaty = [Incr (Decr) IBNR]*([Expected Claims]/[Expected Claims_Su...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="414" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Business Unit" selected="True" />
+            <SelectField field="Subseg0" selected="True" />
+            <SelectField field="Subseg" selected="True" />
+            <SelectField field="Incr (Decr) IBNR" selected="True" type="Double" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="294" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="PolM_Sub_Seg" action="GroupBy" rename="PolM_Sub_Seg" />
+            <SummarizeField field="Treaty" action="GroupBy" rename="Treaty" />
+            <SummarizeField field="Expected Claims" action="Sum" rename="Expected Claims" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Sum by Treaty</AnnotationText>
+          <DefaultAnnotationText>Sum by Treaty</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="846" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\jduffy\AppData\Local\Temp\Engine_27444_a06837e3e91c4b6da420292363c2f456_\Engine_5432_5c52ece4d793453384f95cb5d1c9e68b_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="870" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File MaxRecords="" FileFormat="25">J:\Reinsurance\Reconciliation\Commercial Ceded\2024\09 - Sep\Quarter End\IBNR\IBNR allocation by Treaty.xlsx|||PL</File>
+          <Passwords />
+          <FormatSpecificOptions>
+            <PreserveFormat>False</PreserveFormat>
+            <SkipFieldNames>False</SkipFieldNames>
+            <OutputOption>RemoveFile</OutputOption>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IBNR allocation by Treaty.xlsx
+Query=PL</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">\\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`</File>
+          <FormatSpecificOptions>
+            <FirstRowData>False</FirstRowData>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>9.30.24 Net IBNR Reallocation - JE.xlsx
+Query=`PLA Recon$`</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Net IBNR Reallocation: PL&amp;A Based on Distribution of Future Net Mortality" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F2" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F3" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F4" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F5" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F6" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F7" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F8" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F9" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F10" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F11" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F12" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F13" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F14" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F15" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F16" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F17" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F18" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F19" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F20" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F21" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F22" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F23" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F24" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F25" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F26" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F27" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F28" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F29" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F30" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="F31" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="F32" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="28">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicRename.DynamicRename">
+        <Position x="126" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <RenameMode>FirstRow</RenameMode>
+          <Fields orderChanged="False">
+            <Field name="Net IBNR Reallocation: PL&amp;A Based on Distribution of Future Net Mortality" />
+            <Field name="F2" />
+            <Field name="F3" />
+            <Field name="F4" />
+            <Field name="F5" />
+            <Field name="F6" />
+            <Field name="F7" />
+            <Field name="F8" />
+            <Field name="F9" />
+            <Field name="F10" />
+            <Field name="F11" />
+            <Field name="F12" />
+            <Field name="F13" />
+            <Field name="F14" />
+            <Field name="F15" />
+            <Field name="F16" />
+            <Field name="F17" />
+            <Field name="F18" />
+            <Field name="F19" />
+            <Field name="F20" />
+            <Field name="F21" />
+            <Field name="F22" />
+            <Field name="F23" />
+            <Field name="F24" />
+            <Field name="F25" />
+            <Field name="F26" />
+            <Field name="F27" />
+            <Field name="F28" />
+            <Field name="F29" />
+            <Field name="F30" />
+            <Field name="F31" />
+            <Field name="F32" />
+            <Field name="*Unknown" />
+          </Fields>
+          <Expression />
+          <FirstRow>
+            <OnError>Warn</OnError>
+          </FirstRow>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Field_33" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Anticipated Net" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_2" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_3" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Full Year Plan (Net)" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_4" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_5" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Incr (Decr) IBNR" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_6" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Ending GL" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_7" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Current GL (Direct)" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_8" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_9" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Full Year Plan (Direct)" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_10" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_11" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Incr (Decr) IBNR2" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_12" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Ending GL2" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_13" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Current GL (Ceded)" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_14" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_15" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Full Year Plan (Ceded)" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_16" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_17" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Incr (Decr) IBNR3" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_18" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Ending GL3" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+            <Field name="Field_33_19" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="Double" />
+            <Field name="Field_33_20" size="255" source="File: \\cco-fil-02.corp.pacificlife.net\vol1\Dept\CORPFIN\CORPFIN\Reinsurance\Accounting and Reporting\3 - Quarterly\2024Q3\Traditional\IBNR\9.30.24 Net IBNR Reallocation - JE.xlsx|||`PLA Recon$`" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicRename" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="198" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Field_33" selected="True" rename="Subseg0" />
+            <SelectField field="Incr (Decr) IBNR3" selected="True" rename="Incr (Decr) IBNR" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="270" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="Substring([Subseg0],3,3)" field="Subseg" size="1073741823" type="V_WString" />
+            <FormulaField expression="&quot;PLA&quot;" field="Business Unit" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="2">
+          <Name />
+          <AnnotationText><![CDATA[Subseg = Substring([Subseg0],3,3)
+]]></AnnotationText>
+          <DefaultAnnotationText><![CDATA[Subseg = Substring([Subseg0],3,3)
+Business Unit = "PLA"
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="342" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Skip</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="2">
+          <Name />
+          <DefaultAnnotationText>Skip 1st 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="414" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Business Unit" selected="True" />
+            <SelectField field="Subseg0" selected="True" />
+            <SelectField field="Subseg" selected="True" />
+            <SelectField field="Incr (Decr) IBNR" selected="True" type="Double" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="486" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="PolM_Sub_Seg" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Subseg" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_Business Unit" selected="True" input="Right_" />
+                <SelectField field="Left_PolM_Sub_Seg" selected="True" input="Left_" />
+                <SelectField field="Left_Treaty" selected="True" input="Left_" />
+                <SelectField field="Left_Expected Claims" selected="True" input="Left_" />
+                <SelectField field="Left_Expected Claims_Sub_Seg" selected="True" input="Left_" />
+                <SelectField field="Right_Subseg0" selected="False" input="Right_" />
+                <SelectField field="Right_Subseg" selected="False" input="Right_" />
+                <SelectField field="Right_Incr (Decr) IBNR" selected="True" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="558" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Incr (Decr) IBNR]*([Expected Claims]/[Expected Claims_Sub_Seg])" field="Ceded IBNR by Treaty" size="8" type="Double" />
+            <FormulaField expression="If Left([Treaty],3) = &quot;AML&quot; Then &quot;Assumed&quot;&#xA;ElseIf Left([Treaty],3) = &quot;CML&quot; Then &quot;Ceded&quot;&#xA;Else Null()&#xA;Endif" field="Business_Type" size="1073741823" type="V_WString" />
+            <FormulaField expression="If left([Treaty],1) = &quot;C&quot; Then Right([Treaty],Length([Treaty])-1)&#xA;Else [Treaty]&#xA;Endif" field="Treaty" size="2048" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="2">
+          <Name />
+          <AnnotationText><![CDATA[Calc = [Current GL (Ceded)]*([Expected Claims]/[Expected Claims_Sub_Seg])
+]]></AnnotationText>
+          <DefaultAnnotationText>Ceded IBNR by Treaty = [Incr (Decr) IBNR]*([Expected Claims]/[Expected Claims_Su...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="40">
+      <GuiSettings>
+        <Position x="702" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="CountRecords.yxmc" />
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="630" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Target_Count" selected="False" input="Target_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="774" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File MaxRecords="" FileFormat="25">J:\Reinsurance\Reconciliation\Commercial Ceded\2024\09 - Sep\Quarter End\IBNR\IBNR allocation by Treaty.xlsx|||PLA</File>
+          <Passwords />
+          <FormatSpecificOptions>
+            <PreserveFormat>False</PreserveFormat>
+            <SkipFieldNames>False</SkipFieldNames>
+            <OutputOption>Create</OutputOption>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IBNR allocation by Treaty.xlsx
+Query=PLA</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="198" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Treaty] = "PBR01"
+OR
+[Treaty] = "PBR02"
+OR
+[Treaty] = "SL16"
+OR
+[Treaty] = "SL19"</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Exclude PBR01 &amp; PBR02</AnnotationText>
+          <DefaultAnnotationText>[Treaty] = "PBR01"
+OR
+[Treaty] = "PBR02"
+OR
+[Treaty] = "SL16"
+OR
+[Treaty] = "SL1...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="126" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="//4/6/2021 Jeff Li and Michael Hernandez agree these should be zero out&#xA;If [Treaty] = &quot;CTA03&quot; Then 0&#xA;ElseIf [Treaty] = &quot;CFR01&quot; Then 0&#xA;ElseIf [Treaty] = &quot;CFR02&quot; Then 0&#xA;ElseIf [Treaty] = &quot;CFR03&quot; Then 0&#xA;ElseIf [Treaty] = &quot;CSL16&quot; Then 0&#xA;ElseIf [Treaty] = &quot;CSL19&quot; Then 0&#xA;Else [Expected Claims]&#xA;Endif" field="Expected Claims" size="8" type="Double" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="2">
+          <Name />
+          <DefaultAnnotationText>Expected Claims = //4/6/2021 Jeff Li and Michael Hernandez agree these should be...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="510" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">J:\Reinsurance\Reconciliation\Commercial Ceded\2022\03 - March\Quarter End\IBNR\BTs and TYs for IBNR.xlsx|||`BTs and TYs$`</File>
+          <FormatSpecificOptions>
+            <FirstRowData>False</FirstRowData>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>BTs and TYs for IBNR.xlsx
+Query=`BTs and TYs$`</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="1" size="255" source="File: J:\Reinsurance\Reconciliation\Commercial Ceded\2022\03 - March\Quarter End\IBNR\BTs and TYs for IBNR.xlsx|||`BTs and TYs$`" type="V_String" />
+            <Field name="2" size="255" source="File: J:\Reinsurance\Reconciliation\Commercial Ceded\2022\03 - March\Quarter End\IBNR\BTs and TYs for IBNR.xlsx|||`BTs and TYs$`" type="V_String" />
+            <Field name="3" size="255" source="File: J:\Reinsurance\Reconciliation\Commercial Ceded\2022\03 - March\Quarter End\IBNR\BTs and TYs for IBNR.xlsx|||`BTs and TYs$`" type="V_String" />
+            <Field name="4" size="255" source="File: J:\Reinsurance\Reconciliation\Commercial Ceded\2022\03 - March\Quarter End\IBNR\BTs and TYs for IBNR.xlsx|||`BTs and TYs$`" type="V_String" />
+            <Field name="5" size="255" source="File: J:\Reinsurance\Reconciliation\Commercial Ceded\2022\03 - March\Quarter End\IBNR\BTs and TYs for IBNR.xlsx|||`BTs and TYs$`" type="V_String" />
+            <Field name="6" size="255" source="File: J:\Reinsurance\Reconciliation\Commercial Ceded\2022\03 - March\Quarter End\IBNR\BTs and TYs for IBNR.xlsx|||`BTs and TYs$`" type="V_String" />
+            <Field name="7" size="255" source="File: J:\Reinsurance\Reconciliation\Commercial Ceded\2022\03 - March\Quarter End\IBNR\BTs and TYs for IBNR.xlsx|||`BTs and TYs$`" type="V_String" />
+            <Field name="8" size="255" source="File: J:\Reinsurance\Reconciliation\Commercial Ceded\2022\03 - March\Quarter End\IBNR\BTs and TYs for IBNR.xlsx|||`BTs and TYs$`" type="V_String" />
+            <Field name="9" size="255" source="File: J:\Reinsurance\Reconciliation\Commercial Ceded\2022\03 - March\Quarter End\IBNR\BTs and TYs for IBNR.xlsx|||`BTs and TYs$`" type="V_String" />
+            <Field name="BT" size="255" source="File: J:\Reinsurance\Reconciliation\Commercial Ceded\2022\03 - March\Quarter End\IBNR\BTs and TYs for IBNR.xlsx|||`BTs and TYs$`" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="55">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="630" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Treaty" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Treaty" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Business Unit" selected="True" input="Left_" />
+                <SelectField field="Left_PolM_Sub_Seg" selected="True" input="Left_" />
+                <SelectField field="Left_Treaty" selected="True" input="Left_" />
+                <SelectField field="Left_Expected Claims" selected="True" input="Left_" />
+                <SelectField field="Left_Expected Claims_Sub_Seg" selected="True" input="Left_" />
+                <SelectField field="Left_Incr (Decr) IBNR" selected="True" input="Left_" />
+                <SelectField field="Left_Ceded IBNR by Treaty" selected="True" input="Left_" />
+                <SelectField field="Left_Business_Type" selected="True" input="Left_" />
+                <SelectField field="Right_BT" selected="True" input="Right_" />
+                <SelectField field="Left_CO" selected="True" input="Left_" />
+                <SelectField field="Left_Product" selected="True" input="Left_" />
+                <SelectField field="Left_BU" selected="True" input="Left_" />
+                <SelectField field="Left_TREATY3" selected="True" input="Left_" />
+                <SelectField field="Left_Round" selected="True" input="Left_" />
+                <SelectField field="Left_ABS" selected="True" input="Left_" />
+                <SelectField field="Right_Treaty" selected="False" rename="Right_Treaty" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="56">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="702" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="126" y="510" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="9" action="GroupBy" rename="Treaty" />
+            <SummarizeField field="BT" action="GroupBy" rename="BT" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="58">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="162" y="570" width="180" height="48" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>This is linked to a network file. There are multiple entries for some Treaties</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor r="255" g="255" b="128" />
+          <Shape shape="0" />
+          <Justification Justification="1" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="59">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="774" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Business_Type" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="60">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="702" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Business_Type" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="62">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="702" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Business_Type" selected="True" />
+            <SelectField field="Treaty" selected="True" />
+            <SelectField field="PolM_Sub_Seg" selected="True" rename="SubSeg" />
+            <SelectField field="Ceded IBNR by Treaty" selected="True" />
+            <SelectField field="Business Unit" selected="False" />
+            <SelectField field="Expected Claims" selected="False" />
+            <SelectField field="Expected Claims_Sub_Seg" selected="False" />
+            <SelectField field="Incr (Decr) IBNR" selected="False" />
+            <SelectField field="CO" selected="False" />
+            <SelectField field="Product" selected="False" />
+            <SelectField field="BU" selected="False" />
+            <SelectField field="TREATY3" selected="False" />
+            <SelectField field="Round" selected="False" />
+            <SelectField field="ABS" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="63">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="702" y="558" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Business_Type" selected="True" />
+            <SelectField field="Treaty" selected="True" />
+            <SelectField field="PolM_Sub_Seg" selected="True" rename="SubSeg" />
+            <SelectField field="Ceded IBNR by Treaty" selected="True" />
+            <SelectField field="Business Unit" selected="False" />
+            <SelectField field="Expected Claims" selected="False" />
+            <SelectField field="Expected Claims_Sub_Seg" selected="False" />
+            <SelectField field="Incr (Decr) IBNR" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="64">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="774" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="65">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="846" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>Left([Treaty], 2) = "ML"
+OR
+Left([Treaty], 3) = "AML"</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="2">
+          <Name />
+          <DefaultAnnotationText>Left([Treaty], 2) = "ML"
+OR
+Left([Treaty], 3) = "AML"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="66">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="918" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="&quot;2024-09-30&quot;" field="Report_Date" size="10" type="Date" />
+            <FormulaField expression="-1*[Ceded IBNR by Treaty]" field="Amount" size="19.2" type="FixedDecimal" />
+            <FormulaField expression="If [Treaty] = &quot;ML00&quot; Then &quot;ML02&quot;&#xA;Else [Treaty]&#xA;Endif" field="Treaty" size="2048" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="2">
+          <Name />
+          <AnnotationText><![CDATA[Update Report Date
+]]></AnnotationText>
+          <DefaultAnnotationText>Report_Date = "2024-09-30"
+Amount = -1*[Ceded IBNR by Treaty]
+Treaty = If [Treat...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="67">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="990" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Report_Date" selected="True" />
+            <SelectField field="Business_Type" selected="True" />
+            <SelectField field="Treaty" selected="True" />
+            <SelectField field="SubSeg" selected="True" />
+            <SelectField field="Ceded IBNR by Treaty" selected="False" />
+            <SelectField field="Amount" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="68">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="1062" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File MaxRecords="" FileFormat="0">J:\Reinsurance\Reconciliation\Commercial Ceded\2024\06 - Jun\Quarter End\IBNR\IBNR.csv</File>
+          <Passwords />
+          <FormatSpecificOptions>
+            <LineEndStyle>CRLF</LineEndStyle>
+            <Delimeter>,</Delimeter>
+            <ForceQuotes>False</ForceQuotes>
+            <HeaderRow>True</HeaderRow>
+            <CodePage>28591</CodePage>
+            <WriteBOM>True</WriteBOM>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IBNR.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="69">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="906" y="558" width="100" height="48" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Need to update Report Date in Formula</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor r="255" g="255" b="128" />
+          <Shape shape="0" />
+          <Justification Justification="1" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="70">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="1050" y="450" width="100" height="40" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>CHANGE FOLDER TO CURRENT QUARTER</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="Lime" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="71">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="930" y="270" width="100" height="40" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>CHANGE FOLDER TO CURRENT QUARTER</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="Lime" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="72">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="834" y="390" width="100" height="40" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>CHANGE FOLDER TO CURRENT QUARTER</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="Lime" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="52" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="6" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="13" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="13" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Join" />
+      <Destination ToolID="14" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="14" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Join" />
+      <Destination ToolID="33" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="Output" />
+      <Destination ToolID="33" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Join" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="55" Connection="Left" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="57" Connection="Output" />
+      <Destination ToolID="55" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="62" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="12" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="28" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Join" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Output" />
+      <Destination ToolID="41" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Output9" />
+      <Destination ToolID="41" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Output" />
+      <Destination ToolID="63" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="41" Connection="Output" />
+      <Destination ToolID="60" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="False" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="52" Connection="Output" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="54" Connection="Output" />
+      <Destination ToolID="57" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="55" Connection="Join" />
+      <Destination ToolID="56" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="55" Connection="Left" />
+      <Destination ToolID="56" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="56" Connection="Output" />
+      <Destination ToolID="59" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="40" Connection="Input8" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="60" Connection="Output" />
+      <Destination ToolID="42" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="62" Connection="Output" />
+      <Destination ToolID="64" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="63" Connection="Output" />
+      <Destination ToolID="64" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="64" Connection="Output" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="65" Connection="True" />
+      <Destination ToolID="66" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="66" Connection="Output" />
+      <Destination ToolID="67" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="67" Connection="Output" />
+      <Destination ToolID="68" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Expected_Ceded_Claims_by_Treaty093024</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="6cd4b1ac-56d2-4c2d-9b92-ad75f97f9539" />
+      <Telemetry>
+        <PreviousWorkflowId value="2ab3e509-f6f9-48da-b147-276932edb76c" />
+        <OriginWorkflowId value="9afb777f-f7dd-44bd-b3a6-fd6b0675069c" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

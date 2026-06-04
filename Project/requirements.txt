@@ -1,0 +1,11 @@
+streamlit 
+pandas==1.5.3 
+openai 
+pandasai 
+matplotlib 
+seaborn 
+speechrecognition 
+python-dotenv 
+openpyxl 
+numpy==1.25.2 
+pyaudio

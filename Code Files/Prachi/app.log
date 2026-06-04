@@ -1,0 +1,24 @@
+INFO:root:Log message 77
+INFO:root:Log message 78
+INFO:root:Log message 79
+INFO:root:Log message 80
+INFO:root:Log message 81
+INFO:root:Log message 82
+INFO:root:Log message 83
+INFO:root:Log message 84
+INFO:root:Log message 85
+INFO:root:Log message 86
+INFO:root:Log message 87
+INFO:root:Log message 88
+INFO:root:Log message 89
+INFO:root:Log message 90
+INFO:root:Log message 91
+INFO:root:Log message 92
+INFO:root:Log message 93
+INFO:root:Log message 94
+INFO:root:Log message 95
+INFO:root:Log message 96
+INFO:root:Log message 97
+INFO:root:Log message 98
+INFO:root:Log message 99
+2025-01-02 20:46:46,737 - INFO - This message goes to both the file and the console.

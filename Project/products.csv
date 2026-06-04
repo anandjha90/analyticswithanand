@@ -1,0 +1,161 @@
+PRODUCT_ID,PRODUCT_NAME,BRAND,CATEGORY,PRICE,SUBCATEGORY,RATING,STOCK_QTY,DISCOUNT_PCT
+PRD0001,Wireless Earbuds,Samsung,Electronics,8250.32,Electronics - Segment 1,3.6,164,5
+PRD0002,Wireless Earbuds,Samsung,Electronics,27800.98,Electronics - Segment 1,4.8,94,20
+PRD0003,"Smart TV 43""",LG,Electronics,8453.48,Electronics - Segment 2,3.2,169,20
+PRD0004,"Smart TV 43""",Boat,Electronics,8296.08,Electronics - Segment 2,3.4,382,25
+PRD0005,LED Monitor,Boat,Electronics,20085.59,Electronics - Segment 3,3.9,192,30
+PRD0006,LED Monitor,Samsung,Electronics,30264.22,Electronics - Segment 3,3.3,266,10
+PRD0007,Laptop Stand,Sony,Electronics,12164.38,Electronics - Segment 1,4.9,222,0
+PRD0008,Laptop Stand,Samsung,Electronics,18897.82,Electronics - Segment 1,3.7,226,20
+PRD0009,USB-C Hub,Sony,Electronics,31713.85,Electronics - Segment 2,4.5,324,0
+PRD0010,USB-C Hub,LG,Electronics,9864.01,Electronics - Segment 2,3.6,371,20
+PRD0011,Webcam HD,Sony,Electronics,24820.56,Electronics - Segment 3,4.4,73,25
+PRD0012,Webcam HD,Apple,Electronics,30692.05,Electronics - Segment 3,5.0,487,5
+PRD0013,Gaming Mouse,Samsung,Electronics,18903.79,Electronics - Segment 1,3.9,477,10
+PRD0014,Gaming Mouse,Apple,Electronics,18605.43,Electronics - Segment 1,3.4,186,25
+PRD0015,Keyboard Mechanical,Samsung,Electronics,25773.93,Electronics - Segment 2,3.3,423,5
+PRD0016,Keyboard Mechanical,Apple,Electronics,21367.81,Electronics - Segment 2,3.5,377,25
+PRD0017,Power Bank 20K,Boat,Electronics,14088.46,Electronics - Segment 3,3.6,443,30
+PRD0018,Power Bank 20K,Samsung,Electronics,14371.44,Electronics - Segment 3,3.1,211,15
+PRD0019,Smart Watch,Sony,Electronics,9485.66,Electronics - Segment 1,4.8,340,25
+PRD0020,Smart Watch,Sony,Electronics,13878.8,Electronics - Segment 1,4.0,379,15
+PRD0021,Men's T-Shirt,H&M,Clothing,1235.71,Clothing - Segment 1,3.5,337,20
+PRD0022,Men's T-Shirt,Levi's,Clothing,2392.83,Clothing - Segment 1,3.9,348,15
+PRD0023,Women's Kurti,Levi's,Clothing,1126.37,Clothing - Segment 2,5.0,310,15
+PRD0024,Women's Kurti,Zara,Clothing,2413.88,Clothing - Segment 2,4.7,128,25
+PRD0025,Denim Jeans,H&M,Clothing,2500.99,Clothing - Segment 3,3.8,82,15
+PRD0026,Denim Jeans,UCB,Clothing,2030.13,Clothing - Segment 3,3.9,178,20
+PRD0027,Formal Shirt,Zara,Clothing,2232.68,Clothing - Segment 1,3.2,324,30
+PRD0028,Formal Shirt,Levi's,Clothing,2444.64,Clothing - Segment 1,3.7,200,15
+PRD0029,Ethnic Saree,H&M,Clothing,1688.94,Clothing - Segment 2,4.9,498,25
+PRD0030,Ethnic Saree,Levi's,Clothing,2932.53,Clothing - Segment 2,4.5,309,0
+PRD0031,Winter Jacket,Levi's,Clothing,2620.01,Clothing - Segment 3,4.0,151,5
+PRD0032,Winter Jacket,Levi's,Clothing,2430.03,Clothing - Segment 3,4.1,448,20
+PRD0033,Track Pants,Zara,Clothing,2037.47,Clothing - Segment 1,4.0,107,10
+PRD0034,Track Pants,Levi's,Clothing,1174.69,Clothing - Segment 1,3.5,340,0
+PRD0035,Casual Shorts,Zara,Clothing,2356.58,Clothing - Segment 2,4.6,439,20
+PRD0036,Casual Shorts,H&M,Clothing,908.14,Clothing - Segment 2,4.0,331,5
+PRD0037,Polo T-Shirt,Levi's,Clothing,1866.42,Clothing - Segment 3,4.2,158,20
+PRD0038,Polo T-Shirt,H&M,Clothing,2311.08,Clothing - Segment 3,3.8,393,25
+PRD0039,Linen Shirt,Levi's,Clothing,1651.44,Clothing - Segment 1,4.0,111,5
+PRD0040,Linen Shirt,H&M,Clothing,753.66,Clothing - Segment 1,3.0,333,5
+PRD0041,Non-Stick Cookware,Cello,Home & Kitchen,3291.52,Home & Kitchen - Segment 1,3.1,373,0
+PRD0042,Non-Stick Cookware,Philips,Home & Kitchen,2221.8,Home & Kitchen - Segment 1,3.1,219,0
+PRD0043,Electric Kettle,Cello,Home & Kitchen,3416.03,Home & Kitchen - Segment 2,4.3,159,20
+PRD0044,Electric Kettle,Philips,Home & Kitchen,6813.47,Home & Kitchen - Segment 2,4.8,345,15
+PRD0045,Air Fryer,Philips,Home & Kitchen,7242.34,Home & Kitchen - Segment 3,4.6,147,0
+PRD0046,Air Fryer,Prestige,Home & Kitchen,6362.88,Home & Kitchen - Segment 3,3.7,260,15
+PRD0047,Mixer Grinder,Prestige,Home & Kitchen,6463.55,Home & Kitchen - Segment 1,5.0,100,0
+PRD0048,Mixer Grinder,Milton,Home & Kitchen,6847.5,Home & Kitchen - Segment 1,4.6,105,5
+PRD0049,Induction Cooktop,Philips,Home & Kitchen,3081.46,Home & Kitchen - Segment 2,3.9,266,5
+PRD0050,Induction Cooktop,Bajaj,Home & Kitchen,4988.4,Home & Kitchen - Segment 2,4.7,88,15
+PRD0051,Water Purifier,Cello,Home & Kitchen,2435.36,Home & Kitchen - Segment 3,4.3,326,30
+PRD0052,Water Purifier,Prestige,Home & Kitchen,8532.97,Home & Kitchen - Segment 3,4.9,484,5
+PRD0053,Food Processor,Philips,Home & Kitchen,4594.9,Home & Kitchen - Segment 1,4.0,492,15
+PRD0054,Food Processor,Prestige,Home & Kitchen,2902.46,Home & Kitchen - Segment 1,3.0,249,10
+PRD0055,Rice Cooker,Milton,Home & Kitchen,3746.74,Home & Kitchen - Segment 2,4.4,424,30
+PRD0056,Rice Cooker,Cello,Home & Kitchen,6383.1,Home & Kitchen - Segment 2,4.0,147,10
+PRD0057,Pressure Cooker,Philips,Home & Kitchen,8530.97,Home & Kitchen - Segment 3,4.2,327,0
+PRD0058,Pressure Cooker,Bajaj,Home & Kitchen,2150.16,Home & Kitchen - Segment 3,4.2,307,30
+PRD0059,Microwave Oven,Cello,Home & Kitchen,2852.03,Home & Kitchen - Segment 1,4.9,91,30
+PRD0060,Microwave Oven,Philips,Home & Kitchen,2229.65,Home & Kitchen - Segment 1,3.1,491,5
+PRD0061,Running Shoes,Decathlon,Sports,1479.55,Sports - Segment 1,4.8,176,20
+PRD0062,Running Shoes,Cosco,Sports,1158.97,Sports - Segment 1,3.2,386,20
+PRD0063,Yoga Mat,Cosco,Sports,3091.13,Sports - Segment 2,4.9,154,25
+PRD0064,Yoga Mat,Puma,Sports,1954.74,Sports - Segment 2,3.8,393,25
+PRD0065,Cricket Bat,Puma,Sports,2828.9,Sports - Segment 3,4.9,87,0
+PRD0066,Cricket Bat,Decathlon,Sports,3484.64,Sports - Segment 3,4.1,101,0
+PRD0067,Badminton Racket,Cosco,Sports,1852.62,Sports - Segment 1,3.5,228,0
+PRD0068,Badminton Racket,Adidas,Sports,2478.11,Sports - Segment 1,3.3,476,20
+PRD0069,Football,Puma,Sports,3446.71,Sports - Segment 2,5.0,384,20
+PRD0070,Football,Nike,Sports,3671.45,Sports - Segment 2,4.1,389,0
+PRD0071,Gym Gloves,Adidas,Sports,2057.86,Sports - Segment 3,4.8,430,20
+PRD0072,Gym Gloves,Adidas,Sports,2089.39,Sports - Segment 3,4.2,417,10
+PRD0073,Resistance Bands,Adidas,Sports,3749.99,Sports - Segment 1,4.7,308,15
+PRD0074,Resistance Bands,Puma,Sports,4621.35,Sports - Segment 1,4.7,97,25
+PRD0075,Water Bottle,Decathlon,Sports,4317.39,Sports - Segment 2,3.1,220,30
+PRD0076,Water Bottle,Adidas,Sports,3548.45,Sports - Segment 2,3.5,429,15
+PRD0077,Cycling Helmet,Cosco,Sports,3822.67,Sports - Segment 3,4.1,107,0
+PRD0078,Cycling Helmet,Adidas,Sports,3182.36,Sports - Segment 3,4.7,348,20
+PRD0079,Swimming Goggles,Adidas,Sports,2719.15,Sports - Segment 1,3.1,236,30
+PRD0080,Swimming Goggles,Nike,Sports,4595.7,Sports - Segment 1,3.4,177,25
+PRD0081,Lipstick Matte,Lakme,Beauty,965.89,Beauty - Segment 1,4.1,497,15
+PRD0082,Lipstick Matte,Biotique,Beauty,1599.16,Beauty - Segment 1,4.9,171,30
+PRD0083,Foundation SPF30,Maybelline,Beauty,1961.93,Beauty - Segment 2,4.6,261,0
+PRD0084,Foundation SPF30,Maybelline,Beauty,1578.5,Beauty - Segment 2,3.7,260,30
+PRD0085,Mascara Volume,Maybelline,Beauty,826.89,Beauty - Segment 3,4.6,105,15
+PRD0086,Mascara Volume,Lakme,Beauty,1773.75,Beauty - Segment 3,3.4,468,15
+PRD0087,Face Serum,L'Oreal,Beauty,888.31,Beauty - Segment 1,4.6,166,5
+PRD0088,Face Serum,Lakme,Beauty,1456.05,Beauty - Segment 1,3.8,192,30
+PRD0089,Hair Mask,Lakme,Beauty,1947.02,Beauty - Segment 2,3.6,378,20
+PRD0090,Hair Mask,Nykaa,Beauty,1487.23,Beauty - Segment 2,4.7,219,0
+PRD0091,Sunscreen SPF50,Lakme,Beauty,1803.26,Beauty - Segment 3,3.5,347,10
+PRD0092,Sunscreen SPF50,Lakme,Beauty,573.44,Beauty - Segment 3,3.9,423,30
+PRD0093,Kajal Black,L'Oreal,Beauty,1098.23,Beauty - Segment 1,5.0,109,15
+PRD0094,Kajal Black,Biotique,Beauty,704.13,Beauty - Segment 1,3.1,273,0
+PRD0095,Blush Palette,Biotique,Beauty,1880.92,Beauty - Segment 2,4.1,418,25
+PRD0096,Blush Palette,Maybelline,Beauty,982.75,Beauty - Segment 2,3.1,390,10
+PRD0097,Nail Polish Set,Biotique,Beauty,902.27,Beauty - Segment 3,4.7,418,10
+PRD0098,Nail Polish Set,Biotique,Beauty,894.86,Beauty - Segment 3,3.8,256,25
+PRD0099,BB Cream,L'Oreal,Beauty,1287.06,Beauty - Segment 1,3.4,390,15
+PRD0100,BB Cream,Maybelline,Beauty,1384.82,Beauty - Segment 1,3.6,330,30
+PRD0101,Python for Beginners,Penguin,Books,443.1,Books - Segment 1,3.4,452,20
+PRD0102,Python for Beginners,Bloomsbury,Books,723.76,Books - Segment 1,3.9,276,25
+PRD0103,Business Analytics,HarperCollins,Books,608.94,Books - Segment 2,4.6,457,25
+PRD0104,Business Analytics,HarperCollins,Books,727.08,Books - Segment 2,3.6,389,25
+PRD0105,The Midnight Library,Bloomsbury,Books,468.15,Books - Segment 3,4.6,434,5
+PRD0106,The Midnight Library,Oxford,Books,379.71,Books - Segment 3,3.4,62,0
+PRD0107,Atomic Habits,HarperCollins,Books,987.15,Books - Segment 1,4.2,443,0
+PRD0108,Atomic Habits,Rupa,Books,531.55,Books - Segment 1,4.3,149,25
+PRD0109,Rich Dad Poor Dad,Rupa,Books,595.5,Books - Segment 2,3.5,385,25
+PRD0110,Rich Dad Poor Dad,Penguin,Books,914.13,Books - Segment 2,4.7,104,30
+PRD0111,Deep Work,Rupa,Books,375.07,Books - Segment 3,4.6,406,20
+PRD0112,Deep Work,Rupa,Books,240.17,Books - Segment 3,3.5,484,0
+PRD0113,The Alchemist,Rupa,Books,306.67,Books - Segment 1,3.9,321,20
+PRD0114,The Alchemist,Bloomsbury,Books,453.84,Books - Segment 1,4.5,276,20
+PRD0115,Sapiens,Bloomsbury,Books,541.39,Books - Segment 2,4.8,278,5
+PRD0116,Sapiens,Rupa,Books,560.06,Books - Segment 2,4.5,480,25
+PRD0117,Zero to One,Oxford,Books,812.65,Books - Segment 3,4.0,370,5
+PRD0118,Zero to One,Oxford,Books,551.9,Books - Segment 3,4.4,170,10
+PRD0119,Ikigai,Oxford,Books,455.77,Books - Segment 1,4.1,120,5
+PRD0120,Ikigai,HarperCollins,Books,506.43,Books - Segment 1,3.3,159,0
+PRD0121,Building Blocks Set,Funskool,Toys,1972.8,Toys - Segment 1,4.1,262,0
+PRD0122,Building Blocks Set,Hasbro,Toys,3248.67,Toys - Segment 1,3.8,444,20
+PRD0123,Remote Control Car,Lego,Toys,3320.2,Toys - Segment 2,4.5,244,15
+PRD0124,Remote Control Car,Lego,Toys,3578.22,Toys - Segment 2,3.6,249,30
+PRD0125,Puzzle 1000pc,Funskool,Toys,2364.66,Toys - Segment 3,4.5,459,20
+PRD0126,Puzzle 1000pc,Hasbro,Toys,2214.69,Toys - Segment 3,3.5,298,0
+PRD0127,Board Game Family,Funskool,Toys,1758.39,Toys - Segment 1,4.4,257,25
+PRD0128,Board Game Family,Hasbro,Toys,3271.52,Toys - Segment 1,4.8,368,20
+PRD0129,Soft Toy Bear,Lego,Toys,3470.79,Toys - Segment 2,4.2,389,0
+PRD0130,Soft Toy Bear,Lego,Toys,2678.25,Toys - Segment 2,3.3,286,5
+PRD0131,Action Figure,Lego,Toys,1530.47,Toys - Segment 3,3.7,282,10
+PRD0132,Action Figure,Mattel,Toys,3033.69,Toys - Segment 3,3.8,435,30
+PRD0133,Art & Craft Kit,Funskool,Toys,1506.81,Toys - Segment 1,3.2,59,25
+PRD0134,Art & Craft Kit,Nerf,Toys,906.26,Toys - Segment 1,4.9,164,25
+PRD0135,Science Kit,Lego,Toys,3093.7,Toys - Segment 2,4.3,436,0
+PRD0136,Science Kit,Hasbro,Toys,1348.08,Toys - Segment 2,3.0,128,5
+PRD0137,Doll House,Hasbro,Toys,2170.68,Toys - Segment 3,3.2,161,15
+PRD0138,Doll House,Mattel,Toys,3050.69,Toys - Segment 3,3.3,360,25
+PRD0139,Musical Set,Lego,Toys,3083.38,Toys - Segment 1,3.3,209,0
+PRD0140,Musical Set,Nerf,Toys,827.04,Toys - Segment 1,3.6,396,15
+PRD0141,Basmati Rice 5kg,Britannia,Grocery,595.74,Grocery - Segment 1,3.4,353,25
+PRD0142,Basmati Rice 5kg,Nestle,Grocery,175.95,Grocery - Segment 1,4.5,485,25
+PRD0143,Refined Oil 1L,MDH,Grocery,527.76,Grocery - Segment 2,4.6,339,30
+PRD0144,Refined Oil 1L,Amul,Grocery,298.6,Grocery - Segment 2,3.9,239,0
+PRD0145,Whole Wheat Atta,MDH,Grocery,448.77,Grocery - Segment 3,3.0,265,30
+PRD0146,Whole Wheat Atta,Britannia,Grocery,177.77,Grocery - Segment 3,4.9,375,30
+PRD0147,Assorted Dal,Britannia,Grocery,478.65,Grocery - Segment 1,3.9,425,20
+PRD0148,Assorted Dal,ITC,Grocery,432.96,Grocery - Segment 1,4.8,446,15
+PRD0149,Amul Butter,Britannia,Grocery,342.79,Grocery - Segment 2,4.5,187,10
+PRD0150,Amul Butter,Nestle,Grocery,540.37,Grocery - Segment 2,3.2,280,5
+PRD0151,Biscuit Pack,Britannia,Grocery,409.92,Grocery - Segment 3,4.3,222,0
+PRD0152,Biscuit Pack,Britannia,Grocery,550.48,Grocery - Segment 3,3.4,158,10
+PRD0153,Coffee Powder,ITC,Grocery,295.17,Grocery - Segment 1,4.8,409,10
+PRD0154,Coffee Powder,MDH,Grocery,130.08,Grocery - Segment 1,4.9,93,5
+PRD0155,Tea Leaves,Britannia,Grocery,369.29,Grocery - Segment 2,4.5,403,15
+PRD0156,Tea Leaves,Britannia,Grocery,349.09,Grocery - Segment 2,3.0,200,5
+PRD0157,Honey 500g,Britannia,Grocery,470.89,Grocery - Segment 3,3.6,347,10
+PRD0158,Honey 500g,Britannia,Grocery,401.74,Grocery - Segment 3,3.7,431,20
+PRD0159,Breakfast Cereal,ITC,Grocery,300.91,Grocery - Segment 1,3.9,206,10
+PRD0160,Breakfast Cereal,Nestle,Grocery,185.33,Grocery - Segment 1,3.4,111,25

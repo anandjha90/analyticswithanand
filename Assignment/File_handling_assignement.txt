@@ -1,0 +1,53 @@
+1)Differentiate between the following file modes:
+
+'r' vs 'w'
+
+'a' vs 'r+'
+
+'wb' vs 'w'
+
+
+2. Create and write to a text file
+Write a Python program that:
+
+Creates a file named my_notes.txt
+
+Writes the following lines:
+
+Python is powerful.
+Practice makes perfect.
+
+3. Read the content of the file
+Read and display the content from my_notes.txt.
+
+4.Append to the file
+Append this line to the same file:
+File handling is useful in real life.
+5.Count the number of lines, words, and characters
+Write a Python program that:
+
+Reads the file my_notes.txt
+
+Prints:
+
+Total lines
+
+Total words
+
+Total characters
+
+6.Copy content from one file to another
+Write a program that:
+
+Reads from my_notes.txt
+
+Writes the same content to a new file named backup.txt
+
+7)Search for a word in the file
+Ask the user to enter a word, and check if it exists in my_notes.txt.
+
+8)Remove newline characters
+Read all lines from my_notes.txt and store them in a list without \n.
+
+
+9)Save User Form Details : Saving registration form data to a CSV file( name,email,contact)

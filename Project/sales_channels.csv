@@ -1,0 +1,4 @@
+CHANNEL_ID,CHANNEL_NAME,TYPE,DESCRIPTION,COMMISSION_PCT
+CH01,Online,Digital,Web & App orders,2.5
+CH02,Retail,Physical,Brick & mortar stores,0.0
+CH03,Wholesale,B2B,Bulk distributor orders,5.0
